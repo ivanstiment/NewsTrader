@@ -1,8 +1,63 @@
-import styles from "./Login.module.scss";
-import { UserIcon, PadlockIcon } from "../Icons";
-import { useEffect } from "react";
+// import styles from "./Login.module.scss";
+// import { UserIcon, PadlockIcon } from "../Icons";
+// import React, { useEffect } from "react";
 
-export function Login() {
+// export function Login() {
+//   useEffect(() => {
+//     const prevDisplay = document.body.style.display;
+//     document.body.style.display = "flex";
+//     document.body.style.justifyContent = "center";
+//     document.body.style.alignItems = "center";
+//     return () => {
+//       document.body.style.display = prevDisplay;
+//     };
+//   }, []);
+
+//   return (
+//     <div className={styles.login__container}>
+//       <div className={styles.login__card}>
+//         <p className={styles.login__title}>¡Bienvenido de nuevo!</p>
+//         <div className={styles.login__inputWrapper}>
+//           <p className={styles.login__paragraph}>
+//             <UserIcon width={24} height={24} className={styles.login__svg} />
+//             <label htmlFor="user">Usuario</label>
+//           </p>
+//           <input id="user" name="user" className={styles.login__input}></input>
+//         </div>
+//         <div className={styles.login__inputWrapper}>
+//           <p className={styles.login__paragraph}>
+//             <PadlockIcon width={24} height={24} className={styles.login__svg} />
+//             <label htmlFor="password">Password</label>
+//           </p>
+//           <input
+//             id="password"
+//             name="password"
+//             className={styles.login__input}
+//           ></input>
+//         </div>
+//         <div className={styles.login__buttons}>
+//           <button className={styles.login__buttonRight}>Continuar</button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+import styles from "./Login.module.scss";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserIcon, PadlockIcon } from "../Icons";
+// import axios from "axios";
+import { useAuth } from "../../contexts/AuthContext";
+import api from '../../api/axios';
+
+export function Login () {
+  // const { setAccessToken } = useAuth();
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
   useEffect(() => {
     const prevDisplay = document.body.style.display;
     document.body.style.display = "flex";
@@ -13,6 +68,31 @@ export function Login() {
     };
   }, []);
 
+  // const handleLogin = async () => {
+  //   try {
+  //     const response = await axios.post("http://localhost:8000/api/token/", {
+  //       username,
+  //       password,
+  //     });
+  //     // const { access_token, refresh_token } = response.data;
+  //     // Store tokens in local storage or state as needed
+
+  //     setAccessToken(response.data.access); // guardamos access
+  //     // refresh token ya está en cookie HTTP-Only
+  //     navigate("/news");
+  //   } catch (error) {
+  //     console.error("Login failed", error);
+  //   }
+  // };
+
+  const handleSubmit = async () => {
+    const resp = await api.post('token/', { username, password });
+    const { access } = resp.data;
+    login(access);                      // guarda access en memoria
+    // refresh se envía como HttpOnly cookie automáticamente
+    navigate('/news');
+  };
+
   return (
     <div className={styles.login__container}>
       <div className={styles.login__card}>
@@ -22,7 +102,13 @@ export function Login() {
             <UserIcon width={24} height={24} className={styles.login__svg} />
             <label htmlFor="user">Usuario</label>
           </p>
-          <input id="user" name="user" className={styles.login__input}></input>
+          <input
+            id="username"
+            name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className={styles.login__input}
+          ></input>
         </div>
         <div className={styles.login__inputWrapper}>
           <p className={styles.login__paragraph}>
@@ -33,12 +119,19 @@ export function Login() {
             id="password"
             name="password"
             className={styles.login__input}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           ></input>
         </div>
         <div className={styles.login__buttons}>
-          <button className={styles.login__buttonRight}>Continuar</button>
+          {/* <button className={styles.login__buttonRight} onClick={handleLogin}> */}
+          <button className={styles.login__buttonRight} onClick={handleSubmit}>
+            Continuar
+          </button>
         </div>
       </div>
     </div>
   );
-}
+};
+
+// export default Login;

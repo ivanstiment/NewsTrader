@@ -2,6 +2,7 @@ import axios from "axios";
 
 const newsApi = axios.create({
   baseURL: "http://localhost:8000/news/new/news/",
+  withCredentials: true,
 });
 
 export const getAllNews = () => newsApi.get("/");

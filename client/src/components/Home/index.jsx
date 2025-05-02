@@ -1,7 +1,7 @@
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Home.module.scss";
 import { LogoIcon } from "../Icons";
-import { useEffect } from "react";
 
 export function Home() {
   const navigate = useNavigate();

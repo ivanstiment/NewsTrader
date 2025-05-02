@@ -1,5 +1,6 @@
-import {Home} from '../components/Home/index'
+import React from "react";
+import { Home } from "../components/Home/index";
 
 export function HomePage() {
-    return <Home />
+  return <Home />;
 }

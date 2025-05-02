@@ -1,3 +1,5 @@
+import React from "react";
+
 export function ArrowRightIcon(props) {
   return (
     <svg

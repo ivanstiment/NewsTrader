@@ -1,3 +1,4 @@
+import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./Header.module.scss";
 import { LogoIcon, ArrowRightIcon } from "../Icons";
@@ -7,10 +8,8 @@ export function Header() {
   const navigate = useNavigate();
   const path = location.pathname;
 
-  // Determinar si estamos en /login o /register
   const isAuthPage = path === "/login" || path === "/register";
 
-  // Asignar clase condicional
   const insideClass = isAuthPage
     ? styles.header__inside
     : styles.header__background;

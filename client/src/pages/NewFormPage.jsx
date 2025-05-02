@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { createNew, deleteNew, updateNew, getNew } from "../api/news.api";
 import { useNavigate, useParams } from "react-router-dom";
@@ -13,7 +13,7 @@ export function NewFormPage() {
   } = useForm();
 
   const navigate = useNavigate();
-  const { uuid } = useParams(); 
+  const { uuid } = useParams();
 
   const onSubmit = handleSubmit(async (data) => {
     if (uuid) {
@@ -22,8 +22,8 @@ export function NewFormPage() {
         position: "bottom-right",
         style: {
           background: "#101010",
-          color: "#fff"
-        }
+          color: "#fff",
+        },
       });
     } else {
       await createNew(data);
@@ -31,8 +31,8 @@ export function NewFormPage() {
         position: "bottom-right",
         style: {
           background: "#101010",
-          color: "#fff"
-        }
+          color: "#fff",
+        },
       });
     }
     navigate("/news");
@@ -51,7 +51,7 @@ export function NewFormPage() {
       setValue("publisher", publisher);
     }
     loadNew();
-  }, [uuid, setValue]); 
+  }, [uuid, setValue]);
 
   return (
     <div>
@@ -103,8 +103,8 @@ export function NewFormPage() {
                 position: "bottom-right",
                 style: {
                   background: "#101010",
-                  color: "#fff"
-                }
+                  color: "#fff",
+                },
               });
               navigate("/news");
             }

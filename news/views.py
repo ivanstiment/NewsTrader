@@ -1,10 +1,17 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render
 from rest_framework import viewsets
 from django.views.generic.list import ListView
+from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse_lazy
+from django.http import JsonResponse
 from .models import New
 from datetime import datetime
 from .serializer import NewSerializer
+import json
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 
 # class ListaNews(ListView):
@@ -24,6 +31,35 @@ from .serializer import NewSerializer
 #         return render(request, 'news/new_list.html', context)
 
 
+class MyTokenObtainPairView(TokenObtainPairView):
+    def post(self, request, *args, **kwargs):
+        resp = super().post(request, *args, **kwargs)
+        data = resp.data
+        response = Response({'access': data['access']})
+        # Set-Cookie HTTPOnly para refresh token
+        response.set_cookie(
+            key='refresh_token',
+            value=data['refresh'],
+            httponly=True,
+            secure=True,
+            samesite='Lax'
+        )
+        return response
+
 class NewView(viewsets.ModelViewSet):
     serializer_class = NewSerializer
     queryset = New.objects.all()
+
+@csrf_exempt
+def register_user(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        username = data.get('user')
+        password = data.get('password')
+        
+        if User.objects.filter(username=username).exists():
+            return JsonResponse({'error': 'El usuario ya existe'}, status=400)
+        
+        User.objects.create_user(username=username, password=password)
+        return JsonResponse({'success': 'Usuario creado exitosamente'}, status=201)
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
