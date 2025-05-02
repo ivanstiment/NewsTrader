@@ -1,3 +1,5 @@
+import React from "react";
+
 export function MenuCloseIcon(props) {
   return (
     <svg

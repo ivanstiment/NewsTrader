@@ -1,3 +1,5 @@
+import React from "react";
+
 export function UserIcon(props) {
   return (
     <svg

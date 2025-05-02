@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from "react-router-dom";
 import styles from "./NewCard.module.scss";
 import { newCardPropTypes } from "./newCard.propTypes";

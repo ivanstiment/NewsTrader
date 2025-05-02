@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getAllNews } from "../../api/news.api";
 import { NewCard } from "../NewCard";
 import styles from "./NewsList.module.scss";
