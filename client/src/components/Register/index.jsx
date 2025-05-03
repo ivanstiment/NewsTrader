@@ -2,10 +2,15 @@ import styles from "./Register.module.scss";
 import { UserIcon, PadlockIcon } from "../Icons";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { getCsrfToken } from "../../api/utils";
 
 export function Register() {
-  const [formData, setFormData] = useState({ user: '', password: '', repassword: ''})
-  const [message, setMessage] = useState('')
+  const [formData, setFormData] = useState({
+    user: "",
+    password: "",
+    repassword: "",
+  });
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const prevDisplay = document.body.style.display;
@@ -18,26 +23,34 @@ export function Register() {
   }, []);
 
   const handleChange = (e) => {
-    setFormData({...formData, [e.target.name]: e.target.value })
-  }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(formData.password !== formData.repassword) {
-      setMessage('Las contraseñas no coinciden');
-      return
+    if (formData.password !== formData.repassword) {
+      setMessage("Las contraseñas no coinciden");
+      return;
     }
     try {
-      // const response = await axios.post('http://localhost:8000/register/', {
-      const response = await axios.post('http://localhost:8000/admin/auth/user/add/', {
-        user: formData.user,
-        password: formData.password,
-      })
+      const csrfToken = getCsrfToken();
+      const response = await axios.post(
+        "http://localhost:8000/register/register/",
+        {
+          user: formData.user,
+          password: formData.password,
+        },
+        {
+          headers: {
+            "X-CSRFToken": csrfToken,
+          },
+        }
+      );
       setMessage(response.data.success);
     } catch (error) {
       setMessage(error.response.data.error);
     }
-  }
+  };
 
   return (
     <div className={styles.register__container}>
@@ -46,7 +59,11 @@ export function Register() {
         <form onSubmit={handleSubmit}>
           <div className={styles.register__inputWrapper}>
             <p className={styles.register__paragraph}>
-              <UserIcon width={24} height={24} className={styles.register__svg} />
+              <UserIcon
+                width={24}
+                height={24}
+                className={styles.register__svg}
+              />
               <label htmlFor="user">Usuario</label>
             </p>
             <input
@@ -92,7 +109,9 @@ export function Register() {
             ></input>
           </div>
           <div className={styles.register__buttons}>
-            <button type="submit" className={styles.register__buttonRight}>Registrarse</button>
+            <button type="submit" className={styles.register__buttonRight}>
+              Registrarse
+            </button>
           </div>
         </form>
         {message && <p>{message}</p>}

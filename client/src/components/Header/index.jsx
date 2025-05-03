@@ -1,21 +1,50 @@
+// import React, { useState } from "react";
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./Header.module.scss";
 import { LogoIcon, ArrowRightIcon } from "../Icons";
+import { useAuth } from "../../contexts/AuthContext";
+import { searchTermPropTypes } from "../../propTypes/SearchTerm.propTypes";
 
-export function Header() {
+export function Header({ searchTerm, setSearchTerm }) {
   const location = useLocation();
   const navigate = useNavigate();
   const path = location.pathname;
+  const { user, logout } = useAuth();
 
   const isAuthPage = path === "/login" || path === "/register";
+  const isNewsPage = path === "/news";
 
   const insideClass = isAuthPage
     ? styles.header__inside
     : styles.header__background;
 
+  // const [searchTerm, setSearchTerm] = useState("");
+
+  // const handleSearchChange = (event) => {
+  //   setSearchTerm(event.target.value);
+  //   onSearch(event.target.value);
+  // };
+
   const renderHeaderRight = () => {
-    if (path === "/register") {
+    if (user && isNewsPage) {
+      console.log("user");
+      console.log(user);
+      return (
+        <div className={styles.header__backgroundSearch}>
+          <input
+            type="text"
+            placeholder="Buscar noticias..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className={styles.header__search}
+          ></input>
+          <button className={styles.header__button} onClick={logout}>
+            Cerrar sesión
+          </button>
+        </div>
+      );
+    } else if (path === "/register") {
       return (
         <div className={insideClass}>
           <span className={styles.header__text}>
@@ -65,3 +94,5 @@ export function Header() {
     </div>
   );
 }
+
+Header.propTypes = searchTermPropTypes;

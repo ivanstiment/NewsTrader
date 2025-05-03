@@ -1,39 +1,43 @@
-// // AuthContext.jsx
-// import { createContext, useState, useContext } from "react";
-
-// const AuthContext = createContext();
-// export function AuthProvider({ children }) {
-//   const [accessToken, setAccessToken] = useState(null); // en memoria
-
-//   return (
-//     <AuthContext.Provider value={{ accessToken, setAccessToken }}>
-//       {children}
-//     </AuthContext.Provider>
-//   );
-// }
-// export const useAuth = () => useContext(AuthContext);
-
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext();
 let inMemoryToken = null;
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      const token = await getAccessToken();
+      if (token) {
+        inMemoryToken = token;
+        setUser({});
+      }
+      setLoading(false);
+    };
+    fetchToken();
+  }, []);
 
   const login = (accessToken) => {
-    inMemoryToken = accessToken;    // guardar en memoria 
-    setUser({});                    // podrías decodificar user de token
+    inMemoryToken = accessToken; // guardar en memoria
+    const decodedToken = jwtDecode(accessToken); // guardar en memoria
+    setUser({
+      username: decodedToken.username,
+      userId: decodedToken.user_id,
+    }); // podrías decodificar user de token
+    setLoading(false);
   };
 
   const logout = () => {
     inMemoryToken = null;
     setUser(null);
-    window.location.href = '/login';
+    window.location.href = "/login";
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
