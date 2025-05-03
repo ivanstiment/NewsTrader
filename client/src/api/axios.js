@@ -2,15 +2,14 @@ import axios from "axios";
 import { getAccessToken, setAccessToken } from "../contexts/AuthContext";
 
 const api = axios.create({
-  baseURL: "http://localhost:8000/api/",
+  // baseURL: "http://localhost:8000/api/",
+  baseURL: "http://localhost:8000/",
   withCredentials: true,
 });
 
 api.interceptors.request.use((config) => {
   const token = getAccessToken();
-  console.log(token);
   if (token) {
-    console.log('hay token');
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;

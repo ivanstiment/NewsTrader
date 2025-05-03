@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import MyTokenObtainPairView, NewView, register_user
+from .views import CustomTokenObtainPairView, MyTokenObtainPairView, NewView, register_user
 # from .views import ListaNews, NewView
 from django.contrib.auth.views import LogoutView
 from rest_framework import routers
@@ -16,7 +16,8 @@ urlpatterns = [
               path('new/', include(router.urls)),
               path('register/', register_user, name='register_user'),
               # path('api/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
-              path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+              path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+              # path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
               path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
               # path('', ListaNews.as_view(), name='news_list'),
               # path('login/', Login.as_view(), name='login'),
