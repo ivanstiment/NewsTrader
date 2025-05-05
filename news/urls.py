@@ -1,6 +1,5 @@
 from django.urls import path, include
-from .views import CustomTokenObtainPairView, MyTokenObtainPairView, NewView, register_user
-# from .views import ListaNews, NewView
+from .views import CustomTokenObtainPairView, MyTokenObtainPairView, NewView, StockView, register_user, StockDetailView
 from django.contrib.auth.views import LogoutView
 from rest_framework import routers
 from news import views
@@ -10,18 +9,19 @@ from rest_framework_simplejwt.views import (
 
 router = routers.DefaultRouter()
 router.register(r'news', views.NewView, 'news')
+router.register(r'stocks', views.StockView, 'stocks')
 
 
 urlpatterns = [
               path('new/', include(router.urls)),
+              path('stock/', include(router.urls)),
               path('register/', register_user, name='register_user'),
-              # path('api/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
               path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
-              # path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
               path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+              # path('search/', SearchView.as_view(), name='search'),
+              # path('stock/<int:pk>', StockDetailView.as_view(), name='stock')
               # path('', ListaNews.as_view(), name='news_list'),
               # path('login/', Login.as_view(), name='login'),
               # path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
-              # path('register/', Register.as_view(), name='registro'),
-              # path('stock/<int:pk>', DetalleStock.as_view(), name='stock')
+              # path('register/', Register.as_view(), name='registro')
             ]

@@ -14,7 +14,7 @@ export function NavigationMenu() {
 
   // Toggle menú en móvil (click)
   const handleToggle = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     setIsOpen((prev) => !prev);
   };
 
@@ -50,10 +50,10 @@ export function NavigationMenu() {
             className={styles.menu__animateSvg}
           />
         </Link>
-        <Link to="/news" className={styles.menu__icon}>
+        <Link to="search" className={styles.menu__icon}>
           <SearchIcon width={24} height={24} className={styles.menu__svg} />
         </Link>
-        <Link to="/news" className={styles.menu__icon}>
+        <Link to="news" className={styles.menu__icon}>
           <NewsPaperIcon width={24} height={24} className={styles.menu__svg} />
         </Link>
       </div>
@@ -77,7 +77,7 @@ export function NavigationMenu() {
           </li>
           <li className={styles.menu__linkElement}>
             <Link
-              to="/news"
+              to="search"
               onClick={handleToggle}
               className={styles.menu__link}
             >
@@ -86,7 +86,7 @@ export function NavigationMenu() {
           </li>
           <li className={styles.menu__linkElement}>
             <Link
-              to="/news"
+              to="news"
               onClick={handleToggle}
               className={styles.menu__link}
             >

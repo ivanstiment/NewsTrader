@@ -1,4 +1,3 @@
-// import React, { useState } from "react";
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./Header.module.scss";
@@ -18,13 +17,6 @@ export function Header({ searchTerm, setSearchTerm }) {
   const insideClass = isAuthPage
     ? styles.header__inside
     : styles.header__background;
-
-  // const [searchTerm, setSearchTerm] = useState("");
-
-  // const handleSearchChange = (event) => {
-  //   setSearchTerm(event.target.value);
-  //   onSearch(event.target.value);
-  // };
 
   const renderHeaderRight = () => {
     if (user && isNewsPage) {

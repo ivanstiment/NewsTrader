@@ -2,6 +2,9 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyo
+*.pyd
+*.pyc
 
 # C extensions
 *.so
@@ -57,13 +60,39 @@ cover/
 
 # Django stuff:
 *.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.pyo
+*.pyd
+*.py[cod]
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
 
+# Django static files
+staticfiles/
+media/
+
 # Flask stuff:
 instance/
 .webassets-cache
+
+# Node.js related files
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Build files
+dist/
+build/
+
+# Vite related files
+.vite/
+.vite-cache/
 
 # Scrapy stuff:
 .scrapy
@@ -136,6 +165,56 @@ ENV/
 env.bak/
 venv.bak/
 
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+*.bak
+*.tmp
+
+# MacOS files
+.DS_Store
+
+# Windows files
+Thumbs.db
+
+# Coverage reports
+coverage/
+*.cover
+*.coverage
+*.cov
+*.gcov
+*.lcov
+*.lcov.info
+
+# Test output
+junit.xml
+test-results.xml
+
+# Miscellaneous
+*.log
+*.out
+*.pid
+*.seed
+*.pid.lock
+*.tgz
+*.gz
+*.zip
+*.tar
+*.rar
+*.7z
+*.bz2
+
+
 # Spyder project settings
 .spyderproject
 .spyproject
@@ -172,3 +251,16 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Ignore compiled files
+*.o
+*.obj
+*.so
+*.dll
+*.exe
+
+# Ignore temporary files
+*.tmp
+*.temp
+*.tempfile
+*.tempdir
