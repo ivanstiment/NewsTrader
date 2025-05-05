@@ -5,15 +5,16 @@ from django.views.generic.list import ListView
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse_lazy
 from django.http import JsonResponse
-from .models import New
+from .models import New, Stock
 from datetime import datetime
-from .serializer import NewSerializer
+from .serializer import NewSerializer, StockSerializer
 import json
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
+# from .services import fetch_stock_info
 
 
 # class ListaNews(ListView):
@@ -62,6 +63,34 @@ class NewView(viewsets.ModelViewSet):
     serializer_class = NewSerializer
     queryset = New.objects.all()
     permission_classes = [IsAuthenticated]
+
+class StockView(viewsets.ModelViewSet):
+    serializer_class = StockSerializer
+    queryset = Stock.objects.all()
+    permission_classes = [IsAuthenticated]
+    
+# class SearchView(APIView):
+#     def post(self, request):
+#         symbol = request.data.get('symbol')
+#         try:
+#             stock_info = fetch_stock_info(symbol)
+#             if stock_info:
+#               Stock.objects.update_or_create(
+#                                   symbol=stock_info['symbol'],
+#                                   defaults=stock_info
+#                               )
+#               return Response({'success': True})
+#             return Response({'success': False, 'message': 'Stock no encontrado'}, status=404)
+#         except Exception as e:
+#             return Response({'success': False, 'message': str(e)}, status=500)
+
+class StockDetailView(APIView):
+    def get(self, request, symbol):
+        try:
+            stock = Stock.objects.get(symbol=symbol)
+            return Response(stock)
+        except Stock.DoesNotExist:
+            return Response({'message': 'Stock no encontrado'}, status=404)
 
 @csrf_exempt
 def register_user(request):

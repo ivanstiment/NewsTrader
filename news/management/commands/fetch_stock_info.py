@@ -10,7 +10,7 @@
 # import time
 # from django.core.management.base import BaseCommand
 # import yfinance as yf
-# from news.models import StockInfo, CompanyOfficer
+# from news.models import Stock, CompanyOfficer
 
 # class Command(BaseCommand):
 #     help = "Fetch stock info from yfinance and save to DB"
@@ -53,7 +53,7 @@
 
 import yfinance as yf
 from django.core.management.base import BaseCommand
-from news.models import StockInfo
+from news.models import Stock
 
 class Command(BaseCommand):
     help = 'Fetches stock information and saves it to the database'
@@ -66,7 +66,7 @@ class Command(BaseCommand):
         
         try:
             stock_info = yf.Ticker(ticker_symbol).info
-            stock, created = StockInfo.objects.update_or_create(
+            stock, created = Stock.objects.update_or_create(
                 symbol=stock_info.get('symbol'),
                 defaults={
                     # Dirección y contacto

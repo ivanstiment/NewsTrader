@@ -21,6 +21,8 @@ urlpatterns = [
     # path('', include('news.urls')),
     path('admin/', admin.site.urls),
     path('news/', include('news.urls')),
+    path('stock/', include('news.urls')),
     path('api/', include('news.urls')),
-    path('register/', include('news.urls'))
+    path('register/', include('news.urls')),
+    # path('search/', include('news.urls'))
 ]

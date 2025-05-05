@@ -6,6 +6,8 @@ import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { NewsPage } from "./pages/NewsPage";
 import { NewFormPage } from "./pages/NewFormPage";
+import { SearchPage } from "./pages/SearchPage";
+import { StockPage } from "./pages/StockPage";
 import { NavigationMenu } from "./components/NavigationMenu/index";
 import { Header } from "./components/Header/index";
 import { Toaster } from "react-hot-toast";
@@ -29,20 +31,15 @@ function AppContent() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/stock/:symbol" element={<StockPage />} />
         <Route path="/" element={<PrivateRoute />}>
+          <Route path="search" element={<SearchPage />} />
+          {/* <Route path="stock/:symbol" element={<StockPage />} /> */}
           <Route path="news" element={<NewsPage searchTerm={searchTerm} />} />
           <Route path="news-create" element={<NewFormPage />} />
           <Route path="news/:uuid" element={<NewFormPage />} />
         </Route>
       </Routes>
-      {/* <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/" element={<HomePage />} />
-        <Route path="/news" element={<NewsPage />} />
-        <Route path="/news-create" element={<NewFormPage />} />
-        <Route path="/news/:uuid" element={<NewFormPage />} />
-      </Routes> */}
       <Toaster />
     </>
   );
