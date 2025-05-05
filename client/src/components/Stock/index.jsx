@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import api from '../../api/axios';
+import { getStock } from "../../api/stock.api";
+import { useAuth } from "../../contexts/AuthContext";
+import styles from "./Stock.module.scss";
 
 export function Stock() {
+  const { user, loading } = useAuth();
   const { symbol } = useParams();
   const [stock, setStock] = useState(null);
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    const fetchStockDetail = async () => {
+    async function fetchStockDetail() {
+      console.log(symbol)
+      if (!symbol) return;
       try {
-        const response = await api.get(`/stock/${symbol}`);
+        const response = await getStock(symbol);
         setStock(response.data);
       } catch (error) {
         setMessage('Error al cargar los detalles del stock');
@@ -24,13 +29,18 @@ export function Stock() {
     return <p>{message}</p>;
   }
 
-  return stock ? (
-    <div>
-      <h1>{stock.name}</h1>
-      <p>Precio: {stock.price}</p>
-      {/* Añade más detalles según sea necesario */}
-    </div>
-  ) : (
-    <p>Cargando...</p>
-  );
+  if (loading) {
+    return (
+      <div className={styles.newsList__container}>
+        <h1 className={styles.newsList__title}>CARGANDO</h1>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <h1>{stock.symbol}</h1>
+        <p>Volumen: {stock.volume}</p>
+      </div>      
+    );
+  }
 }

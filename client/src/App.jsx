@@ -22,19 +22,32 @@ function AppContent() {
   const showHeader = !hideHeaderOn.includes(pathname);
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchStock, setSearchStock] = useState("");
 
   return (
     <>
       {showNav && <NavigationMenu />}
-      {showHeader && <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />}
+      {showHeader && (
+        <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      )}
       <Routes>
         <Route path="/home" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/stock/:symbol" element={<StockPage />} />
         <Route path="/" element={<PrivateRoute />}>
-          <Route path="search" element={<SearchPage />} />
-          {/* <Route path="stock/:symbol" element={<StockPage />} /> */}
+          <Route
+            path="search"
+            element={
+              <SearchPage
+                searchStock={searchStock}
+                setSearchStock={setSearchStock}
+              />
+            }
+          />
+          <Route
+            path="stock/:symbol"
+            element={<StockPage searchStock={searchStock} />}
+          />
           <Route path="news" element={<NewsPage searchTerm={searchTerm} />} />
           <Route path="news-create" element={<NewFormPage />} />
           <Route path="news/:uuid" element={<NewFormPage />} />

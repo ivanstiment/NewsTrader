@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./Header.module.scss";
 import { LogoIcon, ArrowRightIcon } from "../Icons";
 import { useAuth } from "../../contexts/AuthContext";
-import { searchTermPropTypes } from "../../propTypes/SearchTerm.propTypes";
+import { searchTermPropTypes } from "../../propTypes/searchTerm.propTypes";
 
 export function Header({ searchTerm, setSearchTerm }) {
   const location = useLocation();
