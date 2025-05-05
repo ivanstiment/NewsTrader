@@ -94,25 +94,23 @@ class Command(BaseCommand):
                     'previousClose': stock_info.get('previousClose'),
                     'open': stock_info.get('open'),
                     
-                    'short_name': stock_info.get('shortName'),
-                    'long_name': stock_info.get('longName'),
-                    'market_cap': stock_info.get('marketCap'),
-                    'current_price': stock_info.get('currentPrice'),
-                    'previous_close': stock_info.get('previousClose'),
-                    'open_price': stock_info.get('open'),
-                    'day_low': stock_info.get('dayLow'),
-                    'day_high': stock_info.get('dayHigh'),
-                    'fifty_two_week_low': stock_info.get('fiftyTwoWeekLow'),
-                    'fifty_two_week_high': stock_info.get('fiftyTwoWeekHigh'),
+                    'shortName': stock_info.get('shortName'),
+                    'longName': stock_info.get('longName'),
+                    'marketCap': stock_info.get('marketCap'),
+                    'currentPrice': stock_info.get('currentPrice'),
+                    'dayLow': stock_info.get('dayLow'),
+                    'dayHigh': stock_info.get('dayHigh'),
+                    'fiftyTwoWeekLow': stock_info.get('fiftyTwoWeekLow'),
+                    'fiftyTwoWeekHigh': stock_info.get('fiftyTwoWeekHigh'),
                     'volume': stock_info.get('volume'),
-                    'average_volume': stock_info.get('averageVolume'),
+                    'averageVolume': stock_info.get('averageVolume'),
                     'beta': stock_info.get('beta'),
-                    'payout_ratio': stock_info.get('payoutRatio'),
-                    'trailing_eps': stock_info.get('trailingEps'),
+                    'payoutRatio': stock_info.get('payoutRatio'),
+                    'trailingEps': stock_info.get('trailingEps'),
                     'currency': stock_info.get('currency'),
                 }
             )
             action = "Created" if created else "Updated"
-            self.stdout.write(f"{action} stock: {stock.short_name}")
+            self.stdout.write(f"{action} stock: {stock.shortName}")
         except Exception as e:
             self.stdout.write(self.style.ERROR(f"Error fetching stock information: {e}"))

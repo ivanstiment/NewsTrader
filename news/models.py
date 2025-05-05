@@ -57,7 +57,7 @@ class Quote(models.Model):
         return self.shortname
 
 
-class StockInfo(models.Model):
+class Stock(models.Model):
     # Identificador del ticker
     symbol                 = models.CharField(max_length=20, unique=True)
     # Dirección y contacto
@@ -194,7 +194,7 @@ class StockInfo(models.Model):
         return f"{self.symbol} @ {self.currentPrice}"
 
 class CompanyOfficer(models.Model):
-    stock       = models.ForeignKey(StockInfo, related_name="companyOfficers", on_delete=models.CASCADE)
+    stock       = models.ForeignKey(Stock, related_name="companyOfficers", on_delete=models.CASCADE)
     maxAge      = models.IntegerField(blank=True, null=True)
     name        = models.CharField(max_length=200)
     age         = models.IntegerField(blank=True, null=True)
