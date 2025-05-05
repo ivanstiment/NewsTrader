@@ -3,7 +3,7 @@ import { getAllNews } from "../../api/news.api";
 import { NewCard } from "../NewCard";
 import styles from "./NewsList.module.scss";
 import { useAuth } from "../../contexts/AuthContext";
-import { searchTermPropTypes } from "../../propTypes/SearchTerm.propTypes";
+import { searchTermPropTypes } from "../../propTypes/searchTerm.propTypes";
 
 export function NewsList({ searchTerm }) {
   const { user, loading } = useAuth();
@@ -37,6 +37,7 @@ export function NewsList({ searchTerm }) {
           <NewCard key={newItem.uuid} newItem={newItem} />
         ))}
       </div>
+      
     );
   }
 }

@@ -191,7 +191,7 @@ class Stock(models.Model):
     additional_info = models.JSONField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.symbol} @ {self.currentPrice}"
+        return self.symbol
 
 class CompanyOfficer(models.Model):
     stock       = models.ForeignKey(Stock, related_name="companyOfficers", on_delete=models.CASCADE)

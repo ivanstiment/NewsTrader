@@ -14,7 +14,6 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
-# from .services import fetch_stock_info
 
 
 # class ListaNews(ListView):
@@ -64,31 +63,13 @@ class NewView(viewsets.ModelViewSet):
     queryset = New.objects.all()
     permission_classes = [IsAuthenticated]
 
-class StockView(viewsets.ModelViewSet):
-    serializer_class = StockSerializer
-    queryset = Stock.objects.all()
-    permission_classes = [IsAuthenticated]
-    
-# class SearchView(APIView):
-#     def post(self, request):
-#         symbol = request.data.get('symbol')
-#         try:
-#             stock_info = fetch_stock_info(symbol)
-#             if stock_info:
-#               Stock.objects.update_or_create(
-#                                   symbol=stock_info['symbol'],
-#                                   defaults=stock_info
-#                               )
-#               return Response({'success': True})
-#             return Response({'success': False, 'message': 'Stock no encontrado'}, status=404)
-#         except Exception as e:
-#             return Response({'success': False, 'message': str(e)}, status=500)
-
 class StockDetailView(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request, symbol):
         try:
-            stock = Stock.objects.get(symbol=symbol)
-            return Response(stock)
+            stock = Stock.objects.filter(symbol__iexact=symbol).first()
+            serializer = StockSerializer(stock)
+            return Response(serializer.data)
         except Stock.DoesNotExist:
             return Response({'message': 'Stock no encontrado'}, status=404)
 
