@@ -6,11 +6,14 @@ import {
   SearchIcon,
   MenuOpenIcon,
   MenuCloseIcon,
-  LogoIcon
+  LogoIcon,
+  LogoutIcon
 } from "../Icons";
+import { useAuth } from "../../contexts/AuthContext";
 
 export function NavigationMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const { logout } = useAuth();
 
   // Toggle menú en móvil (click)
   const handleToggle = (e) => {
@@ -30,6 +33,7 @@ export function NavigationMenu() {
       aria-label="Menú lateral"
     >
       <div className={styles.menu__fixedIcons}>
+        <div>
         <Link
           to="#"
           className={`${styles.menu__animateIcon} ${
@@ -56,6 +60,12 @@ export function NavigationMenu() {
         <Link to="news" className={styles.menu__icon}>
           <NewsPaperIcon width={24} height={24} className={styles.menu__svg} />
         </Link>
+        </div>
+        <div>
+          <Link to="#" className={styles.menu__icon}>
+            <LogoutIcon width={24} height={24} className={styles.menu__svg} onClick={logout}/>
+          </Link>
+        </div>
       </div>
       <div
         className={`${styles.menu__overlay} ${
@@ -91,6 +101,17 @@ export function NavigationMenu() {
               className={styles.menu__link}
             >
               <span>Noticias</span>
+            </Link>
+          </li>
+        </ul>
+        <ul className={styles.menu__linkList}>
+          <li className={styles.menu__linkElement}>
+            <Link
+              to="#"
+              onClick={[handleToggle, logout]}
+              className={styles.menu__link}
+            >
+              <span>Cerrar sesión</span>
             </Link>
           </li>
         </ul>

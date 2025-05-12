@@ -9,7 +9,7 @@ export function Header({ searchTerm, setSearchTerm }) {
   const location = useLocation();
   const navigate = useNavigate();
   const path = location.pathname;
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
 
   const isAuthPage = path === "/login" || path === "/register";
   const isNewsPage = path === "/news";
@@ -31,9 +31,6 @@ export function Header({ searchTerm, setSearchTerm }) {
             onChange={(e) => setSearchTerm(e.target.value)}
             className={styles.header__search}
           ></input>
-          <button className={styles.header__button} onClick={logout}>
-            Cerrar sesión
-          </button>
         </div>
       );
     } else if (path === "/register") {

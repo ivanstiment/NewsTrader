@@ -6,3 +6,6 @@ export { LogoIcon } from "./LogoIcon.jsx";
 export { UserIcon } from "./UserIcon.jsx";
 export { PadlockIcon } from "./PadlockIcon.jsx";
 export { ArrowRightIcon } from "./ArrowRightIcon.jsx";
+export { ExternalLinkIcon } from "./ExternalLinkIcon.jsx";
+export { LogoutIcon } from "./LogoutIcon.jsx";
+export { ChartIcon } from "./ChartIcon.jsx";

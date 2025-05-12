@@ -1,38 +1,45 @@
-import React from 'react';
+import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./NewCard.module.scss";
 import { newCardPropTypes } from "./newCard.propTypes";
-
-// export function NewCard({ newItem }) {
-//   return (
-//     <Link to={`/news/${newItem.uuid}`} className={styles.new__item}>
-//       <h1>{newItem.title}</h1>
-//       <p>{newItem.news_type}</p>
-//       <p>{newItem.link}</p>
-//       <p>{newItem.provider_publish_time}</p>
-//       <p>{newItem.publisher}</p>
-//     </Link>
-//   );
-// }
+import { ExternalLinkIcon } from "../Icons";
 
 export function NewCard({ newItem }) {
+  const tsSeconds = newItem.provider_publish_time;
+  const dateObj = new Date(tsSeconds * 1000);
+  const opciones = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  };
+  const fechaLegible = dateObj.toLocaleString("es-ES", opciones);
+
   return (
     <article className={styles.new__container}>
-      <header>
+      <header className={styles.new__header}>
         <h2 className={styles.new__title}>
-          <Link to={`/news/${newItem.uuid}`}>
-            {newItem.title}
-          </Link>
+          <Link to={`/news/${newItem.uuid}`}>{newItem.title}</Link>
         </h2>
+        <Link
+          className={styles.new__link}
+          to={`${newItem.link}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <ExternalLinkIcon
+            width={40}
+            height={34}
+            className={styles.new__svg}
+          />
+        </Link>
       </header>
       <div className={styles.new__body}>
         <div className={styles.new__data}>
           <span className={styles.new__subTitle}>Fecha</span>
-          <time
-            className={styles.new__badge}
-            dateTime={newItem.provider_publish_time}
-          >
-            {new Date(newItem.provider_publish_time).toLocaleDateString()}
+          <time className={styles.new__badge} dateTime={fechaLegible}>
+            {fechaLegible}
           </time>
         </div>
         {/* <p className={styles.new__link}>
@@ -48,6 +55,18 @@ export function NewCard({ newItem }) {
           <span className={styles.new__subTitle}>Tipo</span>
           <span className={styles.new__badge}>{newItem.news_type}</span>
         </div>
+        {newItem.related_tickers && newItem.related_tickers.length > 0 && (
+          <div className={styles.new__data}>
+            <span className={styles.new__subTitle}>Related Tickers</span>
+            <div className={styles.new__badgesContainer}>
+              {newItem.related_tickers.map((ticker) => (
+                <span key={ticker} className={styles.new__badge}>
+                  {ticker}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </article>
   );

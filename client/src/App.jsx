@@ -8,6 +8,7 @@ import { NewsPage } from "./pages/NewsPage";
 import { NewFormPage } from "./pages/NewFormPage";
 import { SearchPage } from "./pages/SearchPage";
 import { StockPage } from "./pages/StockPage";
+import { CandlestickChart  } from "./components/CandlestickChart/index";
 import { NavigationMenu } from "./components/NavigationMenu/index";
 import { Header } from "./components/Header/index";
 import { Toaster } from "react-hot-toast";
@@ -48,6 +49,14 @@ function AppContent() {
             path="stock/:symbol"
             element={<StockPage searchStock={searchStock} />}
           />
+          <Route
+            path="historical-price/:symbol"
+            element={<CandlestickChart />}
+          />
+          {/* <Route
+            path="historical-price/:symbol"
+            element={<HistoricalPricePage />}
+          /> */}
           <Route path="news" element={<NewsPage searchTerm={searchTerm} />} />
           <Route path="news-create" element={<NewFormPage />} />
           <Route path="news/:uuid" element={<NewFormPage />} />

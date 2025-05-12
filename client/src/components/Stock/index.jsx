@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getStock } from "../../api/stock.api";
 import { useAuth } from "../../contexts/AuthContext";
@@ -12,7 +12,6 @@ export function Stock() {
 
   useEffect(() => {
     async function fetchStockDetail() {
-      console.log(symbol)
       if (!symbol) return;
       try {
         const response = await getStock(symbol);
@@ -38,8 +37,8 @@ export function Stock() {
   } else {
     return (
       <div>
-        <h1>{stock.symbol}</h1>
-        <p>Volumen: {stock.volume}</p>
+        <h1>{stock?.symbol}</h1>
+        <p>Volumen: {stock?.volume}</p>
       </div>      
     );
   }

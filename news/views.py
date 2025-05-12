@@ -5,7 +5,7 @@ from django.views.generic.list import ListView
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse_lazy
 from django.http import JsonResponse
-from .models import New, Stock
+from .models import New, Stock, HistoricalPrice
 from datetime import datetime
 from .serializer import NewSerializer, StockSerializer
 import json
@@ -13,7 +13,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 
 # class ListaNews(ListView):
@@ -62,6 +62,12 @@ class NewView(viewsets.ModelViewSet):
     serializer_class = NewSerializer
     queryset = New.objects.all()
     permission_classes = [IsAuthenticated]
+    
+class StockView(viewsets.ModelViewSet):
+    serializer_class = StockSerializer
+    queryset = Stock.objects.all()
+    # permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
 class StockDetailView(APIView):
     permission_classes = [IsAuthenticated]
@@ -72,6 +78,22 @@ class StockDetailView(APIView):
             return Response(serializer.data)
         except Stock.DoesNotExist:
             return Response({'message': 'Stock no encontrado'}, status=404)
+
+def get_historical_prices(request, symbol):
+    datos = HistoricalPrice.objects.filter(symbol=symbol.upper()).order_by('date')
+    respuesta = [
+        {
+            'date': dato.date.isoformat(),                
+            'open': dato.open,
+            'high': dato.high,
+            'low': dato.low,
+            'close': dato.close,
+            'volume': dato.volume
+        }
+        for dato in datos
+    ]
+    return JsonResponse(respuesta, safe=False)
+
 
 @csrf_exempt
 def register_user(request):

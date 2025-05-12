@@ -188,7 +188,7 @@ class Stock(models.Model):
     # Listas anidadas como JSON por si varían
     executiveTeam          = models.JSONField(blank=True, null=True)
     corporateActions       = models.JSONField(blank=True, null=True)
-    additional_info = models.JSONField(blank=True, null=True)
+    additional_info        = models.JSONField(blank=True, null=True)
 
     def __str__(self):
         return self.symbol
@@ -207,3 +207,22 @@ class CompanyOfficer(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.title})"
+
+
+class HistoricalPrice(models.Model):
+    symbol = models.CharField(max_length=10)
+    date = models.DateField()
+    open = models.FloatField()
+    high = models.FloatField()
+    low = models.FloatField()
+    close = models.FloatField()
+    volume = models.BigIntegerField()
+    dividends = models.FloatField(default=0.0)
+    stock_splits = models.FloatField(default=0.0)
+
+    class Meta:
+        unique_together = ('symbol', 'date')
+        ordering = ['-date']
+
+    def __str__(self):
+        return f"{self.symbol} - {self.date}"

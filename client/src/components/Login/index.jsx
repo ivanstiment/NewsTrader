@@ -58,7 +58,7 @@ export function Login() {
       setMessage("Login exitoso");
       navigate("/news");
     } catch (error) {
-      setMessage("Errpr de autenticación");
+      setMessage("Error de autenticación");
     }
   };
 

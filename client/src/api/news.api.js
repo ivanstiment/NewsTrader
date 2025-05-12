@@ -1,6 +1,6 @@
 import api from "./axios";
 
-export const getAllNews = () => api.get("/news/new/news/");
+export const getAllNews = () => api.get("/news/");
 
 export const getNew = (uuid) => api.get(`/${uuid}/`);
 

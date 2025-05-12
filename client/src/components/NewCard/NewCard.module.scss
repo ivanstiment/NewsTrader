@@ -6,6 +6,10 @@
     border: 1px solid #2e3042;
     margin-bottom: 20px;
   }
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
   &__title {
     margin-bottom: 15px;
     border-radius: 8px;
@@ -16,19 +20,21 @@
     font-weight: normal;
     letter-spacing: 1.5px;
   }
+  &__link {
+    margin-top: 0.83em;
+  }
   &__body {
     display: flex;
     justify-content: start;
     align-items: start;
+    flex-wrap: wrap;
+    gap: 20px;
   }
   &__data {
     display: flex;
     justify-content: start;
     align-items: start;
     flex-direction: column;
-    &:not(:first-child):not(:last-child) {
-      margin: 0 20px;
-    }
   }
   &__subTitle {
     font-weight: bold;
@@ -47,6 +53,11 @@
     margin-bottom: 15px;
     border-radius: 8px;
   }
+  &__badgesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
 }
 
 @media only screen and (max-width: 600px) {
@@ -55,14 +66,6 @@
       flex-direction: column;
       justify-content: normal;
       align-items: normal;
-    }
-    &__data {
-      justify-content: space-between;
-      flex-direction: row;
-      align-items: center;
-      &:not(:first-child):not(:last-child) {
-        margin: 20px 0;
-      }
     }
   }
 }
