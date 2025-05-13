@@ -83,7 +83,7 @@ class Stock(models.Model):
     maxAge                 = models.IntegerField(blank=True, null=True)
     # Datos de mercado
     previousClose          = models.FloatField(blank=True, null=True)
-    open             = models.FloatField(blank=True, null=True)
+    open                    = models.FloatField(blank=True, null=True)
     # open_price             = models.FloatField(blank=True, null=True)
     dayLow                 = models.FloatField(blank=True, null=True)
     dayHigh                = models.FloatField(blank=True, null=True)

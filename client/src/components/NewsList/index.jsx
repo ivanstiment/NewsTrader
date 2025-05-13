@@ -18,9 +18,16 @@ export function NewsList({ searchTerm }) {
   }, []);
 
   const filteredNews = searchTerm
-    ? news.filter((newItem) =>
-        newItem.title.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+    ? news.filter((newItem) => {
+        const term = searchTerm.toUpperCase();
+        // ¿Coincide en el título?
+        const inTitle = newItem.title.toUpperCase().includes(term);
+        // ¿Coincide en related_tickers?
+        const inTickers = Array.isArray(newItem.related_tickers) && newItem.related_tickers.some(
+          (t) => t.toUpperCase().includes(term)
+        );
+        return inTitle || inTickers;
+      })
     : news;
 
   if (loading) {

@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from django.views.generic.list import ListView
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse_lazy
@@ -14,6 +14,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
+import math
 
 
 # class ListaNews(ListView):
@@ -69,15 +70,34 @@ class StockView(viewsets.ModelViewSet):
     # permission_classes = [IsAuthenticated]
     permission_classes = [AllowAny]
 
+    def list(self, request, *args, **kwargs):
+        # Obtiene el queryset y serializa normalmente
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True)
+        data = serializer.data
+        # Aplica sanitización
+        clean = sanitize_floats(data)
+        return Response(clean, status=status.HTTP_200_OK)
+
+    def retrieve(self, request, *args, **kwargs):
+        # Maneja GET /stocks/{pk}/
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        data = serializer.data
+        clean = sanitize_floats(data)
+        return Response(clean, status=status.HTTP_200_OK)
+
 class StockDetailView(APIView):
     permission_classes = [IsAuthenticated]
+
     def get(self, request, symbol):
-        try:
-            stock = Stock.objects.filter(symbol__iexact=symbol).first()
-            serializer = StockSerializer(stock)
-            return Response(serializer.data)
-        except Stock.DoesNotExist:
-            return Response({'message': 'Stock no encontrado'}, status=404)
+        stock = Stock.objects.filter(symbol__iexact=symbol).first()
+        if not stock:
+            return Response({'message': 'Stock no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+        serializer = StockSerializer(stock)
+        data = serializer.data
+        clean = sanitize_floats(data)
+        return Response(clean, status=status.HTTP_200_OK)
 
 def get_historical_prices(request, symbol):
     datos = HistoricalPrice.objects.filter(symbol=symbol.upper()).order_by('date')
@@ -108,3 +128,19 @@ def register_user(request):
         User.objects.create_user(username=username, password=password)
         return JsonResponse({'success': 'Usuario creado exitosamente'}, status=201)
     return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+
+def sanitize_floats(obj):
+    """
+    Recorre dicts y listas, reemplazando valores float infinitos o NaN por None.
+    """
+    if isinstance(obj, float):
+        if math.isinf(obj) or math.isnan(obj):
+            return None
+        return obj
+    elif isinstance(obj, dict):
+        return {k: sanitize_floats(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [sanitize_floats(v) for v in obj]
+    else:
+        return obj
