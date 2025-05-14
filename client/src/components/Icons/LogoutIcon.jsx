@@ -1,14 +1,8 @@
-import React from "react";
-
 export function LogoutIcon(props) {
   return (
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
-      <path
-        d="M8.25 5.25L9 4.5H18L18.75 5.25V18.75L18 19.5H9L8.25 18.75V16.5H9.75V18H17.25V6H9.75V7.5H8.25V5.25Z"
-      />
-      <path
-        d="M7.06068 12.7499L14.25 12.7499L14.25 11.2499L7.06068 11.2499L8.78035 9.53027L7.71969 8.46961L4.18936 11.9999L7.71969 15.5303L8.78035 14.4696L7.06068 12.7499Z"
-      />
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+      <path d="M6.8,1.2L8,0h14.4l1.2,1.2v21.6L22.4,24H8l-1.2-1.2v-3.6h2.4v2.4h12V2.4h-12v2.4H6.8V1.2z" />
+      <path d="M4.9,13.2h11.5v-2.4H4.9L7.7,8L6,6.4L0.4,12L6,17.6L7.7,16L4.9,13.2z" />
     </svg>
   );
 }

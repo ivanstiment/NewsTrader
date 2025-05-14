@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { getStock } from "../../api/stock.api";
 import { useAuth } from "../../contexts/AuthContext";
 import styles from "./Stock.module.scss";
 
 export function Stock() {
-  const { user, loading } = useAuth();
+  const { loading } = useAuth();
   const { symbol } = useParams();
   const [stock, setStock] = useState(null);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     async function fetchStockDetail() {
@@ -16,10 +16,10 @@ export function Stock() {
       try {
         const response = await getStock(symbol);
         setStock(response.data);
-      } catch (error) {
-        setMessage('Error al cargar los detalles del stock');
+      } catch {
+        setMessage("Error al cargar los detalles del stock");
       }
-    };
+    }
 
     fetchStockDetail();
   }, [symbol]);
@@ -39,7 +39,7 @@ export function Stock() {
       <div>
         <h1>{stock?.symbol}</h1>
         <p>Volumen: {stock?.volume}</p>
-      </div>      
+      </div>
     );
   }
 }

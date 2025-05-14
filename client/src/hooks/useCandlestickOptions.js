@@ -1,8 +1,4 @@
-export function useCandlestickOptions({
-  symbol,
-  annotations,
-  newsByDate
-}) {
+export function useCandlestickOptions({ symbol, annotations, newsByDate }) {
   return {
     chart: {
       id: "candles",

@@ -1,19 +1,9 @@
-import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./Home.module.scss";
 import { LogoIcon } from "../Icons";
+import styles from "./Home.module.scss";
 
 export function Home() {
   const navigate = useNavigate();
-  useEffect(() => {
-    const prevDisplay = document.body.style.display;
-    document.body.style.display = "flex";
-    document.body.style.justifyContent = "center";
-    document.body.style.alignItems = "center";
-    return () => {
-      document.body.style.display = prevDisplay;
-    };
-  }, []);
 
   return (
     <div className={styles.home__container}>

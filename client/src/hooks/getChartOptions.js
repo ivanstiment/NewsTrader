@@ -8,6 +8,7 @@ export function getCandlestickOptions({
   return {
     chart: {
       id: "candles",
+      group: "sync",
       type: "candlestick",
       toolbar: { autoSelected: "pan", show: true },
       zoom: { enabled: true },
@@ -79,13 +80,10 @@ export function getVolumeOptions() {
   return {
     chart: {
       id: "volume",
+      group: "sync",
       height: 160,
       type: "bar",
       brush: { enabled: true, target: "candles" },
-      // selection: {
-      //   enabled: true,
-      //   fill: { color: "#ccc", opacity: 0.4 },
-      // },
     },
     plotOptions: {
       bar: { columnWidth: "80%" },
@@ -99,7 +97,7 @@ export function getVolumeOptions() {
     tooltip: {
       enabled: true,
       shared: false,
-      intersect: true,
+      intersect: false,
       y: {
         formatter: (val) => val.toLocaleString(),
         title: {

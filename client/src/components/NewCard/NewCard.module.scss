@@ -60,8 +60,14 @@
   }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 599px) {
   .new {
+    &__container {
+      padding: 10px 20px;
+    }
+    &__svg {
+      scale: 0.75;
+    }
     &__body {
       flex-direction: column;
       justify-content: normal;

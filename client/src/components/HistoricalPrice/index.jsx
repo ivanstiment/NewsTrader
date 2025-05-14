@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { getHistoricalPrice } from "../../api/historical-price.api";
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import {
-  ResponsiveContainer,
-  LineChart,
+  CartesianGrid,
+  Legend,
   Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend
-} from 'recharts';
+} from "recharts";
+import { getHistoricalPrice } from "../../api/historical-price.api";
 
 export function HistoricalPrice() {
   const { symbol } = useParams();
@@ -22,15 +22,14 @@ export function HistoricalPrice() {
     async function fetchHistory() {
       try {
         const resp = await getHistoricalPrice(symbol);
-        // transformamos [{ date: '2025-04-07', close: 18.945 }, …]
-        const formatted = resp.data.map(item => ({
-          date: item.date,           // ISO string YYYY‑MM‑DD
-          close: Number(item.close)  // convertimos a número
+        const formatted = resp.data.map((item) => ({
+          date: item.date, // ISO string YYYY‑MM‑DD
+          close: Number(item.close), // Convertir a número
         }));
         setData(formatted);
       } catch (err) {
         console.error(err);
-        setError('No se pudieron cargar los datos');
+        setError("No se pudieron cargar los datos");
       } finally {
         setLoading(false);
       }
@@ -46,7 +45,7 @@ export function HistoricalPrice() {
       <LineChart data={data}>
         <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
         <XAxis dataKey="date" />
-        <YAxis domain={['auto','auto']} />
+        <YAxis domain={["auto", "auto"]} />
         <Tooltip />
         <Legend />
         <Line type="monotone" dataKey="close" name="Cierre" stroke="#8884d8" />

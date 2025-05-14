@@ -1,4 +1,3 @@
-import React from "react";
 import { Stock } from "../components/Stock/index";
 import { stockTermPropTypes } from "../propTypes/stockTerm.propTypes";
 

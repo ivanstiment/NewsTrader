@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getAllNews } from "../api/news.api";
 
 export function useNewsByDate(symbol) {
@@ -31,7 +31,9 @@ export function useNewsByDate(symbol) {
     }
 
     fetchNews();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [symbol]);
 
   return newsByDate;

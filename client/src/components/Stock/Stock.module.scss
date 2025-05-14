@@ -4,12 +4,12 @@
     height: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;  
+    align-items: center;
   }
   &__card {
     padding: 40px;
     background-color: #191a24;
-    border: 1px solid #2E3042;
+    border: 1px solid #2e3042;
     border-radius: 8px;
     text-align: center;
     color: white;
@@ -23,7 +23,7 @@
   &__inputWrapper {
     margin-bottom: 40px;
   }
-  
+
   &__paragraph {
     display: flex;
     align-items: center;
@@ -55,16 +55,16 @@
     font-size: 16px;
     letter-spacing: 1.5px;
   }
-  &__buttonLeft{
-    background-color: #2E3042;
+  &__buttonLeft {
+    background-color: #2e3042;
     &:hover {
-      background-color: #2E3042b3;
+      background-color: #2e3042b3;
     }
   }
   &__buttonRight {
-    background-color: #4055DB;
+    background-color: #4055db;
     &:hover {
-      background-color: #4055DBb3;
+      background-color: #4055dbb3;
     }
   }
 }

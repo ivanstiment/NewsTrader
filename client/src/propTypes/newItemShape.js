@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 export const newItemShape = {
   uuid: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
@@ -7,7 +7,7 @@ export const newItemShape = {
   link: PropTypes.string,
   provider_publish_time: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.instanceOf(Date)
+    PropTypes.instanceOf(Date),
   ]),
   publisher: PropTypes.string,
 };

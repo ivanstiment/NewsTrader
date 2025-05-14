@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { createNew, deleteNew, updateNew, getNew } from "../api/news.api";
-import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { useNavigate, useParams } from "react-router-dom";
+import { createNew, deleteNew, getNew, updateNew } from "../api/news.api";
 
 export function NewFormPage() {
   const {

@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getAllNews } from "../../api/news.api";
-import { NewCard } from "../NewCard";
-import styles from "./NewsList.module.scss";
 import { useAuth } from "../../contexts/AuthContext";
 import { searchTermPropTypes } from "../../propTypes/searchTerm.propTypes";
+import { NewCard } from "../NewCard";
+import styles from "./NewsList.module.scss";
 
 export function NewsList({ searchTerm }) {
-  const { user, loading } = useAuth();
+  const { loading } = useAuth();
   const [news, setNews] = useState([]);
 
   useEffect(() => {
@@ -23,9 +23,9 @@ export function NewsList({ searchTerm }) {
         // ¿Coincide en el título?
         const inTitle = newItem.title.toUpperCase().includes(term);
         // ¿Coincide en related_tickers?
-        const inTickers = Array.isArray(newItem.related_tickers) && newItem.related_tickers.some(
-          (t) => t.toUpperCase().includes(term)
-        );
+        const inTickers =
+          Array.isArray(newItem.related_tickers) &&
+          newItem.related_tickers.some((t) => t.toUpperCase().includes(term));
         return inTitle || inTickers;
       })
     : news;
@@ -44,7 +44,6 @@ export function NewsList({ searchTerm }) {
           <NewCard key={newItem.uuid} newItem={newItem} />
         ))}
       </div>
-      
     );
   }
 }

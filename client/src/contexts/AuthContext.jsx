@@ -1,5 +1,5 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 let inMemoryToken = null;

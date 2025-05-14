@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useAuth } from "../../contexts/AuthContext";
-import styles from "./Search.module.scss";
-import { stockTermPropTypes } from "../../propTypes/stockTerm.propTypes";
-import { useNavigate, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { getAllStocks } from "../../api/stock.api";
+import { useAuth } from "../../contexts/AuthContext";
+import { stockTermPropTypes } from "../../propTypes/stockTerm.propTypes";
 import { ChartIcon } from "../Icons";
+import styles from "./Search.module.scss";
 
 export function Search() {
-  const { user, loading } = useAuth();
+  const { loading } = useAuth();
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -31,7 +31,7 @@ export function Search() {
       } else {
         setErrorMessage("Stock no encontrado");
       }
-    } catch (error) {
+    } catch {
       setErrorMessage("Error al buscar el stock");
     }
   };
@@ -41,7 +41,7 @@ export function Search() {
         stock.symbol.toUpperCase().includes(searchTerm.toUpperCase())
       )
     : stocks;
-    
+
   if (loading) {
     return <p>Loading…</p>;
   }
@@ -67,7 +67,10 @@ export function Search() {
             <Link to={`/stock/${stock.symbol}`} className={styles.stock__link}>
               {stock.symbol}
             </Link>
-            <Link to={`/historical-price/${stock.symbol}`} className={styles.stock__svg}>
+            <Link
+              to={`/historical-price/${stock.symbol}`}
+              className={styles.stock__svg}
+            >
               <ChartIcon width={24} height={24} className={styles.stock__svg} />
             </Link>
           </span>

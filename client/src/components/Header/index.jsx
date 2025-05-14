@@ -1,9 +1,8 @@
-import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import styles from "./Header.module.scss";
-import { LogoIcon, ArrowRightIcon } from "../Icons";
 import { useAuth } from "../../contexts/AuthContext";
 import { searchTermPropTypes } from "../../propTypes/searchTerm.propTypes";
+import { ArrowRightIcon, LogoIcon } from "../Icons";
+import styles from "./Header.module.scss";
 
 export function Header({ searchTerm, setSearchTerm }) {
   const location = useLocation();
@@ -45,8 +44,8 @@ export function Header({ searchTerm, setSearchTerm }) {
           >
             Iniciar Sesión
             <ArrowRightIcon
-              width={24}
-              height={24}
+              width={16}
+              height={20}
               className={styles.header__svg}
             />
           </button>
@@ -64,8 +63,8 @@ export function Header({ searchTerm, setSearchTerm }) {
           >
             Crear una cuenta
             <ArrowRightIcon
-              width={24}
-              height={24}
+              width={16}
+              height={20}
               className={styles.header__svg}
             />
           </button>
@@ -78,7 +77,7 @@ export function Header({ searchTerm, setSearchTerm }) {
 
   return (
     <div className={styles.header__container}>
-      <LogoIcon width={52} height={44} className={styles.menu__svg} />
+      <LogoIcon width={52} height={44} />
       {renderHeaderRight()}
     </div>
   );

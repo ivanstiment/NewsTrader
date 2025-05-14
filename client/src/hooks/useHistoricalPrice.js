@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getHistoricalPrice } from "../api/historical-price.api";
-import { useNewsByDate } from "./useNewsByDate";
 import { getCandlestickOptions, getVolumeOptions } from "./getChartOptions";
+import { useNewsByDate } from "./useNewsByDate";
 
 export function useHistoricalPrice(symbol, showVolume) {
   const [candlesSeries, setCandlesSeries] = useState([]);
@@ -37,19 +37,18 @@ export function useHistoricalPrice(symbol, showVolume) {
           x: new Date(item.date).getTime(),
           y: item.volume,
         }));
-        setVolumeSeries(
-          showVolume ? [{ name: "Volumen", data: vols }] : []
-        );
+        setVolumeSeries(showVolume ? [{ name: "Volumen", data: vols }] : []);
         // Generamos los puntos de anotación
-        const annotationPoints = hist.flatMap(item => {
+        const annotationPoints = hist.flatMap((item) => {
           const day = item.date; // "YYYY-MM-DD"
-          return (newsByDate[day]||[]).map(() => ({
+          return (newsByDate[day] || []).map(() => ({
             x: new Date(day).getTime(),
-            y: +item.close.toFixed(4) * 1.02,
+            y: 0,
             marker: {
               size: 6,
               fillColor: "#ffb300",
-              strokeColor: "#fff",
+              // strokeColor: "#fff",
+              strokeColor: "#ff8800",
               strokeWidth: 2,
             },
             label: { show: false },
@@ -63,12 +62,11 @@ export function useHistoricalPrice(symbol, showVolume) {
             annotationPoints,
             newsByDate,
             showVolume,
-            volumeData: vols 
+            volumeData: vols,
           })
         );
 
         setVolumeOptions(getVolumeOptions());
-
       } catch (err) {
         console.error(err);
       } finally {
@@ -86,6 +84,6 @@ export function useHistoricalPrice(symbol, showVolume) {
     volumeSeries,
     candleOptions,
     volumeOptions,
-    loading
+    loading,
   };
 }

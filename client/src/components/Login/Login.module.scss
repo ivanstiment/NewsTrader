@@ -1,15 +1,13 @@
 .login {
   &__container {
+    height: 100vh;
     width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;  
+    align-items: center;
   }
   &__card {
     padding: 40px;
     background-color: #191a24;
-    border: 1px solid #2E3042;
+    border: 1px solid #2e3042;
     border-radius: 8px;
     text-align: center;
     color: white;
@@ -23,7 +21,7 @@
   &__inputWrapper {
     margin-bottom: 40px;
   }
-  
+
   &__paragraph {
     display: flex;
     align-items: center;
@@ -31,7 +29,6 @@
     letter-spacing: 1.5px;
   }
   &__input {
-    width: 380px;
     border-radius: 8px;
     padding: 10px;
     font-size: 16px;
@@ -45,8 +42,7 @@
   &__svg {
     padding: 0 10px;
   }
-  &__buttonLeft,
-  &__buttonRight {
+  &__button {
     padding: 10px 20px;
     border: none;
     color: white;
@@ -54,17 +50,32 @@
     cursor: pointer;
     font-size: 16px;
     letter-spacing: 1.5px;
-  }
-  &__buttonLeft{
-    background-color: #2E3042;
+    background-color: #4055db;
     &:hover {
-      background-color: #2E3042b3;
+      background-color: #4055dbb3;
     }
   }
-  &__buttonRight {
-    background-color: #4055DB;
-    &:hover {
-      background-color: #4055DBb3;
+}
+
+@media screen and (min-width: 600px) {
+  .login {
+    &__container {
+      display: flex;
+      justify-content: center;
+    }
+    &__input {
+      width: 380px;
+    }
+  }
+}
+
+@media only screen and (max-width: 599px) {
+  .login {
+    &__container {
+      display: grid;
+    }
+    &__input {
+      width: -webkit-fill-available;
     }
   }
 }

@@ -1,22 +1,22 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import styles from "./NavigationMenu.module.scss";
+import { useAuth } from "../../contexts/AuthContext";
 import {
+  LogoIcon,
+  LogoutIcon,
+  MenuCloseIcon,
+  MenuOpenIcon,
   NewsPaperIcon,
   SearchIcon,
-  MenuOpenIcon,
-  MenuCloseIcon,
-  LogoIcon,
-  LogoutIcon
 } from "../Icons";
-import { useAuth } from "../../contexts/AuthContext";
+import styles from "./NavigationMenu.module.scss";
 
 export function NavigationMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const { logout } = useAuth();
 
   // Toggle menú en móvil (click)
-  const handleToggle = (e) => {
+  const handleToggle = () => {
     // e.preventDefault();
     setIsOpen((prev) => !prev);
   };
@@ -34,36 +34,45 @@ export function NavigationMenu() {
     >
       <div className={styles.menu__fixedIcons}>
         <div>
-        <Link
-          to="#"
-          className={`${styles.menu__animateIcon} ${
-            isOpen
-              ? styles.menu__animateIconOpen
-              : styles.menu__animateIconClosed
-          }`}
-          onClick={handleToggle}
-        >
-          <MenuOpenIcon
-            width={24}
-            height={24}
-            className={styles.menu__animateSvg}
-          />
-          <MenuCloseIcon
-            width={24}
-            height={24}
-            className={styles.menu__animateSvg}
-          />
-        </Link>
-        <Link to="search" className={styles.menu__icon}>
-          <SearchIcon width={24} height={24} className={styles.menu__svg} />
-        </Link>
-        <Link to="news" className={styles.menu__icon}>
-          <NewsPaperIcon width={24} height={24} className={styles.menu__svg} />
-        </Link>
+          <Link
+            to="#"
+            className={`${styles.menu__animateIcon} ${
+              isOpen
+                ? styles.menu__animateIconOpen
+                : styles.menu__animateIconClosed
+            }`}
+            onClick={handleToggle}
+          >
+            <MenuOpenIcon
+              width={24}
+              height={24}
+              className={styles.menu__animateSvg}
+            />
+            <MenuCloseIcon
+              width={24}
+              height={24}
+              className={styles.menu__animateSvg}
+            />
+          </Link>
+          <Link to="search" className={styles.menu__icon}>
+            <SearchIcon width={24} height={24} className={styles.menu__svg} />
+          </Link>
+          <Link to="news" className={styles.menu__icon}>
+            <NewsPaperIcon
+              width={24}
+              height={24}
+              className={styles.menu__svg}
+            />
+          </Link>
         </div>
         <div>
           <Link to="#" className={styles.menu__icon}>
-            <LogoutIcon width={24} height={24} className={styles.menu__svg} onClick={logout}/>
+            <LogoutIcon
+              width={24}
+              height={24}
+              className={styles.menu__svg}
+              onClick={logout}
+            />
           </Link>
         </div>
       </div>
