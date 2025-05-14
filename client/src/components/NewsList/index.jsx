@@ -32,17 +32,23 @@ export function NewsList({ searchTerm }) {
 
   if (loading) {
     return (
-      <div className={styles.newsList__container}>
-        <h1 className={styles.newsList__title}>CARGANDO</h1>
+      <div className={styles["news-list__container"]}>
+        <h1 className={styles["news-list__title"]}>CARGANDO...</h1>
       </div>
     );
   } else {
     return (
-      <div className={styles.newsList__container}>
-        <h1 className={styles.newsList__title}>Noticias de acciones</h1>
-        {filteredNews.map((newItem) => (
-          <NewCard key={newItem.uuid} newItem={newItem} />
-        ))}
+      <div className={styles["news-list__container"]}>
+        <h1 className={styles["news-list__title"]}>Noticias de acciones</h1>
+        {filteredNews.length === 0 ? (
+          <p className={styles["news-list__message"]}>
+            No se han encontrado noticias que coincidan con la búsqueda.
+          </p>
+        ) : (
+          filteredNews.map((newItem) => (
+            <NewCard key={newItem.uuid} newItem={newItem} />
+          ))
+        )}
       </div>
     );
   }

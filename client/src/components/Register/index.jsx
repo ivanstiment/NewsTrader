@@ -2,31 +2,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
 import { getCsrfToken } from "../../api/utils";
+import { registerSchema } from "../../validators/register-schema.validator";
 import { PadlockIcon, UserIcon } from "../Icons";
-import styles from "./Register.module.scss";
-
-// 1. Esquema de validación usando Yup
-const schema = yup.object().shape({
-  user: yup
-    .string()
-    .trim()
-    .min(3, "El nombre de usuario debe tener al menos 3 caracteres")
-    .max(30, "Máximo 30 caracteres")
-    .required("Usuario es obligatorio"),
-  password: yup
-    .string()
-    .min(8, "La contraseña debe tener al menos 8 caracteres")
-    .matches(/[A-Z]/, "Debe contener una letra mayúscula")
-    .matches(/[a-z]/, "Debe contener una letra minúscula")
-    .matches(/[0-9]/, "Debe contener un número")
-    .required("Contraseña es obligatoria"),
-  repassword: yup
-    .string()
-    .oneOf([yup.ref("password"), null], "Las contraseñas deben coincidir")
-    .required("Repetir contraseña es obligatorio"),
-});
+import styles from "@/shared/styles";
 
 export function Register() {
   // 2. Hook useForm con validación y modo onBlur para accesibilidad
@@ -36,7 +15,7 @@ export function Register() {
     formState: { errors, isSubmitting, isDirty },
     reset,
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(registerSchema),
     mode: "onBlur",
   });
 
@@ -66,9 +45,9 @@ export function Register() {
   };
 
   return (
-    <div className={styles.register__container}>
-      <div className={styles.register__card} aria-live="polite">
-        <h2 className={styles.register__title}>Crear una cuenta</h2>
+    <div className={styles["card__container"]}>
+      <div className={styles["card"]} aria-live="polite">
+        <h2 className={styles["card__title"]}>Crear una cuenta</h2>
 
         {/* Mostrar mensaje de error o éxito */}
         {(apiError || apiSuccess) && (
@@ -76,8 +55,8 @@ export function Register() {
             role={apiError ? "alert" : "status"}
             className={
               apiError
-                ? styles.register__alertError
-                : styles.register__alertSuccess
+                ? styles["form__alertError"]
+                : styles["form__alertSuccess"]
             }
           >
             {apiError || apiSuccess}
@@ -86,8 +65,8 @@ export function Register() {
 
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           {/* Usuario */}
-          <div className={styles.register__inputWrapper}>
-            <label htmlFor="user" className={styles.register__label}>
+          <div className={styles["form-field__wrapper"]}>
+            <label htmlFor="user" className={styles["form-field__label"]}>
               <UserIcon width={24} height={24} /> Usuario
             </label>
             <input
@@ -95,14 +74,14 @@ export function Register() {
               id="user"
               {...register("user")}
               aria-invalid={errors.user ? "true" : "false"}
-              className={`${styles.register__input} ${
-                errors.user ? styles.register__inputError : ""
+              className={`${styles["form-field__input"]} ${
+                errors.user ? styles["form-field__input--error"] : ""
               }`}
             />
             <span
               role="alert"
-              className={`${styles.register__errorMsg} ${
-                errors.user ? styles.register__errorMsgDisplay : ""
+              className={`${styles["form-field__error"]} ${
+                errors.user ? styles["form-field__error--visible"] : ""
               }`}
             >
               {errors.user?.message || "\u00A0"}
@@ -111,8 +90,8 @@ export function Register() {
           </div>
 
           {/* Contraseña */}
-          <div className={styles.register__inputWrapper}>
-            <label htmlFor="password" className={styles.register__label}>
+          <div className={styles["form-field__wrapper"]}>
+            <label htmlFor="password" className={styles["form-field__label"]}>
               <PadlockIcon width={24} height={24} /> Contraseña
             </label>
             <input
@@ -120,14 +99,14 @@ export function Register() {
               id="password"
               {...register("password")}
               aria-invalid={errors.password ? "true" : "false"}
-              className={`${styles.register__input} ${
-                errors.password ? styles.register__inputError : ""
+              className={`${styles["form-field__input"]} ${
+                errors.password ? styles["form-field__input--error"] : ""
               }`}
             />
             <span
               role="alert"
-              className={`${styles.register__errorMsg} ${
-                errors.password ? styles.register__errorMsgDisplay : ""
+              className={`${styles["form-field__error"]} ${
+                errors.password ? styles["form-field__error--visible"] : ""
               }`}
             >
               {errors.password?.message || "\u00A0"}
@@ -135,8 +114,8 @@ export function Register() {
           </div>
 
           {/* Repetir contraseña */}
-          <div className={styles.register__inputWrapper}>
-            <label htmlFor="repassword" className={styles.register__label}>
+          <div className={styles["form-field__wrapper"]}>
+            <label htmlFor="repassword" className={styles["form-field__label"]}>
               <PadlockIcon width={24} height={24} /> Repetir contraseña
             </label>
             <input
@@ -144,14 +123,14 @@ export function Register() {
               id="repassword"
               {...register("repassword")}
               aria-invalid={errors.repassword ? "true" : "false"}
-              className={`${styles.register__input} ${
-                errors.repassword ? styles.register__inputError : ""
+              className={`${styles["form-field__input"]} ${
+                errors.repassword ? styles["form-field__input--error"] : ""
               }`}
             />
             <span
               role="alert"
-              className={`${styles.register__errorMsg} ${
-                errors.repassword ? styles.register__errorMsgDisplay : ""
+              className={`${styles["form-field__error"]} ${
+                errors.repassword ? styles["form-field__error--visible"] : ""
               }`}
             >
               {errors.repassword?.message || "\u00A0"}
@@ -159,10 +138,10 @@ export function Register() {
           </div>
 
           {/* Submit */}
-          <div className={styles.register__buttons}>
+          <div className={styles["button-wrapper"]}>
             <button
               type="submit"
-              className={styles.register__button}
+              className={`${styles["button"]} ${styles["button--primary"]}`}
               disabled={!isDirty || isSubmitting}
             >
               {isSubmitting ? "Registrando..." : "Registrarse"}

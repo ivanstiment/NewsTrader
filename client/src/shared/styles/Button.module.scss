@@ -1,0 +1,28 @@
+.button {
+  padding: 10px 20px;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  letter-spacing: 1.5px;
+  &--primary {
+    background-color: #4055db;
+    &:hover {
+      background-color: #4055dbb3;
+    }
+  }
+  &--secondary {
+    background-color: #2e3042;
+    &:hover {
+      background-color: #2e3042b3;
+    }
+  }
+  &-wrapper {
+    display: flex;
+    justify-content: center;
+    &--dual {
+      gap: 10px;
+    }
+  }
+}

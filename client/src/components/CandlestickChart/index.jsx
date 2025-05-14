@@ -16,7 +16,7 @@ export function CandlestickChart() {
     return <p>Cargando datos de {symbol.toUpperCase()}…</p>;
   } else {
     return (
-      <div className={styles.candleStickChart__container}>
+      <div className={styles["chart__container"]}>
         {/* Gráfico de Velas + Anotaciones */}
         <div id="chart-candles">
           <ReactApexChart

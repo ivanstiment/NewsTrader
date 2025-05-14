@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import { newItemShape } from "./newItemShape";
+import { newCardShape } from "./newCardShape";
 
 export const newCardPropTypes = {
-  newItem: PropTypes.shape(newItemShape).isRequired,
+  newItem: PropTypes.shape(newCardShape).isRequired,
 };

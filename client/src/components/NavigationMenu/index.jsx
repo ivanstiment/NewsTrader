@@ -27,98 +27,109 @@ export function NavigationMenu() {
 
   return (
     <aside
-      className={styles.menu__container}
+      className={styles["menu"]}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       aria-label="Menú lateral"
     >
-      <div className={styles.menu__fixedIcons}>
+      <div className={styles["menu__fixed-icons"]}>
         <div>
           <Link
             to="#"
-            className={`${styles.menu__animateIcon} ${
+            className={`${styles["menu__toggle"]} ${
               isOpen
-                ? styles.menu__animateIconOpen
-                : styles.menu__animateIconClosed
+                ? styles["menu__toggle--open"]
+                : styles["menu__toggle--closed"]
             }`}
             onClick={handleToggle}
           >
             <MenuOpenIcon
               width={24}
               height={24}
-              className={styles.menu__animateSvg}
+              className={styles["menu__toggle-svg"]}
             />
             <MenuCloseIcon
               width={24}
               height={24}
-              className={styles.menu__animateSvg}
+              className={styles["menu__toggle-svg"]}
             />
           </Link>
-          <Link to="search" className={styles.menu__icon}>
-            <SearchIcon width={24} height={24} className={styles.menu__svg} />
+          <Link to="search" className={styles["menu__icon"]}>
+            <SearchIcon
+              width={24}
+              height={24}
+              className={styles["menu__svg"]}
+            />
           </Link>
-          <Link to="news" className={styles.menu__icon}>
+          <Link to="news" className={styles["menu__icon"]}>
             <NewsPaperIcon
               width={24}
               height={24}
-              className={styles.menu__svg}
+              className={styles["menu__svg"]}
             />
           </Link>
         </div>
         <div>
-          <Link to="#" className={styles.menu__icon}>
+          <Link to="#" className={styles["menu__icon"]}>
             <LogoutIcon
               width={24}
               height={24}
-              className={styles.menu__svg}
+              className={styles["menu__svg"]}
               onClick={logout}
             />
           </Link>
         </div>
       </div>
       <div
-        className={`${styles.menu__overlay} ${
-          isOpen ? styles.menu__overlayOpen : ""
+        className={`${styles["menu__overlay"]} ${
+          isOpen ? styles["menu__overlay--visible"] : ""
         }`}
         onClick={handleToggle}
       ></div>
       <nav
-        // className={`${styles.menu__panel} ${styles.menu__panelOpen}`}
-        className={`${styles.menu__panel} ${
-          isOpen ? styles.menu__panelOpen : ""
+        className={`${styles["menu__panel"]} ${
+          isOpen ? styles["menu__panel--open"] : ""
         }`}
       >
-        <ul className={styles.menu__linkList}>
-          <li className={styles.menu__linkElement}>
-            <Link className={styles.menu__link} to="#" onClick={handleToggle}>
-              <LogoIcon width={40} height={34} className={styles.menu__svg} />
+        <ul className={styles["menu__list"]}>
+          <li className={styles["menu__item"]}>
+            <Link
+              className={styles["menu__link"]}
+              to="#"
+              onClick={handleToggle}
+            >
+              <LogoIcon
+                width={40}
+                height={34}
+                className={styles["menu__svg"]}
+              />
             </Link>
           </li>
-          <li className={styles.menu__linkElement}>
+          <li className={styles["menu__item"]}>
             <Link
               to="search"
               onClick={handleToggle}
-              className={styles.menu__link}
+              className={styles["menu__link"]}
             >
               <span>Buscar</span>
             </Link>
           </li>
-          <li className={styles.menu__linkElement}>
+          <li className={styles["menu__item"]}>
             <Link
               to="news"
               onClick={handleToggle}
-              className={styles.menu__link}
+              className={styles["menu__link"]}
             >
               <span>Noticias</span>
             </Link>
           </li>
         </ul>
-        <ul className={styles.menu__linkList}>
-          <li className={styles.menu__linkElement}>
+        <ul className={styles["menu__list"]}>
+          <li className={styles["menu__item"]}>
             <Link
               to="#"
               onClick={[handleToggle, logout]}
-              className={styles.menu__link}
+              className={styles["menu__link"]}
             >
               <span>Cerrar sesión</span>
             </Link>

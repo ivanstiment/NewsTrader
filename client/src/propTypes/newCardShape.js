@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export const newItemShape = {
+export const newCardShape = {
   uuid: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   title: PropTypes.string.isRequired,
   news_type: PropTypes.string,

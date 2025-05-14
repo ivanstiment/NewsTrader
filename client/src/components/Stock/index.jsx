@@ -30,8 +30,8 @@ export function Stock() {
 
   if (loading) {
     return (
-      <div className={styles.newsList__container}>
-        <h1 className={styles.newsList__title}>CARGANDO</h1>
+      <div className={styles["stock__container"]}>
+        <h1 className={styles["stock__title"]}>CARGANDO</h1>
       </div>
     );
   } else {

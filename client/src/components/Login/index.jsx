@@ -1,23 +1,12 @@
-import React from "react";
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import api from "../../api/axios";
 import { useAuth } from "../../contexts/AuthContext";
-import { UserIcon, PadlockIcon } from "../Icons";
-import styles from "./Login.module.scss";
-
-// 1) Definimos el esquema de validación con Yup
-const loginSchema = yup.object({
-  username: yup
-    .string()
-    .trim()
-    .required("El usuario es obligatorio"),
-  password: yup
-    .string()
-    .required("La contraseña es obligatoria"),
-});
+import { loginSchema } from "../../validators/login-schema.validator";
+import { PadlockIcon, UserIcon } from "../Icons";
+import styles from "@/shared/styles";
 
 export function Login() {
   const navigate = useNavigate();
@@ -29,11 +18,11 @@ export function Login() {
     formState: { errors, isSubmitting, isDirty },
   } = useForm({
     resolver: yupResolver(loginSchema),
-    mode: "onBlur",       // validación al perder foco
+    mode: "onBlur", // validación al perder foco
     reValidateMode: "onChange",
   });
 
-  const [apiError, setApiError] = React.useState("");
+  const [apiError, setApiError] = useState("");
 
   // 2) Envío del formulario
   const onSubmit = async (data) => {
@@ -54,21 +43,22 @@ export function Login() {
   };
 
   return (
-    <div className={styles.login__container}>
-      <div className={styles.login__card} aria-live="polite">
-        <h2 className={styles.login__title}>¡Bienvenido de nuevo!</h2>
+    // <div className={styles['form-field__container}>
+    <div className={styles["card__container"]}>
+      <div className={styles["card"]} aria-live="polite">
+        <h2 className={styles["card__title"]}>¡Bienvenido de nuevo!</h2>
 
         {/* Mensaje de error genérico */}
         {apiError && (
-          <div role="alert" className={styles.login__alertError}>
+          <div role="alert" className={styles["form__alertError"]}>
             {apiError}
           </div>
         )}
 
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           {/* Usuario */}
-          <div className={styles.login__inputWrapper}>
-            <label htmlFor="username" className={styles.login__label}>
+          <div className={styles["form-field__wrapper"]}>
+            <label htmlFor="username" className={styles["form-field__label"]}>
               <UserIcon width={24} height={24} /> Usuario
             </label>
             <input
@@ -76,14 +66,14 @@ export function Login() {
               id="username"
               {...register("username")}
               aria-invalid={errors.username ? "true" : "false"}
-              className={`${styles.login__input} ${
-                errors.username ? styles.login__inputError : ""
+              className={`${styles["form-field__input"]} ${
+                errors.username ? styles["form-field__input--error"] : ""
               }`}
             />
             <span
               role="alert"
-              className={`${styles.login__errorMsg} ${
-                errors.username ? styles.login__errorMsgDisplay : ""
+              className={`${styles["form-field__error"]} ${
+                errors.username ? styles["form-field__error--visible"] : ""
               }`}
             >
               {errors.username?.message || "\u00A0"}
@@ -91,8 +81,8 @@ export function Login() {
           </div>
 
           {/* Contraseña */}
-          <div className={styles.login__inputWrapper}>
-            <label htmlFor="password" className={styles.login__label}>
+          <div className={styles["form-field__wrapper"]}>
+            <label htmlFor="password" className={styles["form-field__label"]}>
               <PadlockIcon width={24} height={24} /> Contraseña
             </label>
             <input
@@ -100,14 +90,14 @@ export function Login() {
               id="password"
               {...register("password")}
               aria-invalid={errors.password ? "true" : "false"}
-              className={`${styles.login__input} ${
-                errors.password ? styles.login__inputError : ""
+              className={`${styles["form-field__input"]} ${
+                errors.password ? styles["form-field__input--error"] : ""
               }`}
             />
             <span
               role="alert"
-              className={`${styles.login__errorMsg} ${
-                errors.password ? styles.login__errorMsgDisplay : ""
+              className={`${styles["form-field__error"]} ${
+                errors.password ? styles["form-field__error--visible"] : ""
               }`}
             >
               {errors.password?.message || "\u00A0"}
@@ -115,10 +105,10 @@ export function Login() {
           </div>
 
           {/* Botón de envío */}
-          <div className={styles.login__buttons}>
+          <div className={styles["button-wrapper"]}>
             <button
               type="submit"
-              className={styles.login__button}
+              className={`${styles["button"]} ${styles["button--primary"]}`}
               disabled={!isDirty || isSubmitting}
             >
               {isSubmitting ? "Iniciando sesión..." : "Continuar"}

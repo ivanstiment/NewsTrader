@@ -3,14 +3,12 @@
 }
 
 .menu {
-  &__container {
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 2;
-  }
-  &__fixedIcons {
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  &__fixed-icons {
     display: flex;
     flex-direction: column;
     z-index: 5;
@@ -20,44 +18,44 @@
     height: 100%;
     justify-content: space-between;
   }
-  &__icon {
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  &__animateIcon {
+  &__toggle {
     position: relative;
     padding: 32px 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    &Closed {
-      > .menu__animateSvg:nth-of-type(1) {
+    &--closed {
+      > .menu__toggle-svg:nth-of-type(1) {
         opacity: 1;
         transform: rotate(0deg);
       }
-      > .menu__animateSvg:nth-of-type(2) {
+      > .menu__toggle-svg:nth-of-type(2) {
         opacity: 0;
         transform: rotate(-90deg);
       }
     }
-    &Open {
-      > .menu__animateSvg:nth-of-type(1) {
+    &--open {
+      > .menu__toggle-svg:nth-of-type(1) {
         opacity: 0;
         transform: rotate(90deg);
       }
-      > .menu__animateSvg:nth-of-type(2) {
+      > .menu__toggle-svg:nth-of-type(2) {
         opacity: 1;
         transform: rotate(0deg);
       }
     }
+    &-svg {
+      @include icon-transition();
+      position: absolute;
+      fill: white;
+    }
   }
-  &__animateSvg {
-    @include icon-transition();
-    position: absolute;
-    fill: white;
+  &__icon {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   &__svg {
     display: block;
@@ -74,7 +72,7 @@
     pointer-events: none;
     transition: opacity 0.3s ease, width 0s linear 0.3s;
     z-index: 2;
-    &Open {
+    &--visible {
       width: calc(100% - 64px);
       opacity: 1;
       pointer-events: auto;
@@ -95,10 +93,15 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    &Open {
+    &--open {
       transform: translateX(0);
       transition: transform 0.3s ease, width 0s;
     }
+  }
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
   &__link {
     display: flex;
@@ -109,27 +112,22 @@
     &:hover {
       color: white;
     }
-    &List {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-    &Element {
-      cursor: pointer;
-      padding: 20px;
-      background-color: #191a24;
-      line-height: 1.5;
-      &:first-child {
-        padding: 15px 20px;
-        &:hover {
-          background-color: #191a24;
-        }
-      }
+  }
+  &__item {
+    cursor: pointer;
+    padding: 20px;
+    background-color: #191a24;
+    line-height: 1.5;
+    &:first-child {
+      padding: 15px 20px;
       &:hover {
-        background-color: #0e0f15;
-        & .menu__link {
-          color: white;
-        }
+        background-color: #191a24;
+      }
+    }
+    &:hover {
+      background-color: #0e0f15;
+      & .menu__link {
+        color: white;
       }
     }
   }
@@ -137,18 +135,18 @@
 
 @media screen and (min-width: 600px) {
   .menu {
-    &__animateIcon:hover {
-      > .menu__animateSvg:nth-of-type(1) {
+    &__toggle:hover {
+      > .menu__toggle-svg:nth-of-type(1) {
         opacity: 0;
         transform: rotate(90deg);
       }
-      > .menu__animateSvg:nth-of-type(2) {
+      > .menu__toggle-svg:nth-of-type(2) {
         opacity: 1;
         transform: rotate(0deg);
       }
     }
     &__panel,
-    &__panelOpen {
+    &__panel--open {
       width: 600px;
     }
   }
@@ -156,11 +154,11 @@
 
 @media screen and (max-width: 599px) {
   .menu {
-    &__animateIcon:hover {
+    &__toggle:hover {
       /* nop */
     }
     &__panel,
-    &__panelOpen {
+    &__panel--open {
       width: calc(100% - 64px);
     }
   }
