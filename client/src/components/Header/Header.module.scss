@@ -6,10 +6,8 @@
     position: fixed;
     z-index: 1;
     height: 84px;
-    // padding-left: 104px;
     display: flex;
     justify-content: space-between;
-    // justify-content: center;
     align-items: center;
     padding-right: 40px;
     &--auth {
@@ -47,7 +45,7 @@
       width: 380px;
       border-radius: 8px;
       padding: 10px;
-      font-size: 16px;
+      font-size: 1rem;
       letter-spacing: 1.5px;
       line-height: 1.5;
     }
@@ -56,7 +54,7 @@
     padding-right: 40px;
     color: white;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 1rem;
     letter-spacing: 1.5px;
   }
   &__button {
@@ -65,7 +63,7 @@
     color: white;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1rem;
     letter-spacing: 1.5px;
     background-color: #4055db;
     display: flex;
@@ -88,6 +86,12 @@
 
 @media only screen and (max-width: 599px) {
   .header {
+    &__container {
+      &--default {
+        padding-left: 75px;
+        padding-right: 10px;
+      }
+    }
     &__text {
       display: none;
     }

@@ -29,7 +29,7 @@ export function Register() {
     try {
       const csrfToken = getCsrfToken();
       const response = await axios.post(
-        "/register/",
+        "http://localhost:8000/register/",
         { user: data.user, password: data.password },
         { headers: { "X-CSRFToken": csrfToken } }
       );

@@ -6,7 +6,7 @@
   &__label {
     display: flex;
     align-items: center;
-    font-size: 16px;
+    font-size: 1rem;
     letter-spacing: 1.5px;
     padding-bottom: 10px;
     gap: 10px;
@@ -14,11 +14,17 @@
   &__input {
     border-radius: 8px;
     padding: 10px;
-    font-size: 16px;
+    font-size: 1rem;
     letter-spacing: 1.5px;
     line-height: 1.5;
     position: relative;
     z-index: 1;
+    background-color: #232533;
+    border: 1px solid #42455799;
+    &:focus {
+      border-color: #9396FB;
+      outline: none;
+    }
     &--error {
       border-color: #e53e3e;
     }

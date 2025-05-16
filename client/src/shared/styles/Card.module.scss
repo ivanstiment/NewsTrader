@@ -9,9 +9,11 @@
     height: 100vh;
     width: 100%;
     align-items: center;
+    margin: auto;
     &--search {
       flex-direction: column;
       gap: 40px;
+      max-width: 600px;
     }
   }
   &__title {
@@ -28,7 +30,7 @@
   &__text {
     margin: 40px 0;
     letter-spacing: 1.5px;
-    font-size: 16px;
+    font-size: 1rem;
   }
   &__results {
     display: flex;
@@ -58,8 +60,12 @@
       display: grid;
       &--search {
         display: flex;
-        justify-content: center;
-        padding-left: 32px;
+        position: fixed;
+        left: 35px;
+        right: 0;
+        top: 84px;
+        overflow: auto;
+        z-index: 1;
       }
     }
   }
