@@ -3,6 +3,29 @@ import { getHistoricalPrice } from "../api/historical-price.api";
 import { getCandlestickOptions, getVolumeOptions } from "./getChartOptions";
 import { useNewsByDate } from "./useNewsByDate";
 
+function buildAnnotationPoints(hist, newsByDate) {
+  const points = [];
+  for (const item of hist) {
+    const day = item.date; // ISO “YYYY-MM-DD”
+    const titles = newsByDate[day] || [];
+    // titles.forEach: no unused vars, just repeat once per title
+    titles.forEach(() => {
+      points.push({
+        x: new Date(day).getTime(),
+        y: 0,
+        marker: {
+          size: 6,
+          fillColor: "#ffb300",
+          strokeColor: "#ff8800",
+          strokeWidth: 2,
+        },
+        label: { show: false },
+      });
+    });
+  }
+  return points;
+}
+
 export function useHistoricalPrice(symbol, showVolume) {
   const [candlesSeries, setCandlesSeries] = useState([]);
   const [volumeSeries, setVolumeSeries] = useState([]);
@@ -20,7 +43,7 @@ export function useHistoricalPrice(symbol, showVolume) {
       try {
         const { data: hist } = await getHistoricalPrice(symbol);
 
-        // 1) Series de velas
+        // Construir candles & vols a partir de hist
         const candles = hist.map((item) => ({
           x: new Date(item.date).getTime(),
           y: [
@@ -30,43 +53,32 @@ export function useHistoricalPrice(symbol, showVolume) {
             +item.close.toFixed(4),
           ],
         }));
-        setCandlesSeries([{ name: symbol.toUpperCase(), data: candles }]);
-
-        // 2) Series de volumen (si corresponde)
         const vols = hist.map((item) => ({
           x: new Date(item.date).getTime(),
           y: item.volume,
         }));
-        setVolumeSeries(showVolume ? [{ name: "Volumen", data: vols }] : []);
-        // Generamos los puntos de anotación
-        const annotationPoints = hist.flatMap((item) => {
-          const day = item.date; // "YYYY-MM-DD"
-          return (newsByDate[day] || []).map(() => ({
-            x: new Date(day).getTime(),
-            y: 0,
-            marker: {
-              size: 6,
-              fillColor: "#ffb300",
-              // strokeColor: "#fff",
-              strokeColor: "#ff8800",
-              strokeWidth: 2,
-            },
-            label: { show: false },
-          }));
+        // 2) Actualizar estado
+        if (!cancelled) {
+          setCandlesSeries([{ name: symbol.toUpperCase(), data: candles }]);
+          setVolumeSeries(showVolume ? [{ name: "Volumen", data: vols }] : []);
+        }
+
+        // Generar puntos de anotación
+        const annotationPoints = buildAnnotationPoints(hist, newsByDate);
+
+        // Crear opciones de velas pasando la variable local `candles` en vez de `candlesSeries`
+        const opts = getCandlestickOptions({
+          symbol,
+          candlesSeries: [{ name: symbol.toUpperCase(), data: candles }],
+          annotationPoints,
+          newsByDate,
+          showVolume,
+          volumeData: vols,
         });
+        if (!cancelled) setCandleOptions(opts);
 
-        // 3) Opciones separadas
-        setCandleOptions(
-          getCandlestickOptions({
-            symbol,
-            annotationPoints,
-            newsByDate,
-            showVolume,
-            volumeData: vols,
-          })
-        );
-
-        setVolumeOptions(getVolumeOptions());
+        // Crear opciones de volumen
+        if (!cancelled) setVolumeOptions(getVolumeOptions());
       } catch (err) {
         console.error(err);
       } finally {
@@ -77,7 +89,8 @@ export function useHistoricalPrice(symbol, showVolume) {
     return () => {
       cancelled = true;
     };
-  }, [symbol, showVolume, JSON.stringify(newsByDate)]);
+    // }, [symbol, showVolume, JSON.stringify(newsByDate)]);
+  }, [symbol, showVolume, newsByDate]);
 
   return {
     candlesSeries,

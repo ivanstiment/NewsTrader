@@ -56,6 +56,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    &--active {
+      background-color: #4055dbcc;
+    }
   }
   &__svg {
     display: block;
@@ -103,33 +106,30 @@
     margin: 0;
     padding: 0;
   }
-  &__link {
+  &__item {
     display: flex;
     align-items: center;
+  }
+  &__link {
     font-weight: bold;
     font-size: 1rem;
     color: #ffffff66;
-    &:hover {
-      color: white;
-    }
-  }
-  &__item {
     cursor: pointer;
     padding: 20px;
     background-color: #191a24;
     line-height: 1.5;
-    &:first-child {
-      padding: 15px 20px;
-      &:hover {
-        background-color: #191a24;
-      }
+    width: 100%;
+    &--active {
+      background-color: #4055dbcc;
+      color: white;
     }
-    &:hover {
+    &:hover:not(.menu__link--active) {
       background-color: #0e0f15;
-      & .menu__link {
-        color: white;
-      }
+      color: white;
     }
+  }
+  &__link-logo {
+    padding: 15px 20px;
   }
 }
 
@@ -155,7 +155,7 @@
 @media screen and (max-width: 599px) {
   .menu {
     &__toggle:hover {
-      /* nop */
+      /* no */
     }
     &__panel,
     &__panel--open {

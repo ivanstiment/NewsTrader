@@ -1,7 +1,7 @@
 import { useState } from "react";
-import ReactApexChart from "react-apexcharts";
 import { useParams } from "react-router-dom";
 import { useHistoricalPrice } from "../../hooks/useHistoricalPrice";
+import { ChartWrapper } from "../ChartWrapper";
 import styles from "./CandlestickChart.module.scss";
 
 export function CandlestickChart() {
@@ -19,7 +19,8 @@ export function CandlestickChart() {
       <div className={styles["chart__container"]}>
         {/* Gráfico de Velas + Anotaciones */}
         <div id="chart-candles">
-          <ReactApexChart
+          <ChartWrapper
+            id="candles"
             options={candleOptions}
             series={candlesSeries}
             type="candlestick"
@@ -34,10 +35,11 @@ export function CandlestickChart() {
             marginTop: 24,
             height: showVolume ? 150 : 0,
             overflow: "hidden",
-            transition: "height 0.3s",
+            transition: "height 0.3s ease",
           }}
         >
-          <ReactApexChart
+          <ChartWrapper
+            id="volume"
             options={volumeOptions}
             series={volumeSeries}
             type="bar"
