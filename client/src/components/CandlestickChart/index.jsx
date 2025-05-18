@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useHistoricalPrice } from "../../hooks/useHistoricalPrice";
+import { useHistoricalPrice } from "@/hooks/useHistoricalPrice";
 import { ChartWrapper } from "../ChartWrapper";
 import styles from "./CandlestickChart.module.scss";
 

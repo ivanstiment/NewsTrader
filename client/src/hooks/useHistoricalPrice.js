@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getHistoricalPrice } from "../api/historical-price.api";
+import { getHistoricalPrice } from "@/api/historical-price.api";
 import { getCandlestickOptions, getVolumeOptions } from "./getChartOptions";
 import { useNewsByDate } from "./useNewsByDate";
 

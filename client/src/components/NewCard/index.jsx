@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
-import { newCardPropTypes } from "../../propTypes/newCard.propTypes";
+import { newCardPropTypes } from "@/propTypes/newCard.propTypes";
 import { ExternalLinkIcon } from "../Icons";
 import styles from "./NewCard.module.scss";
+import toast from "react-hot-toast";
+import api from "@/api/axios";
 
 export function NewCard({ newItem }) {
   const tsSeconds = newItem.provider_publish_time;
@@ -14,6 +16,25 @@ export function NewCard({ newItem }) {
     minute: "2-digit",
   };
   const readableDate = dateObj.toLocaleString("es-ES", options);
+
+  const handleAnalyze = () => {
+    api
+      .post(`/news/${newItem.uuid}/analyze/`)
+      .then(() => toast.success("Análisis encolado"))
+      .catch(() => toast.error("Error al encolar"));
+  };
+
+  const analysis = newItem.analysis;
+
+  const setAnalysisClass = (sentimentLabel) => {
+    if (sentimentLabel === "positive") {
+      return styles["new__analysis-label--positive"];
+    } else if (sentimentLabel === "negative") {
+      return styles["new__analysis-label--negative"];
+    } else {
+      return styles["new__analysis-label--neutral"];
+    }
+  };
 
   return (
     <article className={styles["new__container"]}>
@@ -34,6 +55,7 @@ export function NewCard({ newItem }) {
           />
         </Link>
       </header>
+
       <div className={styles["new__body"]}>
         <div className={styles["new__data"]}>
           <span className={styles["new__subTitle"]}>Fecha</span>
@@ -62,6 +84,26 @@ export function NewCard({ newItem }) {
           </div>
         )}
       </div>
+      <footer className={styles["new__footer"]}>
+        <button
+          className={styles["new__analyzeButton"]}
+          onClick={handleAnalyze}
+        >
+          {analysis ? "Re-analizar" : "Analizar"}
+        </button>
+        {analysis && (
+          <div className={styles["new__analysis"]}>
+            <span
+              className={`${styles["new__analysis-label"]} ${setAnalysisClass(
+                analysis.sentiment_label
+              )}`}
+            >
+              {analysis.sentiment_label.toUpperCase()}
+            </span>
+            <small>Score: {analysis.combined_score.toFixed(2)}</small>
+          </div>
+        )}
+      </footer>
     </article>
   );
 }

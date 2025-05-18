@@ -1,4 +1,4 @@
-import { HistoricalPrice } from "../components/HistoricalPrice/index";
+import { HistoricalPrice } from "@/components/HistoricalPrice/index";
 
 export function HistoricalPricePage() {
   return <HistoricalPrice />;

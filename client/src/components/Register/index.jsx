@@ -1,11 +1,11 @@
+import { getCsrfToken } from "@/api/utils";
+import styles from "@/shared/styles";
+import { registerSchema } from "@/validators/register-schema.validator";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { getCsrfToken } from "../../api/utils";
-import { registerSchema } from "../../validators/register-schema.validator";
 import { PadlockIcon, UserIcon } from "../Icons";
-import styles from "@/shared/styles";
 
 export function Register() {
   // 2. Hook useForm con validación y modo onBlur para accesibilidad

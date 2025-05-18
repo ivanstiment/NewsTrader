@@ -61,6 +61,46 @@
     flex-wrap: wrap;
     gap: 8px;
   }
+
+  &__footer {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  &__analyzeButton {
+    background: #4055db;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    &:hover {
+      background: #3241a8;
+    }
+  }
+  &__analysis {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    &-label {
+      font-weight: bold;
+      border-radius: 4px;
+      padding: 0.25rem 0.75rem;
+      &--positive {
+        background-color: #05966933;
+        color: #a7f3d0;
+      }
+      &--negative {
+        color: #f87171;
+        background-color: #dc262633;
+      }
+      &--neutral {
+        color: #ccc;
+        background-color: #7f7f7f33;
+      }
+    }
+  }
 }
 
 @media only screen and (max-width: 599px) {

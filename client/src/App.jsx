@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Toaster } from "react-hot-toast";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation, Navigate } from "react-router-dom";
 import "./App.scss";
 import { CandlestickChart } from "./components/CandlestickChart/index";
 import { Header } from "./components/Header/index";
@@ -14,6 +14,8 @@ import { NewsPage } from "./pages/NewsPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { SearchPage } from "./pages/SearchPage";
 import { StockPage } from "./pages/StockPage";
+import { ArticlesPage } from "./pages/ArticlesPage";
+import { ArticleAnalyzePage } from "./pages/ArticleAnalyzePage";
 
 function AppContent() {
   const { pathname } = useLocation();
@@ -56,7 +58,12 @@ function AppContent() {
           <Route path="news" element={<NewsPage searchTerm={searchTerm} />} />
           <Route path="news-create" element={<NewFormPage />} />
           <Route path="news/:uuid" element={<NewFormPage />} />
+
+          <Route path="articles" element={<ArticlesPage />} />
+          <Route path="articles/:id/analyze" element={<ArticleAnalyzePage />} />
         </Route>
+        {/* Catch-all */}
+        <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
       <Toaster />
     </>

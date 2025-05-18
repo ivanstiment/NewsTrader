@@ -1,9 +1,9 @@
 import styles from "@/shared/styles";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllStocks } from "../../api/stock.api";
-import { useAuth } from "../../contexts/AuthContext";
-import { stockTermPropTypes } from "../../propTypes/stockTerm.propTypes";
+import { getAllStocks } from "@/api/stock.api";
+import { useAuth } from "@/hooks/useAuth";
+import { stockTermPropTypes } from "@/propTypes/stockTerm.propTypes";
 import { StockCard } from "../StockCard";
 
 export function Search() {
@@ -48,7 +48,7 @@ export function Search() {
       setErrorMessage("Por favor, escribe un símbolo.");
       return;
     }
-    const exact = stocks.find(s => s.symbol.toUpperCase() === term);
+    const exact = stocks.find((s) => s.symbol.toUpperCase() === term);
     if (exact) {
       navigate(`/stock/${exact.symbol}/`);
     } else {
@@ -56,7 +56,7 @@ export function Search() {
     }
   };
 
-    // Limpia el error en cuanto el usuario teclea
+  // Limpia el error en cuanto el usuario teclea
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
     if (errorMessage) {
@@ -72,7 +72,10 @@ export function Search() {
     <div
       className={`${styles["card__container"]} ${styles["card__container--search"]}`}
     >
-      <form onSubmit={handleSearch} className={styles["card"]} noValidate>
+      <form
+        onSubmit={handleSearch}
+        className={`${styles["card"]} ${styles["card--search"]}`}
+      >
         <div className={styles["form-field__wrapper"]}>
           <input
             type="text"

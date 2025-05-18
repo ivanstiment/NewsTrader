@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
-import { createNew, deleteNew, getNew, updateNew } from "../api/news.api";
+import { createNew, deleteNew, getNew, updateNew } from "@/api/news.api";
 
 export function NewFormPage() {
   const {

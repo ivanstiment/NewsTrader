@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
-import { searchTermPropTypes } from "../../propTypes/searchTerm.propTypes";
+import { useAuth } from "@/hooks/useAuth";
+import { searchTermPropTypes } from "@/propTypes/searchTerm.propTypes";
 import { ArrowRightIcon, LogoIcon } from "../Icons";
 import styles from "./Header.module.scss";
 

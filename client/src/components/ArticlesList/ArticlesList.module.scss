@@ -1,0 +1,24 @@
+.articles-list {
+  padding-right: 40px;
+  position: fixed;
+  left: 104px;
+  right: 0;
+  top: 84px;
+  overflow: auto;
+  min-height: calc(100vh - 84px);
+  height: calc(100% - 84px);
+  z-index: 1;
+  &__sidebar {
+    width: 300px;
+    overflow-y: auto;
+    border-right: 1px solid #2e3042;
+  }
+  &__detail {
+    flex: 1;
+    padding: 1rem;
+  }
+  &__placeholder {
+    color: #aaa;
+    font-style: italic;
+  }
+}

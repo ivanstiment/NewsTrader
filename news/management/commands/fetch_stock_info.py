@@ -74,6 +74,7 @@ class Command(BaseCommand):
                     'dateShortInterest': stock_info.get('dateShortInterest'),
                     'sharesPercentSharesOut': stock_info.get('sharesPercentSharesOut'),
                     'heldPercentInsiders': stock_info.get('heldPercentInsiders'),
+                    'heldPercentInstitutions': stock_info.get('heldPercentInstitutions'),
                     'shortRatio': stock_info.get('shortRatio'),
                     'shortPercentOfFloat': stock_info.get('shortPercentOfFloat'),
                     'impliedSharesOutstanding': stock_info.get('impliedSharesOutstanding'),

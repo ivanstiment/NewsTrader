@@ -1,14 +1,22 @@
 from rest_framework import serializers
-from .models import New, Stock, HistoricalPrice
+from sentiment_analysis.serializers import NewsAnalysisSerializer
+from .models import New, NewsAnalysis, Stock, HistoricalPrice
 
 
-class NewSerializer(serializers.ModelSerializer):
+
+class NewsSerializer(serializers.ModelSerializer):
+    analysis = NewsAnalysisSerializer(read_only=True)
     class Meta:
         model = New
         fields = "__all__"
 
+class NewsAnalysisSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NewsAnalysis
+        fields = "__all__"
 
-class StockSerializer(serializers.ModelSerializer):
+
+class StocksSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stock
         fields = "__all__"

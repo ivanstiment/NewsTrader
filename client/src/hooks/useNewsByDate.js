@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllNews } from "../api/news.api";
+import { getAllNews } from "@/api/news.api";
 
 export function useNewsByDate(symbol) {
   const [newsByDate, setNewsByDate] = useState({});

@@ -10,7 +10,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { getHistoricalPrice } from "../../api/historical-price.api";
+import { getHistoricalPrice } from "@/api/historical-price.api";
 
 export function HistoricalPrice() {
   const { symbol } = useParams();

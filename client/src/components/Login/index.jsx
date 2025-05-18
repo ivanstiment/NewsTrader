@@ -2,9 +2,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import api from "../../api/axios";
-import { useAuth } from "../../contexts/AuthContext";
-import { loginSchema } from "../../validators/login-schema.validator";
+import api from "@/api/axios";
+import { useAuth } from "@/hooks/useAuth";
+import { loginSchema } from "@/validators/login-schema.validator";
 import { PadlockIcon, UserIcon } from "../Icons";
 import styles from "@/shared/styles";
 
@@ -28,11 +28,11 @@ export function Login() {
   const onSubmit = async (data) => {
     setApiError("");
     try {
-      const resp = await api.post("/api/token/", {
+      const resp = await api.post("/token/", {
         username: data.username,
         password: data.password,
       });
-      login(resp.data.access);
+      login(resp.data.access, resp.data.refresh);
       navigate("/news");
     } catch (err) {
       setApiError(

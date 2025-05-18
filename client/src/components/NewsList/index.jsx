@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getAllNews } from "../../api/news.api";
-import { useAuth } from "../../contexts/AuthContext";
-import { searchTermPropTypes } from "../../propTypes/searchTerm.propTypes";
+import { getAllNews } from "@/api/news.api";
+import { useAuth } from "@/hooks/useAuth";
+import { searchTermPropTypes } from "@/propTypes/searchTerm.propTypes";
 import { NewCard } from "../NewCard";
 import styles from "./NewsList.module.scss";
 
@@ -80,10 +80,17 @@ export function NewsList({ searchTerm, initialPageSize = 15 }) {
         </header>
 
         {currentNews.length === 0 ? (
-          <p className={styles["news-list__message"]}>
-            No se han encontrado noticias que coincidan con la búsqueda.
-            {errorMessage && <span role="alert"> {errorMessage}</span>}
-          </p>
+          <div>
+            <p role="alert" className={styles["news-list__message"]}>
+              No se han encontrado noticias que coincidan con la búsqueda.
+            </p>
+            {errorMessage && (
+              <p role="alert" className={styles["news-list__message"]}>
+                {" "}
+                {errorMessage}
+              </p>
+            )}
+          </div>
         ) : (
           currentNews.map((item) => <NewCard newItem={item} key={item.uuid} />)
         )}

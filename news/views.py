@@ -1,19 +1,24 @@
 from django.contrib.auth.models import User
+from django.conf import settings
 from django.shortcuts import render
-from rest_framework import viewsets, status
 from django.views.generic.list import ListView
-from django.views.decorators.csrf import csrf_exempt
-from django.urls import reverse_lazy
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from django.http import JsonResponse
+from django.utils.decorators import method_decorator
 from .models import New, Stock, HistoricalPrice
+from .serializer import NewsSerializer, StocksSerializer
 from datetime import datetime
-from .serializer import NewSerializer, StockSerializer
-import json
-from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.settings import api_settings
+from rest_framework_simplejwt.serializers import (
+    TokenObtainPairSerializer,
+    TokenRefreshSerializer,
+)
+import json
 import math
 
 
@@ -34,41 +39,57 @@ import math
 #         return render(request, 'news/new_list.html', context)
 
 
-class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
-    def validate(self, attrs):
-        data = super().validate(attrs)
-        data['username'] = self.user.username
-        data['user_id'] = self.user.id
-        return data
-
-class CustomTokenObtainPairView(TokenObtainPairView):
-    serializer_class = CustomTokenObtainPairSerializer
-
 class MyTokenObtainPairView(TokenObtainPairView):
+    """
+    Devuelve 'access' en JSON y guarda 'refresh' en una cookie HttpOnly.
+    """
+
+    serializer_class = TokenObtainPairSerializer
+
     def post(self, request, *args, **kwargs):
         resp = super().post(request, *args, **kwargs)
         data = resp.data
-        response = Response({'access': data['access']})
+        response = Response({"access": data["access"]}, status=resp.status_code)
         # Set-Cookie HTTPOnly para refresh token
         response.set_cookie(
-            key='refresh_token',
-            value=data['refresh'],
+            key="refresh_token",
+            value=data["refresh"],
             httponly=True,
-            secure=True,
-            samesite='Lax'
+            # secure=True,
+            secure=not settings.DEBUG,
+            samesite="Lax",
         )
         return response
 
-class NewView(viewsets.ModelViewSet):
-    serializer_class = NewSerializer
-    queryset = New.objects.all()
+
+class CookieTokenRefreshView(TokenRefreshView):
+    """
+    Override para leer el refresh desde la cookie HttpOnly en lugar de request.data.
+    """
+
+    serializer_class = TokenRefreshSerializer
+
+    @method_decorator(ensure_csrf_cookie)
+    def post(self, request, *args, **kwargs):
+        refresh = request.COOKIES.get("refresh_token")
+        if not refresh:
+            return Response({"detail": "No refresh token cookie"}, status=400)
+        # inyectamos en request.data
+        request.data["refresh"] = refresh
+        return super().post(request, *args, **kwargs)
+
+
+class NewsView(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
-    
-class StockView(viewsets.ModelViewSet):
-    serializer_class = StockSerializer
+    serializer_class = NewsSerializer
+    # queryset = New.objects.all()
+    queryset = New.objects.all().select_related("analysis").order_by("-provider_publish_time")
+
+
+class StocksView(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = StocksSerializer
     queryset = Stock.objects.all()
-    # permission_classes = [IsAuthenticated]
-    permission_classes = [AllowAny]
 
     def list(self, request, *args, **kwargs):
         # Obtiene el queryset y serializa normalmente
@@ -87,28 +108,32 @@ class StockView(viewsets.ModelViewSet):
         clean = sanitize_floats(data)
         return Response(clean, status=status.HTTP_200_OK)
 
+
 class StockDetailView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, symbol):
         stock = Stock.objects.filter(symbol__iexact=symbol).first()
         if not stock:
-            return Response({'message': 'Stock no encontrado'}, status=status.HTTP_404_NOT_FOUND)
-        serializer = StockSerializer(stock)
+            return Response(
+                {"message": "Stock no encontrado"}, status=status.HTTP_404_NOT_FOUND
+            )
+        serializer = StocksSerializer(stock)
         data = serializer.data
         clean = sanitize_floats(data)
         return Response(clean, status=status.HTTP_200_OK)
 
+
 def get_historical_prices(request, symbol):
-    datos = HistoricalPrice.objects.filter(symbol=symbol.upper()).order_by('date')
+    datos = HistoricalPrice.objects.filter(symbol=symbol.upper()).order_by("date")
     respuesta = [
         {
-            'date': dato.date.isoformat(),                
-            'open': dato.open,
-            'high': dato.high,
-            'low': dato.low,
-            'close': dato.close,
-            'volume': dato.volume
+            "date": dato.date.isoformat(),
+            "open": dato.open,
+            "high": dato.high,
+            "low": dato.low,
+            "close": dato.close,
+            "volume": dato.volume,
         }
         for dato in datos
     ]
@@ -117,22 +142,22 @@ def get_historical_prices(request, symbol):
 
 @csrf_exempt
 def register_user(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         data = json.loads(request.body)
-        username = data.get('user')
-        password = data.get('password')
-        
+        username = data.get("user")
+        password = data.get("password")
+
         if User.objects.filter(username=username).exists():
-            return JsonResponse({'error': 'El usuario ya existe'}, status=400)
-        
+            return JsonResponse({"error": "El usuario ya existe"}, status=400)
+
         User.objects.create_user(username=username, password=password)
-        return JsonResponse({'success': 'Usuario creado exitosamente'}, status=201)
-    return JsonResponse({'error': 'Método no permitido'}, status=405)
+        return JsonResponse({"success": "Usuario creado exitosamente"}, status=201)
+    return JsonResponse({"error": "Método no permitido"}, status=405)
 
 
 def sanitize_floats(obj):
     """
-    Recorre dicts y listas, reemplazando valores float infinitos o NaN por None.
+    Reemplaza float infinitos o NaN por None en JSON serializable.
     """
     if isinstance(obj, float):
         if math.isinf(obj) or math.isnan(obj):
