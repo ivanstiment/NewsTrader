@@ -98,17 +98,18 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Set SCM_DO_BUILD_DURING_DEPLOYMENT to true
-        run: |
-          az webapp config appsettings set \
-            --name ${{ env.AZURE_WEBAPP_NAME }} \
-            --resource-group newstrader_group \
-            --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true
+        uses: azure/cli@v1
+        with:
+          inlineScript: |
+            az webapp config appsettings set \
+              --name ${{ env.AZURE_WEBAPP_NAME }} \
+              --resource-group newstrader_group \
+              --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true
 
       - name: Configure and Tail App Service Logs
         uses: azure/cli@v1
         with:
           inlineScript: |
-            # Configurar logging de la App Service
             az webapp log config \
               --resource-group newstrader_group \
               --name ${{ env.AZURE_WEBAPP_NAME }} \
@@ -117,8 +118,8 @@ jobs:
               --failed-request-tracing true \
               --web-server-logging filesystem
 
-            # Tail logs en tiempo real (detendrá tras 2 minutos)
-            timeout 2m az webapp log tail \
+            # Tail logs en tiempo real (detendrá tras 10 minutos)
+            timeout 10m az webapp log tail \
               --resource-group newstrader_group \
               --name ${{ env.AZURE_WEBAPP_NAME }}
 
