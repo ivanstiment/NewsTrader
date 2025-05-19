@@ -79,6 +79,23 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      
+      - name: Verify Azure Credentials Secret
+        # Exportamos el secret a una variable de entorno para poder usarlo en shell
+        env:
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+        run: |
+          if [ -z "$AZURE_CREDENTIALS" ]; then
+            echo "❌ AZURE_CREDENTIALS está VACÍO"
+            exit 1
+          else
+            echo "✅ AZURE_CREDENTIALS está CONFIGURADO"
+          fi
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Configure and Tail App Service Logs
         uses: azure/cli@v1
@@ -97,23 +114,6 @@ jobs:
             timeout 2m az webapp log tail \
               --resource-group newstrader_group \
               --name ${{ env.AZURE_WEBAPP_NAME }}
-
-      - name: Verify Azure Credentials Secret
-        # Exportamos el secret a una variable de entorno para poder usarlo en shell
-        env:
-          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
-        run: |
-          if [ -z "$AZURE_CREDENTIALS" ]; then
-            echo "❌ AZURE_CREDENTIALS está VACÍO"
-            exit 1
-          else
-            echo "✅ AZURE_CREDENTIALS está CONFIGURADO"
-          fi
-
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Verify Publish Profile Secret
         # Exportamos el secret a una variable de entorno para poder usarlo en shell
