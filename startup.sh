@@ -1,6 +1,14 @@
 #!/bin/bash
 set -e
 
+echo "Creando entorno virtual..."
+python -m venv antenv
+source antenv/bin/activate
+
+echo "Instalando dependencias..."
+pip install --upgrade pip
+pip install -r requirements.txt
+
 echo "Verificando dependencias críticas..."
 for pkg in django celery; do
   if ! python -c "import $pkg" &> /dev/null; then
