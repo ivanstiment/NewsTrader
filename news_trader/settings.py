@@ -40,11 +40,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "news.apps.NewsConfig",
     "sentiment_analysis.apps.SentimentAnalysisConfig",
-    "django_celery_results",
     "corsheaders",
     "rest_framework",
     "rest_framework_simplejwt",
-    'rest_framework_simplejwt.token_blacklist',
+    "rest_framework_simplejwt.token_blacklist",
+    "django_celery_results",
 ]
 
 MIDDLEWARE = [

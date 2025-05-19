@@ -4,26 +4,30 @@ from .serializers import ArticleSerializer, ArticleAnalysisSerializer
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from .tasks import analyze_article, analyze_news_title
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.exceptions import NotFound
 
+
 class AnalyzeNewsView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request, uuid):
         # Validamos que exista la noticia
         from news.models import New
+
         if not New.objects.filter(uuid=uuid).exists():
-            raise NotFound({"detail": "Noticia no encontrada"}, code=status.HTTP_404_NOT_FOUND)
+            raise NotFound(
+                {"detail": "Noticia no encontrada"}, code=status.HTTP_404_NOT_FOUND
+            )
 
         analyze_news_title.delay(uuid)
         return Response(
-            {"status": "enqueued", "news": uuid},
-            status=status.HTTP_202_ACCEPTED
+            {"status": "enqueued", "news": uuid}, status=status.HTTP_202_ACCEPTED
         )
+
 
 class ArticleView(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
