@@ -118,8 +118,8 @@ jobs:
               --failed-request-tracing true \
               --web-server-logging filesystem
 
-            # Tail logs en tiempo real (detendrá tras 10 minutos)
-            timeout 10m az webapp log tail \
+            # Tail logs en tiempo real (detendrá tras 5 minutos)
+            timeout 5m az webapp log tail \
               --resource-group newstrader_group \
               --name ${{ env.AZURE_WEBAPP_NAME }}
 
