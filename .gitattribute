@@ -1,0 +1,2 @@
+# Forzar LF en scripts de arranque
+*.sh text eol=lf
