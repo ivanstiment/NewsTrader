@@ -29,18 +29,19 @@ def analyze_news_title(self, news_uuid):
     
     logger.info("💡 lex_score=%s, mdl_score=%s", lex_score, mdl_score)
 
-    # Clasificación simple
+    # Clasificación de sentimiento
     label = "neutral"
     if combined > 0.2:
-        label = "positive"
+        label = "positivo"
     if combined < -0.2:
-        label = "negative"
-    # Relevancia
-    relevance = "low"
+        label = "negativo"
+        
+    # Nivel de relevancia
+    relevance = "baja"
     if ticker_count > 0 and figures_count > 0:
-        relevance = "high"
+        relevance = "alta"
     elif ticker_count > 0 or figures_count > 0:
-        relevance = "medium"
+        relevance = "media"
 
     # Guardar o actualizar
     analysis, created = NewsAnalysis.objects.update_or_create(
@@ -61,7 +62,6 @@ def analyze_news_title(self, news_uuid):
 
 @shared_task
 def analyze_article(article_id):
-    logger.info("✅ Pero que cojones")
     """
     Análisis asíncrono de un artículo:
     - lexicon_score: diccionario finans.
@@ -81,26 +81,26 @@ def analyze_article(article_id):
 
     # Conteos
     tic_cnt = txt.upper().count(art.ticker.upper())
-    fig_cnt = len(re.findall(r"\d+[\d,.]*[%]?", txt))
+    fig_cnt = len(re.findall(r"\d+[\d,.]*%?", txt))
 
     # Puntuación combinada
     combined = 0.4 * kw_score + 0.2 * mdl_score + 0.1 * tic_cnt + 0.3 * fig_cnt
 
-    # Etiqueta de sentimiento
+    # Clasificación de sentimiento
     if mdl_score > 0.1:
-        label = "positive"
+        label = "positivo"
     elif mdl_score < -0.1:
-        label = "negative"
+        label = "negativo"
     else:
         label = "neutral"
 
-    # 6) Nivel de relevancia
+    # Nivel de relevancia
     if tic_cnt > 0 and fig_cnt > 0:
-        rel = "high"
+        rel = "alta"
     elif tic_cnt > 0:
-        rel = "medium"
+        rel = "media"
     else:
-        rel = "low"
+        rel = "baja"
 
     # Guardar o actualizar
     ArticleAnalysis.objects.update_or_create(

@@ -2,7 +2,7 @@ import csv
 import logging
 from importlib import resources
 from pathlib import Path
-from typing import Set
+from typing import Set, Tuple
 import re
 
 logger = logging.getLogger(__name__)
@@ -53,22 +53,22 @@ def _load_custom_csv(filename: str) -> Set[str]:
     return terms
 
 
-def load_lexicons() -> (Set[str], Set[str]):
+def load_lexicons() -> (Tuple[Set[str], Set[str]]):
     """
     Retorna (POS_TERMS, NEG_TERMS), uniendo:
     - Loughran–McDonald
     - custom_positive.csv
     - custom_negative.csv
     """
-    # 1) oficial
+    # Diccionario oficial
     pos = _load_loughran_column("Positive")
     neg = _load_loughran_column("Negative")
 
-    # 2) custom CSVs (para poder ampliar):
+    # Diccionarios custom CSVs (para poder ampliar):
     pos |= _load_custom_csv("positive.csv")
     neg |= _load_custom_csv("negative.csv")
 
-    # 3) Eliminar duplicados: si una palabra está en ambas listas, la sacamos de ambas
+    # Eliminar duplicados: si una palabra está en ambas listas, la sacamos de ambas
     overlap = pos & neg
     if overlap:
         logger.warning("Términos en ambas listas (se eliminan): %s", overlap)
