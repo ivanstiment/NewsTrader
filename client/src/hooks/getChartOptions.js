@@ -1,3 +1,12 @@
+import styles from "./getChartOptions.module.scss";
+
+const tooltipClass = styles["chart-tooltip"];
+const tooltipDateClass = styles["chart-tooltip__date"];
+const tooltipDataClass = styles["chart-tooltip__data"];
+const tooltipSeparationLineClass = styles["chart-tooltip__hr"];
+const tooltipNewTitleClass = styles["chart-tooltip__new-title"];
+const tooltipTextBoldClass = styles["chart-tooltip__text--bold"];
+
 export function getCandlestickOptions({
   symbol,
   candlesSeries,
@@ -88,41 +97,40 @@ export function getCandlestickOptions({
     tooltip: {
       shared: true,
       custom: ({ w, dataPointIndex }) => {
-        // 1) Obtenemos OHLC
+        // Obtenemos OHLC
         const ohlc = w.config.series[0].data[dataPointIndex].y;
         const ts = w.globals.seriesX[0][dataPointIndex];
         const isoDay = new Date(ts).toISOString().slice(0, 10);
-        let html = `<div style="
-            padding:6px;
-            background: #000000cc;
-            color:white;
-            border-radius:4px;"><b>${new Date(ts).toLocaleDateString()}</b><br/>
-                    Open: <b>${ohlc[0].toFixed(4)}</b><br/>
-                    High: <b>${ohlc[1].toFixed(4)}</b><br/>
-                    Low: <b>${ohlc[2].toFixed(4)}</b><br/>
-                    Close: <b>${ohlc[3].toFixed(4)}</b><br/>`;
+        let html = `<div class=${tooltipClass}>
+                    <p class="${tooltipDateClass}"><span class="${tooltipTextBoldClass}">${new Date(
+          ts
+        ).toLocaleDateString()}</span></p>
+                    <p class="${tooltipDataClass}">Open: <span class="${tooltipTextBoldClass}">${ohlc[0].toFixed(
+          4
+        )}</span></p>
+                    <p class="${tooltipDataClass}">High: <span class="${tooltipTextBoldClass}">${ohlc[1].toFixed(
+          4
+        )}</span></p>
+                    <p class="${tooltipDataClass}">Low: <span class="${tooltipTextBoldClass}">${ohlc[2].toFixed(
+          4
+        )}</span></p>
+                    <p class="${tooltipDataClass}">Close: <span class="${tooltipTextBoldClass}">${ohlc[3].toFixed(
+          4
+        )}</span></p>`;
 
-        // 2) Volumen (solo si lo mostramos)
+        // Volumen (solo si lo mostramos)
         if (showVolume && Array.isArray(volumeData)) {
           const volume = volumeData[dataPointIndex].y;
-          html += `Volumen: <b>${volume.toLocaleString()}</b><br/>`;
+          html += `<p class="${tooltipDataClass}">Volumen: <span class="${tooltipTextBoldClass}">${volume.toLocaleString()}</span></p>`;
         }
 
-        // 3) Noticias
+        // Noticias
         const titles = newsByDate[isoDay] || [];
         if (titles.length) {
-          html += `<hr style="margin:4px 0;"/>`;
+          html += `<hr class="${tooltipSeparationLineClass}"/>`;
           titles.forEach((t) => {
             html += `
-              <div style="
-                font-style: italic;
-                font-size: 0.85em;
-                max-width: 100px;
-                white-space: normal;
-                overflow-wrap: break-word;
-                word-break: break-word;
-                margin-bottom: 4px;
-              ">
+              <div class="${tooltipNewTitleClass}" >
                 “${t}”
               </div>`;
           });
@@ -133,7 +141,6 @@ export function getCandlestickOptions({
     },
   };
 }
-
 export function getVolumeOptions() {
   return {
     chart: {
@@ -186,13 +193,11 @@ export function getVolumeOptions() {
         const val = w.config.series[seriesIndex].data[dataPointIndex].y;
         const ts = w.globals.seriesX[0][dataPointIndex];
         return `
-          <div style="
-            padding:6px;
-            background: #000000cc;
-            color:white;
-            border-radius:4px;">
-              <div><b>${new Date(ts).toLocaleDateString()}</b></div>
-              <div>Volumen: <b>${val.toLocaleString()}</b></div>
+          <div class=${tooltipClass}>
+                    <p class="${tooltipDateClass}"><span class="${tooltipTextBoldClass}">${new Date(
+          ts
+        ).toLocaleDateString()}</span></p>
+              <p class="${tooltipDataClass}">Volumen: <span class="${tooltipTextBoldClass}">${val.toLocaleString()}</span></p>
           </div>
         `;
       },
