@@ -18,10 +18,7 @@ import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env = environ.Env(
-    # Set default values and casting
-    DEBUG=(bool, False)
-)
+env = environ.Env(DEBUG=(bool, False))
 # Leer .env si existe (solo para local)
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
@@ -180,7 +177,7 @@ SIMPLE_JWT = {
 
 CELERY_BROKER_URL = env('CELERY_BROKER_URL')
 CELERY_RESULT_BACKEND = env('CELERY_RESULT_BACKEND')
-CELERY_ACCEPT_CONTENT  = ["json"]
+CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
-CELERY_TIMEZONE        = "UTC"
+CELERY_TIMEZONE = "UTC"

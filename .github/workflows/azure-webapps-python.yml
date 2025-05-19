@@ -78,11 +78,25 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
+      - uses: actions/checkout@v4
+
+      - name: Configure and Tail App Service Logs
+        uses: azure/cli@v1
         with:
-          name: python-app
-          path: .
+          inlineScript: |
+            # Configurar logging de la App Service
+            az webapp log config \
+              --resource-group newstrader_group \
+              --name ${{ env.AZURE_WEBAPP_NAME }} \
+              --application-logging filesystem \
+              --detailed-error-messages true \
+              --failed-request-tracing true \
+              --web-server-logging filesystem
+
+            # Tail logs en tiempo real (detendrá tras 2 minutos)
+            timeout 2m az webapp log tail \
+              --resource-group newstrader_group \
+              --name ${{ env.AZURE_WEBAPP_NAME }}
 
       - name: Verify Azure Credentials Secret
         # Exportamos el secret a una variable de entorno para poder usarlo en shell
