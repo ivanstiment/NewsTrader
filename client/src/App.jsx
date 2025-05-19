@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { Toaster } from "react-hot-toast";
+import { BrowserRouter, Route, Routes, useLocation, Navigate } from "react-router-dom";
 import "./App.scss";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { CandlestickChart } from "./components/CandlestickChart/index";
+import { Header } from "./components/Header/index";
+import { NavigationMenu } from "./components/NavigationMenu/index";
+import { PrivateRoute } from "./components/PrivateRoute";
+import { AuthProvider } from "./contexts/AuthContext";
 import { HomePage } from "./pages/HomePage";
 import { LoginPage } from "./pages/LoginPage";
-import { RegisterPage } from "./pages/RegisterPage";
-import { NewsPage } from "./pages/NewsPage";
 import { NewFormPage } from "./pages/NewFormPage";
+import { NewsPage } from "./pages/NewsPage";
+import { RegisterPage } from "./pages/RegisterPage";
 import { SearchPage } from "./pages/SearchPage";
 import { StockPage } from "./pages/StockPage";
-import { NavigationMenu } from "./components/NavigationMenu/index";
-import { Header } from "./components/Header/index";
-import { Toaster } from "react-hot-toast";
-import { AuthProvider } from "./contexts/AuthContext";
-import { PrivateRoute } from "./components/PrivateRoute";
+import { ArticlesPage } from "./pages/ArticlesPage";
+import { ArticleAnalyzePage } from "./pages/ArticleAnalyzePage";
 
 function AppContent() {
   const { pathname } = useLocation();
@@ -48,10 +51,19 @@ function AppContent() {
             path="stock/:symbol"
             element={<StockPage searchStock={searchStock} />}
           />
+          <Route
+            path="historical-price/:symbol"
+            element={<CandlestickChart />}
+          />
           <Route path="news" element={<NewsPage searchTerm={searchTerm} />} />
           <Route path="news-create" element={<NewFormPage />} />
           <Route path="news/:uuid" element={<NewFormPage />} />
+
+          <Route path="articles" element={<ArticlesPage />} />
+          <Route path="articles/:id/analyze" element={<ArticleAnalyzePage />} />
         </Route>
+        {/* Catch-all */}
+        <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
       <Toaster />
     </>

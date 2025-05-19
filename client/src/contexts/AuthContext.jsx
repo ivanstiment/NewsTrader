@@ -1,55 +1,54 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
+import { createContext, useEffect, useMemo, useState } from "react";
+import { authProviderPropTypes } from "@/propTypes/authProvider.propTypes";
+import {
+  getAccessToken as readToken,
+  setRefreshToken as writeRefresh,
+  setAccessToken as writeToken,
+} from "@/services/tokenService";
 
-const AuthContext = createContext();
-let inMemoryToken = null;
+export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // on mount, check for existing token
   useEffect(() => {
-    const fetchToken = async () => {
-      const token = await getAccessToken();
-      if (token) {
-        inMemoryToken = token;
-        setUser({});
-      }
-      setLoading(false);
-    };
-    fetchToken();
+    const token = readToken();
+    if (token) {
+      setUser({}); // Or decode user from token right away
+    }
+    setLoading(false);
   }, []);
 
-  const login = (accessToken) => {
-    inMemoryToken = accessToken; // guardar en memoria
-    const decodedToken = jwtDecode(accessToken); // guardar en memoria
-    setUser({
-      username: decodedToken.username,
-      userId: decodedToken.user_id,
-    }); // podrías decodificar user de token
+  const login = (accessToken, refreshToken) => {
+    writeToken(accessToken);
+    writeRefresh(refreshToken);
+    const decoded = jwtDecode(accessToken);
+    setUser({ username: decoded.username, userId: decoded.user_id });
     setLoading(false);
   };
 
   const logout = () => {
-    inMemoryToken = null;
+    writeToken(null);
+    writeRefresh(null);
     setUser(null);
     window.location.href = "/login";
   };
 
-  return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
-      {children}
-    </AuthContext.Provider>
+  // memoize context value object to avoid re-creations on every render
+  const value = useMemo(
+    () => ({
+      user,
+      loading,
+      login,
+      logout,
+    }),
+    [user, loading]
   );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-export function useAuth() {
-  return useContext(AuthContext);
-}
-
-export function getAccessToken() {
-  return inMemoryToken;
-}
-export function setAccessToken(token) {
-  inMemoryToken = token;
-}
+AuthProvider.propTypes = authProviderPropTypes;

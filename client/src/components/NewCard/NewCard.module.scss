@@ -6,29 +6,38 @@
     border: 1px solid #2e3042;
     margin-bottom: 20px;
   }
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
   &__title {
     margin-bottom: 15px;
     border-radius: 8px;
     color: white;
     padding: 0;
     line-height: 150%;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: normal;
     letter-spacing: 1.5px;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  &__link {
+    margin-top: 0.83em;
   }
   &__body {
     display: flex;
     justify-content: start;
     align-items: start;
+    flex-wrap: wrap;
+    gap: 20px;
   }
   &__data {
     display: flex;
     justify-content: start;
     align-items: start;
     flex-direction: column;
-    &:not(:first-child):not(:last-child) {
-      margin: 0 20px;
-    }
   }
   &__subTitle {
     font-weight: bold;
@@ -47,22 +56,65 @@
     margin-bottom: 15px;
     border-radius: 8px;
   }
+  &__badgesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &__footer {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  &__analyzeButton {
+    background: #4055db;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    &:hover {
+      background: #3241a8;
+    }
+  }
+  &__analysis {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    &-label {
+      font-weight: bold;
+      border-radius: 4px;
+      padding: 0.25rem 0.75rem;
+      &--positive {
+        background-color: #05966933;
+        color: #a7f3d0;
+      }
+      &--negative {
+        color: #f87171;
+        background-color: #dc262633;
+      }
+      &--neutral {
+        color: #ccc;
+        background-color: #7f7f7f33;
+      }
+    }
+  }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 599px) {
   .new {
+    &__container {
+      padding: 20px;
+    }
+    &__svg {
+      scale: 0.75;
+    }
     &__body {
       flex-direction: column;
       justify-content: normal;
       align-items: normal;
-    }
-    &__data {
-      justify-content: space-between;
-      flex-direction: row;
-      align-items: center;
-      &:not(:first-child):not(:last-child) {
-        margin: 20px 0;
-      }
     }
   }
 }

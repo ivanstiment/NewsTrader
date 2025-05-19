@@ -1,56 +1,3 @@
-# # import yfinance as yf
-
-# # mlgo = yf.Ticker("MLGO")
-
-# # mlgo_info=mlgo.info
-# # print(mlgo)
-# # print(mlgo_info)
-
-# # app/stocks/management/commands/fetch_stock_info.py
-# import time
-# from django.core.management.base import BaseCommand
-# import yfinance as yf
-# from news.models import Stock, CompanyOfficer
-
-# class Command(BaseCommand):
-#     help = "Fetch stock info from yfinance and save to DB"
-
-#     def add_arguments(self, parser):
-#         parser.add_argument("symbol", type=str, help="Ticker symbol, e.g. MLGO")
-
-#     def handle(self, *args, **options):
-#         symbol = options["symbol"].upper()
-#         ticker = yf.Ticker(symbol)
-#         info = ticker.info
-
-#         # Crear o actualizar StockInfo
-#         stock, created = StockInfo.objects.update_or_create(
-#             symbol=symbol,
-#             defaults={k if k!="open" else "open_price": v for k,v in info.items()
-#                       if k not in ("companyOfficers",)},
-#         )
-#         self.stdout.write(f"{'Created' if created else 'Updated'} {stock}")
-
-#         # Persiste companyOfficers
-#         stock.companyOfficers.all().delete()
-#         for officer in info.get("companyOfficers", []):
-#             CompanyOfficer.objects.create(
-#                 stock=stock,
-#                 maxAge=officer.get("maxAge"),
-#                 name=officer.get("name",""),
-#                 age=officer.get("age"),
-#                 title=officer.get("title"),
-#                 yearBorn=officer.get("yearBorn"),
-#                 fiscalYear=officer.get("fiscalYear"),
-#                 totalPay=officer.get("totalPay"),
-#                 exercisedValue=officer.get("exercisedValue"),
-#                 unexercisedValue=officer.get("unexercisedValue"),
-#             )
-#         self.stdout.write("Company officers saved.")
-
-#         # Sleep breve para respetar rate limits
-#         time.sleep(1)
-
 import yfinance as yf
 from django.core.management.base import BaseCommand
 from news.models import Stock
@@ -66,6 +13,7 @@ class Command(BaseCommand):
         
         try:
             stock_info = yf.Ticker(ticker_symbol).info
+            self.stdout.write(f"El stock_info: {stock_info}")
             stock, created = Stock.objects.update_or_create(
                 symbol=stock_info.get('symbol'),
                 defaults={
@@ -93,21 +41,107 @@ class Command(BaseCommand):
                     # Datos de mercado
                     'previousClose': stock_info.get('previousClose'),
                     'open': stock_info.get('open'),
-                    
-                    'shortName': stock_info.get('shortName'),
-                    'longName': stock_info.get('longName'),
-                    'marketCap': stock_info.get('marketCap'),
-                    'currentPrice': stock_info.get('currentPrice'),
                     'dayLow': stock_info.get('dayLow'),
                     'dayHigh': stock_info.get('dayHigh'),
-                    'fiftyTwoWeekLow': stock_info.get('fiftyTwoWeekLow'),
-                    'fiftyTwoWeekHigh': stock_info.get('fiftyTwoWeekHigh'),
+                    'regularMarketPreviousClose': stock_info.get('regularMarketPreviousClose'),
+                    'regularMarketOpen': stock_info.get('regularMarketOpen'),
+                    'regularMarketDayLow': stock_info.get('regularMarketDayLow'),
+                    'regularMarketDayHigh': stock_info.get('regularMarketDayHigh'),
                     'volume': stock_info.get('volume'),
                     'averageVolume': stock_info.get('averageVolume'),
-                    'beta': stock_info.get('beta'),
+                    'averageVolume10days': stock_info.get('averageVolume10days'),
+                    'averageDailyVolume10Day': stock_info.get('averageDailyVolume10Day'),
+                    'bid': stock_info.get('bid'),
+                    'ask': stock_info.get('ask'),
+                    'bidSize': stock_info.get('bidSize'),
+                    'askSize': stock_info.get('askSize'),
+                    'marketCap': stock_info.get('marketCap'),
+                    'fiftyTwoWeekLow': stock_info.get('fiftyTwoWeekLow'),
+                    'fiftyTwoWeekHigh': stock_info.get('fiftyTwoWeekHigh'),
+                    'priceToSalesTrailing12Months': stock_info.get('priceToSalesTrailing12Months'),
+                    'fiftyDayAverage': stock_info.get('fiftyDayAverage'),
+                    'twoHundredDayAverage': stock_info.get('twoHundredDayAverage'),
                     'payoutRatio': stock_info.get('payoutRatio'),
-                    'trailingEps': stock_info.get('trailingEps'),
+                    'beta': stock_info.get('beta'),
                     'currency': stock_info.get('currency'),
+                    'tradeable': stock_info.get('tradeable'),
+                    'enterpriseValue': stock_info.get('enterpriseValue'),
+                    'profitMargins': stock_info.get('profitMargins'),
+                    'floatShares': stock_info.get('floatShares'),
+                    'sharesOutstanding': stock_info.get('sharesOutstanding'),
+                    'sharesShort': stock_info.get('sharesShort'),
+                    'sharesShortPriorMonth': stock_info.get('sharesShortPriorMonth'),
+                    'dateShortInterest': stock_info.get('dateShortInterest'),
+                    'sharesPercentSharesOut': stock_info.get('sharesPercentSharesOut'),
+                    'heldPercentInsiders': stock_info.get('heldPercentInsiders'),
+                    'heldPercentInstitutions': stock_info.get('heldPercentInstitutions'),
+                    'shortRatio': stock_info.get('shortRatio'),
+                    'shortPercentOfFloat': stock_info.get('shortPercentOfFloat'),
+                    'impliedSharesOutstanding': stock_info.get('impliedSharesOutstanding'),
+                    'bookValue': stock_info.get('bookValue'),
+                    'priceToBook': stock_info.get('priceToBook'),
+                    'lastFiscalYearEnd': stock_info.get('lastFiscalYearEnd'),
+                    'nextFiscalYearEnd': stock_info.get('nextFiscalYearEnd'),
+                    'mostRecentQuarter': stock_info.get('mostRecentQuarter'),
+                    'netIncomeToCommon': stock_info.get('netIncomeToCommon'),
+                    'trailingEps': stock_info.get('trailingEps'),
+                    'lastSplitFactor': stock_info.get('lastSplitFactor'),
+                    'lastSplitDate': stock_info.get('lastSplitDate'),
+                    'enterpriseToRevenue': stock_info.get('enterpriseToRevenue'),
+                    'enterpriseToEbitda': stock_info.get('enterpriseToEbitda'),                    
+                    'SandP52WeekChange': stock_info.get('SandP52WeekChange'),
+                    'quoteType': stock_info.get('quoteType'),
+                    'currentPrice': stock_info.get('currentPrice'),
+                    'recommendationKey': stock_info.get('recommendationKey'),
+                    'totalCash': stock_info.get('totalCash'),
+                    'totalCashPerShare': stock_info.get('totalCashPerShare'),
+                    'ebitda': stock_info.get('ebitda'),
+                    'totalDebt': stock_info.get('totalDebt'),
+                    'quickRatio': stock_info.get('quickRatio'),
+                    'currentRatio': stock_info.get('currentRatio'),
+                    'totalRevenue': stock_info.get('totalRevenue'),
+                    'debtToEquity': stock_info.get('debtToEquity'),                    
+                    'revenuePerShare': stock_info.get('revenuePerShare'),
+                    'returnOnAssets': stock_info.get('returnOnAssets'),
+                    'returnOnEquity': stock_info.get('returnOnEquity'),
+                    'grossProfits': stock_info.get('grossProfits'),
+                    'freeCashflow': stock_info.get('freeCashflow'),
+                    'operatingCashflow': stock_info.get('operatingCashflow'),                    
+                    'revenueGrowth': stock_info.get('revenueGrowth'),
+                    'grossMargins': stock_info.get('grossMargins'),
+                    'ebitdaMargins': stock_info.get('ebitdaMargins'),
+                    'operatingMargins': stock_info.get('operatingMargins'),
+                    'financialCurrency': stock_info.get('financialCurrency'),    
+                    'shortName': stock_info.get('shortName'),
+                    'longName': stock_info.get('longName'),
+                    'marketState': stock_info.get('marketState'),
+                    'regularMarketTime': stock_info.get('regularMarketTime'),
+                    'exchange': stock_info.get('exchange'),
+                    'exchangeTimezoneName': stock_info.get('exchangeTimezoneName'),
+                    'exchangeTimezoneShortName': stock_info.get('exchangeTimezoneShortName'),
+                    'gmtoffsetMilliseconds': stock_info.get('gmtoffsetMilliseconds'),
+                    'market': stock_info.get('market'),
+                    'esgPopulated': stock_info.get('esgPopulated'),
+                    'hasPrePostMarketData': stock_info.get('hasPrePostMarketData'),
+                    'sourceInterval': stock_info.get('sourceInterval'),
+                    'exchangeDataDelayedBy': stock_info.get('exchangeDataDelayedBy'),
+                    'cryptoTradeable': stock_info.get('cryptoTradeable'),
+                    'firstTradeDateMilliseconds': stock_info.get('firstTradeDateMilliseconds'),
+                    'regularMarketChange': stock_info.get('regularMarketChange'),
+                    'regularMarketDayRange': stock_info.get('regularMarketDayRange'),
+                    'averageDailyVolume3Month': stock_info.get('averageDailyVolume3Month'),
+                    'fiftyTwoWeekLowChange': stock_info.get('fiftyTwoWeekLowChange'),
+                    'fiftyTwoWeekLowChangePercent': stock_info.get('fiftyTwoWeekLowChangePercent'),
+                    'fiftyTwoWeekRange': stock_info.get('fiftyTwoWeekRange'),
+                    'regularMarketDayRange': stock_info.get('regularMarketDayRange'),
+                    'fiftyTwoWeekHighChange': stock_info.get('fiftyTwoWeekHighChange'),
+                    'fiftyTwoWeekHighChangePercent': stock_info.get('fiftyTwoWeekHighChangePercent'),
+                    'epsTrailingTwelveMonths': stock_info.get('epsTrailingTwelveMonths'),
+                    'displayName': stock_info.get('displayName'),
+                    'trailingPegRatio': stock_info.get('trailingPegRatio'),
+                    'executiveTeam': stock_info.get('executiveTeam'),
+                    'corporateActions': stock_info.get('corporateActions'),
+                    'additional_info': stock_info.get('additional_info')
                 }
             )
             action = "Created" if created else "Updated"

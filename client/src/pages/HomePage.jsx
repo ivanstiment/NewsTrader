@@ -1,5 +1,4 @@
-import React from "react";
-import { Home } from "../components/Home/index";
+import { Home } from "@/components/Home/index";
 
 export function HomePage() {
   return <Home />;

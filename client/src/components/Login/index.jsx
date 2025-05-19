@@ -1,121 +1,121 @@
-import styles from "./Login.module.scss";
-import React, { useState, useEffect } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { UserIcon, PadlockIcon } from "../Icons";
-// import axios from "axios";
-import { useAuth } from "../../contexts/AuthContext";
-import api from "../../api/axios";
+import api from "@/api/axios";
+import { useAuth } from "@/hooks/useAuth";
+import { loginSchema } from "@/validators/login-schema.validator";
+import { PadlockIcon, UserIcon } from "../Icons";
+import styles from "@/shared/styles";
 
 export function Login() {
-  // const { setAccessToken } = useAuth();
-  const [formData, setFormData] = useState({ username: '', password: '' });
-  const [message, setMessage] = useState('');
-  const { login } = useAuth();
   const navigate = useNavigate();
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
+  const { login } = useAuth();
 
-  useEffect(() => {
-    const prevDisplay = document.body.style.display;
-    document.body.style.display = "flex";
-    document.body.style.justifyContent = "center";
-    document.body.style.alignItems = "center";
-    return () => {
-      document.body.style.display = prevDisplay;
-    };
-  }, []);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting, isDirty },
+  } = useForm({
+    resolver: yupResolver(loginSchema),
+    mode: "onBlur", // validación al perder foco
+    reValidateMode: "onChange",
+  });
 
-  // const handleLogin = async () => {
-  //   try {
-  //     const response = await axios.post("http://localhost:8000/api/token/", {
-  //       username,
-  //       password,
-  //     });
-  //     // const { access_token, refresh_token } = response.data;
-  //     // Store tokens in local storage or state as needed
+  const [apiError, setApiError] = useState("");
 
-  //     setAccessToken(response.data.access); // guardamos access
-  //     // refresh token ya está en cookie HTTP-Only
-  //     navigate("/news");
-  //   } catch (error) {
-  //     console.error("Login failed", error);
-  //   }
-  // };
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // 2) Envío del formulario
+  const onSubmit = async (data) => {
+    setApiError("");
     try {
-      const response = await api.post("/api/token/", {
-        username: formData.username,
-        password: formData.password,
+      const resp = await api.post("/token/", {
+        username: data.username,
+        password: data.password,
       });
-      const accessToken = response.data.access;
-      login(accessToken);
-      setMessage("Login exitoso");
+      login(resp.data.access, resp.data.refresh);
       navigate("/news");
-    } catch (error) {
-      setMessage("Errpr de autenticación");
+    } catch (err) {
+      setApiError(
+        err.response?.data?.detail ||
+          "Error de autenticación, verifica tus credenciales"
+      );
     }
   };
 
-  // const handleSubmit = async () => {
-  //   const resp = await api.post('token/', { username, password });
-  //   const { access } = resp.data;
-  //   login(access);                      // guarda access en memoria
-  //   // refresh se envía como HttpOnly cookie automáticamente
-  //   navigate('/news');
-  // };
-
   return (
-    <div className={styles.login__container}>
-      <div className={styles.login__card}>
-        <form onSubmit={handleSubmit}>
-          <p className={styles.login__title}>¡Bienvenido de nuevo!</p>
-          <div className={styles.login__inputWrapper}>
-            <p className={styles.login__paragraph}>
-              <UserIcon width={24} height={24} className={styles.login__svg} />
-              <label htmlFor="user">Usuario</label>
-            </p>
+    // <div className={styles['form-field__container}>
+    <div className={styles["card__container"]}>
+      <div className={styles["card"]} aria-live="polite">
+        <h2 className={styles["card__title"]}>¡Bienvenido de nuevo!</h2>
+
+        {/* Mensaje de error genérico */}
+        {apiError && (
+          <div role="alert" className={styles["form__alertError"]}>
+            {apiError}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+          {/* Usuario */}
+          <div className={styles["form-field__wrapper"]}>
+            <label htmlFor="username" className={styles["form-field__label"]}>
+              <UserIcon width={24} height={24} /> Usuario
+            </label>
             <input
+              type="text"
               id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              className={styles.login__input}
-            ></input>
+              {...register("username")}
+              aria-invalid={errors.username ? "true" : "false"}
+              className={`${styles["form-field__input"]} ${
+                errors.username ? styles["form-field__input--error"] : ""
+              }`}
+            />
+            <span
+              role="alert"
+              className={`${styles["form-field__error"]} ${
+                errors.username ? styles["form-field__error--visible"] : ""
+              }`}
+            >
+              {errors.username?.message || "\u00A0"}
+            </span>
           </div>
-          <div className={styles.login__inputWrapper}>
-            <p className={styles.login__paragraph}>
-              <PadlockIcon
-                width={24}
-                height={24}
-                className={styles.login__svg}
-              />
-              <label htmlFor="password">Password</label>
-            </p>
+
+          {/* Contraseña */}
+          <div className={styles["form-field__wrapper"]}>
+            <label htmlFor="password" className={styles["form-field__label"]}>
+              <PadlockIcon width={24} height={24} /> Contraseña
+            </label>
             <input
+              type="password"
               id="password"
-              name="password"
-              className={styles.login__input}
-              value={formData.password}
-              onChange={handleChange}
-            ></input>
+              {...register("password")}
+              aria-invalid={errors.password ? "true" : "false"}
+              className={`${styles["form-field__input"]} ${
+                errors.password ? styles["form-field__input--error"] : ""
+              }`}
+            />
+            <span
+              role="alert"
+              className={`${styles["form-field__error"]} ${
+                errors.password ? styles["form-field__error--visible"] : ""
+              }`}
+            >
+              {errors.password?.message || "\u00A0"}
+            </span>
           </div>
-          <div className={styles.login__buttons}>
-            {/* <button className={styles.login__buttonRight} onClick={handleLogin}> */}
-            <button className={styles.login__buttonRight} type="submit">
-              Continuar
+
+          {/* Botón de envío */}
+          <div className={styles["button-wrapper"]}>
+            <button
+              type="submit"
+              className={`${styles["button"]} ${styles["button--primary"]}`}
+              disabled={!isDirty || isSubmitting}
+            >
+              {isSubmitting ? "Iniciando sesión..." : "Continuar"}
             </button>
           </div>
-        </form>        
-        {message && <p>{message}</p>}
+        </form>
       </div>
     </div>
   );
 }
-
-// export default Login;

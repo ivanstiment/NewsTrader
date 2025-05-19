@@ -3,60 +3,62 @@
 }
 
 .menu {
-  &__container {
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 2;
-  }
-  &__fixedIcons {
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  &__fixed-icons {
     display: flex;
     flex-direction: column;
     z-index: 5;
     position: relative;
     background-color: #191a24;
-    border: 1px solid #2E3042;
+    border: 1px solid #2e3042;
     height: 100%;
+    justify-content: space-between;
   }
-  &__icon {
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  &__animateIcon {
+  &__toggle {
     position: relative;
     padding: 32px 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    &Closed {
-      > .menu__animateSvg:nth-of-type(1) {
+    &--closed {
+      > .menu__toggle-svg:nth-of-type(1) {
         opacity: 1;
         transform: rotate(0deg);
       }
-      > .menu__animateSvg:nth-of-type(2) {
+      > .menu__toggle-svg:nth-of-type(2) {
         opacity: 0;
         transform: rotate(-90deg);
       }
     }
-    &Open {
-      > .menu__animateSvg:nth-of-type(1) {
+    &--open {
+      > .menu__toggle-svg:nth-of-type(1) {
         opacity: 0;
         transform: rotate(90deg);
       }
-      > .menu__animateSvg:nth-of-type(2) {
+      > .menu__toggle-svg:nth-of-type(2) {
         opacity: 1;
         transform: rotate(0deg);
       }
     }
+    &-svg {
+      @include icon-transition();
+      position: absolute;
+      fill: white;
+    }
   }
-  &__animateSvg {
-    @include icon-transition();
-    position: absolute;
-    fill: white;
+  &__icon {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &--active {
+      background-color: #4055dbcc;
+    }
   }
   &__svg {
     display: block;
@@ -73,7 +75,7 @@
     pointer-events: none;
     transition: opacity 0.3s ease, width 0s linear 0.3s;
     z-index: 2;
-    &Open {
+    &--visible {
       width: calc(100% - 64px);
       opacity: 1;
       pointer-events: auto;
@@ -91,60 +93,60 @@
     transform: translateX(-100%);
     transition: transform 0.3s ease, width 0s linear 0.3s;
     z-index: 2;
-    &Open {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    &--open {
       transform: translateX(0);
       transition: transform 0.3s ease, width 0s;
     }
   }
-  &__link {
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  &__item {
     display: flex;
     align-items: center;
-    color: #ffffff66;
+  }
+  &__link {
     font-weight: bold;
-    font-size: 16px;
-    &:hover {
+    font-size: 1rem;
+    color: #ffffff66;
+    cursor: pointer;
+    padding: 20px;
+    background-color: #191a24;
+    line-height: 1.5;
+    width: 100%;
+    &--active {
+      background-color: #4055dbcc;
       color: white;
     }
-    &List {
-      list-style: none;
-      margin: 0;
-      padding: 0;
+    &:hover:not(.menu__link--active) {
+      background-color: #0e0f15;
+      color: white;
     }
-    &Element {
-      cursor: pointer;
-      padding: 20px;
-      background-color: #191a24;
-      line-height: 1.5;
-      &:first-child {
-        padding: 15px 20px;
-        &:hover {
-          background-color: #191a24;
-        }
-      }
-      &:hover {
-        background-color: #0e0f15;
-        & .menu__link {
-          color: white;
-        }
-      }
-    }
+  }
+  &__link-logo {
+    padding: 15px 20px;
   }
 }
 
 @media screen and (min-width: 600px) {
   .menu {
-    &__animateIcon:hover {
-      > .menu__animateSvg:nth-of-type(1) {
+    &__toggle:hover {
+      > .menu__toggle-svg:nth-of-type(1) {
         opacity: 0;
         transform: rotate(90deg);
       }
-      > .menu__animateSvg:nth-of-type(2) {
+      > .menu__toggle-svg:nth-of-type(2) {
         opacity: 1;
         transform: rotate(0deg);
       }
     }
     &__panel,
-    &__panelOpen {
+    &__panel--open {
       width: 600px;
     }
   }
@@ -152,11 +154,11 @@
 
 @media screen and (max-width: 599px) {
   .menu {
-    &__animateIcon:hover {
-      /* nop */
+    &__toggle:hover {
+      /* no */
     }
     &__panel,
-    &__panelOpen {
+    &__panel--open {
       width: calc(100% - 64px);
     }
   }

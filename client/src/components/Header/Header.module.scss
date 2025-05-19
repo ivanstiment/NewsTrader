@@ -1,55 +1,61 @@
 .header {
   &__container {
     top: 0;
-    left: 104px;
+    left: 0;
     right: 0;
-    height: 84px;
     position: fixed;
     z-index: 1;
+    height: 84px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     padding-right: 40px;
+    &--auth {
+      padding-left: 40px;
+    }
+    &--default {
+      padding-left: 104px;
+      gap: 20px;
+    }
   }
-  &__inside {
-    width: 100%;
-    height: 44px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+  &__logo {
+    flex-shrink: 0;
   }
-  &__background {
-    background-color: #191a24;
-    width: 100%;
-    height: 44px;
-    margin-left: 20px;
-  }
-  &__backgroundSearch {
-    background-color: #191a24;
-    width: 100%;
-    height: 44px;
-    margin-left: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  &__inner {
+    &--auth {
+      width: 100%;
+      height: 44px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    &--default {
+      width: 100%;
+      height: 44px;
+      background-color: #191a24;
+    }
   }
   &__search {
-    width: 380px;
-    border-radius: 8px;
-    padding: 10px;
-    font-size: 16px;
-    letter-spacing: 1.5px;
-    line-height: 1.5;
+    &-container {
+      @extend .header__inner--default;
+      display: flex;
+      align-items: center;
+    }
+    &-input {
+      width: 380px;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 1rem;
+      letter-spacing: 1.5px;
+      line-height: 1.5;
+    }
   }
   &__text {
     padding-right: 40px;
     color: white;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 1rem;
     letter-spacing: 1.5px;
-  }
-  &__svg {
-    padding-left: 8px;
   }
   &__button {
     padding: 10px 20px;
@@ -57,14 +63,44 @@
     color: white;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1rem;
     letter-spacing: 1.5px;
     background-color: #4055db;
     display: flex;
     justify-content: center;
     align-items: center;
+    line-height: 1.5;
     &:hover {
       background-color: #4055dbb3;
+    }
+    &-icon {
+      padding-left: 10px;
+      fill: transparent;
+      stroke-width: 3;
+      stroke: white;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  }
+}
+
+@media only screen and (max-width: 599px) {
+  .header {
+    &__container {
+      &--default {
+        padding-left: 75px;
+        padding-right: 10px;
+      }
+    }
+    &__text {
+      display: none;
+    }
+    &__button {
+      padding: 10px 14px;
+    }
+    &__search-input {
+      width: 100%;
+      max-width: 200px;
     }
   }
 }

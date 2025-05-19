@@ -1,34 +1,75 @@
 import axios from "axios";
-import { getAccessToken, setAccessToken } from "../contexts/AuthContext";
+import {
+  getAccessToken as readToken,
+  setAccessToken as writeToken,
+} from "@/services/tokenService";
 
 const api = axios.create({
-  // baseURL: "http://localhost:8000/api/",
   baseURL: "http://localhost:8000/",
   withCredentials: true,
 });
 
+
+let isRefreshing = false;
+let refreshSubscribers = [];
+
+// Función para añadir subscribers
+function subscribeTokenRefresh(cb) {
+  refreshSubscribers.push(cb);
+}
+
+// Al tener nuevo token, ejecutar subs
+function onRefreshed(newToken) {
+  refreshSubscribers.forEach(cb => cb(newToken));
+  refreshSubscribers = [];
+}
+
 api.interceptors.request.use((config) => {
-  const token = getAccessToken();
+  const token = readToken();
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
 
-api.interceptors.response.use(null, async (error) => {
-  if (error.response.status === 401) {
-    // intentar refresh
-    const resp = await axios.post(
-      "http://localhost:8000/api/token/refresh/",
-      {},
-      { withCredentials: true }
-    );
-    const newToken = resp.data.access;
-    setAccessToken(newToken);
-    error.config.headers.Authorization = `Bearer ${newToken}`;
-    return axios.request(error.config);
+api.interceptors.response.use(
+  res => res,
+  async err => {
+    const { config, response } = err;
+    if (response?.status === 401 && !config._retry) {
+      // Marcar esta petición para no reintentar múltiples veces
+      config._retry = true;
+
+      if (!isRefreshing) {
+        isRefreshing = true;
+        try {
+          const { data } = await axios.post(
+            "http://localhost:8000/token/refresh/",
+            {},
+            { withCredentials: true }
+          );
+          writeToken(data.access);
+          isRefreshing = false;
+          onRefreshed(data.access);
+        } catch (refreshError) {
+          isRefreshing = false;
+          // forzar logout o redirección
+          window.location.href = "/login";
+          return Promise.reject(refreshError);
+        }
+      }
+
+      // Devolver una promesa que espere al nuevo token
+      return new Promise(resolve => {
+        subscribeTokenRefresh(newToken => {
+          // Obtenido el token, reconfigurar y reintentar
+          config.headers.Authorization = `Bearer ${newToken}`;
+          resolve(axios.request(config));
+        });
+      });
+    }
+    return Promise.reject(err);
   }
-  return Promise.reject(error);
-});
+);
 
 export default api;
