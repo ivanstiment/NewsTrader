@@ -97,6 +97,13 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      - name: Set SCM_DO_BUILD_DURING_DEPLOYMENT to true
+        run: |
+          az webapp config appsettings set \
+            --name ${{ env.AZURE_WEBAPP_NAME }} \
+            --resource-group newstrader_group \
+            --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true
+
       - name: Configure and Tail App Service Logs
         uses: azure/cli@v1
         with:
