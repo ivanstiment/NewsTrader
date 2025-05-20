@@ -85,14 +85,14 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Set SCM_DO_BUILD_DURING_DEPLOYMENT to true
+      - name: Configurar variables de entorno
         uses: azure/cli@v1
         with:
           inlineScript: |
             az webapp config appsettings set \
               --name ${{ env.AZURE_WEBAPP_NAME }} \
               --resource-group newstrader_group \
-              --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true
+              --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true WEBSITES_PORT=8000
 
       - name: Configure and Tail App Service Logs
         uses: azure/cli@v1

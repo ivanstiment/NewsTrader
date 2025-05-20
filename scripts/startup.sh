@@ -27,6 +27,6 @@ python manage.py collectstatic --noinput
 
 echo "Inicializando Gunicorn..."
 gunicorn news_trader.wsgi:application \
-    --bind=0.0.0.0:$PORT \
+    --bind=0.0.0.0:${PORT:-8000} \
     --workers=4 \
     --timeout 600
