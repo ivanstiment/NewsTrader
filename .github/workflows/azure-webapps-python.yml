@@ -79,18 +79,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Verify Azure Credentials Secret
-        # Exportamos el secret a una variable de entorno para poder usarlo en shell
-        env:
-          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
-        run: |
-          if [ -z "$AZURE_CREDENTIALS" ]; then
-            echo "❌ AZURE_CREDENTIALS está VACÍO"
-            exit 1
-          else
-            echo "✅ AZURE_CREDENTIALS está CONFIGURADO"
-          fi
 
       - name: Azure Login
         uses: azure/login@v1
@@ -122,18 +110,6 @@ jobs:
             timeout 5m az webapp log tail \
               --resource-group newstrader_group \
               --name ${{ env.AZURE_WEBAPP_NAME }}
-
-      - name: Verify Publish Profile Secret
-        # Exportamos el secret a una variable de entorno para poder usarlo en shell
-        env:
-          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        run: |
-          if [ -z "$AZURE_WEBAPP_PUBLISH_PROFILE" ]; then
-            echo "❌ AZURE_WEBAPP_PUBLISH_PROFILE está VACÍO"
-            exit 1
-          else
-            echo "✅ AZURE_WEBAPP_PUBLISH_PROFILE está CONFIGURADO"
-          fi
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
