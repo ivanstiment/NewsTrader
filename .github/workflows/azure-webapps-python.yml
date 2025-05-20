@@ -118,8 +118,11 @@ jobs:
           inlineScript: |
             az webapp log config \
               --web-server-logging filesystem \
+              --detailed-error-messages true \
               --name ${{ env.AZURE_WEBAPP_NAME }} \
-              --resource-group ${{ env.AZURE_RESOURCE_GROUP }}
+              --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+              --application-logging filesystem \
+              --web-server-logging filesystem
 
       - name: Tail logs (3 min)
         run: |
