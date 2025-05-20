@@ -42,16 +42,13 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-          
-      - name: Create and start virtual environment
-        run: |
-          python -m venv antenv
-          source antenv/bin/activate
 
-      - name: Install dependencies
+      - name: Create and activate virtual environment - run pip install
         env:
           DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
         run: |
+          python -m venv antenv
+          source antenv/bin/activate
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
@@ -61,6 +58,10 @@ jobs:
       # - name: Run tests
       #   env:
       #     DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+      #     ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
+      #     DEBUG: ${{ secrets.DEBUG }}
+      #     CELERY_BROKER_URL: ${{ secrets.CELERY_BROKER_URL }}
+      #     CELERY_RESULT_BACKEND: ${{ secrets.CELERY_RESULT_BACKEND }}
       #   run: python manage.py test
 
       - name: Upload artifact for deployment
@@ -70,8 +71,6 @@ jobs:
           path: |
             ./**
             !venv/
-
-
 
   deploy:
     needs: build
@@ -93,7 +92,7 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-      
+
       - name: Configurar variables de entorno
         uses: azure/cli@v1
         with:
@@ -104,8 +103,8 @@ jobs:
               --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true WEBSITES_PORT=8050
 
       - name: Disable static collection and set migration command on App Service
-        uses: Azure/appservice-settings@v1
-        with:  
+        uses: azure/appservice-settings@v1
+        with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           app-settings-json: '[{ "name": "DISABLE_COLLECTSTATIC", "value": "true" }, { "name": "POST_BUILD_COMMAND",  "value": "python manage.py makemigrations && python manage.py migrate" }, { "name": "SCM_DO_BUILD_DURING_DEPLOYMENT", "value": "true" }, { "name": "DJANGO_ENV", "value": "development"}]'
 
@@ -121,8 +120,8 @@ jobs:
               --failed-request-tracing true \
               --web-server-logging filesystem
 
-            # Tail logs en tiempo real (detendrá tras 5 minutos)
-            timeout 5m az webapp log tail \
+            # Tail logs en tiempo real (detendrá tras 3 minutos)
+            timeout 3m az webapp log tail \
               --resource-group newstrader_group \
               --name ${{ env.AZURE_WEBAPP_NAME }}
 
