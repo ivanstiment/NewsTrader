@@ -94,27 +94,31 @@ jobs:
           path: .
 
       - name: Azure Login
-        uses: azure/login@v1
+        uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       # Set application settings including environment variables
       - name: Configure app settings in Azure
-        run: |
-          az webapp config appsettings set \
-            --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
-            --name ${{ env.AZURE_WEBAPP_NAME }} \
-            --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true WEBSITES_PORT=8000
+        uses: azure/cli@v2
+        with:
+          inlineScript: |
+            az webapp config appsettings set \
+              --name ${{ env.AZURE_WEBAPP_NAME }} \
+              --resource-group newstrader_group \
+              --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true WEBSITES_PORT=8050
 
       - name: Enable logging
-        run: |
-          az webapp log config \
-            --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
-            --name ${{ env.AZURE_WEBAPP_NAME }} \
-            --application-logging filesystem \
-            --detailed-error-messages true \
-            --failed-request-tracing true \
-            --web-server-logging filesystem
+        uses: azure/cli@v2
+        with:
+          inlineScript: |
+            az webapp log config \
+              --resource-group newstrader_group \
+              --name ${{ env.AZURE_WEBAPP_NAME }} \
+              --application-logging filesystem \
+              --detailed-error-messages true \
+              --failed-request-tracing true \
+              --web-server-logging filesystem
 
       - name: Tail logs (3 min)
         run: |
