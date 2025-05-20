@@ -105,18 +105,15 @@ jobs:
         with:
           inlineScript: |
             az webapp config appsettings set \
+              --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
               --name ${{ env.AZURE_WEBAPP_NAME }} \
-              --resource-group newstrader_group \
-              --settings \
-                SCM_DO_BUILD_DURING_DEPLOYMENT=true \
-                DJANGO_ENV=development \
-                WEBSITES_PORT=8000 \
-                DISABLE_COLLECTSTATIC=false \
-                POST_BUILD_COMMAND="python manage.py migrate"
+              --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true WEBSITES_PORT=8000  DISABLE_COLLECTSTATIC=false
 
       - name: Enable logging
-        run: |
-          az webapp log config \
+        uses: azure/cli@v1
+        with:
+          inlineScript: |
+            az webapp log config \
             --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
             --name ${{ env.AZURE_WEBAPP_NAME }} \
             --application-logging filesystem \
