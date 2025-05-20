@@ -118,14 +118,17 @@ jobs:
           inlineScript: |
             az webapp log config \
               --web-server-logging filesystem \
-              --name $APP_SERVICE_NAME \
-              --resource-group $RESOURCE_GROUP_NAME
+              --detailed-error-messages true \
+              --name ${{ env.AZURE_WEBAPP_NAME }} \
+              --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+              --application-logging filesystem \
+              --web-server-logging filesystem
 
       - name: Tail logs (3 min)
         run: |
           az webapp log tail \
-            --name $APP_SERVICE_NAME \
-            --resource-group $RESOURCE_GROUP_NAME
+            --name ${{ env.AZURE_WEBAPP_NAME }} \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }}
 
       # - name: Enable logging
       #   uses: azure/cli@v2
