@@ -34,10 +34,10 @@ STORAGES = {
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("DBNAME"),
-        "HOST": os.environ.get("DBHOST"),
-        "USER": os.environ.get("DBUSER"),
-        "PASSWORD": os.environ.get("DBPASS"),
+        "NAME": os.environ["DBNAME"],
+        "HOST": os.environ["DBHOST"],
+        "USER": os.environ["DBUSER"],
+        "PASSWORD": os.environ["DBPASS"],
     }
 }
 
@@ -70,9 +70,9 @@ DATABASES = {
 # EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASSWORD")
 # DEFAULT_FROM_EMAIL = "default from email"
 
-STATIC_URL = "static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_URL = "/static/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 
 CELERY_BROKER_URL = os.environ["CELERY_BROKER_URL"]
