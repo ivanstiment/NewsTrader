@@ -3,7 +3,7 @@ from .settings import *
 from .settings import BASE_DIR
 
 ALLOWED_HOSTS = [os.environ["WEBSITE_HOSTNAME"]]
-CSRF_TRUSTED_ORIGINS = ["https://" + os.environ["WEBSITE_HOSTNAME"]]
+CSRF_TRUSTED_ORIGINS = ["https://"+os.environ["WEBSITE_HOSTNAME"]]
 DEBUG = False
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 
@@ -31,16 +31,13 @@ STORAGES = {
     },
 }
 
-CONNECTION = os.environ["AZURE_POSTGRESQL_CONNECTIONSTRING"]
-CONNECTION_STR = {pair.split('=')[0]:pair.split('=')[1] for pair in CONNECTION.split(' ')}
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": CONNECTION_STR["dbname"],
-        "HOST": CONNECTION_STR["host"],
-        "USER": CONNECTION_STR["user"],
-        "PASSWORD": CONNECTION_STR["password"],
+        "NAME": os.environ.get("DBNAME"),
+        "HOST": os.environ.get("DBHOST"),
+        "USER": os.environ.get("DBUSER"),
+        "PASSWORD": os.environ.get("DBPASS"),
     }
 }
 
@@ -73,7 +70,7 @@ DATABASES = {
 # EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASSWORD")
 # DEFAULT_FROM_EMAIL = "default from email"
 
-STATIC_URL = "/static/"
+STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
