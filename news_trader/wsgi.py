@@ -11,6 +11,11 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'news_trader.settings')
+settings_module = (
+    "news_trader.deployment"
+    if "WEBSITE_HOSTNAME" in os.environ
+    else "news_trader.settings"
+)
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings_module)
 
 application = get_wsgi_application()
