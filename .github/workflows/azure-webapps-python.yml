@@ -42,6 +42,11 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: ${{ env.PYTHON_VERSION }}
+          
+      - name: Create and start virtual environment
+        run: |
+          python -m venv antenv
+          source antenv/bin/activate
 
       - name: Cache pip
         uses: actions/cache@v3
@@ -88,6 +93,23 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Configure and Tail App Service Logs
+        uses: azure/cli@v1
+        with:
+          inlineScript: |
+            az webapp log config \
+              --resource-group newstrader_group \
+              --name ${{ env.AZURE_WEBAPP_NAME }} \
+              --application-logging filesystem \
+              --detailed-error-messages true \
+              --failed-request-tracing true \
+              --web-server-logging filesystem
+
+            # Tail logs en tiempo real (detendrá tras 5 minutos)
+            timeout 5m az webapp log tail \
+              --resource-group newstrader_group \
+              --name ${{ env.AZURE_WEBAPP_NAME }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
