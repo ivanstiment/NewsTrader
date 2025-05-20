@@ -22,20 +22,44 @@ jobs:
       - name: Set up Python version
         uses: actions/setup-python@v5
         with:
-          python-version: '3.13'
+          python-version: '3.13.2'
 
       - name: Create and start virtual environment
         run: |
-          python -m venv venv
-          source venv/bin/activate
+          python -m venv antenv
+          source antenv/bin/activate
       
       - name: Install dependencies
         run: |
-          pip install --upgrade pip
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
+
+      - name: Crear directorio STATIC_ROOT si no existe
+        run: mkdir -p ${{ github.workspace }}/staticfiles
+        
+      - name: Crear directorio STATIC si no existe
+        run: mkdir -p ${{ github.workspace }}/static
+
+      - name: Verificar existencia de static
+        run: |
+          ls -l ${{ github.workspace }}/static
         
       - name: Collect static files
         run: python manage.py collectstatic --no-input
+
+      - name: Verificar directorio de archivos estáticos
+        run: |
+          echo "Contenido de BASE_DIR:"
+          ls -la ${{ github.workspace }}
+          echo "Contenido de la carpeta 'static':"
+          ls -la ${{ github.workspace }}/static
+          echo "Contenido de la carpeta 'staticfiles':"
+          ls -la ${{ github.workspace }}/staticfiles
+
+      - name: Mostrar variables de entorno
+        run: |
+          echo "WEBSITE_HOSTNAME=${{ env.WEBSITE_HOSTNAME }}"
+          echo "DBUSER=${{ env.DBUSER }}"
 
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
@@ -49,6 +73,7 @@ jobs:
           path: |
             release.zip
             !venv/
+            !antenv/
             !**/node_modules/
             !.env
             !**/__pycache__/
@@ -68,7 +93,6 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
-
       
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
