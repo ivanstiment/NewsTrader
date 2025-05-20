@@ -112,23 +112,23 @@ jobs:
               --name ${{ env.AZURE_WEBAPP_NAME }} \
               --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true
 
-      - name: Enable logging
-        uses: azure/cli@v2
-        with:
-          inlineScript: |
-            az webapp log config \
-              --web-server-logging filesystem \
-              --detailed-error-messages true \
-              --name ${{ env.AZURE_WEBAPP_NAME }} \
-              --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
-              --application-logging filesystem \
-              --web-server-logging filesystem
+      # - name: Enable logging
+      #   uses: azure/cli@v2
+      #   with:
+      #     inlineScript: |
+      #       az webapp log config \
+      #         --web-server-logging filesystem \
+      #         --detailed-error-messages true \
+      #         --name ${{ env.AZURE_WEBAPP_NAME }} \
+      #         --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+      #         --application-logging filesystem \
+      #         --web-server-logging filesystem
 
-      - name: Tail logs (3 min)
-        run: |
-          az webapp log tail \
-            --name ${{ env.AZURE_WEBAPP_NAME }} \
-            --resource-group ${{ env.AZURE_RESOURCE_GROUP }}
+      # - name: Tail logs (3 min)
+      #   run: |
+      #     az webapp log tail \
+      #       --name ${{ env.AZURE_WEBAPP_NAME }} \
+      #       --resource-group ${{ env.AZURE_RESOURCE_GROUP }}
 
       # - name: Enable logging
       #   uses: azure/cli@v2
