@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     "news.apps.NewsConfig",
     "sentiment_analysis.apps.SentimentAnalysisConfig",
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -182,7 +184,17 @@ CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = "UTC"
 
-FRONTEND_DIR = BASE_DIR / "client"
-STATICFILES_DIRS = [os.path.join(FRONTEND_DIR, 'dist', 'static')]
+FRONTEND_DIR = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [os.path.join(FRONTEND_DIR)]
 
-STATIC_ROOT = BASE_DIR / "staticfiles"
+# Ruta absoluta donde se recopilarán los archivos estáticos
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}

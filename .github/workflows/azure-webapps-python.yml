@@ -21,8 +21,9 @@ name: Build and deploy Python app to Azure Web App
 
 env:
   AZURE_WEBAPP_NAME: newstrader
-  PYTHON_VERSION: "3.11"
+  PYTHON_VERSION: "3.13"
   FRONTEND_PATH: client
+  AZURE_RESOURCE_GROUP: newstrader_group
 
 on:
   push:
@@ -108,27 +109,26 @@ jobs:
               --resource-group newstrader_group \
               --settings \
                 SCM_DO_BUILD_DURING_DEPLOYMENT=true \
-                DJANGO_ENV=production \
+                DJANGO_ENV=development \
                 WEBSITES_PORT=8000 \
                 DISABLE_COLLECTSTATIC=false \
                 POST_BUILD_COMMAND="python manage.py migrate"
 
-      # Enable logging and tail logs
-      - name: Enable Azure logging
-        uses: azure/cli@v1
-        with:
-          inlineScript: |
-            az webapp log config \
-              --resource-group newstrader_group \
-              --name ${{ env.AZURE_WEBAPP_NAME }} \
-              --application-logging filesystem \
-              --detailed-error-messages true \
-              --failed-request-tracing true \
-              --web-server-logging filesystem
+      - name: Enable logging
+        run: |
+          az webapp log config \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+            --name ${{ env.AZURE_WEBAPP_NAME }} \
+            --application-logging filesystem \
+            --detailed-error-messages true \
+            --failed-request-tracing true \
+            --web-server-logging filesystem
 
-            timeout 3m az webapp log tail \
-              --resource-group newstrader_group \
-              --name ${{ env.AZURE_WEBAPP_NAME }}
+      - name: Tail logs (3 min)
+        run: |
+          timeout 3m az webapp log tail \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+            --name ${{ env.AZURE_WEBAPP_NAME }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
