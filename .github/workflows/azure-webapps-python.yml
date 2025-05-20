@@ -89,6 +89,15 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+      - name: Configurar variables de entorno
+        uses: azure/cli@v1
+        with:
+          inlineScript: |
+            az webapp config appsettings set \
+              --name ${{ env.AZURE_WEBAPP_NAME }} \
+              --resource-group newstrader_group \
+              --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true WEBSITES_PORT=8050
 
       - name: Disable static collection and set migration command on App Service
         uses: Azure/appservice-settings@v1
