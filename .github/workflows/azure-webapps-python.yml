@@ -67,11 +67,11 @@ jobs:
           name: python-app
           path: |
             ./**
+            !**/node_modules/
+            !antenv/
             !venv/
             !.env
             !**/__pycache__/
-            !**/node_modules/
-            !antenv/
 
   deploy:
     needs: build
