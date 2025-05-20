@@ -22,7 +22,6 @@ name: Build and deploy Python app to Azure Web App
 env:
   AZURE_WEBAPP_NAME: newstrader
   PYTHON_VERSION: "3.13"
-  FRONTEND_PATH: client
   AZURE_RESOURCE_GROUP: newstrader_group
 
 on:
@@ -54,9 +53,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '20.15.0'
+      # - uses: actions/setup-node@v3
+      #   with:
+      #     node-version: '20.15.0'
       
       # - name: Build React front-end
       #   run: |
@@ -101,19 +100,15 @@ jobs:
 
       # Set application settings including environment variables
       - name: Configure app settings in Azure
-        uses: azure/cli@v1
-        with:
-          inlineScript: |
-            az webapp config appsettings set \
-              --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
-              --name ${{ env.AZURE_WEBAPP_NAME }} \
-              --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true WEBSITES_PORT=8000  DISABLE_COLLECTSTATIC=false
+        run: |
+          az webapp config appsettings set \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+            --name ${{ env.AZURE_WEBAPP_NAME }} \
+            --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true WEBSITES_PORT=8000
 
       - name: Enable logging
-        uses: azure/cli@v1
-        with:
-          inlineScript: |
-            az webapp log config \
+        run: |
+          az webapp log config \
             --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
             --name ${{ env.AZURE_WEBAPP_NAME }} \
             --application-logging filesystem \
