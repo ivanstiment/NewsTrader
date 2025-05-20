@@ -57,13 +57,13 @@ jobs:
         with:
           node-version: '20.15.0'
       
-      - name: Build React front-end
-        run: |
-          cd ${{ env.FRONTEND_PATH }}
-          npm install
-          npm run build
-        env:
-          CI: false
+      # - name: Build React front-end
+      #   run: |
+      #     cd ${{ env.FRONTEND_PATH }}
+      #     npm install
+      #     npm run build
+      #   env:
+      #     CI: false
 
       # Upload artifact for deployment, excluding venv and node_modules
       - name: Upload artifact
