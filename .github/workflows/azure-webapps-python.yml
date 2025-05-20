@@ -59,6 +59,8 @@ jobs:
       #   run: python manage.py collectstatic --noinput
 
       - name: Run tests
+        env:
+          DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
         run: python manage.py test
 
       - name: Upload artifact for deployment
