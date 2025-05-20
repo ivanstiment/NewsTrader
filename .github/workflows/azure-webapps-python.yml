@@ -105,26 +105,26 @@ jobs:
           inlineScript: |
             az webapp config appsettings set \
               --name ${{ env.AZURE_WEBAPP_NAME }} \
-              --resource-group newstrader_group \
-              --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true WEBSITES_PORT=8050
+              --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+              --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true WEBSITES_PORT=8000
 
-      - name: Enable logging
-        uses: azure/cli@v2
-        with:
-          inlineScript: |
-            az webapp log config \
-              --resource-group newstrader_group \
-              --name ${{ env.AZURE_WEBAPP_NAME }} \
-              --application-logging filesystem \
-              --detailed-error-messages true \
-              --failed-request-tracing true \
-              --web-server-logging filesystem
+      # - name: Enable logging
+      #   uses: azure/cli@v2
+      #   with:
+      #     inlineScript: |
+      #       az webapp log config \
+      #         --resource-group newstrader_group \
+      #         --name ${{ env.AZURE_WEBAPP_NAME }} \
+      #         --application-logging filesystem \
+      #         --detailed-error-messages true \
+      #         --failed-request-tracing true \
+      #         --web-server-logging filesystem
 
-      - name: Tail logs (3 min)
-        run: |
-          timeout 3m az webapp log tail \
-            --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
-            --name ${{ env.AZURE_WEBAPP_NAME }}
+      # - name: Tail logs (3 min)
+      #   run: |
+      #     timeout 3m az webapp log tail \
+      #       --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+      #       --name ${{ env.AZURE_WEBAPP_NAME }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
