@@ -64,14 +64,16 @@ jobs:
       #     npm run build
       #   env:
       #     CI: false
+      - name: Zip artifact for deployment
+        run: zip release.zip ./* -r
 
       # Upload artifact for deployment, excluding venv and node_modules
-      - name: Upload artifact
+      - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
           name: app-package
           path: |
-            .
+            release.zip
             !**/node_modules/
             !antenv/
             !venv/
@@ -87,11 +89,13 @@ jobs:
       name: Development
 
     steps:
-      - name: Download artifact
+      - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: app-package
-          path: .
+
+      - name: Unzip artifact for deployment
+        run: unzip release.zip
 
       - name: Azure Login
         uses: azure/login@v2
@@ -104,16 +108,31 @@ jobs:
         with:
           inlineScript: |
             az webapp config appsettings set \
-              --name ${{ env.AZURE_WEBAPP_NAME }} \
               --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
-              --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true WEBSITES_PORT=8000
+              --name ${{ env.AZURE_WEBAPP_NAME }} \
+              --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true
+
+      - name: Enable logging
+        uses: azure/cli@v2
+        with:
+          inlineScript: |
+            az webapp log config \
+              --web-server-logging filesystem \
+              --name $APP_SERVICE_NAME \
+              --resource-group $RESOURCE_GROUP_NAME
+
+      - name: Tail logs (3 min)
+        run: |
+          az webapp log tail \
+            --name $APP_SERVICE_NAME \
+            --resource-group $RESOURCE_GROUP_NAME
 
       # - name: Enable logging
       #   uses: azure/cli@v2
       #   with:
       #     inlineScript: |
       #       az webapp log config \
-      #         --resource-group newstrader_group \
+      #         --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
       #         --name ${{ env.AZURE_WEBAPP_NAME }} \
       #         --application-logging filesystem \
       #         --detailed-error-messages true \
