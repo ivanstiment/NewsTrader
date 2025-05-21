@@ -1,5 +1,4 @@
 import os
-print(os.environ)
 from .settings import *
 from .settings import BASE_DIR
 
@@ -38,11 +37,7 @@ DATABASES = {
         "NAME": os.environ["DBNAME"],
         "HOST": os.environ["DBHOST"],
         "USER": os.environ["DBUSER"],
-        "PASSWORD": os.environ["DBPASS"],
-        'OPTIONS': {
-            'sslmode': 'require',
-        },
-        
+        "PASSWORD": os.environ["DBPASS"]        
     }
 }
 
