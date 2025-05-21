@@ -22,6 +22,10 @@ SECRET_KEY = "django-insecure-tq&z7$*sz9k^^4^b@_43c3ggo=lvrswuui2g@fjuy!1q%p006$
 DEBUG = True
 ALLOWED_HOSTS = []
 
+print("WEBSITE_HOSTNAME")
+print("settings.py")
+print(os.environ["WEBSITE_HOSTNAME"])
+
 # Application definition
 
 INSTALLED_APPS = [

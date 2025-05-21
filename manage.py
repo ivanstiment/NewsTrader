@@ -6,6 +6,9 @@ import sys
 
 def main():
     """Run administrative tasks."""
+    print("WEBSITE_HOSTNAME")
+    print("manage.py")
+    print(os.environ["WEBSITE_HOSTNAME"])
     if 'WEBSITE_HOSTNAME' in os.environ:
         settings_module = "news_trader.deployment"
     else:

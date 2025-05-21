@@ -1,7 +1,9 @@
 import os
 from .settings import *
 from .settings import BASE_DIR
-
+print("WEBSITE_HOSTNAME")
+print("deployment.py")
+print(os.environ["WEBSITE_HOSTNAME"])
 ALLOWED_HOSTS = [os.environ["WEBSITE_HOSTNAME"]]
 CSRF_TRUSTED_ORIGINS = [
     "https://"+os.environ["WEBSITE_HOSTNAME"],
@@ -24,14 +26,14 @@ MIDDLEWARE = [
 # CORS_ALLOWED_ORIGINS = [
 # ]
 
-STORAGES = {
-    "default": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
-    },
-    # "staticfiles": {
-    #     "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    # },
-}
+# STORAGES = {
+#     "default": {
+#         "BACKEND": "django.core.files.storage.FileSystemStorage",
+#     },
+#     "staticfiles": {
+#         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+#     },
+# }
 
 DATABASES = {
     "default": {
