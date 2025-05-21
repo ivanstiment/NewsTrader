@@ -1,9 +1,9 @@
 import os
 from .settings import *
 from .settings import BASE_DIR
-print("WEBSITE_HOSTNAME")
-print("deployment.py")
-print(os.environ["WEBSITE_HOSTNAME"])
+
+print("loading deployment.py settings file...")
+
 ALLOWED_HOSTS = [os.environ["WEBSITE_HOSTNAME"]]
 CSRF_TRUSTED_ORIGINS = [
     "https://"+os.environ["WEBSITE_HOSTNAME"],
