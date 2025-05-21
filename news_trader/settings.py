@@ -14,6 +14,9 @@ from pathlib import Path
 from datetime import timedelta
 import os
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-tq&z7$*sz9k^^4^b@_43c3ggo=lvrswuui2g@fjuy!1q%p006$'
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,7 +24,6 @@ IS_DEV = False
 
 if IS_DEV:
     DEBUG = True
-    SECRET_KEY = "django-insecure-tq&z7$*sz9k^^4^b@_43c3ggo=lvrswuui2g@fjuy!1q%p006$"
     ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
     VITE_API_URL = "http://localhost:8000/"
     DATABASE_URL = "sqlite:///db.sqlite3"
@@ -29,13 +31,12 @@ if IS_DEV:
     CELERY_RESULT_BACKEND = "redis://localhost:6379/1"
 else:
     DEBUG = False
-    SECRET_KEY = os.environ.get("SECRET_KEY")
+    SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
     ALLOWED_HOSTS = [os.environ.get("ALLOWED_HOSTS")]
     VITE_API_URL = os.environ.get("VITE_API_URL")
     DATABASE_URL = os.environ.get("DATABASE_URL")
     CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL")
     CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND")
-
 
 # Application definition
 
