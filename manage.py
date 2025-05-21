@@ -2,16 +2,16 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from dotenv import load_dotenv
 
 
 def main():
     """Run administrative tasks."""
-    
-    settings_module = (
-        "news_trader.deployment"
-        if "WEBSITE_HOSTNAME" in os.environ
-        else "news_trader.settings"
-    )
+    if 'WEBSITE_HOSTNAME' in os.environ:
+        settings_module = "news_trader.deployment"
+    else:
+        load_dotenv()
+        settings_module = "news_trader.settings"
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings_module)
     try:
         from django.core.management import execute_from_command_line
