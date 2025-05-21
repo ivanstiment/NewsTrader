@@ -13,19 +13,29 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 import os
-import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env = environ.Env(DEBUG=(bool, False))
-# Leer .env si existe (solo para local)
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+IS_DEV = os.environ.get("IS_DEV", True)
 
-# SECURITY
-SECRET_KEY = env('DJANGO_SECRET_KEY')
-DEBUG = env('DEBUG')
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
+if IS_DEV:
+    DEBUG = True
+    SECRET_KEY = 'django-insecure-tq&z7$*sz9k^^4^b@_43c3ggo=lvrswuui2g@fjuy!1q%p006$'
+    ALLOWED_HOSTS = ["localhost","127.0.0.1"]
+    VITE_API_URL="http://localhost:8000/"
+    DATABASE_URL="sqlite:///db.sqlite3"
+    CELERY_BROKER_URL="redis://localhost:6379/0"
+    CELERY_RESULT_BACKEND="redis://localhost:6379/1"
+else:
+    DEBUG = False
+    SECRET_KEY = 'aBvbgeQ4iv6erbO6ZMtTh3eqHCikxS4eiGDDS4FfZw2Vm-4o0JHWFePiwh8O2_mC_9w'
+    ALLOWED_HOSTS = ["newstrader-cbgsbjg2ecg4hxgj.spaincentral-01.azurewebsites.net"]
+    VITE_API_URL="https://newstrader-cbgsbjg2ecg4hxgj.spaincentral-01.azurewebsites.net/"
+    DATABASE_URL="postgres://ntadm2030UOC:fDj4Q0=5^eSs@newstraderserver.postgres.database.azure.com/postgres"
+    CELERY_BROKER_URL="redis://:AyrRg3MpkKT7canfB7sz4dUTi0BdSIER1AzCaOt7wjo=@newstrader.redis.cache.windows.net:6380/0"
+    CELERY_RESULT_BACKEND="redis://:AyrRg3MpkKT7canfB7sz4dUTi0BdSIER1AzCaOt7wjo=@newstrader.redis.cache.windows.net:6380/1"
+
 
 # Application definition
 
@@ -78,25 +88,14 @@ TEMPLATES = [
 WSGI_APPLICATION = "news_trader.wsgi.application"
 
 
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-
 # Database (SQLite local / PostgreSQL en producción)
+# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 DATABASES = {
-    'default': env.db(
-        'DATABASE_URL', 
-        default=f'sqlite:///{BASE_DIR / "db.sqlite3"}'
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -177,8 +176,6 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
 
-CELERY_BROKER_URL = env('CELERY_BROKER_URL')
-CELERY_RESULT_BACKEND = env('CELERY_RESULT_BACKEND')
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
