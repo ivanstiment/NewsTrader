@@ -25,9 +25,6 @@ SECRET_KEY = os.environ.get(
 DEBUG = True
 ALLOWED_HOSTS = [os.environ.get("WEBSITE_HOSTNAME", "localhost"), "127.0.0.1"]
 
-print("settings.py allowed hosts")
-print(ALLOWED_HOSTS)
-
 # Application definition
 
 INSTALLED_APPS = [

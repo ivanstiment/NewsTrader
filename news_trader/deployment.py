@@ -6,7 +6,8 @@ print("loading deployment.py settings file...")
 
 # ALLOWED_HOSTS = [os.environ["WEBSITE_HOSTNAME"]]
 ALLOWED_HOSTS = [
-    "news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net"
+    "news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
+    "*.azurewebsites.net"
 ]
 
 print("deployment.py allowed hosts")
@@ -15,11 +16,12 @@ print(ALLOWED_HOSTS)
 CSRF_TRUSTED_ORIGINS = [
     "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
     "http://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
+    "https://*.azurewebsites.net"
 ]
 DEBUG = False
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = False
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
