@@ -1,38 +1,30 @@
 import os
 from .settings import *
-from .settings import BASE_DIR
+# from .settings import BASE_DIR
 
 print("loading deployment.py settings file...")
 
 # ALLOWED_HOSTS = [os.environ["WEBSITE_HOSTNAME"]]
 ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
     "news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
     "*.azurewebsites.net"
 ]
 
-print("deployment.py allowed hosts")
-print(ALLOWED_HOSTS)
-
 CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5173",
     "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
+    "https://*.azurewebsites.net",
+    "http://*.azurewebsites.net",
     "http://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
-    "https://*.azurewebsites.net"
 ]
+
 DEBUG = False
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 CSRF_COOKIE_SECURE = False
-
-MIDDLEWARE = [
-    "corsheaders.middleware.CorsMiddleware",
-    "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
-]
+SESSION_COOKIE_SECURE = False
 
 STATIC_URL = "static/"
 
@@ -57,6 +49,9 @@ DATABASES = {
         "HOST": os.environ["DBHOST"],
         "USER": os.environ["DBUSER"],
         "PASSWORD": os.environ["DBPASS"],
+        'OPTIONS': {
+            'sslmode': 'require',
+        },
     }
 }
 
@@ -91,7 +86,7 @@ DATABASES = {
 
 # STATIC_HOST = os.environ.get("WEBSITE_HOSTNAME")
 # STATIC_URL = STATIC_HOST + "/static/"
-
+# STATIC_ROOT = BASE_DIR/"staticfiles"
 
 CELERY_BROKER_URL = os.environ["CELERY_BROKER_URL"]
 CELERY_RESULT_BACKEND = os.environ["CELERY_RESULT_BACKEND"]
