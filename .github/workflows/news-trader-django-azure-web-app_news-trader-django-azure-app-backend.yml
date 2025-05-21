@@ -24,15 +24,15 @@ jobs:
         with:
           python-version: "3.13.3"
 
-      - name: Create and start virtual environment
-        run: |
-          python -m venv antenv
-          source antenv/bin/activate
+      # - name: Create and start virtual environment
+      #   run: |
+      #     python -m venv antenv
+      #     source antenv/bin/activate
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install --no-cache-dir -r requirements.txt
 
       - name: Crear directorio STATIC_ROOT si no existe
         run: mkdir -p ${{ github.workspace }}/staticfiles
@@ -58,8 +58,8 @@ jobs:
 
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
-      - name: Zip artifact for deployment
-        run: zip -r release.zip . -x "venv/*" "antenv/*" "**/node_modules/*" ".env" "**/__pycache__/*"
+      - name: Zip artifact for deployment excluding unnecessary folders
+        run: zip -r release.zip . -x "*.venv*" "*node_modules*" "*.git*" "antenv*" "*.env*" "*__pycache__*" "*.idea*" "*.qodo*" "*.vscode*"
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
@@ -67,6 +67,10 @@ jobs:
           name: python-app
           path: |
             release.zip
+
+      - name: Limpiar directorios temporales en construccion
+        run: |
+          rm -rf /tmp/oryx /tmp/zipdeploy /tmp/build-debug.log /tmp/oryx-build.log
 
   deploy:
     runs-on: ubuntu-latest
@@ -76,6 +80,10 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
+      - name: Limpiar directorios temporales antes del despliegue
+        run: |
+          rm -rf /tmp/oryx /tmp/zipdeploy /tmp/build-debug.log /tmp/oryx-build.log
+
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
