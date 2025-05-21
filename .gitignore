@@ -5,6 +5,7 @@ __pycache__/
 *.pyo
 *.pyd
 *.pyc
+__pycache__
 
 # C extensions
 *.so
@@ -164,6 +165,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+test_env
 
 # Environment variables
 .env
