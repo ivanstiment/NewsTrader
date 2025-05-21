@@ -1,4 +1,5 @@
 import os
+print(os.environ)
 from .settings import *
 from .settings import BASE_DIR
 
