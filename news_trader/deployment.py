@@ -19,6 +19,7 @@ CSRF_TRUSTED_ORIGINS = [
 DEBUG = False
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CSRF_COOKIE_SECURE = True
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
