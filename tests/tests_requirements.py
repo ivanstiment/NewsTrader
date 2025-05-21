@@ -53,8 +53,6 @@ DEPENDENCIES = {
     "vaderSentiment": lambda: importlib.import_module("vaderSentiment") and print("✅ vaderSentiment importado"),
     "Werkzeug": lambda: importlib.import_module("werkzeug") and print("✅ Werkzeug importado"),
     "yfinance": lambda: importlib.import_module("yfinance") and print("✅ yfinance importado"),
-    "transformers": lambda: importlib.import_module("transformers") and print("✅ transformers importado"),
-    "torch": lambda: importlib.import_module("torch") and print("✅ torch importado"),
     "celery": lambda: importlib.import_module("celery") and print("✅ celery importado"),
     "redis": lambda: importlib.import_module("redis") and print("✅ redis importado"),
     "gunicorn": lambda: importlib.import_module("gunicorn") and print("✅ gunicorn importado"),

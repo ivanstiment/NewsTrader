@@ -20,11 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY
 SECRET_KEY = "django-insecure-tq&z7$*sz9k^^4^b@_43c3ggo=lvrswuui2g@fjuy!1q%p006$"
 DEBUG = True
-ALLOWED_HOSTS = []
-
-print("WEBSITE_HOSTNAME")
-print("settings.py")
-print(os.environ["WEBSITE_HOSTNAME"])
+ALLOWED_HOSTS = [os.environ.get("WEBSITE_HOSTNAME", "localhost"), "127.0.0.1"]
 
 # Application definition
 
@@ -175,4 +171,4 @@ CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = "UTC"
 
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
