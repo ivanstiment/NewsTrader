@@ -1,5 +1,6 @@
 import os
 from .settings import *
+
 # from .settings import BASE_DIR
 
 print("loading deployment.py settings file...")
@@ -9,7 +10,7 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
     "news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
-    "*.azurewebsites.net"
+    ".azurewebsites.net",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -19,10 +20,24 @@ CSRF_TRUSTED_ORIGINS = [
     "http://*.azurewebsites.net",
     "http://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
 ]
+CSRF_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
+    "https://*.azurewebsites.net",
+    "http://*.azurewebsites.net",
+    "http://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
+]
+CORS_ORIGINS_WHITELIST = [
+    "http://localhost:5173",
+    "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
+    "https://*.azurewebsites.net",
+    "http://*.azurewebsites.net",
+    "http://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
+]
 
-DEBUG = False
+DEBUG = True
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https,http")
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
 
@@ -49,8 +64,8 @@ DATABASES = {
         "HOST": os.environ["DBHOST"],
         "USER": os.environ["DBUSER"],
         "PASSWORD": os.environ["DBPASS"],
-        'OPTIONS': {
-            'sslmode': 'require',
+        "OPTIONS": {
+            "sslmode": "require",
         },
     }
 }
