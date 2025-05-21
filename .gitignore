@@ -1,5 +1,6 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+__pycache__
 *.py[cod]
 *$py.class
 *.pyo
@@ -159,6 +160,8 @@ celerybeat.pid
 
 # Environments
 .env
+test_env
+test_env/
 .venv
 env/
 venv/
@@ -265,3 +268,6 @@ cython_debug/
 *.temp
 *.tempfile
 *.tempdir
+
+.qodo
+.idea
