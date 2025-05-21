@@ -2,7 +2,6 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-from dotenv import load_dotenv
 
 
 def main():
@@ -10,7 +9,6 @@ def main():
     if 'WEBSITE_HOSTNAME' in os.environ:
         settings_module = "news_trader.deployment"
     else:
-        load_dotenv()
         settings_module = "news_trader.settings"
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings_module)
     try:

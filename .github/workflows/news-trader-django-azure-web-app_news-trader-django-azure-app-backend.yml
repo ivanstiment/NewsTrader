@@ -4,6 +4,9 @@
 
 name: Build and deploy Python app to Azure Web App - news-trader-django-azure-app-backend
 
+env:
+  WEBSITE_HOSTNAME: news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net
+
 on:
   push:
     branches:
