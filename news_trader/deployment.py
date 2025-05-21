@@ -4,13 +4,21 @@ from .settings import BASE_DIR
 
 print("loading deployment.py settings file...")
 
-ALLOWED_HOSTS = [os.environ["WEBSITE_HOSTNAME"]]
+# ALLOWED_HOSTS = [os.environ["WEBSITE_HOSTNAME"]]
+ALLOWED_HOSTS = [
+    "news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net"
+]
+
+print("deployment.py allowed hosts")
+print(ALLOWED_HOSTS)
+
 CSRF_TRUSTED_ORIGINS = [
-    "https://"+os.environ["WEBSITE_HOSTNAME"],
-    "http://"+os.environ["WEBSITE_HOSTNAME"],
+    "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
+    "http://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
 ]
 DEBUG = False
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
@@ -23,6 +31,8 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+STATIC_URL = "static/"
+
 # CORS_ALLOWED_ORIGINS = [
 # ]
 
@@ -34,6 +44,8 @@ MIDDLEWARE = [
 #         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
 #     },
 # }
+
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
 DATABASES = {
     "default": {
