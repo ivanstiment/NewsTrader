@@ -5,7 +5,7 @@
 name: Build and deploy Python app to Azure Web App - news-trader-django-azure-app-backend
 
 env:
-  WEBSITE_HOSTNAME: ${{ secrets.WEBSITE_HOSTNAME }}
+  WEBSITE_HOSTNAME: news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net
   DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
   DBUSER: ${{ secrets.DBUSER }}
   DBPASS: ${{ secrets.DBPASS }}
