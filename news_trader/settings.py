@@ -17,24 +17,24 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-IS_DEV = os.environ.get("IS_DEV", True)
+IS_DEV = False
 
 if IS_DEV:
     DEBUG = True
-    SECRET_KEY = 'django-insecure-tq&z7$*sz9k^^4^b@_43c3ggo=lvrswuui2g@fjuy!1q%p006$'
-    ALLOWED_HOSTS = ["localhost","127.0.0.1"]
-    VITE_API_URL="http://localhost:8000/"
-    DATABASE_URL="sqlite:///db.sqlite3"
-    CELERY_BROKER_URL="redis://localhost:6379/0"
-    CELERY_RESULT_BACKEND="redis://localhost:6379/1"
+    SECRET_KEY = "django-insecure-tq&z7$*sz9k^^4^b@_43c3ggo=lvrswuui2g@fjuy!1q%p006$"
+    ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+    VITE_API_URL = "http://localhost:8000/"
+    DATABASE_URL = "sqlite:///db.sqlite3"
+    CELERY_BROKER_URL = "redis://localhost:6379/0"
+    CELERY_RESULT_BACKEND = "redis://localhost:6379/1"
 else:
     DEBUG = False
-    SECRET_KEY = 'aBvbgeQ4iv6erbO6ZMtTh3eqHCikxS4eiGDDS4FfZw2Vm-4o0JHWFePiwh8O2_mC_9w'
-    ALLOWED_HOSTS = ["newstrader-cbgsbjg2ecg4hxgj.spaincentral-01.azurewebsites.net"]
-    VITE_API_URL="https://newstrader-cbgsbjg2ecg4hxgj.spaincentral-01.azurewebsites.net/"
-    DATABASE_URL="postgres://ntadm2030UOC:fDj4Q0=5^eSs@newstraderserver.postgres.database.azure.com/postgres"
-    CELERY_BROKER_URL="redis://:AyrRg3MpkKT7canfB7sz4dUTi0BdSIER1AzCaOt7wjo=@newstrader.redis.cache.windows.net:6380/0"
-    CELERY_RESULT_BACKEND="redis://:AyrRg3MpkKT7canfB7sz4dUTi0BdSIER1AzCaOt7wjo=@newstrader.redis.cache.windows.net:6380/1"
+    SECRET_KEY = os.environ.get("SECRET_KEY")
+    ALLOWED_HOSTS = [os.environ.get("ALLOWED_HOSTS")]
+    VITE_API_URL = os.environ.get("VITE_API_URL")
+    DATABASE_URL = os.environ.get("DATABASE_URL")
+    CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL")
+    CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND")
 
 
 # Application definition
@@ -91,9 +91,9 @@ WSGI_APPLICATION = "news_trader.wsgi.application"
 # Database (SQLite local / PostgreSQL en producción)
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -131,7 +131,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -168,7 +168,7 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    'BLACKLIST_AFTER_ROTATION': True,
+    "BLACKLIST_AFTER_ROTATION": True,
     "ROTATE_REFRESH_TOKENS": True,
     "AUTH_COOKIE": "refresh_token",
     "AUTH_COOKIE_HTTP_ONLY": True,
@@ -181,8 +181,8 @@ CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = "UTC"
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STORAGES = {
     "default": {
