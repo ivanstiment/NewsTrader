@@ -44,18 +44,18 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Crear directorio STATIC_ROOT si no existe
-        run: mkdir -p ${{ github.workspace }}/staticfiles
+      # - name: Crear directorio STATIC_ROOT si no existe
+      #   run: mkdir -p ${{ github.workspace }}/staticfiles
 
-      - name: Crear directorio STATIC si no existe
-        run: mkdir -p ${{ github.workspace }}/static
+      # - name: Crear directorio STATIC si no existe
+      #   run: mkdir -p ${{ github.workspace }}/static
 
-      - name: Verificar existencia de static
-        run: |
-          ls -l ${{ github.workspace }}/static
+      # - name: Verificar existencia de static
+      #   run: |
+      #     ls -l ${{ github.workspace }}/static
 
-      - name: Collect static files
-        run: python manage.py collectstatic --no-input
+      # - name: Collect static files
+      #   run: python manage.py collectstatic --no-input
 
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
