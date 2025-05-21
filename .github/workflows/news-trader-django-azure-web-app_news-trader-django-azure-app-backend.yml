@@ -59,7 +59,7 @@ jobs:
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
       - name: Zip artifact for deployment excluding unnecessary folders
-        run: zip -r release.zip . -x "*.venv*" "*node_modules*" "*.git*" "antenv*" "*.env*" "*__pycache__*" "*.idea*" "*.qodo*" "*.vscode*"
+        run: zip -r release.zip . -x "*.git*"
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
@@ -67,10 +67,6 @@ jobs:
           name: python-app
           path: |
             release.zip
-
-      - name: Limpiar directorios temporales en construccion
-        run: |
-          rm -rf /tmp/oryx /tmp/zipdeploy /tmp/build-debug.log /tmp/oryx-build.log
 
   deploy:
     runs-on: ubuntu-latest
@@ -80,10 +76,6 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      - name: Limpiar directorios temporales antes del despliegue
-        run: |
-          rm -rf /tmp/oryx /tmp/zipdeploy /tmp/build-debug.log /tmp/oryx-build.log
-
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
