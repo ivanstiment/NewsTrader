@@ -20,9 +20,10 @@ SECRET_KEY = 'django-insecure-tq&z7$*sz9k^^4^b@_43c3ggo=lvrswuui2g@fjuy!1q%p006$
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-IS_DEV = False
+os.environ.get("DJANGO_SECRET_KEY")
+IS_LOCALHOST = os.environ.get("IS_LOCALHOST", False)
 
-if IS_DEV:
+if IS_LOCALHOST:
     DEBUG = True
     ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
     VITE_API_URL = "http://localhost:8000/"
