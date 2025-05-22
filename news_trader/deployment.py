@@ -1,9 +1,9 @@
 import os
 from .settings import *
+import sys
+print("⚙️ DB HOST:", DATABASES["default"]["HOST"], file=sys.stderr)
 
 # from .settings import BASE_DIR
-
-print("loading deployment.py settings file...")
 
 # ALLOWED_HOSTS = [os.environ["WEBSITE_HOSTNAME"]]
 ALLOWED_HOSTS = [
@@ -33,6 +33,34 @@ CORS_ORIGINS_WHITELIST = [
     "https://*.azurewebsites.net",
     "http://*.azurewebsites.net",
     "http://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
+]
+
+
+INSTALLED_APPS = [
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "news.apps.NewsConfig",
+    "sentiment_analysis.apps.SentimentAnalysisConfig",
+    "corsheaders",
+    "rest_framework",
+    "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",
+    "django_celery_results",
+]
+
+MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
 DEBUG = True
