@@ -71,7 +71,7 @@ def load_lexicons() -> (Tuple[Set[str], Set[str]]):
     # Eliminar duplicados: si una palabra está en ambas listas, la sacamos de ambas
     overlap = pos & neg
     if overlap:
-        logger.warning("Términos en ambas listas (se eliminan): %s", overlap)
+        # logger.warning("Términos en ambas listas (se eliminan): %s", overlap)
         pos -= overlap
         neg -= overlap
 

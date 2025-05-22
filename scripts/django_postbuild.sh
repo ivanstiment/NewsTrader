@@ -30,6 +30,9 @@ except Exception as e:
 echo -e "\n📦 Aplicando migraciones..."
 python manage.py migrate --noinput || { echo '❌ Fallo al aplicar migraciones'; exit 1; }
 
+echo -e "\n📦 Aplicando los datos de la base de datos sqlite..."
+python manage.py loaddata datadump.json || { echo '❌ Fallo al cargar los datos de la base de datos sqlite'; exit 1; }
+
 # ✅ Comprobación de seguridad
 echo -e "\n🛡️ Ejecutando chequeo de despliegue seguro..."
 python manage.py check --deploy --fail-level ERROR || { echo '❌ Fallo en check --deploy'; exit 1; }

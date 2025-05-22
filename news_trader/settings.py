@@ -35,22 +35,16 @@ if IS_PRODUCTION:
         ".azurewebsites.net",
     ]
     CSRF_TRUSTED_ORIGINS = [
-        "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
+        os.environ.get("FRONTEND_URL"),
         "https://*.azurewebsites.net",
-        "http://*.azurewebsites.net",
-        "http://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
     ]
     CSRF_ALLOWED_ORIGINS = [
-        "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
+        os.environ.get("FRONTEND_URL"),
         "https://*.azurewebsites.net",
-        "http://*.azurewebsites.net",
-        "http://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
     ]
     CORS_ORIGINS_WHITELIST = [
-        "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
+        os.environ.get("FRONTEND_URL"),
         "https://*.azurewebsites.net",
-        "http://*.azurewebsites.net",
-        "http://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
     ]
     # CORS_ALLOWED_ORIGINS = []
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
@@ -228,7 +222,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # -------------------------------
 # ✅ Output Debug Info
 # -------------------------------
-print("🔧 Django SETTINGS loaded:", file=sys.stderr)
-print(f"▶️ Modo Producción: {IS_PRODUCTION}", file=sys.stderr)
-print(f"▶️ DB ENGINE: {DATABASES['default']['ENGINE']}", file=sys.stderr)
-print(f"▶️ DB HOST: {DATABASES['default'].get('HOST', 'local sqlite')}", file=sys.stderr)
+# print("🔧 Django SETTINGS loaded:", file=sys.stderr)
+# print(f"▶️ Modo Producción: {IS_PRODUCTION}", file=sys.stderr)
+# print(f"▶️ DB ENGINE: {DATABASES['default']['ENGINE']}", file=sys.stderr)
+# print(f"▶️ DB HOST: {DATABASES['default'].get('HOST', 'local sqlite')}", file=sys.stderr)
