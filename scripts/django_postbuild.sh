@@ -40,8 +40,20 @@ python manage.py migrate --noinput || { echo '❌ Fallo al aplicar migraciones';
 echo -e "\n📦 Aplicando los datos de la base de datos sqlite news_new_001..."
 python manage.py loaddata fixtures/news_new_001.json || { echo '❌ Fallo al cargar los datos de la base de datos sqlite'; exit 1; }
 
-echo -e "\n📦 Aplicando los datos de la base de datos sqlite news_new_002..."
-python manage.py loaddata fixtures/news_new_002.json || { echo '❌ Fallo al cargar los datos de la base de datos sqlite'; exit 1; }
+# echo -e "\n📦 Aplicando los datos de la base de datos sqlite news_new_002..."
+# python manage.py loaddata fixtures/news_new_002.json || { echo '❌ Fallo al cargar los datos de la base de datos sqlite'; exit 1; }
+
+# echo -e "\n📦 Aplicando los datos de la base de datos sqlite news_new_003..."
+# python manage.py loaddata fixtures/news_new_003.json || { echo '❌ Fallo al cargar los datos de la base de datos sqlite'; exit 1; }
+
+# echo -e "\n📦 Aplicando los datos de la base de datos sqlite news_new_004..."
+# python manage.py loaddata fixtures/news_new_004.json || { echo '❌ Fallo al cargar los datos de la base de datos sqlite'; exit 1; }
+
+# echo -e "\n📦 Aplicando los datos de la base de datos sqlite news_new_005..."
+# python manage.py loaddata fixtures/news_new_005.json || { echo '❌ Fallo al cargar los datos de la base de datos sqlite'; exit 1; }
+
+# echo -e "\n📦 Aplicando los datos de la base de datos sqlite news_new_006..."
+# python manage.py loaddata fixtures/news_new_006.json || { echo '❌ Fallo al cargar los datos de la base de datos sqlite'; exit 1; }
 
 # echo -e "\n📦 Aplicando los datos de la base de datos sqlite news_newsanalysis..."
 # python manage.py loaddata fixtures/news_newsanalysis.json || { echo '❌ Fallo al cargar los datos de la base de datos sqlite'; exit 1; }
