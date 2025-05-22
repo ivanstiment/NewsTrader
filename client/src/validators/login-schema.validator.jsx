@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-// 1) Definimos el esquema de validación con Yup
+// Definición del esquema de validación con Yup
 export const loginSchema = yup.object({
   username: yup
     .string()
