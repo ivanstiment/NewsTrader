@@ -5,7 +5,8 @@
 name: Build and deploy Python app to Azure Web App - news-trader-django-azure-app-backend
 
 env:
-  WEBSITE_HOSTNAME: news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net
+  DEBUG: False
+  DJANGO_PRODUCTION: 1
   DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
   DBUSER: ${{ secrets.DBUSER }}
   DBPASS: ${{ secrets.DBPASS }}
@@ -13,9 +14,8 @@ env:
   DBHOST: ${{ secrets.DBHOST }}
   CELERY_RESULT_BACKEND: ${{ secrets.CELERY_RESULT_BACKEND }}
   CELERY_BROKER_URL: ${{ secrets.CELERY_BROKER_URL }}
-  DEBUG: False
-  DJANGO_SETTINGS_MODULE: news_trader.deployment
-  DJANGO_PRODUCTION: true
+  WEBSITE_HOSTNAME: news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net
+  FRONTEND_URL: "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net"
 
 on:
   push:
@@ -50,16 +50,6 @@ jobs:
           echo "🧹 Eliminando db.sqlite3 si existe..."
           find . -name "db.sqlite3" -exec rm -f {} + || true
 
-      - name: Verificar módulo de configuración Django
-        run: |
-          python -c "import os; print('🛠️ DJANGO_SETTINGS_MODULE:', os.getenv('DJANGO_SETTINGS_MODULE'))"
-        env:
-          DJANGO_SETTINGS_MODULE: news_trader.deployment
-
-      # - name: Verificar existencia de static
-      #   run: |
-      #     ls -l ${{ github.workspace }}/static
-
       - name: Crear directorios estáticos si no existen
         run: |
           mkdir -p ${{ github.workspace }}/staticfiles
@@ -67,15 +57,8 @@ jobs:
 
       - name: Collect static files
         run: python manage.py collectstatic --no-input
-        env:
-          DJANGO_SETTINGS_MODULE: news_trader.deployment
 
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
-
-      # - name: Ejecutar mantenimiento completo Django
-      #   run: bash scripts/django_maintenance.sh
-      # env:
-      #   DJANGO_SETTINGS_MODULE: news_trader.deployment
 
       - name: Zip artifact for deployment excluding unnecessary folders
         run: zip -r release.zip . -x "*.venv*" "*.git*" "*__pycache__*"

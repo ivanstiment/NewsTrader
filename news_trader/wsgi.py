@@ -13,12 +13,6 @@ from django.core.wsgi import get_wsgi_application
 
 
 
-if 'WEBSITE_HOSTNAME' in os.environ:
-    print(os.environ["WEBSITE_HOSTNAME"])
-    settings_module = "news_trader.deployment"
-else:
-    settings_module = "news_trader.settings"
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings_module)
-print("✅ DJANGO_SETTINGS_MODULE =", os.environ.get("DJANGO_SETTINGS_MODULE"))
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "news_trader.settings")
 
 application = get_wsgi_application()

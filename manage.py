@@ -5,15 +5,8 @@ import sys
 
 
 def main():
-    """Run administrative tasks."""
-    if 'WEBSITE_HOSTNAME' in os.environ:
-        print(os.environ["WEBSITE_HOSTNAME"])
-        settings_module = "news_trader.deployment"
-    else:
-        settings_module = "news_trader.settings"
-        
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings_module)
-    print("✅ DJANGO_SETTINGS_MODULE =", os.environ.get("DJANGO_SETTINGS_MODULE"))
+    """Run administrative tasks."""        
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "news_trader.settings")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

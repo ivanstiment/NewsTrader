@@ -10,28 +10,64 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
+import sys
 from pathlib import Path
 from datetime import timedelta
-import os
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY
+IS_PRODUCTION = os.environ.get("DBHOST") or os.environ.get("DJANGO_PRODUCTION") == "1"
+
+# -------------------------------
+# 🔐 Seguridad y configuración básica
+# -------------------------------
 SECRET_KEY = os.environ.get(
     "DJANGO_SECRET_KEY",
     "django-insecure-tq&z7$*sz9k^^4^b@_43c3ggo=lvrswuui2g@fjuy!1q%p006$",
 )
-DEBUG = True
-ALLOWED_HOSTS = [
-    "localhost",
-    "127.0.0.1",
-    "news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
-    ".azurewebsites.net",
-]
 
-# Application definition
+DEBUG = os.environ.get("DEBUG", "True") == "True"
 
+if IS_PRODUCTION:
+    ALLOWED_HOSTS = [
+        "news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
+        ".azurewebsites.net",
+    ]
+    CSRF_TRUSTED_ORIGINS = [
+        "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
+        "https://*.azurewebsites.net",
+        "http://*.azurewebsites.net",
+        "http://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
+    ]
+    CSRF_ALLOWED_ORIGINS = [
+        "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
+        "https://*.azurewebsites.net",
+        "http://*.azurewebsites.net",
+        "http://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
+    ]
+    CORS_ORIGINS_WHITELIST = [
+        "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
+        "https://*.azurewebsites.net",
+        "http://*.azurewebsites.net",
+        "http://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
+    ]
+    # CORS_ALLOWED_ORIGINS = []
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+else:
+    ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+    CORS_ALLOWED_ORIGINS = [
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "http://localhost:8000",
+    ]
+    CSRF_TRUSTED_ORIGINS = ["http://localhost:5173"]
+
+# -------------------------------
+# 🚦 Middleware y apps
+# -------------------------------
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -59,6 +95,35 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+# -------------------------------
+# 🧠 Configuración de la base de datos
+# Database (SQLite local / PostgreSQL en producción)
+# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+# -------------------------------
+if IS_PRODUCTION:
+    REQUIRED_ENV_VARS = ["DBNAME", "DBUSER", "DBPASS", "DBHOST"]
+    missing = [var for var in REQUIRED_ENV_VARS if not os.environ.get(var)]
+    if missing:
+        raise RuntimeError(f"❌ Faltan variables de entorno: {missing}")
+
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.environ["DBNAME"],
+            "USER": os.environ["DBUSER"],
+            "PASSWORD": os.environ["DBPASS"],
+            "HOST": os.environ["DBHOST"],
+            "OPTIONS": {"sslmode": "require"},
+        }
+    }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
+
 ROOT_URLCONF = "news_trader.urls"
 
 TEMPLATES = [
@@ -78,32 +143,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "news_trader.wsgi.application"
 
-
-# Database (SQLite local / PostgreSQL en producción)
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ["DBNAME"],
-        "HOST": os.environ["DBHOST"],
-        "USER": os.environ["DBUSER"],
-        "PASSWORD": os.environ["DBPASS"],
-        "OPTIONS": {
-            "sslmode": "require",
-        },
-    }
-}
-
-
+# -------------------------------
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
+# -------------------------------
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -120,53 +163,33 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
+# -------------------------------
+# 🌍 Internacionalización
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
-
+# -------------------------------
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-
-STATIC_URL = "static/"
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-# Cors authorization
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://localhost:3000",
-    "http://localhost:8000",
-]
-
-# Permitir enviar cookies / credenciales (Access-Control-Allow-Credentials: true)
+# -------------------------------
+# 🔗 CORS
+# -------------------------------
 CORS_ALLOW_CREDENTIALS = True
+CORS_EXPOSE_HEADERS = ["Content-Type", "X-CSRFToken"]
 
-# (Opcional) si necesitas exponer cabeceras adicionales al cliente:
-CORS_EXPOSE_HEADERS = [
-    "Content-Type",
-    "X-CSRFToken",
-]
+# -------------------------------
+# ⚙️ Archivos estáticos (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.2/howto/static-files/
+# -------------------------------
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:5173",
-    "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
-    "https://*.azurewebsites.net",
-    "http://*.azurewebsites.net",
-    "http://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
-]
-
+# -------------------------------
+# 🔐 JWT y DRF
+# -------------------------------
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
@@ -185,10 +208,10 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
 
-CELERY_BROKER_URL = os.environ.get(
-    "CELERY_BROKER_URL",
-    "redis://localhost:6379/0",
-)
+# -------------------------------
+# 🧵 Celery
+# -------------------------------
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL", "redis://localhost:6379/0")
 CELERY_RESULT_BACKEND = os.environ.get(
     "CELERY_RESULT_BACKEND", "redis://localhost:6379/1"
 )
@@ -197,16 +220,15 @@ CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = "UTC"
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
-# STORAGES = {
-#     "default": {
-#         "BACKEND": "django.core.files.storage.FileSystemStorage",
-#     },
-#     "staticfiles": {
-#         "BACKEND": "django.core.files.storage.FileSystemStorage",
-#     },
-# }
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# -------------------------------
+# ✅ Output Debug Info
+# -------------------------------
+print("🔧 Django SETTINGS loaded:", file=sys.stderr)
+print(f"▶️ Modo Producción: {IS_PRODUCTION}", file=sys.stderr)
+print(f"▶️ DB ENGINE: {DATABASES['default']['ENGINE']}", file=sys.stderr)
+print(f"▶️ DB HOST: {DATABASES['default'].get('HOST', 'local sqlite')}", file=sys.stderr)
