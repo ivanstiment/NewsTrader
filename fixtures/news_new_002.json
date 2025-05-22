@@ -1,0 +1,2299 @@
+[
+{
+  "model": "news.new",
+  "pk": "767efe03-b259-3084-b30c-1e9dc656e17c",
+  "fields": {
+    "title": "3 Intriguing Tech Stocks to Watch After Earnings: CRWV, CSCO, CYBR",
+    "publisher": "Zacks",
+    "link": "https://finance.yahoo.com/news/3-intriguing-tech-stocks-watch-225400425.html",
+    "provider_publish_time": 1747436040,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/bwqM6EvPdIuSX6_bUrQqbA--~B/aD0zMzE7dz02MjA7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/zacks.com/a53bd36d30c3a9cf823cd9cd241bf712",
+          "width": 620,
+          "height": 331,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/ibfp7McAs.I0esXZLoDfTg--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/zacks.com/a53bd36d30c3a9cf823cd9cd241bf712",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "CRWV",
+      "CSCO",
+      "CYBR",
+      "NVDA"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "76831fa9-9ecb-3a08-9689-62989aa742f6",
+  "fields": {
+    "title": "Pine Ridge Project Significantly Expanded",
+    "publisher": "Newsfile",
+    "link": "https://finance.yahoo.com/news/pine-ridge-project-significantly-expanded-110000010.html",
+    "provider_publish_time": 1745924400,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/PqHUqjeZ6wwQpFRGE5vH3w--~B/aD00MjQ7dz01NTA7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/newsfile_64/2e09efcbbd473fad3455bafe87741c64",
+          "width": 550,
+          "height": 424,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/fmTwU6zZIMs1uQWAUnzA4Q--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/newsfile_64/2e09efcbbd473fad3455bafe87741c64",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "LITM"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "7a08c1e1-64f3-3610-ab2b-5c60e0c26653",
+  "fields": {
+    "title": "EXCLUSIVE: DeFi Development Adds $9.9 Million In Solana Tokens Underscoring Its Commitment Towards Digital Asset Treasury Strategy",
+    "publisher": "Benzinga",
+    "link": "https://finance.yahoo.com/news/exclusive-defi-development-adds-9-173514123.html",
+    "provider_publish_time": 1745429706,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/_SiUl1DQCnjAKzlbpK7KcQ--~B/aD01NTM7dz05ODM7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/Benzinga/1ddd577f7df2991639453d4b20d89e0d",
+          "width": 983,
+          "height": 553,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/M_gCEh87xlM8Vk_77h6sGA--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/Benzinga/1ddd577f7df2991639453d4b20d89e0d",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "JNVR"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "7a6d6412-f619-3fcb-abba-afdab5c867d5",
+  "fields": {
+    "title": "MicroAlgo Inc. Announces Research on Quantum Information Recursive Optimization (QIRO) Algorithm, for Combinatorial Optimization Problems to Expand and Solve New Ideas",
+    "publisher": "GlobeNewswire",
+    "link": "https://finance.yahoo.com/news/microalgo-inc-announces-research-quantum-141500642.html",
+    "provider_publish_time": 1747232100,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": [
+      "MLGO",
+      "VENAF"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "7dc0f906-7fff-3cb6-9f8e-74f1ecda931a",
+  "fields": {
+    "title": "Why MicroAlgo Inc. (MLGO) Soared on Monday",
+    "publisher": "Insider Monkey",
+    "link": "https://finance.yahoo.com/news/why-microalgo-inc-mlgo-soared-134458010.html",
+    "provider_publish_time": 1745329498,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/9cOkXFujVMGgo7MT1tjj5Q--~B/aD04MTY7dz0xNDU2O2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/insidermonkey.com/69c39ec8ccbaefe705d4baafad755940",
+          "width": 1456,
+          "height": 816,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/yU_TA3ns2TQiEo8KbJ0ylQ--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/insidermonkey.com/69c39ec8ccbaefe705d4baafad755940",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "VENAF",
+      "WIMI"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "7e35106d-f00a-3ae9-a320-1178247d6ccc",
+  "fields": {
+    "title": "Man Beaten And Robbed For $5k Pokémon Card",
+    "publisher": "Kotaku",
+    "link": "https://finance.yahoo.com/m/7e35106d-f00a-3ae9-a320-1178247d6ccc/man-beaten-and-robbed-for-%245k.html",
+    "provider_publish_time": 1745934000,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/TX6gj0yyijASs8x4XL77NA--~B/aD0zNTg7dz02MzY7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/kotaku_564/425e7f4fdc7e61fa4a39f53261f66687",
+          "width": 636,
+          "height": 358,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/YiUww2pcNBW7Vjqz4Kr.FA--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/kotaku_564/425e7f4fdc7e61fa4a39f53261f66687",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": null
+  }
+},
+{
+  "model": "news.new",
+  "pk": "7e6216bb-e327-3624-9bd0-d6d3fb0a6042",
+  "fields": {
+    "title": "Next Technology Stock Soars Again After Reporting Bitcoin Holdings",
+    "publisher": "Investopedia",
+    "link": "https://finance.yahoo.com/m/7e6216bb-e327-3624-9bd0-d6d3fb0a6042/next-technology-stock-soars.html",
+    "provider_publish_time": 1747059037,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/Ttrwotf.K_Ro9WoF6ADeMQ--~B/aD0zNzUwO3c9NTAwMDthcHBpZD15dGFjaHlvbg--/https://media.zenfs.com/en/investopedia_245/037078cbf866d7df1f33f3b1b91067e1",
+          "width": 5000,
+          "height": 3750,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/8sDpQIMd8UDgM0rVUiXThg--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/investopedia_245/037078cbf866d7df1f33f3b1b91067e1",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": null
+  }
+},
+{
+  "model": "news.new",
+  "pk": "7f2a2556-6cb6-3e00-9127-4e1bec5eac9f",
+  "fields": {
+    "title": "How competition among ASIC service providers can help Google save billions in TPU",
+    "publisher": "Investing.com",
+    "link": "https://finance.yahoo.com/news/competition-among-asic-providers-help-093002223.html",
+    "provider_publish_time": 1747474202,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": [
+      "GOOG"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "8002535e-c946-3a06-946b-32538ec83fa8",
+  "fields": {
+    "title": "Markets are resilient — but this bank says it could fall apart quickly. ‘Fundamentals remain dire.’",
+    "publisher": "MarketWatch",
+    "link": "https://finance.yahoo.com/m/8002535e-c946-3a06-946b-32538ec83fa8/markets-are-resilient-%E2%80%94-but.html",
+    "provider_publish_time": 1746711420,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/_FNQGCerhRKEpx6ArtA4lQ--~B/aD02NDA7dz0xMjgwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/marketwatch_hosted_869/800b3099b0ab1d34c5f127e7dd49c693",
+          "width": 1280,
+          "height": 640,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/95u4r_DDUbRt3EfCt5iy2Q--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/marketwatch_hosted_869/800b3099b0ab1d34c5f127e7dd49c693",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": null
+  }
+},
+{
+  "model": "news.new",
+  "pk": "81b2293a-6cac-3d6b-8e70-edf98fab06a2",
+  "fields": {
+    "title": "Behind Birmingham Business School’s Push For Responsible Business",
+    "publisher": "Poets & Quants",
+    "link": "https://finance.yahoo.com/m/81b2293a-6cac-3d6b-8e70-edf98fab06a2/behind-birmingham-business.html",
+    "provider_publish_time": 1746642862,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/qkG6DWip5cwrYmmtkZmaiQ--~B/aD01MDE7dz0xMDI0O2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/poets_quants_171/54e9a66716258cfc927b137525239610",
+          "width": 1024,
+          "height": 501,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/H2pdHTuNiyt0n1JMkApjAw--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/poets_quants_171/54e9a66716258cfc927b137525239610",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": null
+  }
+},
+{
+  "model": "news.new",
+  "pk": "81f1ddc2-b830-3dac-baf8-97b2a65b66da",
+  "fields": {
+    "title": "Transformational U.S. Uranium Transaction Snow Lake Energy Acquires the Advanced Pine Ridge Uranium Project in Wyoming Through a Strategic Partnership with Global Uranium and Enrichment Limited",
+    "publisher": "Newsfile",
+    "link": "https://finance.yahoo.com/news/transformational-u-uranium-transaction-snow-110000947.html",
+    "provider_publish_time": 1741777200,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/_a2uT.VlDdS2dQZBq9dBbg--~B/aD00MzA7dz01NTA7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/newsfile_64/aa4e146a85483d14a53babf0c30fed31",
+          "width": 550,
+          "height": 430,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/0uQgt5C_L9aHgYfzY1K4gw--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/newsfile_64/aa4e146a85483d14a53babf0c30fed31",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "LITM"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "83ffe0d6-0e39-3967-95d5-94e0a0ac1178",
+  "fields": {
+    "title": "MicroAlgo Inc. (MLGO): Among the Tech Stocks That Are Up the Most So Far in 2025",
+    "publisher": "Insider Monkey",
+    "link": "https://finance.yahoo.com/news/microalgo-inc-mlgo-among-tech-142530224.html",
+    "provider_publish_time": 1745418330,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/9cOkXFujVMGgo7MT1tjj5Q--~B/aD04MTY7dz0xNDU2O2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/insidermonkey.com/69c39ec8ccbaefe705d4baafad755940",
+          "width": 1456,
+          "height": 816,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/yU_TA3ns2TQiEo8KbJ0ylQ--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/insidermonkey.com/69c39ec8ccbaefe705d4baafad755940",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "VENAF"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "8645d152-2d0d-34c7-91cd-fb945e6ef2b8",
+  "fields": {
+    "title": "Acquisition of Pine Ridge Uranium Project in Wyoming Advances Towards Closing",
+    "publisher": "Newsfile",
+    "link": "https://finance.yahoo.com/news/acquisition-pine-ridge-uranium-project-100000960.html",
+    "provider_publish_time": 1742464800,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/VpFVsVWZOfIjC4oi02NULg--~B/aD00MzA7dz01NTA7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/newsfile_64/c5ad7b3f18fc688c59dc897ada5865ed",
+          "width": 550,
+          "height": 430,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/4ABo4fjVIIAclqmR2QiNpQ--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/newsfile_64/c5ad7b3f18fc688c59dc897ada5865ed",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "LITM"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "8869507c-1fde-3405-b986-a95cee047084",
+  "fields": {
+    "title": "Sector Update: Health Care Stocks Fall Late Afternoon",
+    "publisher": "MT Newswires",
+    "link": "https://finance.yahoo.com/news/sector-health-care-stocks-fall-195748606.html",
+    "provider_publish_time": 1747252668,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": [
+      "NVO"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "8902e4ef-0910-3991-8829-306ac19eacd6",
+  "fields": {
+    "title": "Did Elon Musk Just Give Nvidia Investors 40 Billion Reasons to Cheer?",
+    "publisher": "Motley Fool",
+    "link": "https://finance.yahoo.com/m/8902e4ef-0910-3991-8829-306ac19eacd6/did-elon-musk-just-give.html",
+    "provider_publish_time": 1747429200,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/99f8kP9CmHCs1zjS3L.dOA--~B/aD05MzM7dz0xNDAwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/motleyfool.com/2d33bcc1212444a5a0d0081a38f667fd",
+          "width": 1400,
+          "height": 933,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/L9lCo6N0bQ.iWvake1_w9g--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/motleyfool.com/2d33bcc1212444a5a0d0081a38f667fd",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "NVDA",
+      "AMD",
+      "GOOG"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "8bbf5c35-b1ea-3afe-b388-5bb47198e543",
+  "fields": {
+    "title": "Psychedelic: atai Life Sciences, NRx report quarterly results",
+    "publisher": "TipRanks",
+    "link": "https://finance.yahoo.com/news/psychedelic-atai-life-sciences-nrx-155043304.html",
+    "provider_publish_time": 1742572243,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/8UXduVDD554L.fL21Hrlzg--~B/aD0xOTI7dz0xOTI7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/tipranks_452/1e5c62569304a546b8f4bd9cc2d706a2",
+          "width": 192,
+          "height": 192,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/zYpp7LBt4PTzIEY1k8L2tA--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/tipranks_452/1e5c62569304a546b8f4bd9cc2d706a2",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "CYBN",
+      "ATAI",
+      "CMND",
+      "CMPS",
+      "GHRS",
+      "NRXP",
+      "NRXPW",
+      "PLRZ",
+      "MNMD"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "8ebe5af4-7d27-3941-bec8-3faec8e1dd2b",
+  "fields": {
+    "title": "Upexi Announces Closing of $100 Million Private Placement",
+    "publisher": "ACCESS Newswire",
+    "link": "https://finance.yahoo.com/news/upexi-announces-closing-100-million-201000593.html",
+    "provider_publish_time": 1745525400,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": [
+      "UPXI"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "8f557462-b832-331f-b59f-05715ed93564",
+  "fields": {
+    "title": "TD Cowen Raises AMD Price Target to $115, Maintains Buy Rating Amid Strong Performance",
+    "publisher": "Insider Monkey",
+    "link": "https://finance.yahoo.com/news/td-cowen-raises-amd-price-080618470.html",
+    "provider_publish_time": 1747469178,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/iPzbsf88PibqKOmALEG5PA--~B/aD04MTY7dz0xNDU2O2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/insidermonkey.com/78ee81d4d8cbe53924c848faf9b29aa4",
+          "width": 1456,
+          "height": 816,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/grnQ9Qh4kyp7BsKLa38G1A--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/insidermonkey.com/78ee81d4d8cbe53924c848faf9b29aa4",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "AMD"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "9026bce5-98b8-31f5-9b9a-aec9ce5351db",
+  "fields": {
+    "title": "Upexi Purchases 45,733 Solana Tokens as it Begins Deploying $100 Million Treasury in Solana Strategy",
+    "publisher": "ACCESS Newswire",
+    "link": "https://finance.yahoo.com/news/upexi-purchases-45-733-solana-120000701.html",
+    "provider_publish_time": 1745928000,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": [
+      "UPXI"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "947b7c17-46ea-3ac9-8d9a-0d50386b2133",
+  "fields": {
+    "title": "Weekly Roundup on the Cannabis Sector & Psychedelic Sector",
+    "publisher": "Market Exclusive",
+    "link": "https://finance.yahoo.com/news/weekly-roundup-cannabis-sector-psychedelic-000732687.html",
+    "provider_publish_time": 1742170052,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": [
+      "VFF",
+      "CRLBF",
+      "GRWG",
+      "AAWH",
+      "AWKNF"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "968a1e94-22a1-35c9-a2b2-0e557f3f8bcc",
+  "fields": {
+    "title": "DeFi Development Soars 20% as Solana Holdings Top $100M With Latest Purchase",
+    "publisher": "CoinDesk",
+    "link": "https://finance.yahoo.com/m/968a1e94-22a1-35c9-a2b2-0e557f3f8bcc/defi-development-soars-20%25-as.html",
+    "provider_publish_time": 1747058564,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/V00YFDdUYf_gMospB8Irtg--~B/aD0xMDgwO3c9MTcyODthcHBpZD15dGFjaHlvbg--/https://media.zenfs.com/en/coindesk_75/318e506d6abdf97e406f08409f1fe927",
+          "width": 1728,
+          "height": 1080,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/KtLSuhK1DZzuHYaPXQjaYg--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/coindesk_75/318e506d6abdf97e406f08409f1fe927",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": null
+  }
+},
+{
+  "model": "news.new",
+  "pk": "9a045652-d882-3e0e-8e2f-568dceaaa428",
+  "fields": {
+    "title": "Top Midday Decliners",
+    "publisher": "MT Newswires",
+    "link": "https://finance.yahoo.com/news/top-midday-decliners-183452265.html",
+    "provider_publish_time": 1744655692,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": [
+      "IRWD",
+      "HOLOW"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "9c2b45eb-e3f0-3019-87a9-1692d31af11f",
+  "fields": {
+    "title": "MicroCloud Hologram proposes new method based on MPS",
+    "publisher": "TipRanks",
+    "link": "https://finance.yahoo.com/news/microcloud-hologram-proposes-method-based-122054253.html",
+    "provider_publish_time": 1742386854,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/otlsngXKjseGoU9cJ9TC9A--~B/aD0xOTI7dz0xOTI7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/tipranks_452/ffbf7167243407a5b6693aa9ad74855f",
+          "width": 192,
+          "height": 192,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/yZwimqa9obxcZAztMX_IFg--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/tipranks_452/ffbf7167243407a5b6693aa9ad74855f",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "HOLO",
+      "HOLOW"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "9cd1f1e8-b224-32ed-b687-0d01e8077957",
+  "fields": {
+    "title": "MicroAlgo Inc. Announces a Quantum Entanglement-Based Novel Training Algorithm — Entanglement-Assisted Training Algorithm for Supervised Quantum Classifiers",
+    "publisher": "GlobeNewswire",
+    "link": "https://finance.yahoo.com/news/microalgo-inc-announces-quantum-entanglement-120000101.html",
+    "provider_publish_time": 1747396800,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": [
+      "MLGO",
+      "VENAF"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "9e199df1-bbc0-3218-8c04-ad788ecfa77f",
+  "fields": {
+    "title": "Crypto Miners Soar on OpenAI-CoreWeave Deal; Galaxy Jumps in Nasdaq Debut",
+    "publisher": "CoinDesk",
+    "link": "https://finance.yahoo.com/m/9e199df1-bbc0-3218-8c04-ad788ecfa77f/crypto-miners-soar-on.html",
+    "provider_publish_time": 1747422919,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/s6wd8HB2drF17.ukgePUQw--~B/aD0xMDgwO3c9MTkxOTthcHBpZD15dGFjaHlvbg--/https://media.zenfs.com/en/coindesk_75/d26ca2abf8d0bb8569bef377cb8ebe69",
+          "width": 1919,
+          "height": 1080,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/eLGytCFw69NKHQsIJjmJdw--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/coindesk_75/d26ca2abf8d0bb8569bef377cb8ebe69",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "CRWV",
+      "COIN"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "9e3bd654-bf17-3d01-99ae-89881cbea442",
+  "fields": {
+    "title": "US Equities Markets End Lower Monday as Trump Continues Call for Interest Rate Cut",
+    "publisher": "MT Newswires",
+    "link": "https://finance.yahoo.com/news/us-equities-markets-end-lower-200101567.html",
+    "provider_publish_time": 1745265661,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": null
+  }
+},
+{
+  "model": "news.new",
+  "pk": "9f32df1a-dc60-3108-b656-7df364200e9b",
+  "fields": {
+    "title": "Warwick Business School Makes A Big Push Into Sustainability And Business",
+    "publisher": "Poets & Quants",
+    "link": "https://finance.yahoo.com/news/warwick-business-school-makes-big-014957214.html",
+    "provider_publish_time": 1746064197,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/5UxYZPZQpSuBvJnnuOClCg--~B/aD01Mzg7dz0xMDI0O2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/poets_quants_171/36d58218236c114578ffa9722d3f825a",
+          "width": 1024,
+          "height": 538,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/ggPXdlUHSx7en65ZdAfHrA--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/poets_quants_171/36d58218236c114578ffa9722d3f825a",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": null
+  }
+},
+{
+  "model": "news.new",
+  "pk": "9f4dfd2a-c9f0-32d2-8c1b-70a51acb0b5a",
+  "fields": {
+    "title": "Canadian Investment Regulatory Organization Trade Resumption - PRME",
+    "publisher": "CNW Group",
+    "link": "https://finance.yahoo.com/news/canadian-investment-regulatory-organization-trade-170400973.html",
+    "provider_publish_time": 1744045440,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/NxvZoVdnKZLSdsfStSVYog--~B/aD0xNjt3PTE2O2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/cnwgroup.com/6dfe13772297a9d9181e8c643e61a8fc",
+          "width": 16,
+          "height": 16,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/TDauYpgO0SWedwiNUCdOdA--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/cnwgroup.com/6dfe13772297a9d9181e8c643e61a8fc",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "DOMWF"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "9f73ca88-6ed7-3a6f-9454-36e36a888a09",
+  "fields": {
+    "title": "Solana Pushes Higher As Staking Milestone And Institutional Bets Fuel Rally",
+    "publisher": "Benzinga",
+    "link": "https://finance.yahoo.com/news/solana-pushes-higher-staking-milestone-152253651.html",
+    "provider_publish_time": 1745248973,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/ZyBNfTgKojdv5xHRmX2wig--~B/aD00ODA7dz03MjA7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/benzinga_79/eda1fac2f3b8f58ec3162396a81f866d",
+          "width": 720,
+          "height": 480,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/8L0kDOVi8cvm3lNamJOb2w--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/benzinga_79/eda1fac2f3b8f58ec3162396a81f866d",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "UPXI"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "a0dbea07-7a14-37d7-8f4d-83f6b2541738",
+  "fields": {
+    "title": "Snow Lake to Secure Stake in Game-Changing Uranium Enrichment Technology, Unlocking Access to $6 Billion Market",
+    "publisher": "Newsfile",
+    "link": "https://finance.yahoo.com/news/snow-lake-secure-stake-game-131500670.html",
+    "provider_publish_time": 1742908500,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/aCMRbddVLyTxbyfJ61SJKA--~B/aD0yNTA7dz01NTA7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/newsfile_64/875e860119aae8a8a61e12938fe5d96a",
+          "width": 550,
+          "height": 250,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/nWmE9R_TgAiz7KMp3vvU8g--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/newsfile_64/875e860119aae8a8a61e12938fe5d96a",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "LITM"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "a2c4cddd-13b9-3eb5-b130-3e76fa10e0b8",
+  "fields": {
+    "title": "Incannex Announces Potential Reduction of Up to 50.4% of its Series A Warrants",
+    "publisher": "GlobeNewswire",
+    "link": "https://finance.yahoo.com/news/incannex-announces-potential-reduction-50-130000547.html",
+    "provider_publish_time": 1747400400,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/zYtIaJAufrnFkvyhVfukAA--~B/aD0yMjA7dz0xMzIyO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/globenewswire.com/ba92440910339295b0a510d59d66ca6f",
+          "width": 1322,
+          "height": 220,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/M1xnh169zC2rTPw4J4ojTA--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/globenewswire.com/ba92440910339295b0a510d59d66ca6f",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "IXHL"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "a3dd7170-9dc4-3e2c-a34f-a47d1d8bf4de",
+  "fields": {
+    "title": "DeFi Development Corp. to Host X Spaces Event: “Fireside Chat with John Han (CFO), DK (Head of IR), and Pete Humiston (Head of Research and Content)”",
+    "publisher": "GlobeNewswire",
+    "link": "https://finance.yahoo.com/news/defi-development-corp-host-x-200000358.html",
+    "provider_publish_time": 1747166400,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/8BewevOlQXD18nmDktye1w--~B/aD0xNjgyO3c9MzM1ODthcHBpZD15dGFjaHlvbg--/https://media.zenfs.com/en/globenewswire.com/07adcc7a4b025aa8a63cea63ab16f683",
+          "width": 3358,
+          "height": 1682,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/tRn465IWHhdVyCVBTTYbCQ--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/globenewswire.com/07adcc7a4b025aa8a63cea63ab16f683",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "DFDV"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "a421947b-2475-3a61-a6fe-fbd8c6185c4d",
+  "fields": {
+    "title": "Psychedelic: Clearmind completes clinical site initiations for AUD trial",
+    "publisher": "TipRanks",
+    "link": "https://finance.yahoo.com/news/psychedelic-clearmind-completes-clinical-initiations-153026935.html",
+    "provider_publish_time": 1745595026,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/8UFfyvN5uwZovBLtL_6j3A--~B/aD0xOTI7dz0xOTI7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/tipranks_452/bbad1dd12cc6ba90ddd83aeee03f1aae",
+          "width": 192,
+          "height": 192,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/NTwFxczyt.bYYP9DjoaX_A--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/tipranks_452/bbad1dd12cc6ba90ddd83aeee03f1aae",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "CYBN",
+      "CMPS",
+      "MIRA",
+      "CMND"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "a9bc2a99-dc8e-3514-91f5-d70ef8e9e7c7",
+  "fields": {
+    "title": "Upexi Buys Discounted Locked SOL, Surpasses $100 Million of SOL and Becomes the Largest Publicly-Traded Solana Treasury Company",
+    "publisher": "ACCESS Newswire",
+    "link": "https://finance.yahoo.com/news/upexi-buys-discounted-locked-sol-120000804.html",
+    "provider_publish_time": 1747051200,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": [
+      "UPXI"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "aac661b8-fc67-349c-b934-1bf2ad5cebf0",
+  "fields": {
+    "title": "Canadian Investment Regulatory Organization Trading Halt - PRME",
+    "publisher": "CNW Group",
+    "link": "https://finance.yahoo.com/news/canadian-investment-regulatory-organization-trading-134200678.html",
+    "provider_publish_time": 1744033320,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/VuIdaKRgDxGzXPlgxBkbLg--~B/aD0xNjt3PTE2O2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/cnwgroup.com/38346230d5ef9c999100be5bdcec24e8",
+          "width": 16,
+          "height": 16,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/7Jv.0KxtEpFaq_39lHuPhw--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/cnwgroup.com/38346230d5ef9c999100be5bdcec24e8",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "DOMWF"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "ac9d674c-b011-3b78-9401-1adf91a17e81",
+  "fields": {
+    "title": "Top Midday Gainers",
+    "publisher": "MT Newswires",
+    "link": "https://finance.yahoo.com/news/top-midday-gainers-180138408.html",
+    "provider_publish_time": 1742839298,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": [
+      "VENAF"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "ae26a6f7-f7e5-3d39-83c3-7f540c2a551a",
+  "fields": {
+    "title": "Prime Drink Group Provides an Update to Its Subsidiary Restructuring",
+    "publisher": "GlobeNewswire",
+    "link": "https://finance.yahoo.com/news/prime-drink-group-provides-subsidiary-165300845.html",
+    "provider_publish_time": 1744044780,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/IhuyfoGk1GzuyfG776sTNg--~B/aD0yMzE7dz00ODY7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/globenewswire.com/9694042262fa340f026d126bf943ccdd",
+          "width": 486,
+          "height": 231,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/CcDSZ6J8vj2.UOlnSWv4SQ--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/globenewswire.com/9694042262fa340f026d126bf943ccdd",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "DOMWF"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "b2340ce8-fe10-3a19-bbfc-bb7ef06bec3d",
+  "fields": {
+    "title": "A Decentralized AI Hub for Creators",
+    "publisher": "TheStreet",
+    "link": "https://finance.yahoo.com/m/b2340ce8-fe10-3a19-bbfc-bb7ef06bec3d/a-decentralized-ai-hub-for.html",
+    "provider_publish_time": 1747405800,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/VsxPTe0y.0xCzZ.ISEU5.Q--~B/aD02NjM7dz0xMjAwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/thestreet_881/207bfe7601dc37cfa15493b2b0e4ed97",
+          "width": 1200,
+          "height": 663,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/10qjlBSCYUNC0VeBOojBmg--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/thestreet_881/207bfe7601dc37cfa15493b2b0e4ed97",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": null
+  }
+},
+{
+  "model": "news.new",
+  "pk": "b788afd1-e0b6-3038-8777-97622d286657",
+  "fields": {
+    "title": "3 No-Brainer Stocks to Buy Hand Over Fist",
+    "publisher": "Motley Fool",
+    "link": "https://finance.yahoo.com/m/b788afd1-e0b6-3038-8777-97622d286657/3-no-brainer-stocks-to-buy.html",
+    "provider_publish_time": 1747475100,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/Wni9Bx7d3E_cLgxGQZiFbA--~B/aD03ODc7dz0xNDAwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/motleyfool.com/4ed134dd3550a0e8559dc5e7b9a8d15b",
+          "width": 1400,
+          "height": 787,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/s3P_VNxLAWYr2ZZQrTIXPw--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/motleyfool.com/4ed134dd3550a0e8559dc5e7b9a8d15b",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "NVDA",
+      "TSM",
+      "GOOG"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "b7ab452f-6d27-3356-b4f5-3a89468e25f3",
+  "fields": {
+    "title": "Snow Lake Mobilizing Phase 2 Drill Program at Engo Valley",
+    "publisher": "Newsfile",
+    "link": "https://finance.yahoo.com/news/snow-lake-mobilizing-phase-2-100000961.html",
+    "provider_publish_time": 1742378400,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/shIdgwVy5NmxvFwNoGzuMQ--~B/aD00MDA7dz00MDA7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/newsfile_64/4efe17f7c138aae27f93862df54a1361",
+          "width": 400,
+          "height": 400,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/g7y5d7V3VS_d0W9R7AQTtQ--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/newsfile_64/4efe17f7c138aae27f93862df54a1361",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "LITM"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "b8a63f39-185e-3155-9a51-c8ea147ff590",
+  "fields": {
+    "title": "Snow Lake Updates on the Joint Venture with Global Uranium and Enrichment Limited on the Pine Ridge Uranium Project",
+    "publisher": "Newsfile",
+    "link": "https://finance.yahoo.com/news/snow-lake-updates-joint-venture-120000294.html",
+    "provider_publish_time": 1744286400,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/6G_FmUCXa_PXj2j2mmDshA--~B/aD00MDA7dz00MDA7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/newsfile_64/6bfe815a39bdee589f02ceddf978faa6",
+          "width": 400,
+          "height": 400,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/ay1a4wq5U5KQaPI8qtVeUQ--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/newsfile_64/6bfe815a39bdee589f02ceddf978faa6",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "LITM"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "b9f22eb1-bfec-356d-8359-03202f402753",
+  "fields": {
+    "title": "Kindly MD, Gryphon Stocks Get a Massive Trump Bump",
+    "publisher": "Barrons.com",
+    "link": "https://finance.yahoo.com/m/b9f22eb1-bfec-356d-8359-03202f402753/kindly-md%2C-gryphon-stocks-get.html",
+    "provider_publish_time": 1747073760,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/twKsxbtc3CXPcYlfsx7n6Q--~B/aD02NDA7dz0xMjgwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/Barrons.com/7a29b385d6f5bd5475b1305835621c60",
+          "width": 1280,
+          "height": 640,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/qyx9o5ESkTkqNeS8saEwZw--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/Barrons.com/7a29b385d6f5bd5475b1305835621c60",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "KDLYW"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "babf606d-7fb0-38ec-9f2d-eb1925ef91f2",
+  "fields": {
+    "title": "Vuzix secures design win, waveguide production order from European OEM",
+    "publisher": "TipRanks",
+    "link": "https://finance.yahoo.com/news/vuzix-secures-design-win-waveguide-150532931.html",
+    "provider_publish_time": 1746111932,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/frEeYSooz8Km23aYRuzs7w--~B/aD0xOTI7dz0xOTI7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/tipranks_452/710df62e424d42149987b3ecdc72677e",
+          "width": 192,
+          "height": 192,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/I2Bl2n3TnSon2GH_wwqIOA--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/tipranks_452/710df62e424d42149987b3ecdc72677e",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "VUZI"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "bdb3cfd9-cdf6-3ce3-9058-09edeea697b4",
+  "fields": {
+    "title": "Snow Lake Phase 2 Drill Program Underway at Engo Valley",
+    "publisher": "Newsfile",
+    "link": "https://finance.yahoo.com/news/snow-lake-phase-2-drill-160000450.html",
+    "provider_publish_time": 1744819200,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/YxIkKEY6vJYV.5jf025VXQ--~B/aD0yNTY7dz01NTA7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/newsfile_64/2ff8e6123115db32ec0f709f0cde4bee",
+          "width": 550,
+          "height": 256,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/ZA7zl7Ac8v0UlDh6zZZ5Rw--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/newsfile_64/2ff8e6123115db32ec0f709f0cde4bee",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "LITM"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "bdb8df5f-2105-3b32-b27b-8977472df1d5",
+  "fields": {
+    "title": "We Don’t Think MicroAlgo's (NASDAQ:MLGO) Earnings Should Make Shareholders Too Comfortable",
+    "publisher": "Simply Wall St.",
+    "link": "https://finance.yahoo.com/news/don-t-think-microalgos-nasdaq-185700190.html",
+    "provider_publish_time": 1746730620,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/._HFmWFPcwt6muyT_tZE7g--~B/aD00MzI7dz0xMTk0O2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/simply_wall_st__316/b394072c431426666ba19d9f9857f297",
+          "width": 1194,
+          "height": 432,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/j83YAAY5dC9mBeTXDOIrRw--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/simply_wall_st__316/b394072c431426666ba19d9f9857f297",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "MLGO",
+      "VENAF"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "bddb7bde-7a45-3324-a907-9359517d77db",
+  "fields": {
+    "title": "MicroAlgo Inc. Develops a Blockchain Storage Optimization Solution Based on the Archimedes Optimization Algorithm (AOA)",
+    "publisher": "GlobeNewswire",
+    "link": "https://finance.yahoo.com/news/microalgo-inc-develops-blockchain-storage-123000225.html",
+    "provider_publish_time": 1746707400,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": [
+      "MLGO",
+      "VENAF"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "bf2e6cab-d8b4-39e7-b367-13d69ed799a9",
+  "fields": {
+    "title": "David Bailey's Nakamoto Holdings Going Public Via Merger With KindlyMD; Shares Soar 650%",
+    "publisher": "CoinDesk",
+    "link": "https://finance.yahoo.com/m/bf2e6cab-d8b4-39e7-b367-13d69ed799a9/david-bailey%27s-nakamoto.html",
+    "provider_publish_time": 1747055034,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/qnKUTJ6ZBaY.tT8joZ9EvA--~B/aD0xMDgwO3c9MTkwNTthcHBpZD15dGFjaHlvbg--/https://media.zenfs.com/en/coindesk_75/3bfeb184a79bdc072fda547de34730a0",
+          "width": 1905,
+          "height": 1080,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/DqQ31ZfE1UfzvuMzQrenEw--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/coindesk_75/3bfeb184a79bdc072fda547de34730a0",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": null
+  }
+},
+{
+  "model": "news.new",
+  "pk": "c0af132f-0f76-3db5-95f1-e5429191c49a",
+  "fields": {
+    "title": "Snow Lake Announces Reverse Stock Split",
+    "publisher": "Newsfile",
+    "link": "https://finance.yahoo.com/news/snow-lake-announces-reverse-stock-110000374.html",
+    "provider_publish_time": 1746010800,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/gwymRzQM_UIVduOWi5SkOg--~B/aD00MDA7dz00MDA7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/newsfile_64/30d387c3304cb8d0998141abacae95c4",
+          "width": 400,
+          "height": 400,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/7qlP9ve7KaWGgfCXhw8v.g--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/newsfile_64/30d387c3304cb8d0998141abacae95c4",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "LITM"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "c2d42186-79d4-39e9-9b00-822e94891d4b",
+  "fields": {
+    "title": "Upexi Announces Pricing of $100 Million Private Placement Priced Above Last Market Closing Price under Nasdaq Rules",
+    "publisher": "ACCESS Newswire",
+    "link": "https://finance.yahoo.com/news/upexi-announces-pricing-100-million-120000443.html",
+    "provider_publish_time": 1745236800,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": [
+      "UPXI"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "c345feec-3c76-3c56-acd0-d6f04e202452",
+  "fields": {
+    "title": "MicroAlgo to Issue New Shares at $0.80 to Settle Debt; Shares Rise",
+    "publisher": "MT Newswires",
+    "link": "https://finance.yahoo.com/news/microalgo-issue-shares-0-80-140028276.html",
+    "provider_publish_time": 1742824828,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": [
+      "VENAF"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "c49f44da-1667-37c4-b827-06c29ddc8ef7",
+  "fields": {
+    "title": "Psychedelic: Exclusive talk with biotech company Clearmind Medicine",
+    "publisher": "TipRanks",
+    "link": "https://finance.yahoo.com/news/psychedelic-exclusive-talk-biotech-company-143011967.html",
+    "provider_publish_time": 1742653811,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/6MInUe1T4fs5TaG11G3efw--~B/aD0xOTI7dz0xOTI7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/tipranks_452/87b9ff78d08b9d461f46ab67f57ff730",
+          "width": 192,
+          "height": 192,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/1kQeaZIyA5_.L41lzWcfVw--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/tipranks_452/87b9ff78d08b9d461f46ab67f57ff730",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "CMND",
+      "ATAI",
+      "GHRS",
+      "MNMD",
+      "CMPS",
+      "CYBN"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "c77ac57a-9aa2-34bc-b493-92384706d4d1",
+  "fields": {
+    "title": "Q1 2025 Fresh Del Monte Produce Inc Earnings Call",
+    "publisher": "Thomson Reuters StreetEvents",
+    "link": "https://finance.yahoo.com/news/q1-2025-fresh-del-monte-071621935.html",
+    "provider_publish_time": 1746083781,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": [
+      "FDP"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "ca633738-6a1c-3e4b-83c5-beb244d646b2",
+  "fields": {
+    "title": "EXCLUSIVE: DeFi Development Makes Record Solana Purchase, Surpasses $100 Million In Treasury Holdings",
+    "publisher": "Benzinga",
+    "link": "https://finance.yahoo.com/news/exclusive-defi-development-makes-record-113122328.html",
+    "provider_publish_time": 1747049482,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/naJn7RzNyTZiM1zuLOfrFw--~B/aD01NjM7dz0xMDAwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/Benzinga/37772f99fe758b1da5cb9bff302edf31",
+          "width": 1000,
+          "height": 563,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/P0SKOy2DSDlHqS63EsFtPw--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/Benzinga/37772f99fe758b1da5cb9bff302edf31",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": null
+  }
+},
+{
+  "model": "news.new",
+  "pk": "cb5e3523-dc16-3e02-94e7-5bb86381bba7",
+  "fields": {
+    "title": "Prime Medicine Launches Preclinical Program for Liver Treatments",
+    "publisher": "MT Newswires",
+    "link": "https://finance.yahoo.com/news/prime-medicine-launches-preclinical-program-113330522.html",
+    "provider_publish_time": 1742297610,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": [
+      "PRME"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "cba8b2ab-86eb-3c3f-a9b1-db1dc0376d99",
+  "fields": {
+    "title": "MicroCloud Hologram Inc. Develops Nonlinear Quantum Optimization Technology Based on Efficient Model Encoding",
+    "publisher": "GlobeNewswire",
+    "link": "https://finance.yahoo.com/news/microcloud-hologram-inc-develops-nonlinear-120000296.html",
+    "provider_publish_time": 1747051200,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": [
+      "HOLO",
+      "HOLOW"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "ccfc6170-70bf-38d1-a049-88def551798c",
+  "fields": {
+    "title": "Incannex Healthcare Inc. Reports Fiscal Third Quarter 2025 Financial Results and Business Updates",
+    "publisher": "GlobeNewswire",
+    "link": "https://finance.yahoo.com/news/incannex-healthcare-inc-reports-fiscal-120000673.html",
+    "provider_publish_time": 1747310400,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/zYtIaJAufrnFkvyhVfukAA--~B/aD0yMjA7dz0xMzIyO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/globenewswire.com/ba92440910339295b0a510d59d66ca6f",
+          "width": 1322,
+          "height": 220,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/M1xnh169zC2rTPw4J4ojTA--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/globenewswire.com/ba92440910339295b0a510d59d66ca6f",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "IXHL"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "d10e3754-f9e2-399f-abd0-80f5042df21c",
+  "fields": {
+    "title": "Nvidia’s Huang sees no evidence of AI chip leakage to China",
+    "publisher": "Investing.com",
+    "link": "https://finance.yahoo.com/news/nvidia-huang-sees-no-evidence-093229834.html",
+    "provider_publish_time": 1747474349,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": [
+      "NVDA"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "d2ddc9d3-f58f-3ff2-9ca2-81a4ccc8f2d8",
+  "fields": {
+    "title": "Prime Medicine Reports Full Year 2024 Financial Results and Provides Business Updates",
+    "publisher": "GlobeNewswire",
+    "link": "https://finance.yahoo.com/news/prime-medicine-reports-full-2024-130000374.html",
+    "provider_publish_time": 1740747600,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/oPDNSXBzIFbD2e.XWB7MDA--~B/aD0zNzUwO3c9MTEyNDM7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/globenewswire.com/300f275153cd1bd628bbd71855c8c15c",
+          "width": 11243,
+          "height": 3750,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/BFDcB.OrRqL4q525xoMwCw--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/globenewswire.com/300f275153cd1bd628bbd71855c8c15c",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "PRME"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "d38e3e04-79fc-3a2b-9af5-b9be3843fc9b",
+  "fields": {
+    "title": "5 Supercharged Growth Stocks I Bought During Last Month's Stock Market Crash",
+    "publisher": "Motley Fool",
+    "link": "https://finance.yahoo.com/m/d38e3e04-79fc-3a2b-9af5-b9be3843fc9b/5-supercharged-growth-stocks.html",
+    "provider_publish_time": 1747519260,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/lTxIppiJ4lDVK8MUWix5TQ--~B/aD05MzI7dz0xNDAwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/motleyfool.com/c397dfa29951c4fa61dc7157c703031a",
+          "width": 1400,
+          "height": 932,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/.U00UrwGEScME9Ge7ol13g--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/motleyfool.com/c397dfa29951c4fa61dc7157c703031a",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "NVDA",
+      "AVGO",
+      "AMZN",
+      "SHOP",
+      "TTD",
+      "COMP"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "d3ab577b-d177-35fc-85f3-1c4673f7f2c9",
+  "fields": {
+    "title": "Top Midday Gainers",
+    "publisher": "MT Newswires",
+    "link": "https://finance.yahoo.com/news/top-midday-gainers-174545564.html",
+    "provider_publish_time": 1745603145,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": [
+      "UPXI",
+      "CHTR"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "d6e65bc1-383d-3b6c-817c-8e418faff564",
+  "fields": {
+    "title": "Prime Drink Group Announces Closing of $1.8 Million Private Placement",
+    "publisher": "GlobeNewswire",
+    "link": "https://finance.yahoo.com/news/prime-drink-group-announces-closing-113000198.html",
+    "provider_publish_time": 1742988600,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/IhuyfoGk1GzuyfG776sTNg--~B/aD0yMzE7dz00ODY7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/globenewswire.com/9694042262fa340f026d126bf943ccdd",
+          "width": 486,
+          "height": 231,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/CcDSZ6J8vj2.UOlnSWv4SQ--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/globenewswire.com/9694042262fa340f026d126bf943ccdd",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "DOMWF"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "d940ff07-3c69-3141-9eca-ca1d61e7d486",
+  "fields": {
+    "title": "EXCLUSIVE: DeFi Development Corp Expands Digital Asset Portfolio, Holds $58.5 Million In Solana Tokens",
+    "publisher": "Benzinga",
+    "link": "https://finance.yahoo.com/news/exclusive-defi-development-corp-expands-113035433.html",
+    "provider_publish_time": 1746531026,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/fMs9Uwe9YEEQueHUhMhczQ--~B/aD01NjM7dz0xMDAwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/Benzinga/855621aa81e5047e8db4fdc4bce1c3dc",
+          "width": 1000,
+          "height": 563,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/S3aADt8EVJNALEKXoSsMKQ--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/Benzinga/855621aa81e5047e8db4fdc4bce1c3dc",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": null
+  }
+},
+{
+  "model": "news.new",
+  "pk": "ddc90866-18b7-3dd5-8dcb-475a81e1c2e2",
+  "fields": {
+    "title": "Twist Bioscience (TWST) Reports Q2 Loss, Tops Revenue Estimates",
+    "publisher": "Zacks",
+    "link": "https://finance.yahoo.com/news/twist-bioscience-twst-reports-q2-122502963.html",
+    "provider_publish_time": 1746447902,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/UPInF06X6fJkTqeimnpZuQ--~B/aD03NDU7dz05MDA7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/zacks.com/078b2d95159d12a337f09f2519ff10ba",
+          "width": 900,
+          "height": 745,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/tlKVbaKmxwUbiS87UIMwQA--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/zacks.com/078b2d95159d12a337f09f2519ff10ba",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "TWST"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "df3c7441-accf-3bea-bb6d-a03cdc1b4999",
+  "fields": {
+    "title": "MicroAlgo Full Year 2024 Earnings: EPS: CN¥10.52 (vs CN¥1,176 loss in FY 2023)",
+    "publisher": "Simply Wall St.",
+    "link": "https://finance.yahoo.com/news/microalgo-full-2024-earnings-eps-114450101.html",
+    "provider_publish_time": 1746013490,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/5Vpve0Pc2F3m_L3fs2p_dQ--~B/aD02MzY7dz05NDU7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/simply_wall_st__316/78a8c60a6283aea0450523395306d38c",
+          "width": 945,
+          "height": 636,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/NamfX5LEtyScIu4YmRG2hg--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/simply_wall_st__316/78a8c60a6283aea0450523395306d38c",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "MLGO",
+      "VENAF"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "df5880f2-9160-306d-8264-749cf1ed0898",
+  "fields": {
+    "title": "Stocks rally even as markets find renewed interest",
+    "publisher": "TheStreet",
+    "link": "https://finance.yahoo.com/m/df5880f2-9160-306d-8264-749cf1ed0898/stocks-rally-even-as-markets.html",
+    "provider_publish_time": 1747162212,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/GUWcnG3vllbmsqDvwlK9WA--~B/aD04MDA7dz0xMjAwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/thestreet_881/259faa6e7d2c766999a79ffb29b750c0",
+          "width": 1200,
+          "height": 800,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/U2lAzcyvJvy5RVAxNQJiiw--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/thestreet_881/259faa6e7d2c766999a79ffb29b750c0",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": null
+  }
+},
+{
+  "model": "news.new",
+  "pk": "dfa486aa-0916-38d7-9200-4b45c3ae2cbf",
+  "fields": {
+    "title": "MicroAlgo Announces Strong Net Income and Cash Growth in 2024, Driven by Robust Demand for Central Processing Algorithm Services",
+    "publisher": "PR Newswire",
+    "link": "https://finance.yahoo.com/news/microalgo-announces-strong-net-income-170000118.html",
+    "provider_publish_time": 1745859600,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/XiWmvVdv86OROl5_VK1Gvw--~B/aD0xNjt3PTE2O2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/prnewswire.com/0e0cb4c4da1fa41c8389d5d5061b441d",
+          "width": 16,
+          "height": 16,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/6K.0G5JhEzCjPhNLSuJOlA--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/prnewswire.com/0e0cb4c4da1fa41c8389d5d5061b441d",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "MLGO",
+      "VENAF"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "e15c1d7b-7587-3f84-a249-f6cc67b1fc7c",
+  "fields": {
+    "title": "DeFi Development Corp. Reports First Quarter 2025 Financial Results and Provides Strategic Update on Solana Treasury Activity",
+    "publisher": "GlobeNewswire",
+    "link": "https://finance.yahoo.com/news/defi-development-corp-reports-first-120000981.html",
+    "provider_publish_time": 1747224000,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/8BewevOlQXD18nmDktye1w--~B/aD0xNjgyO3c9MzM1ODthcHBpZD15dGFjaHlvbg--/https://media.zenfs.com/en/globenewswire.com/07adcc7a4b025aa8a63cea63ab16f683",
+          "width": 3358,
+          "height": 1682,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/tRn465IWHhdVyCVBTTYbCQ--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/globenewswire.com/07adcc7a4b025aa8a63cea63ab16f683",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "DFDV"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "e19bb4bb-0b4d-3b2e-baf6-1868a1482c42",
+  "fields": {
+    "title": "Psychedelic: Clearmind initiates U.S. clinical site for CMND-100 trial",
+    "publisher": "TipRanks",
+    "link": "https://finance.yahoo.com/news/psychedelic-clearmind-initiates-u-clinical-150550099.html",
+    "provider_publish_time": 1744383950,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/xBumZ4QcpNk7wPW_.v5BJw--~B/aD0xOTI7dz0xOTI7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/tipranks_452/060c7819ab2e6aac03de78d24e089052",
+          "width": 192,
+          "height": 192,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/wwGxyfvBpmOeE73bj3.ufQ--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/tipranks_452/060c7819ab2e6aac03de78d24e089052",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "RVVTF",
+      "AGNPF",
+      "ATAI",
+      "CMND"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "e1ad18e2-4849-3bb9-9a83-e73d86379255",
+  "fields": {
+    "title": "Top Premarket Gainers",
+    "publisher": "MT Newswires",
+    "link": "https://finance.yahoo.com/news/top-premarket-gainers-112701919.html",
+    "provider_publish_time": 1745321221,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": null
+  }
+},
+{
+  "model": "news.new",
+  "pk": "e4d54cac-903e-32b4-8318-d4bef73a3aab",
+  "fields": {
+    "title": "MicroCloud Hologram Inc. Utilizes Matrix Product States to Achieve High-Precision Quantum State Preparation with Mirror-Symmetric Probability Distribution",
+    "publisher": "GlobeNewswire",
+    "link": "https://finance.yahoo.com/news/microcloud-hologram-inc-utilizes-matrix-120000957.html",
+    "provider_publish_time": 1742299200,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": [
+      "HOLO",
+      "HOLOW"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "e5462bef-f8c7-3cb8-b868-bdd5f4e3dff9",
+  "fields": {
+    "title": "Urenco and Ubaryon to Form Strategic Partnership",
+    "publisher": "Newsfile",
+    "link": "https://finance.yahoo.com/news/urenco-ubaryon-form-strategic-partnership-110000477.html",
+    "provider_publish_time": 1746442800,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/pz5hw1RtBuPkUTAomwK.BA--~B/aD00MDA7dz00MDA7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/newsfile_64/39fc878ea00aa453146961342dd2bae9",
+          "width": 400,
+          "height": 400,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/4NRV7t_mpjFx4Xw6o61JVg--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/newsfile_64/39fc878ea00aa453146961342dd2bae9",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "LITM"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "e87167e0-72a3-372a-96c3-e7dd30451304",
+  "fields": {
+    "title": "MicroCloud Hologram Inc. Files 2024 Annual Report on Form 20-F",
+    "publisher": "PR Newswire",
+    "link": "https://finance.yahoo.com/news/microcloud-hologram-inc-files-2024-164500641.html",
+    "provider_publish_time": 1742575500,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/l7c4nnHboGhXOj7DrSsTIA--~B/aD0xNjt3PTE2O2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/prnewswire.com/78b6580015c0d10adda89b40ae83e14d",
+          "width": 16,
+          "height": 16,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/vrxpInhSzLqTKzkJGCVd.Q--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/prnewswire.com/78b6580015c0d10adda89b40ae83e14d",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "HOLO",
+      "HOLOW"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "e9124f59-b20d-35fa-b02e-6f651a5a731f",
+  "fields": {
+    "title": "Prime Medicine, Inc. (PRME) Reports Q1 Loss, Misses Revenue Estimates",
+    "publisher": "Zacks",
+    "link": "https://finance.yahoo.com/news/prime-medicine-inc-prme-reports-132507323.html",
+    "provider_publish_time": 1746710707,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/QOfludHza1dTKV8R6Coeiw--~B/aD02MDE7dz05MDA7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/zacks.com/48ad4265c55e3ba7a1fb9148d6e717d9",
+          "width": 900,
+          "height": 601,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/syGPuhdcxJrEtuZed80ilQ--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/zacks.com/48ad4265c55e3ba7a1fb9148d6e717d9",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "PRME"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "e951bdaf-7e02-3769-b240-47a144029e19",
+  "fields": {
+    "title": "GSR’s Josh Riezman on Regulation, Risk, and Readying Crypto for the Next Phase",
+    "publisher": "CoinDesk",
+    "link": "https://finance.yahoo.com/m/e951bdaf-7e02-3769-b240-47a144029e19/gsr%E2%80%99s-josh-riezman-on.html",
+    "provider_publish_time": 1746713518,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/eq_2Nm85T5UvlritZMU4Vw--~B/aD0xMDgwO3c9MTA4MDthcHBpZD15dGFjaHlvbg--/https://media.zenfs.com/en/coindesk_75/62fa8ea86e5e5299e8a76c2d5516bc26",
+          "width": 1080,
+          "height": 1080,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/mArNcl4EnrOlwHm25IQ.Ow--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/coindesk_75/62fa8ea86e5e5299e8a76c2d5516bc26",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": null
+  }
+},
+{
+  "model": "news.new",
+  "pk": "eae96cd7-41a0-35d8-a6bd-519dcb58cce6",
+  "fields": {
+    "title": "This Week in Tech News: 15 Stories You Need to See",
+    "publisher": "PR Newswire",
+    "link": "https://finance.yahoo.com/news/week-tech-news-15-stories-103200504.html",
+    "provider_publish_time": 1745577120,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/o.j5NxS2MruySqq3kGfwgw--~B/aD0yMjU7dz00MDA7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/prnewswire.com/f065190a0e84b4bdf294e23b466f5970",
+          "width": 400,
+          "height": 225,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/BrIZadlfllDgTz6MU2zoIg--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/prnewswire.com/f065190a0e84b4bdf294e23b466f5970",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": null
+  }
+},
+{
+  "model": "news.new",
+  "pk": "ebfaf93c-b3ce-3560-a871-f94290a43d92",
+  "fields": {
+    "title": "Top Midday Stories: Shares Rise on US-China 90-Day Trade Ceasefire; Trump Signs Order Targeting High Drug Prices",
+    "publisher": "MT Newswires",
+    "link": "https://finance.yahoo.com/news/top-midday-stories-shares-rise-154248062.html",
+    "provider_publish_time": 1747064568,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": [
+      "PAASF",
+      "AAPL"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "ec07ce92-d10b-3bb0-ad60-83d274116232",
+  "fields": {
+    "title": "MicroCloud Hologram announces edge storage system based on blockchain",
+    "publisher": "TipRanks",
+    "link": "https://finance.yahoo.com/news/microcloud-hologram-announces-edge-storage-131611027.html",
+    "provider_publish_time": 1747228571,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/ND9v1msMhl6o_fIvpYIGdw--~B/aD0xOTI7dz0xOTI7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/tipranks_452/d7a62510a39558169424290719b460ad",
+          "width": 192,
+          "height": 192,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/7GnsbXDsNiEbuo6Da.Piig--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/tipranks_452/d7a62510a39558169424290719b460ad",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "HOLO",
+      "HOLOW"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "ec863545-4cdd-306b-9425-685eb7dbeeac",
+  "fields": {
+    "title": "MicroAlgo Inc. Develops Quantum Image Encryption Algorithm Based on Quantum Key Images, Offering A Higher Security Image Protection Solution",
+    "publisher": "PR Newswire",
+    "link": "https://finance.yahoo.com/news/microalgo-inc-develops-quantum-image-164000649.html",
+    "provider_publish_time": 1746722400,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/VjLLrhHpi2SXjMqwWN_y3g--~B/aD0xNjt3PTE2O2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/prnewswire.com/1fd332d40fa472e750fa922342ed416c",
+          "width": 16,
+          "height": 16,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/8yr0lBPSaBsDtJJAVFwTQQ--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/prnewswire.com/1fd332d40fa472e750fa922342ed416c",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "MLGO",
+      "VENAF"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "edba9922-846e-3af4-8273-cf4f9bde88d4",
+  "fields": {
+    "title": "Incannex Healthcare Prices $12.5 Million Private Stock Offering",
+    "publisher": "MT Newswires",
+    "link": "https://finance.yahoo.com/news/incannex-healthcare-prices-12-5-212437585.html",
+    "provider_publish_time": 1741382677,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": null
+  }
+},
+{
+  "model": "news.new",
+  "pk": "edec0445-4a26-3797-8815-48364d425ca2",
+  "fields": {
+    "title": "MicroAlgo Inc. Develops Classical Boosted Quantum Optimization Algorithm (CBQOA)",
+    "publisher": "PR Newswire",
+    "link": "https://finance.yahoo.com/news/microalgo-inc-develops-classical-boosted-143000487.html",
+    "provider_publish_time": 1745505000,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/vMO2O.5YipL2QgtpzYZelg--~B/aD0xNjt3PTE2O2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/prnewswire.com/6870ab214f9e3ead03b24b90ed6f2f7b",
+          "width": 16,
+          "height": 16,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/5R_pyprqF67Ms4mV4ei6Nw--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/prnewswire.com/6870ab214f9e3ead03b24b90ed6f2f7b",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "MLGO",
+      "VENAF"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "efb3465b-6836-3eb2-89d2-da6e518a9bbb",
+  "fields": {
+    "title": "Top Midday Gainers",
+    "publisher": "MT Newswires",
+    "link": "https://finance.yahoo.com/news/top-midday-gainers-174007848.html",
+    "provider_publish_time": 1747071607,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": null
+  }
+},
+{
+  "model": "news.new",
+  "pk": "f0531632-8dec-3732-acd7-45c0ba7799a7",
+  "fields": {
+    "title": "Bit Digital Inc (BTBT) Q1 2025 Earnings Call Highlights: Navigating Revenue Challenges with ...",
+    "publisher": "GuruFocus.com",
+    "link": "https://finance.yahoo.com/news/bit-digital-inc-btbt-q1-070328595.html",
+    "provider_publish_time": 1747465408,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": [
+      "BTBT"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "f156940c-1d47-35a4-a8cd-a722a3329977",
+  "fields": {
+    "title": "Incannex Healthcare Files Registration Statement for Sale of Shares",
+    "publisher": "MT Newswires",
+    "link": "https://finance.yahoo.com/news/incannex-healthcare-files-registration-statement-215617237.html",
+    "provider_publish_time": 1742853377,
+    "news_type": "STORY",
+    "thumbnail": null,
+    "related_tickers": null
+  }
+},
+{
+  "model": "news.new",
+  "pk": "f2723120-2882-333d-b0a3-d9820ba0bce5",
+  "fields": {
+    "title": "Snow Lake and Global Uranium and Enrichment Limited Successfully Close the Acquisition of the Pine Ridge Uranium Project",
+    "publisher": "Newsfile",
+    "link": "https://finance.yahoo.com/news/snow-lake-global-uranium-enrichment-110000405.html",
+    "provider_publish_time": 1745838000,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/Hy4Jesztu3oFbBSsfugwJw--~B/aD00MDA7dz00MDA7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/newsfile_64/df597f5181f3400ea7724b33e9c62c02",
+          "width": 400,
+          "height": 400,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/D7drUttjf9A1xYS.qTsIGQ--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/newsfile_64/df597f5181f3400ea7724b33e9c62c02",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "LITM"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "f6a93e2f-182e-3a3d-97ab-7f3fe8502890",
+  "fields": {
+    "title": "Here's What's Concerning About MicroAlgo's (NASDAQ:MLGO) Returns On Capital",
+    "publisher": "Simply Wall St.",
+    "link": "https://finance.yahoo.com/news/heres-whats-concerning-microalgos-nasdaq-114930446.html",
+    "provider_publish_time": 1746013770,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/._HFmWFPcwt6muyT_tZE7g--~B/aD00MzI7dz0xMTk0O2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/simply_wall_st__316/b394072c431426666ba19d9f9857f297",
+          "width": 1194,
+          "height": 432,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/j83YAAY5dC9mBeTXDOIrRw--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/simply_wall_st__316/b394072c431426666ba19d9f9857f297",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "MLGO",
+      "VENAF"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "f9399e69-0a87-38a2-8fca-79f347933a1f",
+  "fields": {
+    "title": "Nvidia Stock Investors Just Got Good News From the Trump Administration",
+    "publisher": "Motley Fool",
+    "link": "https://finance.yahoo.com/m/f9399e69-0a87-38a2-8fca-79f347933a1f/nvidia-stock-investors-just.html",
+    "provider_publish_time": 1747470360,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/eG0xbr7aiJx2bQPDsKtVmA--~B/aD03ODc7dz0xNDAwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/motleyfool.com/2f153621be81d13491c4e5509fbc425b",
+          "width": 1400,
+          "height": 787,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/fdJ5XyIRFa6fYduBqsOcjg--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/motleyfool.com/2f153621be81d13491c4e5509fbc425b",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "NVDA"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "f96fb0c5-28f9-361e-ab4e-bae6778bf8d2",
+  "fields": {
+    "title": "Prime Medicine Unveils Program for the Treatment of Alpha-1 Antitrypsin Deficiency (AATD)",
+    "publisher": "GlobeNewswire",
+    "link": "https://finance.yahoo.com/news/prime-medicine-unveils-program-treatment-110000415.html",
+    "provider_publish_time": 1742295600,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/oPDNSXBzIFbD2e.XWB7MDA--~B/aD0zNzUwO3c9MTEyNDM7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/globenewswire.com/300f275153cd1bd628bbd71855c8c15c",
+          "width": 11243,
+          "height": 3750,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/BFDcB.OrRqL4q525xoMwCw--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/globenewswire.com/300f275153cd1bd628bbd71855c8c15c",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "PRME"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "fddcbb78-ad4c-3a7c-b53d-13a061930099",
+  "fields": {
+    "title": "AMD Rises 31% in One Month: Should You Buy, Hold or Sell the Stock?",
+    "publisher": "Zacks",
+    "link": "https://finance.yahoo.com/news/amd-rises-31-one-month-143000407.html",
+    "provider_publish_time": 1747405800,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/501H47h5ygSgSbhanVrDkw--~B/aD00MDA7dz02MzU7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/zacks.com/c0a0d5596f2ebb626a8c1aabf1b4fb40",
+          "width": 635,
+          "height": 400,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/WleLD9VSldnSuoJ_W9x0eQ--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/zacks.com/c0a0d5596f2ebb626a8c1aabf1b4fb40",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": [
+      "AMD",
+      "ORCL"
+    ]
+  }
+},
+{
+  "model": "news.new",
+  "pk": "fef0ef42-0468-3d0f-a0d0-99d0eb499920",
+  "fields": {
+    "title": "GreenFirst Forest Products Inc (ICLTF) Q1 2025 Earnings Call Highlights: Navigating Tariff ...",
+    "publisher": "GuruFocus.com",
+    "link": "https://finance.yahoo.com/news/greenfirst-forest-products-inc-icltf-230103766.html",
+    "provider_publish_time": 1747350063,
+    "news_type": "STORY",
+    "thumbnail": {
+      "resolutions": [
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/hcYFqYNOzx64pbBlKb.ASA--~B/aD0yODU7dz0yODU7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/us.finance.gurufocus/b23fd7d2ffbe7f36738703ef03321246",
+          "width": 285,
+          "height": 285,
+          "tag": "original"
+        },
+        {
+          "url": "https://s.yimg.com/uu/api/res/1.2/PhwejZL.xwPTFWwCGzTEAg--~B/Zmk9ZmlsbDtoPTE0MDtweW9mZj0wO3c9MTQwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/us.finance.gurufocus/b23fd7d2ffbe7f36738703ef03321246",
+          "width": 140,
+          "height": 140,
+          "tag": "140x140"
+        }
+      ]
+    },
+    "related_tickers": null
+  }
+}
+]
