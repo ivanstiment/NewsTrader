@@ -31,11 +31,11 @@ echo -e "\n📦 Aplicando migraciones..."
 python manage.py migrate --noinput || { echo '❌ Fallo al aplicar migraciones'; exit 1; }
 
 # 🛠️ Volcar los datos de la base de datos sqlite a la base de datos postgres
-echo -e "\n📦 Aplicando los datos de la base de datos sqlite auth_user... "
-python manage.py loaddata fixtures/auth_user.json || { echo '❌ Fallo al cargar los datos de la base de datos sqlite'; exit 1; }
+# echo -e "\n📦 Aplicando los datos de la base de datos sqlite auth_user... "
+# python manage.py loaddata fixtures/auth_user.json || { echo '❌ Fallo al cargar los datos de la base de datos sqlite'; exit 1; }
 
-# echo -e "\n📦 Aplicando los datos de la base de datos sqlite admin_logentry..."
-# python manage.py loaddata fixtures/admin_logentry.json || { echo '❌ Fallo al cargar los datos de la base de datos sqlite'; exit 1; }
+echo -e "\n📦 Aplicando los datos de la base de datos sqlite admin_logentry..."
+python manage.py loaddata fixtures/admin_logentry.json || { echo '❌ Fallo al cargar los datos de la base de datos sqlite'; exit 1; }
 
 # echo -e "\n📦 Aplicando los datos de la base de datos sqlite news_new_001..."
 # python manage.py loaddata fixtures/news_new_001.json || { echo '❌ Fallo al cargar los datos de la base de datos sqlite'; exit 1; }
