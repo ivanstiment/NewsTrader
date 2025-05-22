@@ -15,6 +15,7 @@ env:
   CELERY_BROKER_URL: ${{ secrets.CELERY_BROKER_URL }}
   DEBUG: False
   DJANGO_SETTINGS_MODULE: news_trader.deployment
+  DJANGO_PRODUCTION: true
 
 on:
   push:
@@ -103,6 +104,11 @@ jobs:
       #     DJANGO_SETTINGS_MODULE: news_trader.deployment
 
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
+
+      # - name: Ejecutar mantenimiento completo Django
+      #   run: bash scripts/django_maintenance.sh
+      # env:
+      #   DJANGO_SETTINGS_MODULE: news_trader.deployment
 
       - name: Zip artifact for deployment excluding unnecessary folders
         run: zip -r release.zip . -x "*.venv*" "*.git*" "*__pycache__*"
