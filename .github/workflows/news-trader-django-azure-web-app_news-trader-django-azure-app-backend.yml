@@ -37,11 +37,6 @@ jobs:
         with:
           python-version: "3.13.3"
 
-      # - name: Create and start virtual environment
-      #   run: |
-      #     python -m venv antenv
-      #     source antenv/bin/activate
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -65,29 +60,6 @@ jobs:
       #   run: |
       #     ls -l ${{ github.workspace }}/static
 
-      - name: Verificar conexión a la base de datos
-        run: |
-          echo "🔎 Verificación omitida en GitHub Actions (requiere VNet privada)"
-        
-      # - name: Verificar conexión a la base de datos desde Django
-      #   run: |
-      #     echo "🔎 Verificando conexión a la base de datos..."
-      #     python -c "
-      #     import os
-      #     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'news_trader.deployment')
-      #     import django
-      #     django.setup()
-      #     from django.db import connection
-      #     try:
-      #       with connection.cursor() as cursor:
-      #         cursor.execute('SELECT 1')
-      #         print('✅ Conexión a la base de datos verificada')
-      #     except Exception as e:
-      #       print('❌ Error de conexión a la base de datos:', e)
-      #             "
-      #   env:
-      #     DJANGO_SETTINGS_MODULE: news_trader.deployment
-
       - name: Crear directorios estáticos si no existen
         run: |
           mkdir -p ${{ github.workspace }}/staticfiles
@@ -97,11 +69,6 @@ jobs:
         run: python manage.py collectstatic --no-input
         env:
           DJANGO_SETTINGS_MODULE: news_trader.deployment
-      
-      # - name: Apply migrations
-      #   run: python manage.py migrate --noinput
-      #   env:
-      #     DJANGO_SETTINGS_MODULE: news_trader.deployment
 
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 

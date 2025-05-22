@@ -27,7 +27,7 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
     "news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
-    "*.azurewebsites.net",
+    ".azurewebsites.net",
 ]
 
 # Application definition
@@ -79,11 +79,8 @@ TEMPLATES = [
 WSGI_APPLICATION = "news_trader.wsgi.application"
 
 
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-
 # Database (SQLite local / PostgreSQL en producción)
+# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.sqlite3",
