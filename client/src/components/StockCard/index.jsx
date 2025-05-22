@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { stockCardPropTypes } from "@/propTypes/StockCard.propTypes";
+import { stockCardPropTypes } from "@/propTypes/stockCard.propTypes";
 import { ChartIcon } from "../Icons";
 import styles from "./StockCard.module.scss";
 
