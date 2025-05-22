@@ -1,0 +1,128 @@
+[
+{
+  "model": "news.newsanalysis",
+  "pk": 20,
+  "fields": {
+    "news": "2e470167-ab9e-3d72-b771-3099ef2dca0d",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "combined_score": 0.08895,
+    "relevance": "media",
+    "keyword_score": 0.0,
+    "ticker_count": 0,
+    "figures_count": 1
+  }
+},
+{
+  "model": "news.newsanalysis",
+  "pk": 21,
+  "fields": {
+    "news": "376ce196-0009-377f-b651-bd053ac9b00e",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "combined_score": 0.0,
+    "relevance": "media",
+    "keyword_score": 0.0,
+    "ticker_count": 2,
+    "figures_count": 0
+  }
+},
+{
+  "model": "news.newsanalysis",
+  "pk": 22,
+  "fields": {
+    "news": "d38e3e04-79fc-3a2b-9af5-b9be3843fc9b",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "combined_score": -0.0129,
+    "relevance": "alta",
+    "keyword_score": 0.0,
+    "ticker_count": 6,
+    "figures_count": 1
+  }
+},
+{
+  "model": "news.newsanalysis",
+  "pk": 23,
+  "fields": {
+    "news": "06ab5f68-6e38-4a3d-bedc-3897770df209",
+    "sentiment_score": -1.0,
+    "sentiment_label": "negativo",
+    "combined_score": -0.6591,
+    "relevance": "alta",
+    "keyword_score": -1.0,
+    "ticker_count": 8,
+    "figures_count": 1
+  }
+},
+{
+  "model": "news.newsanalysis",
+  "pk": 24,
+  "fields": {
+    "news": "314c37d9-5b02-39aa-a838-1403e7908d1f",
+    "sentiment_score": 0.0,
+    "sentiment_label": "positivo",
+    "combined_score": 0.2997,
+    "relevance": "media",
+    "keyword_score": 0.0,
+    "ticker_count": 2,
+    "figures_count": 0
+  }
+},
+{
+  "model": "news.newsanalysis",
+  "pk": 25,
+  "fields": {
+    "news": "b788afd1-e0b6-3038-8777-97622d286657",
+    "sentiment_score": 0.0,
+    "sentiment_label": "positivo",
+    "combined_score": 0.24695,
+    "relevance": "alta",
+    "keyword_score": 0.0,
+    "ticker_count": 3,
+    "figures_count": 1
+  }
+},
+{
+  "model": "news.newsanalysis",
+  "pk": 26,
+  "fields": {
+    "news": "d10e3754-f9e2-399f-abd0-80f5042df21c",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "combined_score": -0.148,
+    "relevance": "media",
+    "keyword_score": 0.0,
+    "ticker_count": 1,
+    "figures_count": 0
+  }
+},
+{
+  "model": "news.newsanalysis",
+  "pk": 27,
+  "fields": {
+    "news": "0bda3119-190a-34e3-95e8-9e8f12def51a",
+    "sentiment_score": 1.0,
+    "sentiment_label": "positivo",
+    "combined_score": 0.6909,
+    "relevance": "alta",
+    "keyword_score": 1.0,
+    "ticker_count": 3,
+    "figures_count": 1
+  }
+},
+{
+  "model": "news.newsanalysis",
+  "pk": 28,
+  "fields": {
+    "news": "f9399e69-0a87-38a2-8fca-79f347933a1f",
+    "sentiment_score": 1.0,
+    "sentiment_label": "positivo",
+    "combined_score": 0.7202,
+    "relevance": "media",
+    "keyword_score": 1.0,
+    "ticker_count": 1,
+    "figures_count": 0
+  }
+}
+]
