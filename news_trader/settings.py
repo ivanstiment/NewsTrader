@@ -31,7 +31,7 @@ DEBUG = os.environ.get("DEBUG", "True") == "True"
 
 if IS_PRODUCTION:
     ALLOWED_HOSTS = [
-        "news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
+        os.environ.get("WEBSITE_HOSTNAME"),
         ".azurewebsites.net",
     ]
     CSRF_TRUSTED_ORIGINS = [

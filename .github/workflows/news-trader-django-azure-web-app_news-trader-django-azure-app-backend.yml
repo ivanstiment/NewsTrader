@@ -14,8 +14,8 @@ env:
   DBHOST: ${{ secrets.DBHOST }}
   CELERY_RESULT_BACKEND: ${{ secrets.CELERY_RESULT_BACKEND }}
   CELERY_BROKER_URL: ${{ secrets.CELERY_BROKER_URL }}
-  WEBSITE_HOSTNAME: news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net
-  FRONTEND_URL: "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net"
+  WEBSITE_HOSTNAME: ${{ vars.WEBSITE_HOSTNAME }}
+  FRONTEND_URL: ${{ vars.FRONTEND_URL }}
 
 on:
   push:
