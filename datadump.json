@@ -824,7 +824,7 @@
   "model": "news.new",
   "pk": "234e71d3-3f41-3523-8365-826e42cae201",
   "fields": {
-    "title": "Crypto Stocks Emerge Unscathed From Aprilís Market Turmoil",
+    "title": "Crypto Stocks Emerge Unscathed From April‚Äôs Market Turmoil",
     "publisher": "Bloomberg",
     "link": "https://finance.yahoo.com/news/crypto-stocks-emerge-unscathed-april-202514232.html",
     "provider_publish_time": 1746044714,
@@ -1524,7 +1524,7 @@
   "model": "news.new",
   "pk": "4ae3477a-1ee4-3ddb-8b7f-d9237a5fee25",
   "fields": {
-    "title": "With fear gauge echoing 2022 turmoil, hereís a new theory on when Trump will change course",
+    "title": "With fear gauge echoing 2022 turmoil, here‚Äôs a new theory on when Trump will change course",
     "publisher": "MarketWatch",
     "link": "https://finance.yahoo.com/m/4ae3477a-1ee4-3ddb-8b7f-d9237a5fee25/with-fear-gauge-echoing-2022.html",
     "provider_publish_time": 1744893240,
@@ -1679,7 +1679,7 @@
   "model": "news.new",
   "pk": "4c9ce0da-7543-3fcd-ad6e-b0c0ae1fb73a",
   "fields": {
-    "title": "The world needs the dollar, even a battered one, says this strategist. Hereís how to play that.",
+    "title": "The world needs the dollar, even a battered one, says this strategist. Here‚Äôs how to play that.",
     "publisher": "MarketWatch",
     "link": "https://finance.yahoo.com/m/4c9ce0da-7543-3fcd-ad6e-b0c0ae1fb73a/the-world-needs-the-dollar%2C.html",
     "provider_publish_time": 1745329380,
@@ -2517,7 +2517,7 @@
   "model": "news.new",
   "pk": "7e35106d-f00a-3ae9-a320-1178247d6ccc",
   "fields": {
-    "title": "Man Beaten And Robbed For $5k PokÈmon Card",
+    "title": "Man Beaten And Robbed For $5k Pok√©mon Card",
     "publisher": "Kotaku",
     "link": "https://finance.yahoo.com/m/7e35106d-f00a-3ae9-a320-1178247d6ccc/man-beaten-and-robbed-for-%245k.html",
     "provider_publish_time": 1745934000,
@@ -2588,7 +2588,7 @@
   "model": "news.new",
   "pk": "8002535e-c946-3a06-946b-32538ec83fa8",
   "fields": {
-    "title": "Markets are resilient ó but this bank says it could fall apart quickly. ëFundamentals remain dire.í",
+    "title": "Markets are resilient ‚Äî but this bank says it could fall apart quickly. ‚ÄòFundamentals remain dire.‚Äô",
     "publisher": "MarketWatch",
     "link": "https://finance.yahoo.com/m/8002535e-c946-3a06-946b-32538ec83fa8/markets-are-resilient-%E2%80%94-but.html",
     "provider_publish_time": 1746711420,
@@ -2616,7 +2616,7 @@
   "model": "news.new",
   "pk": "81b2293a-6cac-3d6b-8e70-edf98fab06a2",
   "fields": {
-    "title": "Behind Birmingham Business Schoolís Push For Responsible Business",
+    "title": "Behind Birmingham Business School‚Äôs Push For Responsible Business",
     "publisher": "Poets & Quants",
     "link": "https://finance.yahoo.com/m/81b2293a-6cac-3d6b-8e70-edf98fab06a2/behind-birmingham-business.html",
     "provider_publish_time": 1746642862,
@@ -2973,7 +2973,7 @@
   "model": "news.new",
   "pk": "9cd1f1e8-b224-32ed-b687-0d01e8077957",
   "fields": {
-    "title": "MicroAlgo Inc. Announces a Quantum Entanglement-Based Novel Training Algorithm ó Entanglement-Assisted Training Algorithm for Supervised Quantum Classifiers",
+    "title": "MicroAlgo Inc. Announces a Quantum Entanglement-Based Novel Training Algorithm ‚Äî Entanglement-Assisted Training Algorithm for Supervised Quantum Classifiers",
     "publisher": "GlobeNewswire",
     "link": "https://finance.yahoo.com/news/microalgo-inc-announces-quantum-entanglement-120000101.html",
     "provider_publish_time": 1747396800,
@@ -3181,7 +3181,7 @@
   "model": "news.new",
   "pk": "a3dd7170-9dc4-3e2c-a34f-a47d1d8bf4de",
   "fields": {
-    "title": "DeFi Development Corp. to Host X Spaces Event: ìFireside Chat with John Han (CFO), DK (Head of IR), and Pete Humiston (Head of Research and Content)î",
+    "title": "DeFi Development Corp. to Host X Spaces Event: ‚ÄúFireside Chat with John Han (CFO), DK (Head of IR), and Pete Humiston (Head of Research and Content)‚Äù",
     "publisher": "GlobeNewswire",
     "link": "https://finance.yahoo.com/news/defi-development-corp-host-x-200000358.html",
     "provider_publish_time": 1747166400,
@@ -3544,7 +3544,7 @@
   "model": "news.new",
   "pk": "bdb8df5f-2105-3b32-b27b-8977472df1d5",
   "fields": {
-    "title": "We Donít Think MicroAlgo's (NASDAQ:MLGO) Earnings Should Make Shareholders Too Comfortable",
+    "title": "We Don‚Äôt Think MicroAlgo's (NASDAQ:MLGO) Earnings Should Make Shareholders Too Comfortable",
     "publisher": "Simply Wall St.",
     "link": "https://finance.yahoo.com/news/don-t-think-microalgos-nasdaq-185700190.html",
     "provider_publish_time": 1746730620,
@@ -3818,7 +3818,7 @@
   "model": "news.new",
   "pk": "d10e3754-f9e2-399f-abd0-80f5042df21c",
   "fields": {
-    "title": "Nvidiaís Huang sees no evidence of AI chip leakage to China",
+    "title": "Nvidia‚Äôs Huang sees no evidence of AI chip leakage to China",
     "publisher": "Investing.com",
     "link": "https://finance.yahoo.com/news/nvidia-huang-sees-no-evidence-093229834.html",
     "provider_publish_time": 1747474349,
@@ -4002,7 +4002,7 @@
   "model": "news.new",
   "pk": "df3c7441-accf-3bea-bb6d-a03cdc1b4999",
   "fields": {
-    "title": "MicroAlgo Full Year 2024 Earnings: EPS: CN•10.52 (vs CN•1,176 loss in FY 2023)",
+    "title": "MicroAlgo Full Year 2024 Earnings: EPS: CN¬•10.52 (vs CN¬•1,176 loss in FY 2023)",
     "publisher": "Simply Wall St.",
     "link": "https://finance.yahoo.com/news/microalgo-full-2024-earnings-eps-114450101.html",
     "provider_publish_time": 1746013490,
@@ -4275,7 +4275,7 @@
   "model": "news.new",
   "pk": "e951bdaf-7e02-3769-b240-47a144029e19",
   "fields": {
-    "title": "GSRís Josh Riezman on Regulation, Risk, and Readying Crypto for the Next Phase",
+    "title": "GSR‚Äôs Josh Riezman on Regulation, Risk, and Readying Crypto for the Next Phase",
     "publisher": "CoinDesk",
     "link": "https://finance.yahoo.com/m/e951bdaf-7e02-3769-b240-47a144029e19/gsr%E2%80%99s-josh-riezman-on.html",
     "provider_publish_time": 1746713518,

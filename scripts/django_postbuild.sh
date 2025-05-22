@@ -30,6 +30,7 @@ except Exception as e:
 echo -e "\n📦 Aplicando migraciones..."
 python manage.py migrate --noinput || { echo '❌ Fallo al aplicar migraciones'; exit 1; }
 
+# 🛠️ Volcar los datos de la base de datos sqlite a la base de datos postgres
 echo -e "\n📦 Aplicando los datos de la base de datos sqlite..."
 python manage.py loaddata datadump.json || { echo '❌ Fallo al cargar los datos de la base de datos sqlite'; exit 1; }
 
