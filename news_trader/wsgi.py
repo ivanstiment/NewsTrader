@@ -18,9 +18,7 @@ if 'WEBSITE_HOSTNAME' in os.environ:
     settings_module = "news_trader.deployment"
 else:
     settings_module = "news_trader.settings"
-    
-print("wsgi.py")
-print(settings_module)
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings_module)
+print("✅ DJANGO_SETTINGS_MODULE =", os.environ.get("DJANGO_SETTINGS_MODULE"))
 
 application = get_wsgi_application()

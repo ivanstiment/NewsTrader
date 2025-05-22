@@ -12,9 +12,8 @@ def main():
     else:
         settings_module = "news_trader.settings"
         
-    print("manage.py")
-    print(settings_module)
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings_module)
+    print("✅ DJANGO_SETTINGS_MODULE =", os.environ.get("DJANGO_SETTINGS_MODULE"))
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

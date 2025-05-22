@@ -1,40 +1,44 @@
 import os
-from .settings import *
 import sys
-print("⚙️ DB HOST:", DATABASES["default"]["HOST"], file=sys.stderr)
+from .settings import *
+
+
+print("🛠️  Cargando settings de despliegue...", file=sys.stderr)
+
+REQUIRED_VARS = ["DJANGO_SECRET_KEY", "DBNAME", "DBUSER", "DBPASS", "DBHOST"]
+
+missing = [v for v in REQUIRED_VARS if v not in os.environ]
+if missing:
+    raise RuntimeError(f"❌ Variables de entorno faltantes: {missing}")
 
 # from .settings import BASE_DIR
 
 # ALLOWED_HOSTS = [os.environ["WEBSITE_HOSTNAME"]]
 ALLOWED_HOSTS = [
-    "localhost",
-    "127.0.0.1",
     "news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
     ".azurewebsites.net",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:5173",
     "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
     "https://*.azurewebsites.net",
     "http://*.azurewebsites.net",
     "http://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
 ]
 CSRF_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
     "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
     "https://*.azurewebsites.net",
     "http://*.azurewebsites.net",
     "http://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
 ]
 CORS_ORIGINS_WHITELIST = [
-    "http://localhost:5173",
     "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
     "https://*.azurewebsites.net",
     "http://*.azurewebsites.net",
     "http://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
 ]
 
+print("⚙️  DB HOST:", os.environ["DBHOST"], file=sys.stderr)
 
 INSTALLED_APPS = [
     "django.contrib.admin",

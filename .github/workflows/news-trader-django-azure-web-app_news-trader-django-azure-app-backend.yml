@@ -14,6 +14,7 @@ env:
   CELERY_RESULT_BACKEND: ${{ secrets.CELERY_RESULT_BACKEND }}
   CELERY_BROKER_URL: ${{ secrets.CELERY_BROKER_URL }}
   DEBUG: False
+  DJANGO_SETTINGS_MODULE: news_trader.deployment
 
 on:
   push:
@@ -45,18 +46,57 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Crear directorio STATIC_ROOT si no existe
-        run: mkdir -p ${{ github.workspace }}/staticfiles
+      - name: Clean residual Python files
+        run: |
+          echo "🧹 Limpiando archivos .pyc y __pycache__..."
+          find . -name "*.pyc" -exec rm -f {} +
+          find . -name "__pycache__" -type d -exec rm -rf {} +
+          echo "🧹 Eliminando db.sqlite3 si existe..."
+          find . -name "db.sqlite3" -exec rm -f {} + || true
 
-      - name: Crear directorio STATIC si no existe
-        run: mkdir -p ${{ github.workspace }}/static
+      - name: Verificar módulo de configuración Django
+        run: |
+          python -c "import os; print('🛠️ DJANGO_SETTINGS_MODULE:', os.getenv('DJANGO_SETTINGS_MODULE'))"
+        env:
+          DJANGO_SETTINGS_MODULE: news_trader.deployment
 
       # - name: Verificar existencia de static
       #   run: |
       #     ls -l ${{ github.workspace }}/static
 
+      - name: Verificar conexión a la base de datos desde Django
+        run: |
+          echo "🔎 Verificando conexión a la base de datos..."
+          python -c "
+          import os
+          os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'news_trader.deployment')
+          import django
+          django.setup()
+          from django.db import connection
+          try:
+            with connection.cursor() as cursor:
+              cursor.execute('SELECT 1')
+              print('✅ Conexión a la base de datos verificada')
+            except Exception as e:
+              print('❌ Error de conexión a la base de datos:', e)
+                  "
+        env:
+          DJANGO_SETTINGS_MODULE: news_trader.deployment
+
+      - name: Crear directorios estático si no existen
+        run: |
+          mkdir -p ${{ github.workspace }}/staticfiles
+          mkdir -p ${{ github.workspace }}/static
+
       - name: Collect static files
         run: python manage.py collectstatic --no-input
+        env:
+          DJANGO_SETTINGS_MODULE: news_trader.deployment
+      
+      - name: Apply migrations
+        run: python manage.py migrate --noinput
+        env:
+          DJANGO_SETTINGS_MODULE: news_trader.deployment
 
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
