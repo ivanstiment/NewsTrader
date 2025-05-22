@@ -77,8 +77,8 @@ jobs:
             with connection.cursor() as cursor:
               cursor.execute('SELECT 1')
               print('✅ Conexión a la base de datos verificada')
-            except Exception as e:
-              print('❌ Error de conexión a la base de datos:', e)
+          except Exception as e:
+            print('❌ Error de conexión a la base de datos:', e)
                   "
         env:
           DJANGO_SETTINGS_MODULE: news_trader.deployment
