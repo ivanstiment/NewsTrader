@@ -34,23 +34,32 @@ if IS_PRODUCTION:
     print(f"▶️ FRONTEND_URL: {os.environ.get("FRONTEND_URL")}", file=sys.stderr)
     ALLOWED_HOSTS = [
         os.environ.get("WEBSITE_HOSTNAME"),
+        "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
         ".azurewebsites.net",
         ".azurestaticapps.net"
     ]
     CSRF_TRUSTED_ORIGINS = [
         os.environ.get("FRONTEND_URL"),
+        "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
         "https://*.azurewebsites.net",
+        "https://*.azurestaticapps.net",
     ]
     CSRF_ALLOWED_ORIGINS = [
         os.environ.get("FRONTEND_URL"),
+        "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
         "https://*.azurewebsites.net",
+        "https://*.azurestaticapps.net",
     ]
     CORS_ORIGINS_WHITELIST = [
         os.environ.get("FRONTEND_URL"),
+        "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
         "https://*.azurewebsites.net",
+        "https://*.azurestaticapps.net",
     ]
     CORS_ALLOWED_ORIGINS = [
+        os.environ.get("FRONTEND_URL"),
         "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
+        "https://*.azurewebsites.net",
         "https://*.azurestaticapps.net",
     ]
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
