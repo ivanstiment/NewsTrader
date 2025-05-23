@@ -42,6 +42,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Incluir WebJob de Celery
+        run: |
+          chmod +x App_Data/jobs/continuous/celeryworker/run.sh
+
       - name: Clean residual Python files
         run: |
           echo "🧹 Limpiando archivos .pyc y __pycache__..."
@@ -93,3 +97,5 @@ jobs:
           app-name: "news-trader-django-azure-app-backend"
           slot-name: "Production"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BC4BA36656BF4F048A4F89E646E56639 }}
+          package: '.'
+          clean: false 
