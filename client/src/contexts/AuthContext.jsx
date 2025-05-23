@@ -5,6 +5,7 @@ import {
   getAccessToken as readToken,
   setRefreshToken as writeRefresh,
   setAccessToken as writeToken,
+  removeAccessToken as removeToken
 } from "@/services/tokenService";
 
 export const AuthContext = createContext();
@@ -34,6 +35,7 @@ export function AuthProvider({ children }) {
     writeToken(null);
     writeRefresh(null);
     setUser(null);
+    removeToken();
     window.location.href = "/login";
   };
 

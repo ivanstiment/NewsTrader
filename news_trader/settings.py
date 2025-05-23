@@ -46,7 +46,10 @@ if IS_PRODUCTION:
         os.environ.get("FRONTEND_URL"),
         "https://*.azurewebsites.net",
     ]
-    CORS_ALLOWED_ORIGINS = ["https://salmon-stone-0e4a4f410.6.azurestaticapps.net"]
+    CORS_ALLOWED_ORIGINS = [
+        "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
+        "https://*.azurestaticapps.net",
+    ]
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True

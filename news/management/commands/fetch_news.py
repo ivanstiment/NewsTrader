@@ -1,7 +1,6 @@
 from django.core.management.base import BaseCommand
 import yfinance as yf
 from news.models import New
-import uuid as uuid_lib
 
 
 class Command(BaseCommand):
@@ -58,18 +57,8 @@ class Command(BaseCommand):
                 continue
 
             try:
-                uuid_obj = uuid_lib.UUID(uuid_val)
-            except ValueError:
-                self.stderr.write(
-                    self.style.WARNING(
-                        f"UUID inválido: {uuid_val}, se omite la noticia."
-                    )
-                )
-                continue
-
-            try:
                 obj, created = New.objects.update_or_create(
-                    uuid=uuid_obj,
+                    uuid=uuid_val,
                     defaults={
                         "title": title,
                         "publisher": publisher,

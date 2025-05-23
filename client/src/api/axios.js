@@ -4,10 +4,17 @@ import {
   setAccessToken as writeToken,
 } from "@/services/tokenService";
 
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+axios.defaults.withCredentials = true;
+
 const isDevelopment = import.meta.env.MODE === "development";
 const baseUrl = isDevelopment
   ? import.meta.env.VITE_API_BASE_URL_LOCAL
   : import.meta.env.VITE_API_BASE_URL_PROD;
+const refreshUrl = isDevelopment
+  ? import.meta.env.VITE_API_BASE_URL_LOCAL + "/token/refresh/"
+  : import.meta.env.VITE_API_BASE_URL_PROD + "/token/refresh/";
 
 const api = axios.create({
   baseURL: baseUrl,
@@ -48,7 +55,7 @@ api.interceptors.response.use(
         isRefreshing = true;
         try {
           const { data } = await axios.post(
-            "http://localhost:8000/token/refresh/",
+            refreshUrl,
             {},
             { withCredentials: true }
           );

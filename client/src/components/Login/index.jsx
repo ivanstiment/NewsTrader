@@ -24,7 +24,7 @@ export function Login() {
 
   const [apiError, setApiError] = useState("");
 
-  // 2) Envío del formulario
+  // Envío del formulario
   const onSubmit = async (data) => {
     setApiError("");
     try {

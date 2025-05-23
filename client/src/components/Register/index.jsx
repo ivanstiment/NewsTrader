@@ -9,8 +9,8 @@ import { PadlockIcon, UserIcon } from "../Icons";
 
 const isDevelopment = import.meta.env.MODE === "development";
 const baseUrl = isDevelopment
-  ? import.meta.env.VITE_API_BASE_URL_LOCAL
-  : import.meta.env.VITE_API_BASE_URL_PROD;
+  ? import.meta.env.VITE_API_BASE_URL_LOCAL + "register/"
+  : import.meta.env.VITE_API_BASE_URL_PROD + "register/";
 
 export function Register() {
   // 2. Hook useForm con validación y modo onBlur para accesibilidad
@@ -27,14 +27,14 @@ export function Register() {
   const [apiError, setApiError] = useState(null);
   const [apiSuccess, setApiSuccess] = useState(null);
 
-  // 3. Envío de formulario
+  // Envío de formulario
   const onSubmit = async (data) => {
     setApiError(null);
     setApiSuccess(null);
     try {
       const csrfToken = getCsrfToken();
       const response = await axios.post(
-        baseUrl + "register/",
+        baseUrl,
         { user: data.user, password: data.password },
         { headers: { "X-CSRFToken": csrfToken } }
       );
