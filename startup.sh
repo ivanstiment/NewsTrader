@@ -1,7 +1,13 @@
 #!/bin/bash
 set -e
+
+echo "PWD: $(pwd)"
+ls -l
+
 echo "Arrancando Gunicorn y Celery..."
-# Arranca Gunicorn en segundo plano
+
+# Lanza Gunicorn (web) en background
 gunicorn news_trader.wsgi:application --bind=0.0.0.0:8000 &
-# Arranca Celery
+
+# Lanza Celery worker (usa el venv actual, Oryx ya lo activó)
 celery -A news_trader worker --loglevel=INFO
