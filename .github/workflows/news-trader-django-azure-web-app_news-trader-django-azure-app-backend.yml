@@ -42,12 +42,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Incluir WebJob de Celery
-        run: |
-          mkdir -p App_Data/jobs/continuous/celeryworker
-          cp scripts/start_celery.sh App_Data/jobs/continuous/celeryworker/run.sh
-          chmod +x App_Data/jobs/continuous/celeryworker/run.sh
-
       - name: Clean residual Python files
         run: |
           echo "🧹 Limpiando archivos .pyc y __pycache__..."
