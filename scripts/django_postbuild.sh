@@ -11,28 +11,22 @@ export DJANGO_SETTINGS_MODULE
 echo -e "\n⚙️ Usando configuración: $DJANGO_SETTINGS_MODULE"
 
 # 🔗 Verificación de base de datos
-echo -e "\n🔎 Probando conexión a la base de datos..."
-python -c "
-import os
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', '$DJANGO_SETTINGS_MODULE')
-import django
-django.setup()
-from django.db import connection
-try:
-    with connection.cursor() as cursor:
-        cursor.execute('SELECT 1')
-        print('✅ Conexión a la base de datos exitosa')
-except Exception as e:
-    print(f'❌ ERROR de conexión a la base de datos: {e}')
-"
+# echo -e "\n🔎 Probando conexión a la base de datos..."
+# python -c "
+# import os
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', '$DJANGO_SETTINGS_MODULE')
+# import django
+# django.setup()
+# from django.db import connection
+# try:
+#     with connection.cursor() as cursor:
+#         cursor.execute('SELECT 1')
+#         print('✅ Conexión a la base de datos exitosa')
+# except Exception as e:
+#     print(f'❌ ERROR de conexión a la base de datos: {e}')
+# "
 
 # 🛠️ Aplicar migraciones
-echo -e "\n📦 Aplicando migraciones news..."
-python manage.py migrate news --noinput || { echo '❌ Fallo al aplicar migraciones'; exit 1; }
-
-echo -e "\n📦 Aplicando migraciones sentiment_analysis..."
-python manage.py migrate sentiment_analysis --noinput || { echo '❌ Fallo al aplicar migraciones'; exit 1; }
-
 echo -e "\n📦 Aplicando migraciones..."
 python manage.py migrate --noinput || { echo '❌ Fallo al aplicar migraciones'; exit 1; }
 

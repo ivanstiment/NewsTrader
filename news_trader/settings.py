@@ -30,13 +30,12 @@ SECRET_KEY = os.environ.get(
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 
 if IS_PRODUCTION:
-    print(f"▶️ WEBSITE_HOSTNAME: {os.environ.get("WEBSITE_HOSTNAME")}", file=sys.stderr)
-    print(f"▶️ FRONTEND_URL: {os.environ.get("FRONTEND_URL")}", file=sys.stderr)
     ALLOWED_HOSTS = [
         os.environ.get("WEBSITE_HOSTNAME"),
-        "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
+        "salmon-stone-0e4a4f410.6.azurestaticapps.net",
         ".azurewebsites.net",
-        ".azurestaticapps.net"
+        ".azurestaticapps.net",
+        "169.254.129.2"
     ]
     CSRF_TRUSTED_ORIGINS = [
         os.environ.get("FRONTEND_URL"),
