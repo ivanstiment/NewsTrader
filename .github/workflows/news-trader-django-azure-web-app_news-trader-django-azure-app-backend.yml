@@ -50,157 +50,119 @@ jobs:
           echo "🧹 Eliminando db.sqlite3 si existe..."
           find . -name "db.sqlite3" -exec rm -f {} + || true
 
-      - name: Setup WebJob with Oryx-compatible structure
+      - name: Setup WebJob with proper Azure structure
         run: |
-          echo "🔧 Configurando WebJob compatible con Oryx..."
+          echo "🔧 Configurando WebJob para Azure App Service..."
           
-          # Crear estructura de carpetas para WebJob
+          # Crear estructura correcta para Azure WebJobs
           mkdir -p App_Data/jobs/continuous/celeryworker
           
-          # Crear script de inicio que funciona con la estructura real de Oryx
+          # Script optimizado para Azure App Service
           cat > App_Data/jobs/continuous/celeryworker/run.sh << 'EOF'
           #!/bin/bash
           set -e
           
-          echo "=== WebJob Celery Worker - Inicio ==="
+          echo "=== Azure WebJob Celery Worker ==="
           echo "Timestamp: $(date)"
-          echo "Directorio actual: $(pwd)"
-          echo "Usuario: $(whoami)"
+          echo "Current directory: $(pwd)"
           echo ""
           
-          echo "🔍 Diagnóstico completo del entorno:"
-          echo "PATH: $PATH"
-          echo "PYTHONPATH: $PYTHONPATH" 
-          echo "WEBSITE_SITE_NAME: $WEBSITE_SITE_NAME"
-          echo "HOME: $HOME"
-          echo "PWD: $PWD"
-          echo ""
+          # Azure App Service paths
+          SITE_ROOT="/home/site/wwwroot"
           
-          # Buscar directorios temporales de Oryx
-          echo "🔍 Buscando directorios de aplicación de Oryx..."
-          find /tmp -maxdepth 1 -name "*" -type d 2>/dev/null | grep -E "/tmp/[a-f0-9]+" || echo "No se encontraron directorios Oryx"
-          echo ""
-          
-          # Encontrar el directorio correcto donde Oryx extrajo la aplicación
-          APP_DIR=""
-          for dir in /tmp/*/; do
-              if [ -d "${dir}news_trader" ] && [ -d "${dir}antenv" ]; then
-                  APP_DIR="$dir"
-                  echo "✅ Encontrado directorio de aplicación: $APP_DIR"
-                  break
+          # Check if we're in the correct location
+          if [ -d "$SITE_ROOT" ]; then
+              echo "✅ Detected Azure App Service environment"
+              cd "$SITE_ROOT"
+          else
+              echo "🔍 Searching for application directory..."
+              # Fallback for Oryx deployment
+              APP_DIR=""
+              for dir in /tmp/*/; do
+                  if [ -d "${dir}news_trader" ] && [ -d "${dir}antenv" ]; then
+                      APP_DIR="$dir"
+                      break
+                  fi
+              done
+              
+              if [ -n "$APP_DIR" ]; then
+                  echo "✅ Found Oryx application directory: $APP_DIR"
+                  cd "$APP_DIR"
+              else
+                  echo "❌ Could not find application directory"
+                  exit 1
               fi
-          done
-          
-          if [ -z "$APP_DIR" ]; then
-              echo "❌ Error: No se encontró directorio de aplicación con news_trader y antenv"
-              echo "📁 Explorando /tmp para diagnóstico:"
-              ls -la /tmp/
-              echo ""
-              echo "📁 Contenido de /home/site/wwwroot:"
-              ls -la /home/site/wwwroot/
-              exit 1
           fi
           
-          echo "📂 Cambiando al directorio de aplicación: $APP_DIR"
-          cd "$APP_DIR"
-          
-          echo "📁 Contenido del directorio de aplicación:"
+          echo "📂 Working directory: $(pwd)"
+          echo "📁 Directory contents:"
           ls -la
           echo ""
           
-          # Verificar estructura necesaria
-          if [ ! -d "news_trader" ]; then
-              echo "❌ Error: Directorio news_trader no encontrado"
-              exit 1
+          # Activate virtual environment if exists
+          if [ -d "antenv" ]; then
+              echo "🐍 Activating virtual environment..."
+              source antenv/bin/activate
           fi
           
-          if [ ! -d "antenv" ]; then
-              echo "❌ Error: Entorno virtual antenv no encontrado"
-              exit 1
-          fi
-          
-          echo "✅ Estructura de aplicación verificada"
-          
-          # NO necesitamos modificar DJANGO_SETTINGS_MODULE ni PYTHONPATH
-          # Oryx ya los configuró correctamente
-          
-          echo "🐍 Información de Python:"
+          # Verify Python and Django
+          echo "🔍 Environment verification:"
           python --version
-          echo "PYTHONPATH actual: $PYTHONPATH"
+          echo "PYTHONPATH: $PYTHONPATH"
           echo ""
           
-          # Verificar variables de entorno necesarias para Celery
-          if [ -z "$CELERY_BROKER_URL" ]; then
-              echo "⚠️  ADVERTENCIA: CELERY_BROKER_URL no está configurada"
-          else
-              echo "✅ CELERY_BROKER_URL configurada"
-          fi
-          
-          if [ -z "$CELERY_RESULT_BACKEND" ]; then
-              echo "⚠️  ADVERTENCIA: CELERY_RESULT_BACKEND no está configurada"
-          else
-              echo "✅ CELERY_RESULT_BACKEND configurada"
-          fi
-          echo ""
-          
-          # Verificar imports críticos
-          echo "🧪 Verificando imports..."
+          # Test imports
           python -c "
+          import sys
+          import os
           try:
               import news_trader
-              print('✅ news_trader importado correctamente')
-          except ImportError as e:
-              print(f'❌ Error importando news_trader: {e}')
-              import sys
-              print(f'sys.path: {sys.path}')
-              exit(1)
-          
-          try:
+              print('✅ news_trader module imported')
+              
               import celery
               print(f'✅ Celery version: {celery.__version__}')
-          except ImportError as e:
-              print(f'❌ Error importando Celery: {e}')
-              exit(1)
-          
-          # Verificar que podemos crear la instancia de Celery
-          try:
+              
               from news_trader.celery import app
-              print('✅ Instancia de Celery accesible')
+              print('✅ Celery app instance created')
+              
           except Exception as e:
-              print(f'⚠️  Advertencia al acceder a instancia Celery: {e}')
+              print(f'❌ Import error: {e}')
+              print(f'Python path: {sys.path}')
+              sys.exit(1)
           "
           
           if [ $? -ne 0 ]; then
-              echo "❌ Error en verificación de imports"
+              echo "❌ Environment verification failed"
               exit 1
           fi
           
           echo ""
-          echo "🚀 Iniciando Celery Worker..."
-          echo "Comando: python -m celery -A news_trader worker --loglevel=INFO"
-          echo ""
+          echo "🚀 Starting Celery Worker..."
           
-          # Ejecutar Celery - versión simplificada para debugging inicial
+          # Start Celery with proper configuration
           exec python -m celery -A news_trader worker \
-            --loglevel=INFO \
-            --concurrency=1 \
-            --events
+              --loglevel=INFO \
+              --concurrency=1 \
+              --events \
+              --without-gossip \
+              --without-mingle \
+              --without-heartbeat
           EOF
           
-          # Hacer el script ejecutable
           chmod +x App_Data/jobs/continuous/celeryworker/run.sh
           
-          # Configuración del WebJob optimizada
+          # WebJob settings optimized for Azure
           cat > App_Data/jobs/continuous/celeryworker/settings.job << 'EOF'
           {
               "is_continuous": true,
-              "stopping_wait_time": 90,
+              "stopping_wait_time": 120,
               "using_sdk": false,
-              "singleton": true
+              "singleton": true,
+              "is_singleton": true
           }
           EOF
           
-          echo "✅ WebJob configurado para compatibilidad con Oryx"
+          echo "✅ Azure WebJob configured"    
 
       - name: Crear directorios estáticos si no existen
         run: |
