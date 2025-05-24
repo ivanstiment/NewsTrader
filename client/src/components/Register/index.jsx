@@ -9,7 +9,7 @@ import { PadlockIcon, UserIcon } from "../Icons";
 
 const isDevelopment = import.meta.env.MODE === "development";
 const baseUrl = isDevelopment
-  ? import.meta.env.VITE_API_BASE_URL_LOCAL + "register/"
+  ? import.meta.env.VITE_API_BASE_URL_LOCAL + "/register/"
   : "register/";
 
 export function Register() {
