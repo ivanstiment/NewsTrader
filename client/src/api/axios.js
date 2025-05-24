@@ -238,7 +238,7 @@ export const apiRequest = {
     return api.get(url, axiosConfig).catch(error => {
       if (!showErrorToast) {
         // Si no queremos mostrar toast, manejamos el error silenciosamente
-        console.error('API Error (silent):', error);
+        console.error('API Error (silencioso):', error);
       }
       throw error;
     });
@@ -248,7 +248,7 @@ export const apiRequest = {
     const { showErrorToast = true, errorMessage, ...axiosConfig } = options;
     return api.post(url, data, axiosConfig).catch(error => {
       if (!showErrorToast) {
-        console.error('API Error (silent):', error);
+        console.error('API Error (silencioso):', error);
       }
       throw error;
     });
@@ -258,7 +258,7 @@ export const apiRequest = {
     const { showErrorToast = true, errorMessage, ...axiosConfig } = options;
     return api.put(url, data, axiosConfig).catch(error => {
       if (!showErrorToast) {
-        console.error('API Error (silent):', error);
+        console.error('API Error (silencioso):', error);
       }
       throw error;
     });
@@ -268,7 +268,7 @@ export const apiRequest = {
     const { showErrorToast = true, errorMessage, ...axiosConfig } = options;
     return api.delete(url, axiosConfig).catch(error => {
       if (!showErrorToast) {
-        console.error('API Error (silent):', error);
+        console.error('API Error (silencioso):', error);
       }
       throw error;
     });
