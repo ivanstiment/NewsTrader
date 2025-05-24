@@ -1,3 +1,4 @@
+// client/src/api/axios.js
 import axios from "axios";
 import {
   getAccessToken as readToken,
@@ -5,8 +6,9 @@ import {
   getRefreshToken,
   clearAllTokens
 } from "@/services/tokenService";
+import { getCsrfToken } from "@/utils/csrf";
 
-// Configurar valores por defecto
+// Configurar valores por defecto para CSRF
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 axios.defaults.withCredentials = true;
@@ -51,10 +53,20 @@ function onRefreshed(newToken) {
 // Interceptor de request
 api.interceptors.request.use(
   (config) => {
+    // Agregar token JWT
     const token = readToken();
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
+    // Agregar token CSRF a todas las solicitudes POST, PUT, PATCH y DELETE
+    if (['post', 'put', 'patch', 'delete'].includes(config.method.toLowerCase())) {
+      const csrfToken = getCsrfToken();
+      if (csrfToken) {
+        config.headers['X-CSRFToken'] = csrfToken;
+      }
+    }
+    
     return config;
   },
   (error) => {

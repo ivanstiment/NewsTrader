@@ -1,19 +1,17 @@
-from django.contrib.auth.models import User
 from django.conf import settings
-from django.shortcuts import render
-from django.views.generic.list import ListView
-from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from django.http import JsonResponse
+from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
+from django.middleware.csrf import get_token
+from django.views.decorators.http import require_http_methods
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from .models import New, Stock, HistoricalPrice
 from .serializer import NewsSerializer, StocksSerializer
-from datetime import datetime
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from rest_framework_simplejwt.settings import api_settings
 from rest_framework_simplejwt.serializers import (
     TokenObtainPairSerializer,
     TokenRefreshSerializer,
@@ -26,6 +24,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
     """
     Devuelve 'access' en JSON y guarda 'refresh' en una cookie HttpOnly.
     """
+
     permission_classes = [AllowAny]  # Acceso anónimo
     serializer_class = TokenObtainPairSerializer
 
@@ -48,6 +47,7 @@ class CookieTokenRefreshView(TokenRefreshView):
     """
     Override para leer el refresh desde la cookie HttpOnly en lugar de request.data.
     """
+
     permission_classes = [AllowAny]  # Acceso anónimo
     serializer_class = TokenRefreshSerializer
     serializer_class = TokenRefreshSerializer
@@ -65,7 +65,9 @@ class CookieTokenRefreshView(TokenRefreshView):
 class NewsView(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = NewsSerializer
-    queryset = New.objects.all().select_related("analysis").order_by("-provider_publish_time")
+    queryset = (
+        New.objects.all().select_related("analysis").order_by("-provider_publish_time")
+    )
 
 
 class StocksView(viewsets.ModelViewSet):
@@ -119,38 +121,55 @@ def get_historical_prices(request, symbol):
     return JsonResponse(respuesta, safe=False)
 
 
+@require_http_methods(["GET"])
 @ensure_csrf_cookie
+def get_csrf_token(request):
+    """
+    Endpoint para obtener el token CSRF para el frontend
+    """
+    token = get_token(request)
+    return JsonResponse({"csrfToken": token})
+
+
+@csrf_exempt  # We'll handle CSRF manually
 def register_user(request):
     """
-    Register a new user. Make sure the user is created as active.
+    Registra un nuevo usuario. Se asegura de que esté activo.
     """
     if request.method == "POST":
         try:
+            # Comprobar el token CSRF manualmente
+            csrf_token = request.META.get("HTTP_X_CSRFTOKEN")
+            if not csrf_token:
+                return JsonResponse({"error": "CSRF token missing"}, status=403)
+
             data = json.loads(request.body)
             username = data.get("user")
             password = data.get("password")
 
             if not username or not password:
-                return JsonResponse({"error": "Usuario y contraseña son requeridos"}, status=400)
+                return JsonResponse(
+                    {"error": "Usuario y contraseña son requeridos"}, status=400
+                )
 
             if User.objects.filter(username=username).exists():
                 return JsonResponse({"error": "El usuario ya existe"}, status=400)
 
             # Create user and ensure it's active
             user = User.objects.create_user(
-                username=username, 
-                password=password,
-                is_active=True  # Explicitly set as active
+                username=username, password=password, is_active=True
             )
             user.save()
-            
+
             return JsonResponse({"success": "Usuario creado exitosamente"}, status=201)
-            
+
         except json.JSONDecodeError:
             return JsonResponse({"error": "Formato de datos inválido"}, status=400)
         except Exception as e:
-            return JsonResponse({"error": f"Error interno del servidor: {str(e)}"}, status=500)
-    
+            return JsonResponse(
+                {"error": f"Error interno del servidor: {str(e)}"}, status=500
+            )
+
     return JsonResponse({"error": "Método no permitido"}, status=405)
 
 
