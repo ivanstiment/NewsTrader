@@ -1,5 +1,6 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+__pycache__
 *.py[cod]
 *$py.class
 *.pyo
@@ -23,6 +24,7 @@ parts/
 sdist/
 var/
 wheels/
+pip-wheel-metadata/
 share/python-wheels/
 *.egg-info/
 .installed.cfg
@@ -73,6 +75,7 @@ db.sqlite3-journal
 
 # Django static files
 staticfiles/
+static/
 media/
 
 # Flask stuff:
@@ -84,7 +87,6 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-package-lock.json
 
 # Build files
 dist/
@@ -158,6 +160,8 @@ celerybeat.pid
 
 # Environments
 .env
+test_env
+test_env/
 .venv
 env/
 venv/

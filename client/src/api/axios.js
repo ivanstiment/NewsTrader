@@ -4,11 +4,22 @@ import {
   setAccessToken as writeToken,
 } from "@/services/tokenService";
 
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+axios.defaults.withCredentials = true;
+
+const isDevelopment = import.meta.env.MODE === "development";
+const baseUrl = isDevelopment
+  ? import.meta.env.VITE_API_BASE_URL_LOCAL
+  : import.meta.env.VITE_API_BASE_URL_PROD;
+const refreshUrl = isDevelopment
+  ? import.meta.env.VITE_API_BASE_URL_LOCAL + "/token/refresh/"
+  : import.meta.env.VITE_API_BASE_URL_PROD + "/token/refresh/";
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: baseUrl,
   withCredentials: true,
 });
-
 
 let isRefreshing = false;
 let refreshSubscribers = [];
@@ -20,7 +31,7 @@ function subscribeTokenRefresh(cb) {
 
 // Al tener nuevo token, ejecutar subs
 function onRefreshed(newToken) {
-  refreshSubscribers.forEach(cb => cb(newToken));
+  refreshSubscribers.forEach((cb) => cb(newToken));
   refreshSubscribers = [];
 }
 
@@ -33,8 +44,8 @@ api.interceptors.request.use((config) => {
 });
 
 api.interceptors.response.use(
-  res => res,
-  async err => {
+  (res) => res,
+  async (err) => {
     const { config, response } = err;
     if (response?.status === 401 && !config._retry) {
       // Marcar esta petición para no reintentar múltiples veces
@@ -44,7 +55,7 @@ api.interceptors.response.use(
         isRefreshing = true;
         try {
           const { data } = await axios.post(
-            "http://localhost:8000/token/refresh/",
+            refreshUrl,
             {},
             { withCredentials: true }
           );
@@ -60,8 +71,8 @@ api.interceptors.response.use(
       }
 
       // Devolver una promesa que espere al nuevo token
-      return new Promise(resolve => {
-        subscribeTokenRefresh(newToken => {
+      return new Promise((resolve) => {
+        subscribeTokenRefresh((newToken) => {
           // Obtenido el token, reconfigurar y reintentar
           config.headers.Authorization = `Bearer ${newToken}`;
           resolve(axios.request(config));

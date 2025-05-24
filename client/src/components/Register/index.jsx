@@ -7,6 +7,11 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { PadlockIcon, UserIcon } from "../Icons";
 
+const isDevelopment = import.meta.env.MODE === "development";
+const baseUrl = isDevelopment
+  ? import.meta.env.VITE_API_BASE_URL_LOCAL + "register/"
+  : "register/";
+
 export function Register() {
   // 2. Hook useForm con validación y modo onBlur para accesibilidad
   const {
@@ -22,14 +27,14 @@ export function Register() {
   const [apiError, setApiError] = useState(null);
   const [apiSuccess, setApiSuccess] = useState(null);
 
-  // 3. Envío de formulario
+  // Envío de formulario
   const onSubmit = async (data) => {
     setApiError(null);
     setApiSuccess(null);
     try {
       const csrfToken = getCsrfToken();
       const response = await axios.post(
-        "http://localhost:8000/register/",
+        baseUrl,
         { user: data.user, password: data.password },
         { headers: { "X-CSRFToken": csrfToken } }
       );

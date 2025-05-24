@@ -140,7 +140,8 @@ def get_historical_prices(request, symbol):
     return JsonResponse(respuesta, safe=False)
 
 
-@csrf_exempt
+# @csrf_exempt
+@ensure_csrf_cookie
 def register_user(request):
     if request.method == "POST":
         data = json.loads(request.body)
