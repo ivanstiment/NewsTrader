@@ -50,6 +50,12 @@ jobs:
           echo "🧹 Eliminando db.sqlite3 si existe..."
           find . -name "db.sqlite3" -exec rm -f {} + || true
 
+      - name: Prepara WebJob Celery
+        run: |
+          mkdir -p App_Data/jobs/continuous/celeryworker
+          cp scripts/start_celery.sh App_Data/jobs/continuous/celeryworker/run.sh
+          chmod +x App_Data/jobs/continuous/celeryworker/run.sh
+
       - name: Crear directorios estáticos si no existen
         run: |
           mkdir -p ${{ github.workspace }}/staticfiles
