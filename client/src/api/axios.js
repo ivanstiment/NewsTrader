@@ -130,7 +130,7 @@ api.interceptors.response.use(
       try {
         const refreshToken = getRefreshToken();
         if (!refreshToken) {
-          throw new Error('No hay token refresh disponible');
+          throw new Error('No hay token de actualización disponible');
         }
 
         const { data } = await axios.post(
