@@ -16,6 +16,7 @@ env:
   CELERY_BROKER_URL: ${{ secrets.CELERY_BROKER_URL }}
   WEBSITE_HOSTNAME: ${{ vars.WEBSITE_HOSTNAME }}
   FRONTEND_URL: ${{ vars.FRONTEND_URL }}
+  VITE_API_BASE_URL_PROD: ${{ secrets.VITE_API_BASE_URL_PROD }}
 
 on:
   push:

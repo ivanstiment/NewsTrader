@@ -36,7 +36,7 @@ export function setAccessToken(token) {
       sessionStorage.removeItem(TOKEN_KEY);
     }
   } catch {
-    // Silently fail if sessionStorage is not available
+    // Falla silenciosamente si sessionStorage no está disponible
   }
 }
 
@@ -49,12 +49,12 @@ export function removeAccessToken() {
   try {
     sessionStorage.removeItem(TOKEN_KEY);
   } catch {
-    // Silently fail
+    // Falla silenciosamente
   }
 }
 
 /**
- * Obtiene el refresh token.
+ * Obtiene el token de actualización.
  * @returns {string|null}
  */
 export function getRefreshToken() {
@@ -70,8 +70,8 @@ export function getRefreshToken() {
 }
 
 /**
- * Almacena el refresh token.
- * @param {string|null} refresh - Refresh token a almacenar.
+ * Almacena el token de actualización.
+ * @param {string|null} refresh - token de actualización a almacenar.
  */
 export function setRefreshToken(refresh) {
   inMemoryRefresh = refresh;
@@ -83,7 +83,7 @@ export function setRefreshToken(refresh) {
       sessionStorage.removeItem(REFRESH_KEY);
     }
   } catch {
-    // Silently fail
+    // Falla silenciosamente
   }
 }
 
@@ -97,6 +97,6 @@ export function clearAllTokens() {
   try {
     sessionStorage.removeItem(REFRESH_KEY);
   } catch {
-    // Silently fail
+    // Falla silenciosamente
   }
 }

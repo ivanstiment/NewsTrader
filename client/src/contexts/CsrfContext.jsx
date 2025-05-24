@@ -13,7 +13,7 @@ export function CsrfProvider({ children }) {
         const token = await fetchCsrfToken();
         setCsrfToken(token);
       } catch (error) {
-        console.error("Failed to fetch CSRF token:", error);
+        console.error("Fallo obteniendo el token CSRF:", error);
       } finally {
         setIsLoading(false);
       }

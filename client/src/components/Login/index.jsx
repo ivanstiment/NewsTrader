@@ -1,57 +1,80 @@
+import api from "@/api/axios";
+import { useFormApi } from "@/hooks/useApi";
+import { useAuth } from "@/hooks/useAuth";
+import styles from "@/shared/styles";
+import { loginSchema } from "@/validators/login-schema.validator";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import api from "@/api/axios";
-import { useAuth } from "@/hooks/useAuth";
-import { loginSchema } from "@/validators/login-schema.validator";
 import { PadlockIcon, UserIcon } from "../Icons";
-import styles from "@/shared/styles";
 
 export function Login() {
   const navigate = useNavigate();
   const { login } = useAuth();
 
+  // Usar useFormApi en lugar de useState manual
+  const {
+    loading,
+    error,
+    fieldErrors,
+    submitForm,
+    getFieldError,
+    hasFieldError,
+    clearError,
+  } = useFormApi();
+
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isDirty },
+    formState: { errors, isDirty },
   } = useForm({
     resolver: yupResolver(loginSchema),
-    mode: "onBlur", // validación al perder foco
+    mode: "onBlur",
     reValidateMode: "onChange",
   });
 
-  const [apiError, setApiError] = useState("");
-
-  // Envío del formulario
+  // Envío del formulario usando submitForm
   const onSubmit = async (data) => {
-    setApiError("");
     try {
-      const resp = await api.post("/token/", {
-        username: data.username,
-        password: data.password,
-      });
-      login(resp.data.access, resp.data.refresh);
-      navigate("/news");
-    } catch (err) {
-      setApiError(
-        err.response?.data?.detail ||
-          "Error de autenticación, verifica tus credenciales"
+      await submitForm(
+        () =>
+          api.post("/token/", {
+            username: data.username,
+            password: data.password,
+          }),
+        {
+          showSuccessToast: true,
+          successMessage: "¡Bienvenido! Redirigiendo...",
+          onSuccess: (response) => {
+            login(response.data.access, response.data.refresh);
+            navigate("/news");
+          },
+          context: { component: "Login", action: "authenticate" },
+        }
       );
+    } catch (err) {
+      // El error ya fue manejado por useFormApi
+      console.log("Error de inicio de sesion:", err);
+    }
+  };
+
+  // Limpiar errores cuando el usuario empiece a escribir
+  const handleInputFocus = () => {
+    if (error) {
+      clearError();
     }
   };
 
   return (
-    // <div className={styles['form-field__container}>
     <div className={styles["card__container"]}>
       <div className={styles["card"]} aria-live="polite">
         <h2 className={styles["card__title"]}>¡Bienvenido de nuevo!</h2>
 
-        {/* Mensaje de error genérico */}
-        {apiError && (
+        {/* Mostrar errores generales (no de campo específico) */}
+        {error && !error.response?.status === 400 && (
           <div role="alert" className={styles["form__alertError"]}>
-            {apiError}
+            {error.response?.data?.detail ||
+              "Error de autenticación, verifica tus credenciales"}
           </div>
         )}
 
@@ -65,18 +88,27 @@ export function Login() {
               type="text"
               id="username"
               {...register("username")}
-              aria-invalid={errors.username ? "true" : "false"}
+              onFocus={handleInputFocus}
+              aria-invalid={
+                errors.username || hasFieldError("username") ? "true" : "false"
+              }
               className={`${styles["form-field__input"]} ${
-                errors.username ? styles["form-field__input--error"] : ""
+                errors.username || hasFieldError("username")
+                  ? styles["form-field__input--error"]
+                  : ""
               }`}
             />
             <span
               role="alert"
               className={`${styles["form-field__error"]} ${
-                errors.username ? styles["form-field__error--visible"] : ""
+                errors.username || hasFieldError("username")
+                  ? styles["form-field__error--visible"]
+                  : ""
               }`}
             >
-              {errors.username?.message || "\u00A0"}
+              {errors.username?.message ||
+                getFieldError("username")?.[0] ||
+                "\u00A0"}
             </span>
           </div>
 
@@ -89,18 +121,27 @@ export function Login() {
               type="password"
               id="password"
               {...register("password")}
-              aria-invalid={errors.password ? "true" : "false"}
+              onFocus={handleInputFocus}
+              aria-invalid={
+                errors.password || hasFieldError("password") ? "true" : "false"
+              }
               className={`${styles["form-field__input"]} ${
-                errors.password ? styles["form-field__input--error"] : ""
+                errors.password || hasFieldError("password")
+                  ? styles["form-field__input--error"]
+                  : ""
               }`}
             />
             <span
               role="alert"
               className={`${styles["form-field__error"]} ${
-                errors.password ? styles["form-field__error--visible"] : ""
+                errors.password || hasFieldError("password")
+                  ? styles["form-field__error--visible"]
+                  : ""
               }`}
             >
-              {errors.password?.message || "\u00A0"}
+              {errors.password?.message ||
+                getFieldError("password")?.[0] ||
+                "\u00A0"}
             </span>
           </div>
 
@@ -109,9 +150,9 @@ export function Login() {
             <button
               type="submit"
               className={`${styles["button"]} ${styles["button--primary"]}`}
-              disabled={!isDirty || isSubmitting}
+              disabled={!isDirty || loading}
             >
-              {isSubmitting ? "Iniciando sesión..." : "Continuar"}
+              {loading ? "Iniciando sesión..." : "Continuar"}
             </button>
           </div>
         </form>

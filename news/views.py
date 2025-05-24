@@ -32,7 +32,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
         resp = super().post(request, *args, **kwargs)
         data = resp.data
         response = Response({"access": data["access"]}, status=resp.status_code)
-        # Set-Cookie HTTPOnly para refresh token
+        # Set-Cookie HTTPOnly para token de actualización
         response.set_cookie(
             key="refresh_token",
             value=data["refresh"],
@@ -56,7 +56,7 @@ class CookieTokenRefreshView(TokenRefreshView):
     def post(self, request, *args, **kwargs):
         refresh = request.COOKIES.get("refresh_token")
         if not refresh:
-            return Response({"detail": "No refresh token cookie"}, status=400)
+            return Response({"detail": "Sin cookie de token de actualización"}, status=400)
         # inyectamos en request.data
         request.data["refresh"] = refresh
         return super().post(request, *args, **kwargs)
@@ -161,7 +161,7 @@ def register_user(request):
             )
             user.save()
 
-            return JsonResponse({"success": "Usuario creado exitosamente"}, status=201)
+            return JsonResponse({"success": "Usuario creado con éxito"}, status=201)
 
         except json.JSONDecodeError:
             return JsonResponse({"error": "Formato de datos inválido"}, status=400)

@@ -93,7 +93,7 @@ export function useCrud(apiService) {
     (data, options = {}) => {
       return executeRequest(() => apiService.create(data), {
         showSuccessToast: true,
-        successMessage: "Creado exitosamente",
+        successMessage: "Creado con éxito",
         context: { operation: "create" },
         ...options,
       });
@@ -116,7 +116,7 @@ export function useCrud(apiService) {
     (id, data, options = {}) => {
       return executeRequest(() => apiService.update(id, data), {
         showSuccessToast: true,
-        successMessage: "Actualizado exitosamente",
+        successMessage: "Actualizado con éxito",
         context: { operation: "update", id },
         ...options,
       });
@@ -128,7 +128,7 @@ export function useCrud(apiService) {
     (id, options = {}) => {
       return executeRequest(() => apiService.delete(id), {
         showSuccessToast: true,
-        successMessage: "Eliminado exitosamente",
+        successMessage: "Eliminado con éxito",
         context: { operation: "delete", id },
         ...options,
       });

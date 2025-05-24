@@ -130,7 +130,7 @@ api.interceptors.response.use(
       try {
         const refreshToken = getRefreshToken();
         if (!refreshToken) {
-          throw new Error('No refresh token available');
+          throw new Error('No hay token refresh disponible');
         }
 
         const { data } = await axios.post(
@@ -148,7 +148,7 @@ api.interceptors.response.use(
         return axios.request(config);
         
       } catch (refreshError) {
-        console.error('Token refresh failed:', refreshError);
+        console.error('Error al actualizar el token:', refreshError);
         isRefreshing = false;
         onRefreshed(null);
         

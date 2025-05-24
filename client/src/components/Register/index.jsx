@@ -1,9 +1,10 @@
-import api from "@/api/axios"; // Use the same axios instance
+import api from "@/api/axios";
 import styles from "@/shared/styles";
 import { registerSchema } from "@/validators/register-schema.validator";
+import { useFormApi } from "@/hooks/useApi";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { PadlockIcon, UserIcon } from "../Icons";
 
 export function Register() {
@@ -11,34 +12,67 @@ export function Register() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isDirty },
+    formState: { errors, isDirty },
     reset,
   } = useForm({
     resolver: yupResolver(registerSchema),
     mode: "onBlur",
   });
 
-  const [apiError, setApiError] = useState(null);
-  const [apiSuccess, setApiSuccess] = useState(null);
+  // Usar useFormApi en lugar de useState manual
+  const {
+    loading,
+    error,
+    fieldErrors,
+    submitForm,
+    getFieldError,
+    hasFieldError,
+    clearError,
+    clearFieldErrors,
+  } = useFormApi();
 
-  // Envío de formulario
+  // Estado para mensaje de éxito
+  const [successMessage, setSuccessMessage] = useState(null);
+
+  // Envío de formulario usando submitForm
   const onSubmit = async (data) => {
-    setApiError(null);
-    setApiSuccess(null);
+    // Limpiar mensaje de éxito previo
+    setSuccessMessage(null);
+
     try {
-      // Misma instancia API que login para consistencia
-      const response = await api.post("/register/", {
-        user: data.user,
-        password: data.password,
-      });
-      setApiSuccess(response.data.success);
-      reset();
-    } catch (error) {
-      if (error.response?.data?.error) {
-        setApiError(error.response.data.error);
-      } else {
-        setApiError("Error inesperado, inténtalo de nuevo más tarde");
-      }
+      await submitForm(
+        () =>
+          api.post("/register/", {
+            user: data.user,
+            password: data.password,
+          }),
+        {
+          showSuccessToast: true,
+          successMessage: "¡Cuenta creada con éxito!",
+          onSuccess: (response) => {
+            setSuccessMessage(
+              response.data.success ||
+                "¡Registro exitoso! Ya puedes iniciar sesión."
+            );
+            reset(); // Limpiar formulario
+            clearFieldErrors(); // Limpiar errores de campo
+          },
+          context: { component: "Register", action: "create_account" },
+        }
+      );
+    } catch (err) {
+      // El error ya fue manejado por useFormApi
+      console.log("El registro de la cuenta falló:", err);
+    }
+  };
+
+  // Limpiar errores cuando el usuario empiece a escribir
+  const handleInputFocus = () => {
+    if (error) {
+      clearError();
+    }
+    if (successMessage) {
+      setSuccessMessage(null);
     }
   };
 
@@ -47,18 +81,18 @@ export function Register() {
       <div className={styles["card"]} aria-live="polite">
         <h2 className={styles["card__title"]}>Crear una cuenta</h2>
 
-        {/* Mostrar mensaje de error o éxito */}
-        {(apiError || apiSuccess) && (
-          <div
-            role={apiError ? "alert" : "status"}
-            className={
-              apiError
-                ? styles["form__alertError"]
-                : styles["form__alertSuccess"]
-            }
-          >
-            {apiError || apiSuccess}
+        {/* Mostrar mensaje de error general o éxito */}
+        {error && !error.response?.status === 400 && (
+          <div role="alert" className={styles["form__alertError"]}>
+            {error.response?.data?.error ||
+              "Error inesperado, inténtalo de nuevo más tarde"}
           </div>
+        )}
+
+        {successMessage && (
+          <output className={styles["form__alertSuccess"]}>
+            {successMessage}
+          </output>
         )}
 
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -71,18 +105,25 @@ export function Register() {
               type="text"
               id="user"
               {...register("user")}
-              aria-invalid={errors.user ? "true" : "false"}
+              onFocus={handleInputFocus}
+              aria-invalid={
+                errors.user || hasFieldError("user") ? "true" : "false"
+              }
               className={`${styles["form-field__input"]} ${
-                errors.user ? styles["form-field__input--error"] : ""
+                errors.user || hasFieldError("user")
+                  ? styles["form-field__input--error"]
+                  : ""
               }`}
             />
             <span
               role="alert"
               className={`${styles["form-field__error"]} ${
-                errors.user ? styles["form-field__error--visible"] : ""
+                errors.user || hasFieldError("user")
+                  ? styles["form-field__error--visible"]
+                  : ""
               }`}
             >
-              {errors.user?.message || "\u00A0"}
+              {errors.user?.message || getFieldError("user")?.[0] || "\u00A0"}
             </span>
           </div>
 
@@ -95,18 +136,27 @@ export function Register() {
               type="password"
               id="password"
               {...register("password")}
-              aria-invalid={errors.password ? "true" : "false"}
+              onFocus={handleInputFocus}
+              aria-invalid={
+                errors.password || hasFieldError("password") ? "true" : "false"
+              }
               className={`${styles["form-field__input"]} ${
-                errors.password ? styles["form-field__input--error"] : ""
+                errors.password || hasFieldError("password")
+                  ? styles["form-field__input--error"]
+                  : ""
               }`}
             />
             <span
               role="alert"
               className={`${styles["form-field__error"]} ${
-                errors.password ? styles["form-field__error--visible"] : ""
+                errors.password || hasFieldError("password")
+                  ? styles["form-field__error--visible"]
+                  : ""
               }`}
             >
-              {errors.password?.message || "\u00A0"}
+              {errors.password?.message ||
+                getFieldError("password")?.[0] ||
+                "\u00A0"}
             </span>
           </div>
 
@@ -119,18 +169,29 @@ export function Register() {
               type="password"
               id="repassword"
               {...register("repassword")}
-              aria-invalid={errors.repassword ? "true" : "false"}
+              onFocus={handleInputFocus}
+              aria-invalid={
+                errors.repassword || hasFieldError("repassword")
+                  ? "true"
+                  : "false"
+              }
               className={`${styles["form-field__input"]} ${
-                errors.repassword ? styles["form-field__input--error"] : ""
+                errors.repassword || hasFieldError("repassword")
+                  ? styles["form-field__input--error"]
+                  : ""
               }`}
             />
             <span
               role="alert"
               className={`${styles["form-field__error"]} ${
-                errors.repassword ? styles["form-field__error--visible"] : ""
+                errors.repassword || hasFieldError("repassword")
+                  ? styles["form-field__error--visible"]
+                  : ""
               }`}
             >
-              {errors.repassword?.message || "\u00A0"}
+              {errors.repassword?.message ||
+                getFieldError("repassword")?.[0] ||
+                "\u00A0"}
             </span>
           </div>
 
@@ -139,9 +200,9 @@ export function Register() {
             <button
               type="submit"
               className={`${styles["button"]} ${styles["button--primary"]}`}
-              disabled={!isDirty || isSubmitting}
+              disabled={!isDirty || loading}
             >
-              {isSubmitting ? "Registrando..." : "Registrarse"}
+              {loading ? "Registrando..." : "Registrarse"}
             </button>
           </div>
         </form>

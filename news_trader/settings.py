@@ -39,24 +39,28 @@ if IS_PRODUCTION:
     ] + [f"169.254.129.{i}" for i in range(1, 255)]
     CSRF_TRUSTED_ORIGINS = [
         os.environ.get("FRONTEND_URL"),
+        os.environ.get("VITE_API_BASE_URL_PROD"),
         "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
         "https://*.azurewebsites.net",
         "https://*.azurestaticapps.net",
     ]
     CSRF_ALLOWED_ORIGINS = [
         os.environ.get("FRONTEND_URL"),
+        os.environ.get("VITE_API_BASE_URL_PROD"),
         "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
         "https://*.azurewebsites.net",
         "https://*.azurestaticapps.net",
     ]
     CORS_ORIGINS_WHITELIST = [
         os.environ.get("FRONTEND_URL"),
+        os.environ.get("VITE_API_BASE_URL_PROD"),
         "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
         "https://*.azurewebsites.net",
         "https://*.azurestaticapps.net",
     ]
     CORS_ALLOWED_ORIGINS = [
         os.environ.get("FRONTEND_URL"),
+        os.environ.get("VITE_API_BASE_URL_PROD"),
         "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
         "https://*.azurewebsites.net",
         "https://*.azurestaticapps.net",
