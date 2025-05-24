@@ -1,4 +1,3 @@
-// client/src/contexts/CsrfContext.jsx
 import { createContext, useContext, useEffect, useState } from "react";
 import { fetchCsrfToken } from "@/utils/csrf";
 

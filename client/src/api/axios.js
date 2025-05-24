@@ -1,4 +1,3 @@
-// client/src/api/axios.js
 import axios from "axios";
 import {
   getAccessToken as readToken,
@@ -7,6 +6,8 @@ import {
   clearAllTokens
 } from "@/services/tokenService";
 import { getCsrfToken } from "@/utils/csrf";
+import { handleError, ERROR_TYPES } from "@/utils/errorHandler";
+import toast from "react-hot-toast";
 
 // Configurar valores por defecto para CSRF
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -71,35 +72,54 @@ api.interceptors.request.use(
   },
   (error) => {
     console.error('Request interceptor error:', error);
+    
+    // Manejar errores de configuración de request
+    handleError(error, {
+      context: { phase: 'request_setup' },
+      customMessage: 'Error al configurar la petición'
+    });
+    
     return Promise.reject(error);
   }
 );
 
 // Interceptor de response
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    // Manejar respuestas exitosas pero con warnings
+    if (response.data?.warning) {
+      toast(response.data.warning, {
+        icon: '⚠️',
+        duration: 4000,
+      });
+    }
+    
+    return response;
+  },
   async (error) => {
     const { config, response } = error;
     
-    // Log para debugging
-    if (response) {
-      console.error(`API Error: ${response.status} - ${response.statusText}`, {
-        url: config?.url,
-        method: config?.method,
-        data: response.data
-      });
-    }
-
+    // Contexto para logging
+    const errorContext = {
+      url: config?.url,
+      method: config?.method?.toUpperCase(),
+      phase: 'response'
+    };
+    
     // Si es error 401 y no es una petición de retry
     if (response?.status === 401 && !config._retry) {
       config._retry = true;
 
       // Si ya estamos refrescando, añadir a la cola
       if (isRefreshing) {
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
           subscribeTokenRefresh((newToken) => {
-            config.headers.Authorization = `Bearer ${newToken}`;
-            resolve(axios.request(config));
+            if (newToken) {
+              config.headers.Authorization = `Bearer ${newToken}`;
+              resolve(axios.request(config));
+            } else {
+              reject(error);
+            }
           });
         });
       }
@@ -130,24 +150,129 @@ api.interceptors.response.use(
       } catch (refreshError) {
         console.error('Token refresh failed:', refreshError);
         isRefreshing = false;
+        onRefreshed(null);
         
-        // Limpiar tokens y redirigir
+        // Limpiar tokens
         clearAllTokens();
         
-        // Evitar bucle infinito en rutas de auth
-        if (!window.location.pathname.includes('/login') && 
-            !window.location.pathname.includes('/register') &&
-            !window.location.pathname.includes('/home')) {
-          window.location.href = "/login";
+        // No mostrar toast para errores de autenticación durante refresh
+        // ya que redirigiremos automáticamente
+        const shouldRedirect = !window.location.pathname.includes('/login') && 
+                              !window.location.pathname.includes('/register') &&
+                              !window.location.pathname.includes('/home');
+        
+        if (shouldRedirect) {
+          toast.error('Tu sesión ha expirado. Redirigiendo al login...', {
+            duration: 3000,
+          });
+          
+          // Dar tiempo al toast antes de redirigir
+          setTimeout(() => {
+            window.location.href = "/login";
+          }, 1000);
         }
         
         return Promise.reject(refreshError);
       }
     }
 
-    // Para otros errores, rechazar directamente
+    // Manejar otros tipos de errores con el sistema global
+    const shouldShowToast = !isRefreshing && response?.status !== 401;
+    
+    if (shouldShowToast) {
+      // Determinar si mostrar toast basado en el tipo de error
+      let showToast = true;
+      let customMessage = null;
+      
+      switch (response?.status) {
+        case 400:
+          // Para errores de validación, mostrar mensaje específico
+          customMessage = 'Verifica que todos los campos estén correctos';
+          break;
+        case 403:
+          customMessage = 'No tienes permisos para realizar esta acción';
+          break;
+        case 404:
+          customMessage = 'El recurso solicitado no existe';
+          break;
+        case 429:
+          customMessage = 'Demasiadas peticiones. Inténtalo más tarde';
+          break;
+        case 500:
+        case 502:
+        case 503:
+        case 504:
+          customMessage = 'Error del servidor. Inténtalo más tarde';
+          break;
+        default:
+          // Para errores de red o timeout
+          if (!response) {
+            if (error.code === 'ECONNABORTED') {
+              customMessage = 'La petición tardó demasiado tiempo';
+            } else {
+              customMessage = 'Error de conexión. Verifica tu internet';
+            }
+          }
+          break;
+      }
+      
+      handleError(error, {
+        context: errorContext,
+        showToast,
+        customMessage,
+        toastType: response?.status >= 500 ? 'warning' : 'error'
+      });
+    }
+
+    // Para otros errores (que no sean 401), rechazar directamente
     return Promise.reject(error);
   }
 );
+
+/**
+ * Wrapper para peticiones con manejo específico de errores
+ */
+export const apiRequest = {
+  get: (url, options = {}) => {
+    const { showErrorToast = true, errorMessage, ...axiosConfig } = options;
+    return api.get(url, axiosConfig).catch(error => {
+      if (!showErrorToast) {
+        // Si no queremos mostrar toast, manejamos el error silenciosamente
+        console.error('API Error (silent):', error);
+      }
+      throw error;
+    });
+  },
+  
+  post: (url, data, options = {}) => {
+    const { showErrorToast = true, errorMessage, ...axiosConfig } = options;
+    return api.post(url, data, axiosConfig).catch(error => {
+      if (!showErrorToast) {
+        console.error('API Error (silent):', error);
+      }
+      throw error;
+    });
+  },
+  
+  put: (url, data, options = {}) => {
+    const { showErrorToast = true, errorMessage, ...axiosConfig } = options;
+    return api.put(url, data, axiosConfig).catch(error => {
+      if (!showErrorToast) {
+        console.error('API Error (silent):', error);
+      }
+      throw error;
+    });
+  },
+  
+  delete: (url, options = {}) => {
+    const { showErrorToast = true, errorMessage, ...axiosConfig } = options;
+    return api.delete(url, axiosConfig).catch(error => {
+      if (!showErrorToast) {
+        console.error('API Error (silent):', error);
+      }
+      throw error;
+    });
+  }
+};
 
 export default api;
