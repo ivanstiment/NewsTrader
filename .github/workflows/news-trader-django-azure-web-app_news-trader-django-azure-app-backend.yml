@@ -42,13 +42,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Clean residual Python files
-        run: |
-          echo "🧹 Limpiando archivos .pyc y __pycache__..."
-          find . -name "*.pyc" -exec rm -f {} +
-          find . -name "__pycache__" -type d -exec rm -rf {} +
-          echo "🧹 Eliminando db.sqlite3 si existe..."
-          find . -name "db.sqlite3" -exec rm -f {} + || true
+      # - name: Clean residual Python files
+      #   run: |
+      #     echo "🧹 Limpiando archivos .pyc y __pycache__..."
+      #     find . -name "*.pyc" -exec rm -f {} +
+      #     find . -name "__pycache__" -type d -exec rm -rf {} +
+      #     echo "🧹 Eliminando db.sqlite3 si existe..."
+      #     find . -name "db.sqlite3" -exec rm -f {} + || true
 
       - name: Prepara WebJob Celery
         run: |
@@ -68,6 +68,11 @@ jobs:
 
       - name: Zip artifact for deployment excluding unnecessary folders
         run: zip -r release.zip . -x "*.venv*" "*.git*" "*__pycache__*"
+
+      - name: Asegurar contenido
+        run: |
+          unzip -l release.zip | grep celeryworker
+          unzip -l release.zip | grep App_Data
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
