@@ -57,7 +57,7 @@ jobs:
           # Crear estructura de carpetas para WebJob
           mkdir -p App_Data/jobs/continuous/celeryworker
           
-          # Crear script de inicio que maneja la estructura de Oryx
+          # Crear script de inicio que funciona con la estructura real de Oryx
           cat > App_Data/jobs/continuous/celeryworker/run.sh << 'EOF'
           #!/bin/bash
           set -e
@@ -68,74 +68,91 @@ jobs:
           echo "Usuario: $(whoami)"
           echo ""
           
-          # Variables importantes
-          ORYX_OUTPUT_PATH="/home/site/wwwroot"
-          WORKING_DIR="/tmp/celery_workspace"
-          
-          echo "🔍 Diagnóstico del entorno:"
+          echo "🔍 Diagnóstico completo del entorno:"
           echo "PATH: $PATH"
           echo "PYTHONPATH: $PYTHONPATH" 
           echo "WEBSITE_SITE_NAME: $WEBSITE_SITE_NAME"
+          echo "HOME: $HOME"
+          echo "PWD: $PWD"
           echo ""
           
-          # Verificar estructura de Oryx
-          echo "📂 Contenido de /home/site/wwwroot:"
-          ls -la $ORYX_OUTPUT_PATH/
+          # Buscar directorios temporales de Oryx
+          echo "🔍 Buscando directorios de aplicación de Oryx..."
+          find /tmp -maxdepth 1 -name "*" -type d 2>/dev/null | grep -E "/tmp/[a-f0-9]+" || echo "No se encontraron directorios Oryx"
           echo ""
           
-          # Buscar y descomprimir el archivo de la aplicación
-          if [ -f "$ORYX_OUTPUT_PATH/output.tar.gz" ]; then
-              echo "📦 Encontrado output.tar.gz, descomprimiendo..."
-              
-              # Crear directorio de trabajo limpio
-              rm -rf $WORKING_DIR
-              mkdir -p $WORKING_DIR
-              cd $WORKING_DIR
-              
-              # Descomprimir la aplicación
-              tar -xzf $ORYX_OUTPUT_PATH/output.tar.gz
-              echo "✅ Aplicación descomprimida en $WORKING_DIR"
-              
-              # Mostrar contenido descomprimido
-              echo "📁 Contenido descomprimido:"
-              ls -la
+          # Encontrar el directorio correcto donde Oryx extrajo la aplicación
+          APP_DIR=""
+          for dir in /tmp/*/; do
+              if [ -d "${dir}news_trader" ] && [ -d "${dir}antenv" ]; then
+                  APP_DIR="$dir"
+                  echo "✅ Encontrado directorio de aplicación: $APP_DIR"
+                  break
+              fi
+          done
+          
+          if [ -z "$APP_DIR" ]; then
+              echo "❌ Error: No se encontró directorio de aplicación con news_trader y antenv"
+              echo "📁 Explorando /tmp para diagnóstico:"
+              ls -la /tmp/
               echo ""
-              
-          else
-              echo "❌ No se encontró output.tar.gz"
-              echo "📁 Intentando usar directorio actual..."
-              WORKING_DIR=$ORYX_OUTPUT_PATH
-              cd $WORKING_DIR
-          fi
-          
-          # Verificar que existe el módulo de la aplicación  
-          if [ ! -d "news_trader" ]; then
-              echo "❌ Error: Directorio news_trader no encontrado en $(pwd)"
-              echo "📁 Contenido actual:"
-              ls -la
+              echo "📁 Contenido de /home/site/wwwroot:"
+              ls -la /home/site/wwwroot/
               exit 1
           fi
           
-          echo "✅ Módulo news_trader encontrado"
+          echo "📂 Cambiando al directorio de aplicación: $APP_DIR"
+          cd "$APP_DIR"
           
-          # Configurar variables de entorno para Django
-          export DJANGO_SETTINGS_MODULE=news_trader.settings
-          export PYTHONPATH="$WORKING_DIR:$PYTHONPATH"
+          echo "📁 Contenido del directorio de aplicación:"
+          ls -la
+          echo ""
           
-          echo "🐍 Verificando Python y módulos..."
+          # Verificar estructura necesaria
+          if [ ! -d "news_trader" ]; then
+              echo "❌ Error: Directorio news_trader no encontrado"
+              exit 1
+          fi
+          
+          if [ ! -d "antenv" ]; then
+              echo "❌ Error: Entorno virtual antenv no encontrado"
+              exit 1
+          fi
+          
+          echo "✅ Estructura de aplicación verificada"
+          
+          # NO necesitamos modificar DJANGO_SETTINGS_MODULE ni PYTHONPATH
+          # Oryx ya los configuró correctamente
+          
+          echo "🐍 Información de Python:"
           python --version
-          echo "Python path configurado: $PYTHONPATH"
+          echo "PYTHONPATH actual: $PYTHONPATH"
+          echo ""
           
-          # Verificar que podemos importar los módulos necesarios
+          # Verificar variables de entorno necesarias para Celery
+          if [ -z "$CELERY_BROKER_URL" ]; then
+              echo "⚠️  ADVERTENCIA: CELERY_BROKER_URL no está configurada"
+          else
+              echo "✅ CELERY_BROKER_URL configurada"
+          fi
+          
+          if [ -z "$CELERY_RESULT_BACKEND" ]; then
+              echo "⚠️  ADVERTENCIA: CELERY_RESULT_BACKEND no está configurada"
+          else
+              echo "✅ CELERY_RESULT_BACKEND configurada"
+          fi
+          echo ""
+          
+          # Verificar imports críticos
+          echo "🧪 Verificando imports..."
           python -c "
-          import sys
-          sys.path.insert(0, '$WORKING_DIR')
-          print('Verificando imports...')
           try:
               import news_trader
               print('✅ news_trader importado correctamente')
           except ImportError as e:
               print(f'❌ Error importando news_trader: {e}')
+              import sys
+              print(f'sys.path: {sys.path}')
               exit(1)
           
           try:
@@ -144,26 +161,30 @@ jobs:
           except ImportError as e:
               print(f'❌ Error importando Celery: {e}')
               exit(1)
+          
+          # Verificar que podemos crear la instancia de Celery
+          try:
+              from news_trader.celery import app
+              print('✅ Instancia de Celery accesible')
+          except Exception as e:
+              print(f'⚠️  Advertencia al acceder a instancia Celery: {e}')
           "
           
           if [ $? -ne 0 ]; then
-              echo "❌ Error en verificación de módulos"
+              echo "❌ Error en verificación de imports"
               exit 1
           fi
           
+          echo ""
           echo "🚀 Iniciando Celery Worker..."
+          echo "Comando: python -m celery -A news_trader worker --loglevel=INFO"
+          echo ""
           
-          # Ejecutar Celery con configuración optimizada para Azure
+          # Ejecutar Celery - versión simplificada para debugging inicial
           exec python -m celery -A news_trader worker \
             --loglevel=INFO \
-            --events \
-            --concurrency=2 \
-            --max-tasks-per-child=1000 \
-            --time-limit=600 \
-            --soft-time-limit=540 \
-            --prefetch-multiplier=1 \
-            --without-heartbeat \
-            --without-mingle
+            --concurrency=1 \
+            --events
           EOF
           
           # Hacer el script ejecutable
