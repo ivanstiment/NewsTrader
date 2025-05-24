@@ -60,7 +60,6 @@ if IS_PRODUCTION:
     ]
     CORS_ALLOWED_ORIGINS = [
         os.environ.get("FRONTEND_URL"),
-        os.environ.get("VITE_API_BASE_URL_PROD"),
         "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
         "https://*.azurewebsites.net",
         "https://*.azurestaticapps.net",
