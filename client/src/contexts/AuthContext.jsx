@@ -1,12 +1,18 @@
-import { jwtDecode } from "jwt-decode";
-import { createContext, useEffect, useMemo, useState } from "react";
 import { authProviderPropTypes } from "@/propTypes/authProvider.propTypes";
 import {
+  clearAllTokens,
   getAccessToken as readToken,
   setRefreshToken as writeRefresh,
   setAccessToken as writeToken,
-  clearAllTokens
 } from "@/services/tokenService";
+import { jwtDecode } from "jwt-decode";
+import {
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 export const AuthContext = createContext();
 
@@ -15,86 +21,104 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   // Función para validar si el token está expirado
-  const isTokenExpired = (token) => {
+  const isTokenExpired = useCallback((token) => {
     try {
       const decoded = jwtDecode(token);
       const currentTime = Date.now() / 1000;
-      return decoded.exp < currentTime;
+      // Agregar buffer de 30 segundos para evitar que expire durante una petición
+      return decoded.exp < currentTime + 30;
     } catch {
       return true;
     }
-  };
+  }, []);
 
   // Función para decodificar y establecer usuario
-  const setUserFromToken = (token) => {
+  const setUserFromToken = useCallback((token) => {
     try {
       const decoded = jwtDecode(token);
-      setUser({ 
-        username: decoded.username || decoded.user, 
-        userId: decoded.user_id || decoded.id 
-      });
+      const userData = {
+        username: decoded.username || decoded.user,
+        userId: decoded.user_id || decoded.id,
+        email: decoded.email,
+        // Agregar más campos según el payload JWT
+      };
+      setUser(userData);
       return true;
     } catch (error) {
-      console.error('Error decoding token:', error);
+      console.error("Error decodificando el token:", error);
       return false;
     }
-  };
+  }, []);
 
   // Al montar, verificar token existente
   useEffect(() => {
-    const token = readToken();
-    
-    if (token && !isTokenExpired(token)) {
-      if (setUserFromToken(token)) {
-        setLoading(false);
-        return;
+    const initializeAuth = async () => {
+      const token = readToken();
+
+      if (token && !isTokenExpired(token)) {
+        if (setUserFromToken(token)) {
+          setLoading(false);
+          return;
+        }
       }
-    }
-    
-    // Si no hay token válido, limpiar tokens, usuario y loading
+
+      // Si no hay token válido, limpiar tokens, usuario y loading
+      clearAllTokens();
+      setUser(null);
+      setLoading(false);
+    };
+
+    initializeAuth();
+  }, [isTokenExpired, setUserFromToken]);
+
+  const login = useCallback(
+    (accessToken, refreshToken) => {
+      if (!accessToken) {
+        console.error("El token de acceso es requerido para iniciar sesión");
+        return false;
+      }
+
+      if (isTokenExpired(accessToken)) {
+        console.error(
+          "No se puede iniciar sesión con un token expirado"
+        );
+        return false;
+      }
+
+      writeToken(accessToken);
+      if (refreshToken) {
+        writeRefresh(refreshToken);
+      }
+
+      const success = setUserFromToken(accessToken);
+      if (success) {
+        setLoading(false);
+      }
+
+      return success;
+    },
+    [isTokenExpired, setUserFromToken]
+  );
+
+  const logout = useCallback(() => {
     clearAllTokens();
     setUser(null);
     setLoading(false);
+
+    // Usar replace para evitar problemas de navegación
+    window.location.replace("/home");
   }, []);
 
-  const login = (accessToken, refreshToken) => {
-    if (!accessToken) {
-      console.error('Access token is required for login');
-      return false;
-    }
-
-    if (isTokenExpired(accessToken)) {
-      console.error('Cannot login with expired token');
-      return false;
-    }
-
-    writeToken(accessToken);
-    if (refreshToken) {
-      writeRefresh(refreshToken);
-    }
-    
-    const success = setUserFromToken(accessToken);
-    if (success) {
-      setLoading(false);
-    }
-    
-    return success;
-  };
-
-  const logout = () => {
-    clearAllTokens();
-    setUser(null);
-    setLoading(false);
-    
-    // Usar replace para evitar problemas de navegación
-    window.location.replace('/home');
-  };
-
   // Función para verificar si el usuario está autenticado
-  const isAuthenticated = () => {
+  const isAuthenticated = useCallback(() => {
     const token = readToken();
     return token && !isTokenExpired(token) && user;
-  };
+  }, [isTokenExpired, user]);
+
+  // Función para obtener información del usuario actual
+  const getCurrentUser = useCallback(() => {
+    return user;
+  }, [user]);
 
   // Memoizar el valor del contexto
   const value = useMemo(
@@ -104,8 +128,9 @@ export function AuthProvider({ children }) {
       login,
       logout,
       isAuthenticated,
+      getCurrentUser,
     }),
-    [user, loading]
+    [user, loading, login, logout, isAuthenticated, getCurrentUser]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

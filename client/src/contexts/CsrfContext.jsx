@@ -1,29 +1,13 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { fetchCsrfToken } from "@/utils/csrf";
+import { createContext, useContext } from "react";
+import { useCsrfApi } from "@/hooks/useCsrfApi";
 
 const CsrfContext = createContext();
 
 export function CsrfProvider({ children }) {
-  const [csrfToken, setCsrfToken] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const initializeCsrf = async () => {
-      try {
-        const token = await fetchCsrfToken();
-        setCsrfToken(token);
-      } catch (error) {
-        console.error("Fallo obteniendo el token CSRF:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    initializeCsrf();
-  }, []);
+  const csrfData = useCsrfApi();
 
   return (
-    <CsrfContext.Provider value={{ csrfToken, isLoading }}>
+    <CsrfContext.Provider value={csrfData}>
       {children}
     </CsrfContext.Provider>
   );

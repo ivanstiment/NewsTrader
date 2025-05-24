@@ -22,16 +22,22 @@ export function getCsrfToken() {
  */
 export async function fetchCsrfToken() {
   try {
+    // TODO: Usar el nuevo servicio
+    if (window.__API_SERVICES__?.csrf) {
+      const response = await window.__API_SERVICES__.csrf.getCsrfToken();
+      return getCsrfToken();
+    }
+    
+    // Fallback al método original
     const response = await fetch('/api/csrf/', {
       method: 'GET',
       credentials: 'include',
     });
     if (response.ok) {
-      // El token está en las cookies
       return getCsrfToken();
     }
   } catch (error) {
-    console.error('Error fetching CSRF token:', error);
+    console.error('Error al obtener token CSRF:', error);
   }
   return null;
 }
