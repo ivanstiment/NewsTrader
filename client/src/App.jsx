@@ -8,12 +8,18 @@ import {
   useLocation,
 } from "react-router-dom";
 import "./App.scss";
+
+// Importar componentes
 import { CandlestickChart } from "./components/CandlestickChart/index";
 import { Header } from "./components/Header/index";
 import { NavigationMenu } from "./components/NavigationMenu/index";
 import { PrivateRoute } from "./components/PrivateRoute";
+
+// Importar contextos
 import { AuthProvider } from "./contexts/AuthContext";
 import { CsrfProvider } from "./contexts/CsrfContext";
+
+// Importar páginas
 import { ArticleAnalyzePage } from "./pages/ArticleAnalyzePage";
 import { ArticlesPage } from "./pages/ArticlesPage";
 import { HomePage } from "./pages/HomePage";

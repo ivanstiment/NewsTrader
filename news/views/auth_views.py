@@ -73,7 +73,7 @@ def register_user(request):
         try:
             csrf_token = request.META.get("HTTP_X_CSRFTOKEN")
             if not csrf_token:
-                return JsonResponse({"error": "CSRF token missing"}, status=403)
+                return JsonResponse({"error": "No hay token CSRF"}, status=403)
 
             data = json.loads(request.body)
             username = data.get("user")
