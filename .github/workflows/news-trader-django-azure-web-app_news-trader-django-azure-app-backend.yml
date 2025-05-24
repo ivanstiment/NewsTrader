@@ -50,167 +50,14 @@ jobs:
           echo "🧹 Eliminando db.sqlite3 si existe..."
           find . -name "db.sqlite3" -exec rm -f {} + || true
 
-      - name: Create WebJob Celery Runner
+      - name: Setup WebJob with Oryx-compatible structure
         run: |
-          # Crear el runner de Python para el WebJob
-          cat > webjob_runner.py << 'EOF'
-          import os
-          import sys
-          import subprocess
-          import time
-          import signal
-          import logging
-          import threading
-          from datetime import datetime
-          
-          # Configurar logging
-          logging.basicConfig(
-              level=logging.INFO,
-              format='%(asctime)s - WebJob Celery - %(levelname)s - %(message)s'
-          )
-          logger = logging.getLogger(__name__)
-          
-          # Variable global para el proceso de Celery
-          celery_process = None
-          
-          def signal_handler(signum, frame):
-              logger.info(f"Recibida señal {signum}, terminando Celery...")
-              if celery_process:
-                  try:
-                      celery_process.terminate()
-                      celery_process.wait(timeout=30)
-                  except subprocess.TimeoutExpired:
-                      logger.warning("Timeout esperando terminación, forzando kill...")
-                      celery_process.kill()
-              sys.exit(0)
-          
-          def heartbeat():
-              """Función para mantener el WebJob activo"""
-              while True:
-                  time.sleep(300)  # Cada 5 minutos
-                  logger.info(f"WebJob Celery activo - {datetime.now()}")
-          
-          def main():
-              global celery_process
-              
-              # Registrar manejadores de señales
-              signal.signal(signal.SIGTERM, signal_handler)
-              signal.signal(signal.SIGINT, signal_handler)
-              
-              logger.info("=== Iniciando Celery Worker en Azure WebJob ===")
-              logger.info(f"Python version: {sys.version}")
-              logger.info(f"Working directory: {os.getcwd()}")
-              
-              # Cambiar al directorio de la aplicación web
-              app_dir = "/home/site/wwwroot"
-              if os.path.exists(app_dir):
-                  os.chdir(app_dir)
-                  logger.info(f"Directorio cambiado a: {app_dir}")
-              else:
-                  logger.error(f"Directorio no encontrado: {app_dir}")
-                  sys.exit(1)
-              
-              # Verificar estructura de archivos
-              logger.info(f"Contenido directorio actual: {os.listdir('.')}")
-              
-              # Verificar que el módulo existe
-              try:
-                  import news_trader
-                  logger.info("Módulo news_trader importado correctamente")
-              except ImportError as e:
-                  logger.error(f"Error importando news_trader: {e}")
-                  logger.error(f"PYTHONPATH: {sys.path}")
-                  sys.exit(1)
-              
-              # Verificar instalación de Celery
-              try:
-                  import celery
-                  logger.info(f"Celery version: {celery.__version__}")
-              except ImportError as e:
-                  logger.error(f"Error importando Celery: {e}")
-                  sys.exit(1)
-              
-              # Configurar variables de entorno adicionales
-              os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'news_trader.settings')
-              
-              # Iniciar heartbeat en hilo separado
-              heartbeat_thread = threading.Thread(target=heartbeat, daemon=True)
-              heartbeat_thread.start()
-              
-              # Comando Celery optimizado para Azure
-              cmd = [
-                  sys.executable, "-m", "celery",
-                  "-A", "news_trader",
-                  "worker",
-                  "--loglevel=INFO",
-                  "--events",
-                  "--concurrency=2",
-                  "--max-tasks-per-child=1000",
-                  "--time-limit=600",
-                  "--soft-time-limit=540",
-                  "--prefetch-multiplier=1"
-              ]
-              
-              logger.info(f"Ejecutando comando: {' '.join(cmd)}")
-              
-              max_retries = 3
-              retry_count = 0
-              
-              while retry_count < max_retries:
-                  try:
-                      # Ejecutar Celery como subproceso
-                      celery_process = subprocess.Popen(
-                          cmd,
-                          stdout=subprocess.PIPE,
-                          stderr=subprocess.STDOUT,
-                          universal_newlines=True,
-                          bufsize=1
-                      )
-                      
-                      logger.info(f"Celery worker iniciado con PID: {celery_process.pid}")
-                      
-                      # Leer output en tiempo real
-                      for line in iter(celery_process.stdout.readline, ''):
-                          if line:
-                              logger.info(f"Celery: {line.strip()}")
-                      
-                      return_code = celery_process.wait()
-                      logger.warning(f"Celery terminó con código: {return_code}")
-                      
-                      if return_code == 0:
-                          logger.info("Celery terminó normalmente")
-                          break
-                      else:
-                          retry_count += 1
-                          if retry_count < max_retries:
-                              logger.warning(f"Reintentando... ({retry_count}/{max_retries})")
-                              time.sleep(10)
-                          else:
-                              logger.error("Máximo número de reintentos alcanzado")
-                              sys.exit(1)
-                      
-                  except Exception as e:
-                      logger.error(f"Error ejecutando Celery: {e}")
-                      retry_count += 1
-                      if retry_count < max_retries:
-                          logger.warning(f"Reintentando tras error... ({retry_count}/{max_retries})")
-                          time.sleep(10)
-                      else:
-                          logger.error("Máximo número de reintentos alcanzado tras errores")
-                          sys.exit(1)
-          
-          if __name__ == "__main__":
-              main()
-          EOF
-
-      - name: Setup WebJob structure
-        run: |
-          echo "🔧 Configurando estructura del WebJob..."
+          echo "🔧 Configurando WebJob compatible con Oryx..."
           
           # Crear estructura de carpetas para WebJob
           mkdir -p App_Data/jobs/continuous/celeryworker
           
-          # Crear script de inicio optimizado
+          # Crear script de inicio que maneja la estructura de Oryx
           cat > App_Data/jobs/continuous/celeryworker/run.sh << 'EOF'
           #!/bin/bash
           set -e
@@ -219,38 +66,120 @@ jobs:
           echo "Timestamp: $(date)"
           echo "Directorio actual: $(pwd)"
           echo "Usuario: $(whoami)"
-          echo "Variables de entorno relevantes:"
-          echo "PYTHONPATH: $PYTHONPATH"
+          echo ""
+          
+          # Variables importantes
+          ORYX_OUTPUT_PATH="/home/site/wwwroot"
+          WORKING_DIR="/tmp/celery_workspace"
+          
+          echo "🔍 Diagnóstico del entorno:"
           echo "PATH: $PATH"
+          echo "PYTHONPATH: $PYTHONPATH" 
           echo "WEBSITE_SITE_NAME: $WEBSITE_SITE_NAME"
+          echo ""
           
-          # Cambiar al directorio de la aplicación
-          cd /home/site/wwwroot
+          # Verificar estructura de Oryx
+          echo "📂 Contenido de /home/site/wwwroot:"
+          ls -la $ORYX_OUTPUT_PATH/
+          echo ""
           
-          echo "Contenido del directorio de la aplicación:"
-          ls -la
+          # Buscar y descomprimir el archivo de la aplicación
+          if [ -f "$ORYX_OUTPUT_PATH/output.tar.gz" ]; then
+              echo "📦 Encontrado output.tar.gz, descomprimiendo..."
+              
+              # Crear directorio de trabajo limpio
+              rm -rf $WORKING_DIR
+              mkdir -p $WORKING_DIR
+              cd $WORKING_DIR
+              
+              # Descomprimir la aplicación
+              tar -xzf $ORYX_OUTPUT_PATH/output.tar.gz
+              echo "✅ Aplicación descomprimida en $WORKING_DIR"
+              
+              # Mostrar contenido descomprimido
+              echo "📁 Contenido descomprimido:"
+              ls -la
+              echo ""
+              
+          else
+              echo "❌ No se encontró output.tar.gz"
+              echo "📁 Intentando usar directorio actual..."
+              WORKING_DIR=$ORYX_OUTPUT_PATH
+              cd $WORKING_DIR
+          fi
           
-          echo "Verificando Python y módulos..."
+          # Verificar que existe el módulo de la aplicación  
+          if [ ! -d "news_trader" ]; then
+              echo "❌ Error: Directorio news_trader no encontrado en $(pwd)"
+              echo "📁 Contenido actual:"
+              ls -la
+              exit 1
+          fi
+          
+          echo "✅ Módulo news_trader encontrado"
+          
+          # Configurar variables de entorno para Django
+          export DJANGO_SETTINGS_MODULE=news_trader.settings
+          export PYTHONPATH="$WORKING_DIR:$PYTHONPATH"
+          
+          echo "🐍 Verificando Python y módulos..."
           python --version
-          python -c "import sys; print('Python path:', sys.path)"
+          echo "Python path configurado: $PYTHONPATH"
           
-          echo "Ejecutando Celery Worker via Python runner..."
-          exec python webjob_runner.py
+          # Verificar que podemos importar los módulos necesarios
+          python -c "
+          import sys
+          sys.path.insert(0, '$WORKING_DIR')
+          print('Verificando imports...')
+          try:
+              import news_trader
+              print('✅ news_trader importado correctamente')
+          except ImportError as e:
+              print(f'❌ Error importando news_trader: {e}')
+              exit(1)
+          
+          try:
+              import celery
+              print(f'✅ Celery version: {celery.__version__}')
+          except ImportError as e:
+              print(f'❌ Error importando Celery: {e}')
+              exit(1)
+          "
+          
+          if [ $? -ne 0 ]; then
+              echo "❌ Error en verificación de módulos"
+              exit 1
+          fi
+          
+          echo "🚀 Iniciando Celery Worker..."
+          
+          # Ejecutar Celery con configuración optimizada para Azure
+          exec python -m celery -A news_trader worker \
+            --loglevel=INFO \
+            --events \
+            --concurrency=2 \
+            --max-tasks-per-child=1000 \
+            --time-limit=600 \
+            --soft-time-limit=540 \
+            --prefetch-multiplier=1 \
+            --without-heartbeat \
+            --without-mingle
           EOF
           
           # Hacer el script ejecutable
           chmod +x App_Data/jobs/continuous/celeryworker/run.sh
           
-          # Configuración del WebJob
+          # Configuración del WebJob optimizada
           cat > App_Data/jobs/continuous/celeryworker/settings.job << 'EOF'
           {
               "is_continuous": true,
-              "stopping_wait_time": 60,
-              "using_sdk": false
+              "stopping_wait_time": 90,
+              "using_sdk": false,
+              "singleton": true
           }
           EOF
           
-          echo "✅ Estructura del WebJob creada"
+          echo "✅ WebJob configurado para compatibilidad con Oryx"
 
       - name: Crear directorios estáticos si no existen
         run: |
@@ -268,15 +197,12 @@ jobs:
           echo "Estructura App_Data:"
           find App_Data -type f -exec ls -la {} \;
           echo ""
-          echo "Contenido run.sh:"
-          cat App_Data/jobs/continuous/celeryworker/run.sh
+          echo "📄 Contenido run.sh:"
+          cat App_Data/jobs/continuous/celeryworker/run.sh | head -30
+          echo "... (script truncado para brevedad)"
           echo ""
-          echo "Contenido settings.job:"
+          echo "📄 Contenido settings.job:"
           cat App_Data/jobs/continuous/celeryworker/settings.job
-          echo ""
-          echo "Verificando webjob_runner.py:"
-          ls -la webjob_runner.py
-          head -20 webjob_runner.py
 
       - name: Zip artifact for deployment excluding unnecessary folders
         run: |
@@ -294,7 +220,7 @@ jobs:
         run: |
           echo "🔍 Verificando contenido del paquete..."
           echo "Archivos del WebJob en el zip:"
-          unzip -l release.zip | grep -E "(App_Data|webjob_runner|celery)" || echo "❌ No se encontraron archivos del WebJob"
+          unzip -l release.zip | grep -E "(App_Data|celery)" || echo "❌ No se encontraron archivos del WebJob"
           echo ""
           echo "Tamaño del paquete:"
           ls -lh release.zip
@@ -327,20 +253,12 @@ jobs:
       - name: Final verification before deployment
         run: |
           echo "🔍 Verificación final antes del deploy..."
-          echo "Estructura de archivos:"
-          find . -name "*.py" -o -name "*.sh" -o -name "*.job" | grep -E "(webjob|celery|App_Data)" || echo "⚠️ Archivos del WebJob no encontrados"
-          echo ""
-          if [ -f "webjob_runner.py" ]; then
-              echo "✅ webjob_runner.py encontrado"
-          else
-              echo "❌ webjob_runner.py NO encontrado"
-          fi
-          echo ""
           if [ -d "App_Data/jobs/continuous/celeryworker" ]; then
               echo "✅ Directorio del WebJob encontrado"
               ls -la App_Data/jobs/continuous/celeryworker/
           else
               echo "❌ Directorio del WebJob NO encontrado"
+              exit 1
           fi
 
       - name: "Deploy to Azure Web App"
@@ -351,16 +269,4 @@ jobs:
           slot-name: "Production"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BC4BA36656BF4F048A4F89E646E56639 }}
           package: '.'
-          clean: false 
-      
-      - name: Post-deployment verification
-        run: |
-          echo "🎉 Deployment completado"
-          echo "📝 Próximos pasos:"
-          echo "1. Verificar que el WebJob aparece en Azure Portal"
-          echo "2. Revisar logs del WebJob en Azure Portal > WebJobs > celeryworker > Logs"
-          echo "3. Confirmar que las variables de entorno están configuradas:"
-          echo "   - CELERY_BROKER_URL"
-          echo "   - CELERY_RESULT_BACKEND"
-          echo "   - DJANGO_SETTINGS_MODULE (se configura automáticamente)"
-          echo "4. El WebJob debería iniciarse automáticamente como servicio continuo"
+          clean: false

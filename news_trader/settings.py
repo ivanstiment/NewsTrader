@@ -35,6 +35,7 @@ if IS_PRODUCTION:
         "salmon-stone-0e4a4f410.6.azurestaticapps.net",
         ".azurewebsites.net",
         ".azurestaticapps.net",
+        ".redis.cache.windows.net",
     ] + [f"169.254.129.{i}" for i in range(1, 255)]
     CSRF_TRUSTED_ORIGINS = [
         os.environ.get("FRONTEND_URL"),
