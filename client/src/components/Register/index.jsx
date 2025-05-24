@@ -1,19 +1,13 @@
-import { getCsrfToken } from "@/api/utils";
+import api from "@/api/axios"; // Use the same axios instance
 import styles from "@/shared/styles";
 import { registerSchema } from "@/validators/register-schema.validator";
 import { yupResolver } from "@hookform/resolvers/yup";
-import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { PadlockIcon, UserIcon } from "../Icons";
 
-const isDevelopment = import.meta.env.MODE === "development";
-const baseUrl = isDevelopment
-  ? import.meta.env.VITE_API_BASE_URL_LOCAL + "/register/"
-  : "register/";
-
 export function Register() {
-  // 2. Hook useForm con validación y modo onBlur para accesibilidad
+  // Hook useForm con validación y modo onBlur para accesibilidad
   const {
     register,
     handleSubmit,
@@ -32,12 +26,11 @@ export function Register() {
     setApiError(null);
     setApiSuccess(null);
     try {
-      const csrfToken = getCsrfToken();
-      const response = await axios.post(
-        baseUrl,
-        { user: data.user, password: data.password },
-        { headers: { "X-CSRFToken": csrfToken } }
-      );
+      // Misma instancia API que login para consistencia
+      const response = await api.post("/register/", {
+        user: data.user,
+        password: data.password,
+      });
       setApiSuccess(response.data.success);
       reset();
     } catch (error) {
@@ -69,7 +62,7 @@ export function Register() {
         )}
 
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          {/* Usuario */}
+          {/* Username */}
           <div className={styles["form-field__wrapper"]}>
             <label htmlFor="user" className={styles["form-field__label"]}>
               <UserIcon width={24} height={24} /> Usuario
@@ -90,11 +83,10 @@ export function Register() {
               }`}
             >
               {errors.user?.message || "\u00A0"}
-              {/* \u00A0 mantiene altura aunque no haya mensaje */}
             </span>
           </div>
 
-          {/* Contraseña */}
+          {/* Password */}
           <div className={styles["form-field__wrapper"]}>
             <label htmlFor="password" className={styles["form-field__label"]}>
               <PadlockIcon width={24} height={24} /> Contraseña
@@ -118,7 +110,7 @@ export function Register() {
             </span>
           </div>
 
-          {/* Repetir contraseña */}
+          {/* Repeat password */}
           <div className={styles["form-field__wrapper"]}>
             <label htmlFor="repassword" className={styles["form-field__label"]}>
               <PadlockIcon width={24} height={24} /> Repetir contraseña

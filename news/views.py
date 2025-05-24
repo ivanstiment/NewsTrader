@@ -22,28 +22,11 @@ import json
 import math
 
 
-# class ListaNews(ListView):
-#     model = New
-#     fields = '__all__'
-#     context_object_name = 'news_list'
-#
-#     def news_list(request):
-#         # Obtener todas las noticias y ordenarlas en forma descendente según el tiempo de publicación
-#         news = New.objects.all().order_by('-provider_publish_time')
-#
-#         # Convertir el timestamp a un objeto datetime para cada noticia
-#         for n in news:
-#             n.published_date = datetime.fromtimestamp(n.provider_publish_time)
-#
-#         context = {'news_list': news}
-#         return render(request, 'news/new_list.html', context)
-
-
 class MyTokenObtainPairView(TokenObtainPairView):
     """
     Devuelve 'access' en JSON y guarda 'refresh' en una cookie HttpOnly.
     """
-
+    permission_classes = [AllowAny]  # Acceso anónimo
     serializer_class = TokenObtainPairSerializer
 
     def post(self, request, *args, **kwargs):
@@ -55,7 +38,6 @@ class MyTokenObtainPairView(TokenObtainPairView):
             key="refresh_token",
             value=data["refresh"],
             httponly=True,
-            # secure=True,
             secure=not settings.DEBUG,
             samesite="Lax",
         )
@@ -66,7 +48,8 @@ class CookieTokenRefreshView(TokenRefreshView):
     """
     Override para leer el refresh desde la cookie HttpOnly en lugar de request.data.
     """
-
+    permission_classes = [AllowAny]  # Acceso anónimo
+    serializer_class = TokenRefreshSerializer
     serializer_class = TokenRefreshSerializer
 
     @method_decorator(ensure_csrf_cookie)
@@ -82,7 +65,6 @@ class CookieTokenRefreshView(TokenRefreshView):
 class NewsView(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = NewsSerializer
-    # queryset = New.objects.all()
     queryset = New.objects.all().select_related("analysis").order_by("-provider_publish_time")
 
 
@@ -92,16 +74,13 @@ class StocksView(viewsets.ModelViewSet):
     queryset = Stock.objects.all()
 
     def list(self, request, *args, **kwargs):
-        # Obtiene el queryset y serializa normalmente
         queryset = self.filter_queryset(self.get_queryset())
         serializer = self.get_serializer(queryset, many=True)
         data = serializer.data
-        # Aplica sanitización
         clean = sanitize_floats(data)
         return Response(clean, status=status.HTTP_200_OK)
 
     def retrieve(self, request, *args, **kwargs):
-        # Maneja GET /stocks/{pk}/
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         data = serializer.data
@@ -140,19 +119,38 @@ def get_historical_prices(request, symbol):
     return JsonResponse(respuesta, safe=False)
 
 
-# @csrf_exempt
 @ensure_csrf_cookie
 def register_user(request):
+    """
+    Register a new user. Make sure the user is created as active.
+    """
     if request.method == "POST":
-        data = json.loads(request.body)
-        username = data.get("user")
-        password = data.get("password")
+        try:
+            data = json.loads(request.body)
+            username = data.get("user")
+            password = data.get("password")
 
-        if User.objects.filter(username=username).exists():
-            return JsonResponse({"error": "El usuario ya existe"}, status=400)
+            if not username or not password:
+                return JsonResponse({"error": "Usuario y contraseña son requeridos"}, status=400)
 
-        User.objects.create_user(username=username, password=password)
-        return JsonResponse({"success": "Usuario creado exitosamente"}, status=201)
+            if User.objects.filter(username=username).exists():
+                return JsonResponse({"error": "El usuario ya existe"}, status=400)
+
+            # Create user and ensure it's active
+            user = User.objects.create_user(
+                username=username, 
+                password=password,
+                is_active=True  # Explicitly set as active
+            )
+            user.save()
+            
+            return JsonResponse({"success": "Usuario creado exitosamente"}, status=201)
+            
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Formato de datos inválido"}, status=400)
+        except Exception as e:
+            return JsonResponse({"error": f"Error interno del servidor: {str(e)}"}, status=500)
+    
     return JsonResponse({"error": "Método no permitido"}, status=405)
 
 

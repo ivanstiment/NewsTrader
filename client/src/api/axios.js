@@ -6,19 +6,19 @@ import {
   clearAllTokens
 } from "@/services/tokenService";
 
-// Configurar defaults
+// Configurar valores por defecto
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 axios.defaults.withCredentials = true;
 
-// Determinar URLs base
+// Determina URLs base
 const isDevelopment = import.meta.env.MODE === "development";
 const baseUrl = isDevelopment
   ? import.meta.env.VITE_API_BASE_URL_LOCAL || "http://localhost:8000/api"
-  : import.meta.env.VITE_API_BASE_URL_PROD || "/api";
+  : import.meta.env.VITE_API_BASE_URL_PROD || "";
 
 const refreshUrl = isDevelopment
-  ? (import.meta.env.VITE_API_BASE_URL_LOCAL || "http://localhost:8000") + "/token/refresh/"
+  ? (import.meta.env.VITE_API_BASE_URL_LOCAL || "http://localhost:8000/api") + "/token/refresh/"
   : "/token/refresh/";
 
 console.log('API Configuration:', { isDevelopment, baseUrl, refreshUrl });
