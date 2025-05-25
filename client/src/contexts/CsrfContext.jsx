@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext } from "react";
 import { useCsrfApi } from "@/hooks/useCsrfApi";
 
 const CsrfContext = createContext();
@@ -13,10 +13,4 @@ export function CsrfProvider({ children }) {
   );
 }
 
-export function useCsrf() {
-  const context = useContext(CsrfContext);
-  if (!context) {
-    throw new Error("useCsrf debe usarse dentro de un CsrfProvider");
-  }
-  return context;
-}
+export { CsrfContext };

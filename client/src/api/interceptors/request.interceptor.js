@@ -1,6 +1,7 @@
 import { getAccessToken } from "@/services/tokenService";
-import { getCsrfToken } from "@/utils/csrf";
+import { csrfService } from "@/services/api";
 import { handleError } from "@/utils/errorHandler";
+import { API_CONFIG } from "@/api/config";
 
 const METHODS_REQUIRING_CSRF = ["post", "put", "patch", "delete"];
 
@@ -13,9 +14,9 @@ export const requestInterceptor = (config) => {
 
   // Agregar token CSRF para métodos que lo requieren
   if (METHODS_REQUIRING_CSRF.includes(config.method.toLowerCase())) {
-    const csrfToken = getCsrfToken();
+    const csrfToken = csrfService.getToken();
     if (csrfToken) {
-      config.headers["X-CSRFToken"] = csrfToken;
+      config.headers[API_CONFIG.csrf.headerName] = csrfToken;
     }
   }
 

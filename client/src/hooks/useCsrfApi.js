@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 import { csrfService } from '@/services/api';
-import { getCsrfToken } from '@/utils/csrf';
 
 export function useCsrfApi() {
   const [csrfToken, setCsrfToken] = useState(null);
@@ -12,15 +11,8 @@ export function useCsrfApi() {
       setIsLoading(true);
       setError(null);
       
-      // Primero intentar obtener de cookies
-      let token = getCsrfToken();
-      
-      // Si no está en cookies, pedirlo al servidor
-      if (!token) {
-        await csrfService.getCsrfToken();
-        token = getCsrfToken();
-      }
-      
+      // Usar el servicio migrado con reintentos
+      const token = await csrfService.getCsrfTokenWithRetry();
       setCsrfToken(token);
       return token;
     } catch (err) {
@@ -36,6 +28,14 @@ export function useCsrfApi() {
     return fetchCsrfToken();
   }, [fetchCsrfToken]);
 
+  const hasCsrfToken = useCallback(() => {
+    return csrfService.hasToken();
+  }, []);
+
+  const getCsrfToken = useCallback(() => {
+    return csrfService.getToken();
+  }, []);
+
   useEffect(() => {
     fetchCsrfToken();
   }, [fetchCsrfToken]);
@@ -45,5 +45,7 @@ export function useCsrfApi() {
     isLoading,
     error,
     refreshCsrfToken,
+    hasCsrfToken,
+    getCsrfToken,
   };
 }
