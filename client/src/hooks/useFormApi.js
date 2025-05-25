@@ -118,6 +118,6 @@ export function useFormApi() {
     getFieldError,
     hasFieldError,
     clearError,
-    clearFieldError,
+    clearFieldError
   };
 }

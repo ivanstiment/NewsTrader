@@ -1,3 +1,5 @@
+import toast from "react-hot-toast";
+
 const ERROR_MESSAGES = {
   400: "Verifica que todos los campos estén correctos",
   403: "No tienes permisos para realizar esta acción",
@@ -44,8 +46,6 @@ export const handleApiError = (error, context = {}) => {
     toastType,
   });
 };
-
-import toast from "react-hot-toast";
 
 /**
  * Tipos de errores comunes

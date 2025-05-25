@@ -2,7 +2,6 @@ import { tokenService } from "@/services/api";
 import axios from "axios";
 import { getRefreshUrl } from "../config/endpoints";
 import { handleAuthRedirect } from "./auth.handler";
-
 class TokenRefreshManager {
   constructor() {
     this.isRefreshing = false;
@@ -34,7 +33,7 @@ class TokenRefreshManager {
     this.isRefreshing = true;
 
     try {
-      const refreshToken = getRefreshToken();
+      const refreshToken = tokenService.getRefreshToken();
       if (!refreshToken) {
         throw new Error("No hay token de actualización disponible");
       }
@@ -46,7 +45,7 @@ class TokenRefreshManager {
       );
 
       const newAccessToken = response.data.access;
-      setAccessToken(newAccessToken);
+      tokenService.setAccessToken(newAccessToken);
 
       this.isRefreshing = false;
       this.onRefreshed(newAccessToken);
@@ -71,4 +70,3 @@ class TokenRefreshManager {
 }
 
 export const tokenRefreshManager = new TokenRefreshManager();
-
