@@ -27,7 +27,7 @@ export function Register() {
     getFieldError,
     hasFieldError,
     clearError,
-    clearFieldErrors,
+    clearFieldError,
   } = useFormApi();
 
   // Envío de formulario usando submitForm y authService
@@ -37,7 +37,7 @@ export function Register() {
         showSuccessToast: true,
         onSuccess: () => {
           reset(); // Limpiar formulario
-          clearFieldErrors(); // Limpiar errores de campo
+          clearFieldError(); // Limpiar errores de campo
         },
         context: { component: "Register", action: "create_account" },
       });
@@ -51,7 +51,7 @@ export function Register() {
   const handleInputFocus = () => {
     if (error) {
       clearError();
-      clearFieldErrors();
+      clearFieldError();
     }
   };
 

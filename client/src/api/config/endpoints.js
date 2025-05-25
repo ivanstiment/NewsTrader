@@ -22,6 +22,7 @@ export const ENDPOINTS = {
     LOGOUT: "/logout/",
     REGISTER: "/register/",
     REFRESH: "/token/refresh/",
+    VERIFY: "/auth/verify/"
   },
 
   // CSRF

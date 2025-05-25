@@ -2,7 +2,7 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useApi } from "@/hooks/useApi";
 import { useEffect } from "react";
-import api from "@/api/axios";
+import { api, ENDPOINTS } from "@/api";
 
 export function PrivateRoute() {
   const { user, logout } = useAuth();
@@ -13,20 +13,17 @@ export function PrivateRoute() {
   useEffect(() => {
     if (user) {
       // Verificar si el token sigue siendo válido
-      executeRequest(
-        () => api.get("/auth/verify/"),
-        {
-          showErrorToast: false, // No mostrar error toast para verificación silenciosa
-          context: { component: "PrivateRoute", action: "verify_token" },
-          onError: (error) => {
-            // Si el token no es válido, cerrar sesión
-            if (error.response?.status === 401) {
-              console.log("El token no es válido, cerrando sesión...");
-              logout();
-            }
+      executeRequest(() => api.get(ENDPOINTS.AUTH.VERIFY_TOKEN), {
+        showErrorToast: false, // No mostrar error toast para verificación silenciosa
+        context: { component: "PrivateRoute", action: "verify_token" },
+        onError: (error) => {
+          // Si el token no es válido, cerrar sesión
+          if (error.response?.status === 401) {
+            console.log("El token no es válido, cerrando sesión...");
+            logout();
           }
-        }
-      ).catch(() => {
+        },
+      }).catch(() => {
         // Error ya manejado en onError
       });
     }
@@ -34,13 +31,7 @@ export function PrivateRoute() {
 
   if (!user) {
     // Guardar la ubicación desde donde se intentó acceder
-    return (
-      <Navigate 
-        to="/home" 
-        state={{ from: location.pathname }} 
-        replace 
-      />
-    );
+    return <Navigate to="/home" state={{ from: location.pathname }} replace />;
   }
 
   return <Outlet />;
