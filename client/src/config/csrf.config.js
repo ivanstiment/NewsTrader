@@ -18,11 +18,11 @@ const ENVIRONMENT_CONFIGS = {
     showDetailedErrors: true,
   },
   production: {
-    maxRetries: 3,
-    retryDelay: 1000,
-    enableDebugLogs: false,
+    maxRetries: 5,
+    retryDelay: 5000,
+    enableDebugLogs: true,
     autoRefreshOnError: true,
-    showDetailedErrors: false,
+    showDetailedErrors: true,
   },
 };
 
