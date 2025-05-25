@@ -11,6 +11,9 @@ import { API_CONFIG } from "@/api/config/defaults";
  * @returns {string|null} Valor de la cookie o null
  */
 export const getCookieValue = (name) => {
+  console.log(`getCookieValue name: ${name}`)
+  console.log(`!document.cookie ${!document.cookie}`)
+  console.log(`document.cookie === "" ${document.cookie === ""}`)
   if (!document.cookie || document.cookie === "") {
     return null;
   }
@@ -21,6 +24,8 @@ export const getCookieValue = (name) => {
     const trimmedCookie = cookie.trim();
     const cookieStart = `${name}=`;
 
+  console.log(`cookieStart: ${cookieStart}`)
+  console.log(`decodeURIComponent(trimmedCookie.substring(cookieStart.length) ${decodeURIComponent(trimmedCookie.substring(cookieStart.length))}`)
     if (trimmedCookie.startsWith(cookieStart)) {
       return decodeURIComponent(trimmedCookie.substring(cookieStart.length));
     }
@@ -34,6 +39,7 @@ export const getCookieValue = (name) => {
  * @returns {string|null} Token CSRF o null
  */
 export const getCsrfTokenFromCookie = () => {
+  console.log(`getCsrfTokenFromCookie API_CONFIG.csrf.cookieName ${API_CONFIG.csrf.cookieName}`)
   return getCookieValue(API_CONFIG.csrf.cookieName);
 };
 
@@ -43,6 +49,10 @@ export const getCsrfTokenFromCookie = () => {
  * @returns {boolean} true si el token es válido
  */
 export const isValidCsrfToken = (token) => {
+  console.log(`es un token Valido? ${token}`);
+  console.log(`token !== null ${token !== null}`);
+  console.log(`typeof token === "string" ${typeof token === "string"}`);
+  console.log(`token.trim() !== "" ${token.trim() !== ""}`);
   return token !== null && typeof token === "string" && token.trim() !== "";
 };
 
