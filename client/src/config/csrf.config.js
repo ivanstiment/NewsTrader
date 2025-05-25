@@ -17,13 +17,6 @@ const ENVIRONMENT_CONFIGS = {
     autoRefreshOnError: true,
     showDetailedErrors: true,
   },
-  testing: {
-    maxRetries: 1,
-    retryDelay: 100,
-    enableDebugLogs: false,
-    autoRefreshOnError: false,
-    showDetailedErrors: false,
-  },
   production: {
     maxRetries: 3,
     retryDelay: 1000,
@@ -48,7 +41,7 @@ const DEFAULT_CONFIG = {
  * Obtener configuración actual basada en el entorno
  */
 const getCurrentEnvironment = () => {
-  return process.env.NODE_ENV || "development";
+  return import.meta.env.MODE === "production" ? "production" : "development";
 };
 
 /**
