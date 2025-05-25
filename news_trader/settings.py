@@ -25,17 +25,13 @@ SECRET_KEY = os.environ.get(
     "django-insecure-tq&z7$*sz9k^^4^b@_43c3ggo=lvrswuui2g@fjuy!1q%p006$",
 )
 
-DEBUG = os.environ.get("DEBUG", "True") == "True"
+DEBUG = False
 IS_PRODUCTION = not DEBUG
 
 print("DEBUG:", DEBUG)
 print("IS_PRODUCTION:", IS_PRODUCTION)
 
 if IS_PRODUCTION:
-    CSRF_COOKIE_SAMESITE = None
-    CSRF_COOKIE_SECURE = True
-    SESSION_COOKIE_SAMESITE = None
-    SESSION_COOKIE_SECURE = True
     ALLOWED_HOSTS = [
         os.environ.get("WEBSITE_HOSTNAME"),
         "salmon-stone-0e4a4f410.6.azurestaticapps.net",
@@ -43,6 +39,11 @@ if IS_PRODUCTION:
         ".azurestaticapps.net",
         ".redis.cache.windows.net",
     ] + [f"169.254.129.{i}" for i in range(1, 255)]
+    CSRF_COOKIE_SAMESITE = None
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SAMESITE = None
+    SESSION_COOKIE_SECURE = True
+    CORS_ALLOW_CREDENTIALS = True
     CORS_ORIGINS_WHITELIST = [
         os.environ.get("FRONTEND_URL"),
         os.environ.get("VITE_API_BASE_URL_PROD"),
@@ -56,7 +57,6 @@ if IS_PRODUCTION:
         "https://*.azurewebsites.net",
         "https://*.azurestaticapps.net",
     ]
-    CORS_ALLOW_CREDENTIALS = True
     CORS_ALLOW_HEADERS = [
         "accept","content-type","authorization","x-csrftoken","x-requested-with",
     ]
