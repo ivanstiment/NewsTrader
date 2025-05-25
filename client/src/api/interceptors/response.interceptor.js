@@ -1,6 +1,5 @@
 import { tokenService } from "@/services/api";
 import { handleAuthError } from "../handlers/auth.handler";
-import { handleCsrfError } from "../handlers/csrf.handler";
 import { tokenRefreshManager } from "../handlers/token.handler";
 
 /**
@@ -51,15 +50,6 @@ export const responseErrorInterceptor = async (error) => {
     isAuthEndpoint || error.response?.status !== 401 || originalRequest._retry;
 
   if (shouldSkipRefresh) {
-    // Manejar errores CSRF
-    if (error.response?.status === 403) {
-      try {
-        await handleCsrfError(error);
-      } catch (csrfError) {
-        return Promise.reject(csrfError);
-      }
-    }
-
     // Para errores de autenticación en endpoints que NO son de login
     if (error.response?.status === 401 && !isAuthEndpoint) {
       return handleAuthError(error);

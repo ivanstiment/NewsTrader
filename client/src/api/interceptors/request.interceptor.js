@@ -1,5 +1,4 @@
 import { tokenService } from "@/services/api";
-import { addCsrfHeader } from "../handlers/csrf.handler";
 
 /**
  * Interceptor de peticiones - Agrega tokens y headers necesarios
@@ -10,9 +9,6 @@ export const requestInterceptor = (config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
-
-  // Agregar header CSRF si es necesario
-  config = addCsrfHeader(config);
 
   // Log para debugging en desarrollo
   if (import.meta.env.MODE === "development") {
