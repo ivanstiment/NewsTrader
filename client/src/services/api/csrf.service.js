@@ -74,7 +74,9 @@ class CsrfService {
   } = {}) {
     // Primero verificar si ya existe un token válido
     const existingToken = getCsrfTokenFromCookie();
+    console.log(`El Token CSRF existe FUERA, Token: ${existingToken}`);
     if (isValidCsrfToken(existingToken)) {
+      console.log(`El Token CSRF es válido FUERA, Token: ${existingToken}`);
       return existingToken;
     }
 
@@ -84,6 +86,13 @@ class CsrfService {
     for (let attempt = 0; attempt <= maxRetries; attempt++) {
       try {
         const token = await this.fetchCsrfToken();
+
+        const cookieToken = getCsrfTokenFromCookie();
+        console.log(`El Token CSRF existe DENTRO, Token: ${cookieToken}`);
+        if (isValidCsrfToken(cookieToken)) {
+          console.log(`El Token CSRF es válido DENTRO, Token: ${cookieToken}`);
+          return cookieToken;
+        }
 
         if (isValidCsrfToken(token)) {
           console.log(`Token CSRF obtenido en intento ${attempt + 1}`);
