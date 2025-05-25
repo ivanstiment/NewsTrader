@@ -67,26 +67,38 @@ def get_csrf_token(request):
 @csrf_exempt
 def register_user(request):
     """
-    Registra un nuevo usuario.
+    Registra un nuevo usuario con mejor manejo de errores.
     """
     if request.method == "POST":
         try:
             csrf_token = request.META.get("HTTP_X_CSRFTOKEN")
             if not csrf_token:
-                return JsonResponse({"error": "No hay token CSRF"}, status=403)
+                return JsonResponse({"detail": "No hay token CSRF"}, status=403)
 
             data = json.loads(request.body)
             username = data.get("user")
             password = data.get("password")
 
-            if not username or not password:
-                return JsonResponse(
-                    {"error": "Usuario y contraseña son requeridos"}, status=400
-                )
+            # Validaciones específicas de campo
+            validation_errors = {}
+            
+            if not username:
+                validation_errors["user"] = ["Este campo es requerido"]
+            elif len(username.strip()) < 3:
+                validation_errors["user"] = ["El nombre de usuario debe tener al menos 3 caracteres"]
+            elif User.objects.filter(username=username).exists():
+                validation_errors["user"] = ["Este nombre de usuario ya está en uso"]
+                
+            if not password:
+                validation_errors["password"] = ["Este campo es requerido"]
+            elif len(password) < 6:
+                validation_errors["password"] = ["La contraseña debe tener al menos 6 caracteres"]
 
-            if User.objects.filter(username=username).exists():
-                return JsonResponse({"error": "El usuario ya existe"}, status=400)
+            # Si hay errores de validación, devolverlos como errores de campo
+            if validation_errors:
+                return JsonResponse(validation_errors, status=400)
 
+            # Crear el usuario
             user = User.objects.create_user(
                 username=username, password=password, is_active=True
             )
@@ -95,10 +107,10 @@ def register_user(request):
             return JsonResponse({"success": "Usuario creado con éxito"}, status=201)
 
         except json.JSONDecodeError:
-            return JsonResponse({"error": "Formato de datos inválido"}, status=400)
+            return JsonResponse({"detail": "Formato de datos inválido"}, status=400)
         except Exception as e:
             return JsonResponse(
-                {"error": f"Error interno del servidor: {str(e)}"}, status=500
+                {"detail": f"Error interno del servidor: {str(e)}"}, status=500
             )
 
-    return JsonResponse({"error": "Método no permitido"}, status=405)
+    return JsonResponse({"detail": "Método no permitido"}, status=405)

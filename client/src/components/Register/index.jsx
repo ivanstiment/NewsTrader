@@ -1,10 +1,9 @@
-import api from "@/api/axios";
+import { useFormApi } from "@/hooks/useApi";
+import { authService } from "@/services/api";
 import styles from "@/shared/styles";
 import { registerSchema } from "@/validators/register-schema.validator";
-import { useFormApi } from "@/hooks/useApi";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
 import { PadlockIcon, UserIcon } from "../Icons";
 
 export function Register() {
@@ -31,35 +30,17 @@ export function Register() {
     clearFieldErrors,
   } = useFormApi();
 
-  // Estado para mensaje de éxito
-  const [successMessage, setSuccessMessage] = useState(null);
-
-  // Envío de formulario usando submitForm
+  // Envío de formulario usando submitForm y authService
   const onSubmit = async (data) => {
-    // Limpiar mensaje de éxito previo
-    setSuccessMessage(null);
-
     try {
-      await submitForm(
-        () =>
-          api.post("/register/", {
-            user: data.user,
-            password: data.password,
-          }),
-        {
-          showSuccessToast: true,
-          successMessage: "¡Cuenta creada con éxito!",
-          onSuccess: (response) => {
-            setSuccessMessage(
-              response.data.success ||
-                "¡Registro exitoso! Ya puedes iniciar sesión."
-            );
-            reset(); // Limpiar formulario
-            clearFieldErrors(); // Limpiar errores de campo
-          },
-          context: { component: "Register", action: "create_account" },
-        }
-      );
+      await submitForm(() => authService.register(data), {
+        showSuccessToast: true,
+        onSuccess: () => {
+          reset(); // Limpiar formulario
+          clearFieldErrors(); // Limpiar errores de campo
+        },
+        context: { component: "Register", action: "create_account" },
+      });
     } catch (err) {
       // El error ya fue manejado por useFormApi
       console.log("El registro de la cuenta falló:", err);
@@ -70,9 +51,7 @@ export function Register() {
   const handleInputFocus = () => {
     if (error) {
       clearError();
-    }
-    if (successMessage) {
-      setSuccessMessage(null);
+      clearFieldErrors();
     }
   };
 
@@ -87,12 +66,6 @@ export function Register() {
             {error.response?.data?.error ||
               "Error inesperado, inténtalo de nuevo más tarde"}
           </div>
-        )}
-
-        {successMessage && (
-          <output className={styles["form__alertSuccess"]}>
-            {successMessage}
-          </output>
         )}
 
         <form onSubmit={handleSubmit(onSubmit)} noValidate>

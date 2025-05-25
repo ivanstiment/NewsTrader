@@ -1,4 +1,4 @@
-import { handleError } from "@/utils/errorHandler";
+import { handleError } from "../api/handlers/error.handler";
 import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -112,30 +112,51 @@ export function useFormApi() {
         // Manejar errores de validación (400)
         if (err.response?.status === 400 && err.response?.data) {
           const data = err.response.data;
+          
+          // Extraer errores de campo específicos
           const newFieldErrors = {};
+          let hasFieldErrors = false;
 
-          // Extraer errores de campo
           Object.keys(data).forEach((field) => {
-            if (Array.isArray(data[field])) {
-              newFieldErrors[field] = data[field];
-            } else if (typeof data[field] === "string") {
-              newFieldErrors[field] = [data[field]];
+            // Omitir campos que son mensajes generales
+            if (!['error', 'detail', 'message', 'non_field_errors'].includes(field)) {
+              if (Array.isArray(data[field])) {
+                newFieldErrors[field] = data[field];
+                hasFieldErrors = true;
+              } else if (typeof data[field] === 'string') {
+                newFieldErrors[field] = [data[field]];
+                hasFieldErrors = true;
+              }
             }
           });
 
-          if (Object.keys(newFieldErrors).length > 0) {
+          // Si hay errores de campo específicos, manejarlos como tales
+          if (hasFieldErrors) {
             setFieldErrors(newFieldErrors);
 
             if (onValidationError) {
               onValidationError(newFieldErrors);
             }
 
-            // Mostrar mensaje general de validación
-            toast.error("Por favor corrige los errores en el formulario", {
-              duration: 4000,
+            // NO mostrar toast adicional, los errores ya se muestran en el formulario
+            return; // Salir antes, no usar handleError
+          } 
+          
+          // Si no hay errores de campo, pero hay non_field_errors
+          if (data.non_field_errors && Array.isArray(data.non_field_errors)) {
+            handleError(err, {
+              context: { component: "useFormApi" },
+              customMessage: data.non_field_errors.join(', ')
             });
-          } else {
-            // Si no hay errores de campo específicos, usar manejo global
+          } 
+          // Si hay un mensaje de error general
+          else if (data.error || data.detail || data.message || (typeof data === 'string')) {
+            handleError(err, {
+              context: { component: "useFormApi" },
+            });
+          } 
+          // Fallback para errores 400 sin estructura clara
+          else {
             handleError(err, {
               context: { component: "useFormApi" },
             });

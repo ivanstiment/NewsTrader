@@ -32,7 +32,7 @@ ChartWrapper.propTypes = {
     annotations: PropTypes.object,
     xaxis: PropTypes.object,
     yaxis: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-    // …podrías expandir según tu uso real
+    // expandir según el uso real
   }).isRequired,
 
   /** Series de datos para el chart */

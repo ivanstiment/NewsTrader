@@ -18,7 +18,7 @@ export const getRefreshUrl = () => {
 export const ENDPOINTS = {
   // Autenticación y tokens
   AUTH: {
-    LOGIN: "/login/", // Basado en tu backend Django
+    LOGIN: "/token/",
     LOGOUT: "/logout/",
     REGISTER: "/register/",
     REFRESH: "/token/refresh/",

@@ -1,5 +1,5 @@
 import { getAccessToken } from "@/services/tokenService";
-import { handleError } from "@/utils/errorHandler";
+import { handleError } from "../handlers/error.handler";
 import { addCsrfHeader } from "../handlers/csrf.handler";
 
 export const requestInterceptor = (config) => {

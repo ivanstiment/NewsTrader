@@ -1,6 +1,6 @@
-import api from "@/api/axios";
 import { useFormApi } from "@/hooks/useApi";
 import { useAuth } from "@/hooks/useAuth";
+import { authService } from "@/services/api";
 import styles from "@/shared/styles";
 import { loginSchema } from "@/validators/login-schema.validator";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -12,7 +12,7 @@ export function Login() {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  // Usar useFormApi en lugar de useState manual
+  // Usar useFormApi
   const {
     loading,
     error,
@@ -36,22 +36,15 @@ export function Login() {
   // Envío del formulario usando submitForm
   const onSubmit = async (data) => {
     try {
-      await submitForm(
-        () =>
-          api.post("/token/", {
-            username: data.username,
-            password: data.password,
-          }),
-        {
-          showSuccessToast: true,
-          successMessage: "¡Bienvenido! Redirigiendo...",
-          onSuccess: (response) => {
-            login(response.data.access, response.data.refresh);
-            navigate("/news");
-          },
-          context: { component: "Login", action: "authenticate" },
-        }
-      );
+      await submitForm(() => authService.login(data), {
+        showSuccessToast: true,
+        successMessage: "¡Bienvenido! Redirigiendo...",
+        onSuccess: (response) => {
+          login(response.data.access, response.data.refresh);
+          navigate("/news");
+        },
+        context: { component: "Login", action: "authenticate" },
+      });
     } catch (err) {
       // El error ya fue manejado por useFormApi
       console.log("Error de inicio de sesion:", err);

@@ -12,21 +12,30 @@ import {
   isCsrfError,
   requiresCsrfToken,
 } from "./csrf.handler";
-import { getErrorMessage, getToastType, handleApiError } from "./error.handler";
+import {
+  getErrorMessage,
+  getToastType,
+  handleApiError,
+  handleError,
+} from "./error.handler";
 import { tokenRefreshManager } from "./token.handler";
 
 export {
   addCsrfHeader,
   getCsrfErrorMessage,
-  getCsrfTokenFromCookie, getErrorMessage,
+  getCsrfTokenFromCookie,
+  getErrorMessage,
   getToastType,
   handleApiError,
   handleAuthError,
-  handleAuthRedirect, handleCsrfError,
+  handleAuthRedirect,
+  handleCsrfError,
+  handleError,
   hasCsrfToken,
   isCsrfError,
-  requiresCsrfToken, shouldRedirectToLogin,
-  tokenRefreshManager
+  requiresCsrfToken,
+  shouldRedirectToLogin,
+  tokenRefreshManager,
 };
 
 // Exportación por defecto con todos los handlers
@@ -45,4 +54,5 @@ export default {
   hasCsrfToken,
   isCsrfError,
   requiresCsrfToken,
+  handleError,
 };

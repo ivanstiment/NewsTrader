@@ -6,7 +6,7 @@ import {
   getAccessToken as readToken,
   setAccessToken as writeToken,
 } from "@/services/tokenService";
-import { handleError } from "@/utils/errorHandler";
+import { handleError } from "./handlers/error.handler";
 import axios from "axios";
 import toast from "react-hot-toast";
 

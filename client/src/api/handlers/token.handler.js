@@ -57,7 +57,7 @@ class TokenRefreshManager {
 
       return newAccessToken;
     } catch (error) {
-      console.error("Token refresh failed:", error);
+      console.error("Error de token de actualización:", error);
       this.isRefreshing = false;
       this.onRefreshed(null);
 
