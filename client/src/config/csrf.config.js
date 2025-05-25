@@ -108,7 +108,7 @@ const getCsrfService = async () => {
 class CsrfConfig {
   constructor() {
     this.config = getEnvironmentConfig();
-    this.language = "es"; // Por defecto español
+    this.language = "es"; // Por defecto
     this.listeners = [];
     this.notificationCount = 0;
     this.lastNotificationTime = 0;
