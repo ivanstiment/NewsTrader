@@ -52,7 +52,7 @@ export const isValidCsrfToken = (token) => {
   console.log(`es un token Valido? ${token}`);
   console.log(`token !== null ${token !== null}`);
   console.log(`typeof token === "string" ${typeof token === "string"}`);
-  console.log(`token.trim() !== "" ${token.trim() !== ""}`);
+  console.log(`token.trim() !== "" ${token?.trim() !== ""}`);
   return token !== null && typeof token === "string" && token.trim() !== "";
 };
 
