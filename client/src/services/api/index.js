@@ -3,11 +3,17 @@ import authService from "./auth.service";
 import csrfService from "./csrf.service";
 import newsService from "./news.service";
 import stocksService from "./stocks.service";
-import userService from "./user.service";
 import tokenService from "./token.service";
+import userService from "./user.service";
 
 // Exportaciones nombradas individuales
-export { articlesService, authService, csrfService, newsService, stocksService, userService };
+export {
+  articlesService,
+  authService,
+  csrfService,
+  newsService,
+  stocksService, tokenService, userService
+};
 
 // Exportación por defecto con todos los servicios
 export default {
