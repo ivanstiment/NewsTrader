@@ -1,9 +1,6 @@
 import { getAccessToken } from "@/services/tokenService";
-import { csrfService } from "@/services/api";
 import { handleError } from "@/utils/errorHandler";
-import { API_CONFIG } from "@/api/config";
-
-const METHODS_REQUIRING_CSRF = ["post", "put", "patch", "delete"];
+import { addCsrfHeader } from "../handlers/csrf.handler";
 
 export const requestInterceptor = (config) => {
   // Agregar token JWT
@@ -12,13 +9,8 @@ export const requestInterceptor = (config) => {
     config.headers.Authorization = `Bearer ${token}`;
   }
 
-  // Agregar token CSRF para métodos que lo requieren
-  if (METHODS_REQUIRING_CSRF.includes(config.method.toLowerCase())) {
-    const csrfToken = csrfService.getToken();
-    if (csrfToken) {
-      config.headers[API_CONFIG.csrf.headerName] = csrfToken;
-    }
-  }
+  // Agregar token CSRF
+  config = addCsrfHeader(config);
 
   return config;
 };

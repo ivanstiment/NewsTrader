@@ -1,9 +1,12 @@
-import { default as articlesService } from "./articles.service";
-import { default as authService } from "./auth.service";
-import { default as csrfService } from "./csrf.service";
-import { default as newsService } from "./news.service";
-import { default as stocksService } from "./stocks.service";
-import { default as userService } from "./user.service";
+import articlesService from "./articles.service";
+import authService from "./auth.service";
+import csrfService from "./csrf.service";
+import newsService from "./news.service";
+import stocksService from "./stocks.service";
+import userService from "./user.service";
+
+// Exportaciones nombradas individuales
+export { articlesService, authService, csrfService, newsService, stocksService, userService };
 
 // Exportación por defecto con todos los servicios
 export default {

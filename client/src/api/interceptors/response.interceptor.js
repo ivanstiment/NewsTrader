@@ -1,6 +1,7 @@
 import axios from "axios";
 import toast from "react-hot-toast";
 import { handleAuthError } from "../handlers/auth.handler";
+import { handleCsrfError, isCsrfError } from "../handlers/csrf.handler";
 import { handleApiError } from "../handlers/error.handler";
 import { tokenRefreshManager } from "../handlers/token.handler";
 
@@ -18,6 +19,11 @@ export const responseInterceptor = (response) => {
 
 export const responseErrorInterceptor = async (error) => {
   const { config, response } = error;
+
+  // Manejar errores CSRF
+  if (isCsrfError(error)) {
+    return handleCsrfError(error);
+  }
 
   // Manejar errores 401 (no autenticado)
   if (response?.status === 401 && !config._retry) {
