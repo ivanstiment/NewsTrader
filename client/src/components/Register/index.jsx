@@ -1,4 +1,4 @@
-import { useFormApi } from "@/hooks/useApi";
+import { useFormApi } from "@/hooks/useFormApi";
 import { authService } from "@/services/api";
 import styles from "@/shared/styles";
 import { registerSchema } from "@/validators/register-schema.validator";
@@ -18,7 +18,7 @@ export function Register() {
     mode: "onBlur",
   });
 
-  // Usar useFormApi en lugar de useState manual
+  // Usar useFormApi
   const {
     loading,
     error,

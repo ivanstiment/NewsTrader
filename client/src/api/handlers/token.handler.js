@@ -1,8 +1,4 @@
-import {
-  clearAllTokens,
-  getRefreshToken,
-  setAccessToken,
-} from "@/services/tokenService";
+import { tokenService } from "@/services/api";
 import axios from "axios";
 import { getRefreshUrl } from "../config/endpoints";
 import { handleAuthRedirect } from "./auth.handler";
@@ -61,7 +57,7 @@ class TokenRefreshManager {
       this.isRefreshing = false;
       this.onRefreshed(null);
 
-      clearAllTokens();
+      tokenService.clearAllTokens();
       handleAuthRedirect();
 
       throw error;
@@ -75,3 +71,4 @@ class TokenRefreshManager {
 }
 
 export const tokenRefreshManager = new TokenRefreshManager();
+

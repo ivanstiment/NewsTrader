@@ -1,14 +1,8 @@
 import { API_CONFIG } from "@/api/config";
-import { csrfService } from "@/services/api";
-import {
-  clearAllTokens,
-  getRefreshToken,
-  getAccessToken as readToken,
-  setAccessToken as writeToken,
-} from "@/services/tokenService";
-import { handleError } from "./handlers/error.handler";
+import { csrfService, tokenService } from "@/services/api";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { handleError } from "./handlers/error.handler";
 
 // Configurar valores por defecto para CSRF
 axios.defaults.xsrfCookieName = "csrftoken";
@@ -57,7 +51,7 @@ function onRefreshed(newToken) {
 api.interceptors.request.use(
   (config) => {
     // Agregar token JWT
-    const token = readToken();
+    const token = tokenService.getAccessToken();
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -132,7 +126,7 @@ api.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const refreshToken = getRefreshToken();
+        const refreshToken = tokenService.getRefreshToken();
         if (!refreshToken) {
           throw new Error("No hay token de actualización disponible");
         }
@@ -143,7 +137,7 @@ api.interceptors.response.use(
           { withCredentials: true }
         );
 
-        writeToken(data.access);
+        tokenService.setAccessToken(data.access);
         isRefreshing = false;
         onRefreshed(data.access);
 
@@ -156,7 +150,7 @@ api.interceptors.response.use(
         onRefreshed(null);
 
         // Limpiar tokens
-        clearAllTokens();
+        tokenService.clearAllTokens();
 
         // No mostrar toast para errores de autenticación durante refresh
         // ya que redirigiremos automáticamente

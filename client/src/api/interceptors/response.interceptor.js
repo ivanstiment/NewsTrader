@@ -1,46 +1,103 @@
-import axios from "axios";
-import toast from "react-hot-toast";
+import { tokenService } from "@/services/api";
 import { handleAuthError } from "../handlers/auth.handler";
-import { handleCsrfError, isCsrfError } from "../handlers/csrf.handler";
-import { handleApiError } from "../handlers/error.handler";
+import { handleCsrfError } from "../handlers/csrf.handler";
 import { tokenRefreshManager } from "../handlers/token.handler";
 
+/**
+ * Interceptor de respuestas exitosas
+ */
 export const responseInterceptor = (response) => {
-  // Manejar warnings en respuestas exitosas
-  if (response.data?.warning) {
-    toast(response.data.warning, {
-      icon: "⚠️",
-      duration: 4000,
-    });
+  // Log para debugging en desarrollo
+  if (import.meta.env.MODE === "development") {
+    console.log(
+      `✅ ${response.config.method?.toUpperCase()} ${response.config.url}`,
+      {
+        status: response.status,
+        data: response.data,
+      }
+    );
   }
 
   return response;
 };
 
+/**
+ * Interceptor de errores de respuesta
+ */
 export const responseErrorInterceptor = async (error) => {
-  const { config, response } = error;
+  const originalRequest = error.config;
 
-  // Manejar errores CSRF
-  if (isCsrfError(error)) {
-    return handleCsrfError(error);
+  // Log para debugging en desarrollo
+  if (import.meta.env.MODE === "development") {
+    console.error(
+      `❌ ${originalRequest?.method?.toUpperCase()} ${originalRequest?.url}`,
+      {
+        status: error.response?.status,
+        data: error.response?.data,
+      }
+    );
   }
 
-  // Manejar errores 401 (no autenticado)
-  if (response?.status === 401 && !config._retry) {
-    config._retry = true;
+  // NO intentar refresh en estas situaciones:
+  // 1. Errores de login/register (endpoints de autenticación)
+  // 2. Errores que no son 401
+  // 3. Si ya se intentó el refresh
+  const isAuthEndpoint =
+    originalRequest?.url?.includes("/token/") ||
+    originalRequest?.url?.includes("/login/") ||
+    originalRequest?.url?.includes("/register/");
+
+  const shouldSkipRefresh =
+    isAuthEndpoint || error.response?.status !== 401 || originalRequest._retry;
+
+  if (shouldSkipRefresh) {
+    // Manejar errores CSRF
+    if (error.response?.status === 403) {
+      try {
+        await handleCsrfError(error);
+      } catch (csrfError) {
+        return Promise.reject(csrfError);
+      }
+    }
+
+    // Para errores de autenticación en endpoints que NO son de login
+    if (error.response?.status === 401 && !isAuthEndpoint) {
+      return handleAuthError(error);
+    }
+
+    // Para cualquier otro error, rechazar directamente
+    return Promise.reject(error);
+  }
+
+  // Solo intentar refresh para 401 en endpoints protegidos
+  if (error.response?.status === 401 && !isAuthEndpoint) {
+    // Verificar si tenemos token de acceso
+    const currentToken = tokenService.getAccessToken();
+    if (!currentToken) {
+      // No hay token, redirigir a login
+      tokenService.clearAllTokens();
+      return handleAuthError(error);
+    }
+
+    // Marcar que ya se intentó el refresh
+    originalRequest._retry = true;
 
     try {
+      // Intentar refrescar el token
       const newToken = await tokenRefreshManager.refreshToken();
-      config.headers.Authorization = `Bearer ${newToken}`;
-      return axios.request(config);
-    } catch (refreshError) {
-      return handleAuthError(refreshError);
-    }
-  }
 
-  // Manejar otros errores si no estamos en proceso de refresh
-  if (!tokenRefreshManager.isRefreshing && response?.status !== 401) {
-    handleApiError(error);
+      if (newToken) {
+        // Actualizar el header de autorización
+        originalRequest.headers.Authorization = `Bearer ${newToken}`;
+
+        // Reinttentar la petición original
+        return error.config.adapter(originalRequest);
+      }
+    } catch (refreshError) {
+      console.error("Error al refrescar token:", refreshError);
+      // El tokenRefreshManager ya maneja la limpieza y redirección
+      return Promise.reject(refreshError);
+    }
   }
 
   return Promise.reject(error);

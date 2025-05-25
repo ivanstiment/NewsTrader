@@ -12,7 +12,7 @@ export function Login() {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  // Usar useFormApi
+  // Usar useFormApi mejorado
   const {
     loading,
     error,
@@ -33,21 +33,28 @@ export function Login() {
     reValidateMode: "onChange",
   });
 
-  // Envío del formulario usando submitForm
+  // Envío del formulario
   const onSubmit = async (data) => {
     try {
       await submitForm(() => authService.login(data), {
         showSuccessToast: true,
         successMessage: "¡Bienvenido! Redirigiendo...",
+        showErrorToast: false, // No mostrar toast para errores de login
         onSuccess: (response) => {
-          login(response.data.access, response.data.refresh);
-          navigate("/news");
+          const { access, refresh } = response.data;
+          if (login(access, refresh)) {
+            setTimeout(() => {
+              navigate("/news");
+            }, 500);
+          } else {
+            console.error("Error al procesar tokens de autenticación");
+          }
         },
         context: { component: "Login", action: "authenticate" },
       });
     } catch (err) {
-      // El error ya fue manejado por useFormApi
-      console.log("Error de inicio de sesion:", err);
+      // El error ya fue procesado por useFormApi
+      console.log("Error de inicio de sesión:", err.response?.data);
     }
   };
 
@@ -58,16 +65,20 @@ export function Login() {
     }
   };
 
+  // Determinar si mostrar error general
+  const shouldShowGeneralError = error && !error.response?.status === 400;
+  const generalErrorMessage =
+    error?.message || "Error de autenticación, verifica tus credenciales";
+
   return (
     <div className={styles["card__container"]}>
       <div className={styles["card"]} aria-live="polite">
         <h2 className={styles["card__title"]}>¡Bienvenido de nuevo!</h2>
 
-        {/* Mostrar errores generales (no de campo específico) */}
-        {error && !error.response?.status === 400 && (
+        {/* Mostrar errores generales (no de validación) */}
+        {shouldShowGeneralError && (
           <div role="alert" className={styles["form__alertError"]}>
-            {error.response?.data?.detail ||
-              "Error de autenticación, verifica tus credenciales"}
+            {generalErrorMessage}
           </div>
         )}
 
@@ -137,6 +148,14 @@ export function Login() {
                 "\u00A0"}
             </span>
           </div>
+
+          {/* Mostrar error de credenciales inválidas */}
+          {error?.response?.status === 401 && (
+            <div role="alert" className={styles["form__alertError"]}>
+              {error.response.data?.detail ||
+                "Credenciales incorrectas. Verifica tu usuario y contraseña."}
+            </div>
+          )}
 
           {/* Botón de envío */}
           <div className={styles["button-wrapper"]}>

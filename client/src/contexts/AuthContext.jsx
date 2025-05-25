@@ -1,10 +1,5 @@
 import { authProviderPropTypes } from "@/propTypes/authProvider.propTypes";
-import {
-  clearAllTokens,
-  getAccessToken as readToken,
-  setRefreshToken as writeRefresh,
-  setAccessToken as writeToken,
-} from "@/services/tokenService";
+import { tokenService } from "@/services/api";
 import { jwtDecode } from "jwt-decode";
 import {
   createContext,
@@ -53,7 +48,7 @@ export function AuthProvider({ children }) {
   // Al montar, verificar token existente
   useEffect(() => {
     const initializeAuth = async () => {
-      const token = readToken();
+      const token = tokenService.getAccessToken();
 
       if (token && !isTokenExpired(token)) {
         if (setUserFromToken(token)) {
@@ -63,7 +58,7 @@ export function AuthProvider({ children }) {
       }
 
       // Si no hay token válido, limpiar tokens, usuario y loading
-      clearAllTokens();
+      tokenService.clearAllTokens();
       setUser(null);
       setLoading(false);
     };
@@ -79,15 +74,13 @@ export function AuthProvider({ children }) {
       }
 
       if (isTokenExpired(accessToken)) {
-        console.error(
-          "No se puede iniciar sesión con un token expirado"
-        );
+        console.error("No se puede iniciar sesión con un token expirado");
         return false;
       }
 
-      writeToken(accessToken);
+      tokenService.setAccessToken(accessToken);
       if (refreshToken) {
-        writeRefresh(refreshToken);
+        tokenService.setRefreshToken(refreshToken);
       }
 
       const success = setUserFromToken(accessToken);
@@ -101,7 +94,7 @@ export function AuthProvider({ children }) {
   );
 
   const logout = useCallback(() => {
-    clearAllTokens();
+    tokenService.clearAllTokens();
     setUser(null);
     setLoading(false);
 
@@ -111,7 +104,7 @@ export function AuthProvider({ children }) {
 
   // Función para verificar si el usuario está autenticado
   const isAuthenticated = useCallback(() => {
-    const token = readToken();
+    const token = tokenService.getAccessToken();
     return token && !isTokenExpired(token) && user;
   }, [isTokenExpired, user]);
 
