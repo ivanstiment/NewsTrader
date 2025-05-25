@@ -17,8 +17,6 @@ from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-IS_PRODUCTION = os.environ.get("DBHOST") or os.environ.get("DJANGO_PRODUCTION") == "1"
-
 # -------------------------------
 # 🔐 Seguridad y configuración básica
 # -------------------------------
@@ -28,8 +26,16 @@ SECRET_KEY = os.environ.get(
 )
 
 DEBUG = os.environ.get("DEBUG", "True") == "True"
+IS_PRODUCTION = not DEBUG
+
+print("DEBUG:", DEBUG)
+print("IS_PRODUCTION:", IS_PRODUCTION)
 
 if IS_PRODUCTION:
+    CSRF_COOKIE_SAMESITE = None
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SAMESITE = None
+    SESSION_COOKIE_SECURE = True
     ALLOWED_HOSTS = [
         os.environ.get("WEBSITE_HOSTNAME"),
         "salmon-stone-0e4a4f410.6.azurestaticapps.net",
@@ -54,10 +60,6 @@ if IS_PRODUCTION:
     CORS_ALLOW_HEADERS = [
         "accept","content-type","authorization","x-csrftoken","x-requested-with",
     ]
-    CSRF_COOKIE_SAMESITE = None
-    CSRF_COOKIE_SECURE = True
-    SESSION_COOKIE_SAMESITE = None
-    SESSION_COOKIE_SECURE = True
     CSRF_TRUSTED_ORIGINS = [
         os.environ.get("FRONTEND_URL"),
         os.environ.get("VITE_API_BASE_URL_PROD"),
@@ -75,6 +77,10 @@ if IS_PRODUCTION:
     CSRF_COOKIE_HTTPONLY = False
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 else:
+    CSRF_COOKIE_SAMESITE = 'Lax'
+    CSRF_COOKIE_SECURE = False
+    SESSION_COOKIE_SAMESITE = 'Lax'
+    SESSION_COOKIE_SECURE = False
     ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
     CORS_ALLOWED_ORIGINS = [
         "http://localhost:5173",

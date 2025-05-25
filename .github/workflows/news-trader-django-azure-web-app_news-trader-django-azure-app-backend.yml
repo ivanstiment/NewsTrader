@@ -6,7 +6,6 @@ name: Build and deploy Python app to Azure Web App - news-trader-django-azure-ap
 
 env:
   DEBUG: False
-  DJANGO_PRODUCTION: 1
   DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
   DBUSER: ${{ secrets.DBUSER }}
   DBPASS: ${{ secrets.DBPASS }}
