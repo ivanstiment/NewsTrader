@@ -77,7 +77,7 @@ export function Login() {
 
         {/* Mostrar errores generales (no de validación) */}
         {shouldShowGeneralError && (
-          <div role="alert" className={styles["form__alertError"]}>
+          <div role="alert" className={styles["form-field__error"]}>
             {generalErrorMessage}
           </div>
         )}
@@ -151,7 +151,7 @@ export function Login() {
 
           {/* Mostrar error de credenciales inválidas */}
           {error?.response?.status === 401 && (
-            <div role="alert" className={styles["form__alertError"]}>
+            <div role="alert" className={styles["form-field__error"]}>
               {error.response.data?.detail ||
                 "Credenciales incorrectas. Verifica tu usuario y contraseña."}
             </div>

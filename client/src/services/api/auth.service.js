@@ -85,12 +85,6 @@ export const authService = {
    * @returns {Promise}
    */
   verifyToken: () => api.get(ENDPOINTS.AUTH.VERIFY),
-
-  /**
-   * Obtener token CSRF
-   * @returns {Promise}
-   */
-  getCsrfToken: () => api.get(ENDPOINTS.CSRF),
 };
 
 export default authService;

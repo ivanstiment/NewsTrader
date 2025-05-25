@@ -1,6 +1,8 @@
 import apiClient from "./client";
 import { createRequestConfig, handleSilentError } from "./utils/request.utils";
 import apiUtils from "./utils";
+import { setupCsrfInterceptors } from '@/api/interceptors/csrf.interceptor';
+
 
 /**
  * Wrapper para peticiones con manejo específico de errores
@@ -46,3 +48,6 @@ export { tokenRefreshManager } from "./handlers/token.handler";
 export { apiUtils };
 
 export default api;
+
+// Aplicar a tu instancia de axios
+setupCsrfInterceptors(api);

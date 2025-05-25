@@ -62,7 +62,7 @@ export function Register() {
 
         {/* Mostrar mensaje de error general o éxito */}
         {error && !error.response?.status === 400 && (
-          <div role="alert" className={styles["form__alertError"]}>
+          <div role="alert" className={styles["form-field__error"]}>
             {error.response?.data?.error ||
               "Error inesperado, inténtalo de nuevo más tarde"}
           </div>

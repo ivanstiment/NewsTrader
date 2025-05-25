@@ -1,99 +1,132 @@
 import { api, ENDPOINTS } from "@/api";
-import { API_CONFIG } from "@/api/config";
+import {
+  createDelay,
+  getCsrfTokenFromCookie,
+  hasCsrfToken,
+  isValidCsrfToken,
+} from "@/utils/csrf.utils";
 
 /**
- * Obtener el token CSRF de las cookies
- * @returns {string|null} El token CSRF o null si no existe
+ * Servicio para gestión de tokens CSRF
+ * Maneja la comunicación con el backend y la lógica de negocio
  */
-export const getCsrfToken = () => {
-  const cookieName = API_CONFIG.csrf.cookieName;
-  let cookieValue = null;
-  
-  if (document.cookie && document.cookie !== '') {
-    const cookies = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim();
-      if (cookie.substring(0, cookieName.length + 1) === (cookieName + '=')) {
-        cookieValue = decodeURIComponent(cookie.substring(cookieName.length + 1));
-        break;
-      }
-    }
+class CsrfService {
+  constructor() {
+    this.maxRetries = 3;
+    this.retryDelay = 1000;
   }
-  return cookieValue;
-};
 
-/**
- * Verificar si existe un token CSRF válido
- * @returns {boolean} true si existe un token válido
- */
-export const hasCsrfToken = () => {
-  const token = getCsrfToken();
-  return token !== null && token.trim() !== '';
-};
-
-export const csrfService = {
   /**
-   * Obtener token CSRF del servidor
+   * Realiza petición al endpoint de CSRF
    * @returns {Promise} Response del servidor
    */
-  getCsrfToken: () => api.get(ENDPOINTS.CSRF),
+  async requestCsrfToken() {
+    return api.get(ENDPOINTS.CSRF);
+  }
 
   /**
-   * Obtener el token CSRF desde el backend
-   * @returns {Promise<string|null>} El token CSRF o null en caso de error
+   * Obtiene token CSRF del servidor y lo retorna desde cookies
+   * @returns {Promise<string|null>} Token CSRF o null
    */
-  fetchCsrfToken: async () => {
+  async fetchCsrfToken() {
     try {
-      await csrfService.getCsrfToken();
-      return getCsrfToken();
+      await this.requestCsrfToken();
+      return getCsrfTokenFromCookie();
     } catch (error) {
-      console.error('Error al obtener token CSRF:', error);
-      return null;
+      console.error("Error al obtener token CSRF del servidor:", error);
+      throw error;
     }
-  },
+  }
 
   /**
-   * Obtener el token CSRF con reintentos automáticos
-   * @param {number} maxRetries - Número máximo de reintentos
-   * @param {number} delay - Retraso entre reintentos en ms
-   * @returns {Promise<string|null>} El token CSRF o null si falla
+   * Obtiene token CSRF con estrategia de reintentos
+   * @param {Object} options - Opciones de configuración
+   * @param {number} options.maxRetries - Máximo número de reintentos
+   * @param {number} options.delay - Delay entre reintentos
+   * @returns {Promise<string|null>} Token CSRF o null
    */
-  getCsrfTokenWithRetry: async (maxRetries = 3, delay = 1000) => {
+  async getCsrfTokenWithRetry({
+    maxRetries = this.maxRetries,
+    delay = this.retryDelay,
+  } = {}) {
+    // Primero verificar si ya existe un token válido
+    const existingToken = getCsrfTokenFromCookie();
+    if (isValidCsrfToken(existingToken)) {
+      return existingToken;
+    }
+
+    // Intentar obtener token con reintentos
+    let lastError = null;
+
     for (let attempt = 0; attempt <= maxRetries; attempt++) {
       try {
-        // Primero verificar si ya existe en cookies
-        let token = getCsrfToken();
-        if (token) {
+        const token = await this.fetchCsrfToken();
+
+        if (isValidCsrfToken(token)) {
+          console.log(`Token CSRF obtenido en intento ${attempt + 1}`);
           return token;
         }
 
-        // Si no existe, obtenerlo del servidor
-        token = await csrfService.fetchCsrfToken();
-        if (token) {
-          return token;
-        }
-
-        // Si no es el último intento, esperar antes del siguiente
-        if (attempt < maxRetries) {
-          await new Promise(resolve => setTimeout(resolve, delay));
-        }
+        throw new Error("Token CSRF inválido recibido del servidor");
       } catch (error) {
-        console.error(`Intento ${attempt + 1} fallido para obtener CSRF token:`, error);
-        
+        lastError = error;
+        console.warn(
+          `Intento ${attempt + 1}/${maxRetries + 1} fallido:`,
+          error.message
+        );
+
         // Si no es el último intento, esperar antes del siguiente
         if (attempt < maxRetries) {
-          await new Promise(resolve => setTimeout(resolve, delay));
+          await createDelay(delay);
         }
       }
     }
 
-    console.error(`No se pudo obtener el token CSRF después de ${maxRetries + 1} intentos`);
-    return null;
-  },
+    console.error(
+      `Falló la obtención del token CSRF después de ${maxRetries + 1} intentos`
+    );
+    throw lastError || new Error("No se pudo obtener el token CSRF");
+  }
 
-  // Funciones utilitarias exportadas también como métodos del servicio
-  getToken: getCsrfToken,
-  hasToken: hasCsrfToken,
-};
+  /**
+   * Refresca el token CSRF forzando una nueva petición
+   * @returns {Promise<string|null>} Nuevo token CSRF
+   */
+  async refreshCsrfToken() {
+    return this.fetchCsrfToken();
+  }
 
+  /**
+   * Obtiene el token CSRF actual desde cookies
+   * @returns {string|null} Token CSRF actual
+   */
+  getCurrentToken() {
+    return getCsrfTokenFromCookie();
+  }
+
+  /**
+   * Verifica si existe un token CSRF válido
+   * @returns {boolean} true si hay token válido
+   */
+  hasValidToken() {
+    return hasCsrfToken();
+  }
+
+  /**
+   * Configurar opciones por defecto del servicio
+   * @param {Object} options - Nuevas opciones
+   */
+  configure({ maxRetries, retryDelay } = {}) {
+    if (typeof maxRetries === "number" && maxRetries >= 0) {
+      this.maxRetries = maxRetries;
+    }
+
+    if (typeof retryDelay === "number" && retryDelay >= 0) {
+      this.retryDelay = retryDelay;
+    }
+  }
+}
+
+// Instancia singleton del servicio
+export const csrfService = new CsrfService();
 export default csrfService;
