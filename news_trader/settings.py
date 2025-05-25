@@ -37,6 +37,27 @@ if IS_PRODUCTION:
         ".azurestaticapps.net",
         ".redis.cache.windows.net",
     ] + [f"169.254.129.{i}" for i in range(1, 255)]
+    CORS_ORIGINS_WHITELIST = [
+        os.environ.get("FRONTEND_URL"),
+        os.environ.get("VITE_API_BASE_URL_PROD"),
+        "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
+        "https://*.azurewebsites.net",
+        "https://*.azurestaticapps.net",
+    ]
+    CORS_ALLOWED_ORIGINS = [
+        os.environ.get("FRONTEND_URL"),
+        "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
+        "https://*.azurewebsites.net",
+        "https://*.azurestaticapps.net",
+    ]
+    CORS_ALLOW_CREDENTIALS = True
+    CORS_ALLOW_HEADERS = [
+        "accept","content-type","authorization","x-csrftoken","x-requested-with",
+    ]
+    CSRF_COOKIE_SAMESITE = None
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SAMESITE = None
+    SESSION_COOKIE_SECURE = True
     CSRF_TRUSTED_ORIGINS = [
         os.environ.get("FRONTEND_URL"),
         os.environ.get("VITE_API_BASE_URL_PROD"),
@@ -51,22 +72,8 @@ if IS_PRODUCTION:
         "https://*.azurewebsites.net",
         "https://*.azurestaticapps.net",
     ]
-    CORS_ORIGINS_WHITELIST = [
-        os.environ.get("FRONTEND_URL"),
-        os.environ.get("VITE_API_BASE_URL_PROD"),
-        "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
-        "https://*.azurewebsites.net",
-        "https://*.azurestaticapps.net",
-    ]
-    CORS_ALLOWED_ORIGINS = [
-        os.environ.get("FRONTEND_URL"),
-        "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
-        "https://*.azurewebsites.net",
-        "https://*.azurestaticapps.net",
-    ]
+    CSRF_COOKIE_HTTPONLY = False
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-    CSRF_COOKIE_SECURE = True
-    SESSION_COOKIE_SECURE = True
 else:
     ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
     CORS_ALLOWED_ORIGINS = [
