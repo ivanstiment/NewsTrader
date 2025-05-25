@@ -58,28 +58,33 @@ if IS_PRODUCTION:
         "https://*.azurestaticapps.net",
     ]
     CORS_ALLOW_HEADERS = [
-        "accept","content-type","authorization","x-csrftoken","x-requested-with",
+        "accept",
+        "content-type",
+        "authorization",
+        "x-csrftoken",
+        "x-requested-with",
     ]
     CSRF_TRUSTED_ORIGINS = [
+        "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
+        "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
+    ] + [
         os.environ.get("FRONTEND_URL"),
         os.environ.get("VITE_API_BASE_URL_PROD"),
-        "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
-        "https://*.azurewebsites.net",
-        "https://*.azurestaticapps.net",
     ]
     CSRF_ALLOWED_ORIGINS = [
-        os.environ.get("FRONTEND_URL"),
-        os.environ.get("VITE_API_BASE_URL_PROD"),
         "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
         "https://*.azurewebsites.net",
         "https://*.azurestaticapps.net",
+    ] + [
+        os.environ.get("FRONTEND_URL"),
+        os.environ.get("VITE_API_BASE_URL_PROD"),
     ]
     CSRF_COOKIE_HTTPONLY = False
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 else:
-    CSRF_COOKIE_SAMESITE = 'Lax'
+    CSRF_COOKIE_SAMESITE = "Lax"
     CSRF_COOKIE_SECURE = False
-    SESSION_COOKIE_SAMESITE = 'Lax'
+    SESSION_COOKIE_SAMESITE = "Lax"
     SESSION_COOKIE_SECURE = False
     ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
     CORS_ALLOWED_ORIGINS = [

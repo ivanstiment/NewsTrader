@@ -144,14 +144,28 @@ def logout_user(request):
         )
 
 
+
 @ensure_csrf_cookie
 def get_csrf_token(request):
     """
     Endpoint para obtener el token CSRF para el frontend
     """
     token = get_token(request)
-    print("Token CSRF:", token)
-    return JsonResponse({"csrfToken": token})
+    response = JsonResponse({"csrfToken": token})
+
+    # Fuerza manualmente el set-cookie con SameSite=None
+    response.set_cookie(
+        "csrftoken",
+        token,
+        max_age=31449600,
+        path="/",
+        domain=None,  # Usa None para default, o el dominio backend si tienes subdominios
+        secure=True,
+        httponly=False,
+        samesite="None"
+    )
+    return response
+
 
 
 @csrf_exempt
