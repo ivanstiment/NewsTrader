@@ -1,4 +1,8 @@
 import { tokenService } from "@/services/api";
+import { getCookie } from "@/utils/csrf.utils";
+import { API_CONFIG } from "@/api/config";
+
+const METHODS_REQUIRING_CSRF = ["post", "put", "patch", "delete"];
 
 /**
  * Interceptor de peticiones - Agrega tokens y headers necesarios
@@ -8,6 +12,14 @@ export const requestInterceptor = (config) => {
   const token = tokenService.getAccessToken();
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  
+  if (METHODS_REQUIRING_CSRF.includes(config.method.toLowerCase())) {
+    const csrfToken = getCookie();
+    if (csrfToken) {
+      config.headers[API_CONFIG.csrf.headerName] = csrfToken;
+    }
   }
 
   // Log para debugging en desarrollo

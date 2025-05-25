@@ -1,8 +1,9 @@
 import { API_CONFIG } from "@/api/config";
-import { csrfService, tokenService } from "@/services/api";
+import { tokenService } from "@/services/api";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { handleError } from "./handlers/error.handler";
+import { getCsrfToken } from '@/utils/csrf.utils';
 
 // Configurar valores por defecto para CSRF
 axios.defaults.xsrfCookieName = "csrftoken";
@@ -60,7 +61,7 @@ api.interceptors.request.use(
     if (
       ["post", "put", "patch", "delete"].includes(config.method.toLowerCase())
     ) {
-      const csrfToken = csrfService.getToken();
+      const csrfToken = getCsrfToken();
       if (csrfToken) {
         config.headers[API_CONFIG.csrf.headerName] = csrfToken;
       }

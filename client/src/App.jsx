@@ -8,7 +8,6 @@ import {
   useLocation,
 } from "react-router-dom";
 import "./App.scss";
-import '@/config/csrf.config';
 
 // Importar componentes
 import { CandlestickChart } from "./components/CandlestickChart/index";
@@ -87,11 +86,11 @@ function AppContent() {
 export default function App() {
   return (
     <BrowserRouter>
-      <CsrfProvider>
-        <AuthProvider>
+      <AuthProvider>
+        <CsrfProvider>
           <AppContent />
-        </AuthProvider>
-      </CsrfProvider>
+        </CsrfProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
