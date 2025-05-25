@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllNews } from "@/api/news.api";
+import { newsApi } from  "@/features/news/news.api";
 import { useAuth } from "@/hooks/useAuth";
 import { searchTermPropTypes } from "@/shared/propTypes/search-term.propTypes";
 import { NewCard } from "../NewCard";
@@ -23,7 +23,7 @@ export function NewsList({ searchTerm, initialPageSize = 15 }) {
     let cancelled = false;
     (async () => {
       try {
-        const res = await getAllNews();
+        const res = await newsApi.getNews();
         if (!cancelled) setNews(res.data);
       } catch {
         if (!cancelled) setErrorMessage("No se pudieron obtener las noticias.");

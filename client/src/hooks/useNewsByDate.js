@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllNews } from "@/api/news.api";
+import { newsApi } from "@/features/news/news.api";
 
 export function useNewsByDate(symbol) {
   const [newsByDate, setNewsByDate] = useState({});
@@ -10,7 +10,7 @@ export function useNewsByDate(symbol) {
 
     async function fetchNews() {
       try {
-        const res = await getAllNews();
+        const res = await newsApi.getNews();
         if (cancelled) return;
         const grouped = {};
         res.data

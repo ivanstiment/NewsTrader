@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import ReactApexChart from "react-apexcharts";
 import { getHistoricalPrice } from "../../api/historical-price.api";
-import { getAllNews } from "../../api/news.api";
+import { newsApi } from "@/features/news/news.api";;
 import styles from "./CandlestickChart.module.scss";
 
 export function CandlestickChart() {
@@ -19,7 +19,7 @@ export function CandlestickChart() {
       try {
         const [histRes, newsRes] = await Promise.all([
           getHistoricalPrice(symbol),
-          getAllNews(),
+          newsApi.getNews(),
         ]);
 
         const hist = histRes.data;

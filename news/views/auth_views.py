@@ -144,13 +144,13 @@ def logout_user(request):
         )
 
 
-@require_http_methods(["GET"])
-@ensure_csrf_cookie
+# @ensure_csrf_cookie
 def get_csrf_token(request):
     """
     Endpoint para obtener el token CSRF para el frontend
     """
     token = get_token(request)
+    print("Token CSRF:", token)
     return JsonResponse({"csrfToken": token})
 
 

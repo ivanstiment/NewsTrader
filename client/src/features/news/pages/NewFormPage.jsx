@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
-import { createNew, deleteNew, getNew, updateNew } from "@/api/news.api";
+import { newsApi } from "../news.api";
 
 export function NewFormPage() {
   const {
@@ -17,7 +17,7 @@ export function NewFormPage() {
 
   const onSubmit = handleSubmit(async (data) => {
     if (uuid) {
-      await updateNew(uuid, data);
+      await newsApi.updateNew(uuid, data);
       toast.success("Noticia actualizada", {
         position: "bottom-right",
         style: {
@@ -26,7 +26,7 @@ export function NewFormPage() {
         },
       });
     } else {
-      await createNew(data);
+      await newsApi.createNew(data);
       toast.success("Noticia creada", {
         position: "bottom-right",
         style: {
@@ -43,7 +43,7 @@ export function NewFormPage() {
       if (!uuid) return;
       const {
         data: { title, news_type, link, provider_publish_time, publisher },
-      } = await getNew(uuid);
+      } = await newsApi.getNew(uuid);
       setValue("title", title);
       setValue("news_type", news_type);
       setValue("link", link);
@@ -98,7 +98,7 @@ export function NewFormPage() {
           onClick={async () => {
             const accepted = window.confirm("¿Estás seguro?");
             if (accepted) {
-              await deleteNew(uuid);
+              await newsApi.deleteNew(uuid);
               toast.success("Noticia eliminada", {
                 position: "bottom-right",
                 style: {

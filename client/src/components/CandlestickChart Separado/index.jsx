@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ReactApexChart from "react-apexcharts";
 import { getHistoricalPrice } from "../../api/historical-price.api";
-import { getAllNews } from "../../api/news.api";
+import { newsApi } from "@/features/news/news.api";
 import styles from "./CandlestickChart.module.scss";
 
 export function CandlestickChart() {
@@ -20,7 +20,7 @@ export function CandlestickChart() {
         // 1) Traer históricos y noticias
         const [histRes, newsRes] = await Promise.all([
           getHistoricalPrice(symbol),
-          getAllNews(),
+          newsApi.getNews(),
         ]);
         const hist = histRes.data; // [{date, open, high, low, close, volume}, ...]
         const allNews = newsRes.data; // [{related_tickers, provider_publish_time, title}, ...]
