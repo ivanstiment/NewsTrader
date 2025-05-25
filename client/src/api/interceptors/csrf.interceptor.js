@@ -1,3 +1,4 @@
+// client/src/api/interceptors/csrf.interceptor.js
 import {
   createCsrfHeaders,
   getCsrfErrorMessage,
@@ -12,11 +13,36 @@ import {
  */
 
 /**
+ * Referencia lazy al servicio CSRF para evitar dependencia circular
+ */
+let _csrfService = null;
+
+/**
+ * Obtener servicio CSRF de forma lazy
+ */
+const getCsrfService = async () => {
+  if (!_csrfService) {
+    try {
+      const { csrfService } = await import("@/services/api/csrf.service");
+      _csrfService = csrfService;
+    } catch (error) {
+      console.error("Error importando CSRF service:", error);
+    }
+  }
+  return _csrfService;
+};
+
+/**
  * Interceptor de peticiones para agregar token CSRF
  * @param {Object} config - Configuración de axios
  * @returns {Object} Configuración modificada
  */
 export const csrfRequestInterceptor = (config) => {
+  // Permitir skip del interceptor para peticiones específicas (como obtener el token CSRF)
+  if (config.skipCsrfInterceptor) {
+    return config;
+  }
+
   // Solo agregar CSRF token si el método lo requiere
   if (!requiresCsrfToken(config.method)) {
     return config;
@@ -78,10 +104,16 @@ export const csrfResponseErrorInterceptor = async (error) => {
     csrfError.originalError = error;
     csrfError.type = "CSRF_ERROR";
 
-    // Aquí se puede agregar lógica adicional:
-    // - Emitir eventos para mostrar toasts
-    // - Intentar refrescar el token automáticamente
-    // - Notificar a otros componentes
+    // Intentar refrescar el token automáticamente si es posible
+    try {
+      const csrfService = await getCsrfService();
+      if (csrfService) {
+        console.log("Intentando refrescar token CSRF automáticamente...");
+        await csrfService.refreshCsrfToken();
+      }
+    } catch (refreshError) {
+      console.error("Error intentando refrescar token CSRF:", refreshError);
+    }
 
     return Promise.reject(csrfError);
   }

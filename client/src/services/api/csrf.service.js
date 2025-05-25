@@ -1,4 +1,5 @@
-import { api, ENDPOINTS } from "@/api";
+// client/src/services/api/csrf.service.js
+import { ENDPOINTS } from "@/api/config/endpoints";
 import {
   createDelay,
   getCsrfTokenFromCookie,
@@ -9,11 +10,23 @@ import {
 /**
  * Servicio para gestión de tokens CSRF
  * Maneja la comunicación con el backend y la lógica de negocio
+ *
+ * NOTA: Este servicio no importa directamente de @/api para evitar
+ * dependencias circulares con los interceptors
  */
 class CsrfService {
   constructor() {
     this.maxRetries = 3;
     this.retryDelay = 1000;
+    this.apiClient = null; // Se inyectará después
+  }
+
+  /**
+   * Inyectar cliente API para evitar dependencia circular
+   * @param {Object} client - Cliente API (axios instance)
+   */
+  setApiClient(client) {
+    this.apiClient = client;
   }
 
   /**
@@ -21,7 +34,17 @@ class CsrfService {
    * @returns {Promise} Response del servidor
    */
   async requestCsrfToken() {
-    return api.get(ENDPOINTS.CSRF);
+    if (!this.apiClient) {
+      throw new Error(
+        "API client no configurado. Llama a setApiClient() primero."
+      );
+    }
+
+    // Usar directamente el cliente axios sin pasar por los interceptors
+    return this.apiClient.get(ENDPOINTS.CSRF, {
+      // Deshabilitar interceptors para esta petición específica
+      skipCsrfInterceptor: true,
+    });
   }
 
   /**

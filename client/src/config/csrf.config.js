@@ -1,5 +1,5 @@
+// client/src/config/csrf.config.js
 import { csrfErrorHandler } from "@/api/interceptors/csrf.interceptor";
-import { csrfService } from "@/services/api/csrf.service";
 
 /**
  * Configuración centralizada para el sistema CSRF
@@ -90,6 +90,26 @@ const NOTIFICATION_CONFIG = {
 };
 
 /**
+ * Referencia lazy al servicio CSRF
+ */
+let _csrfService = null;
+
+/**
+ * Obtener servicio CSRF de forma lazy
+ */
+const getCsrfService = async () => {
+  if (!_csrfService) {
+    try {
+      const { csrfService } = await import("@/services/api/csrf.service");
+      _csrfService = csrfService;
+    } catch (error) {
+      console.error("Error importando CSRF service:", error);
+    }
+  }
+  return _csrfService;
+};
+
+/**
  * Clase para gestionar la configuración CSRF
  */
 class CsrfConfig {
@@ -115,14 +135,21 @@ class CsrfConfig {
   /**
    * Configurar el servicio CSRF
    */
-  configureCsrfService() {
-    csrfService.configure({
-      maxRetries: this.config.maxRetries,
-      retryDelay: this.config.retryDelay,
-    });
+  async configureCsrfService() {
+    try {
+      const csrfService = await getCsrfService();
+      if (csrfService) {
+        csrfService.configure({
+          maxRetries: this.config.maxRetries,
+          retryDelay: this.config.retryDelay,
+        });
 
-    if (this.config.enableDebugLogs) {
-      console.log("🔒 CSRF Service configurado:", this.config);
+        if (this.config.enableDebugLogs) {
+          console.log("🔒 CSRF Service configurado:", this.config);
+        }
+      }
+    } catch (error) {
+      console.error("Error configurando CSRF service:", error);
     }
   }
 
@@ -139,9 +166,11 @@ class CsrfConfig {
   /**
    * Configurar modo debug
    */
-  setupDebugMode() {
+  async setupDebugMode() {
     if (this.config.enableDebugLogs && typeof window !== "undefined") {
       // Agregar herramientas de debug al objeto global
+      const csrfService = await getCsrfService();
+
       window.__CSRF_DEBUG__ = {
         config: this.config,
         service: csrfService,
@@ -266,10 +295,10 @@ class CsrfConfig {
   /**
    * Recargar configuración
    */
-  reloadConfig() {
+  async reloadConfig() {
     const newConfig = getEnvironmentConfig();
     this.config = { ...this.config, ...newConfig };
-    this.configureCsrfService();
+    await this.configureCsrfService();
 
     if (this.config.enableDebugLogs) {
       console.log("🔄 Configuración CSRF recargada:", this.config);
@@ -288,6 +317,11 @@ class CsrfConfig {
     console.group("🧪 Test CSRF Flow");
     try {
       console.log("1. Configuración actual:", this.config);
+
+      const csrfService = await getCsrfService();
+      if (!csrfService) {
+        throw new Error("CSRF Service no disponible");
+      }
 
       console.log("2. Obteniendo token CSRF...");
       const token = await csrfService.getCsrfTokenWithRetry();
@@ -328,9 +362,9 @@ class CsrfConfig {
   /**
    * Actualizar configuración específica
    */
-  updateConfig(updates) {
+  async updateConfig(updates) {
     this.config = { ...this.config, ...updates };
-    this.configureCsrfService();
+    await this.configureCsrfService();
 
     if (this.config.enableDebugLogs) {
       console.log("⚙️ Configuración CSRF actualizada:", updates);
