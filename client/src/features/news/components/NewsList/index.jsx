@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { newsApi } from  "@/features/news/news.api";
-import { useAuth } from "@/hooks/useAuth";
-import { searchTermPropTypes } from "@/shared/propTypes/search-term.propTypes";
+import { useAuth } from "@/features/auth/hooks/auth-context.hook";
+import { searchTermPropTypes } from "@/features/search/search-term.propTypes";
 import { NewCard } from "../NewCard";
 import styles from "./NewsList.module.scss";
 

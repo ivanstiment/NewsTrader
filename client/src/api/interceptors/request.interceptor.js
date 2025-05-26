@@ -1,5 +1,5 @@
 import { tokenService } from "@/services/api";
-import { csrfManager } from "@/utils/csrf.manager";
+import { csrfManager } from "@/services/api/csrf/csrf.manager";
 import { API_CONFIG } from "@/api/config";
 
 

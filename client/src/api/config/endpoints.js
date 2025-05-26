@@ -41,6 +41,8 @@ export const ENDPOINTS = {
     DETAIL: (id) => `/news/${id}/`,
     UPDATE: (id) => `/news/${id}/`,
     DELETE: (id) => `/news/${id}/`,
+    FETCH_BY_SYMBOL: '/news/fetch-by-symbol/',
+    BY_SYMBOL: (symbol) => `/news/by-symbol/${symbol}/`,
   },
 
   // Artículos

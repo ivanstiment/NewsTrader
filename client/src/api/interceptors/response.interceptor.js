@@ -1,6 +1,6 @@
-import { tokenService } from "@/services/api";
-import { handleAuthError } from "../handlers/auth.handler";
-import { tokenRefreshManager } from "../handlers/token.handler";
+import { handleAuthError } from "@/features/auth/auth.handler";
+import { tokenRefreshManager } from "@/services/api/token/token.handler";
+import { tokenService } from "@/services/api/token/token.service";
 
 /**
  * Interceptor de respuestas exitosas

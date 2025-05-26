@@ -36,6 +36,26 @@ export const newsApi = {
    * @returns {Promise}
    */
   deleteNew: (uuid) => api.delete(ENDPOINTS.NEWS.DELETE(uuid)),
+
+    /**
+   * Buscar y guardar noticias por símbolo usando yfinance
+   * @param {string} symbol - Símbolo del stock
+   * @param {number} newsCount - Cantidad de noticias a obtener (default: 10)
+   * @returns {Promise}
+   */
+  fetchNewsBySymbol: (symbol, newsCount = 10) => 
+    api.post(ENDPOINTS.NEWS.FETCH_BY_SYMBOL, { 
+      symbol: symbol.toUpperCase(), 
+      news_count: newsCount 
+    }),
+
+  /**
+   * Obtener noticias filtradas por símbolo
+   * @param {string} symbol - Símbolo del stock
+   * @returns {Promise}
+   */
+  getNewsBySymbol: (symbol) => 
+    api.get(ENDPOINTS.NEWS.BY_SYMBOL(symbol.toUpperCase())),
 };
 
 export default newsApi;

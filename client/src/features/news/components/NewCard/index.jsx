@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { newCardPropTypes } from "../../new-card.propTypes";
-import { ExternalLinkIcon } from "@/components/Icons";
+import { ExternalLinkIcon } from "@/shared/components/icons";
 import styles from "./NewCard.module.scss";
 import toast from "react-hot-toast";
 import api from "@/api/axios";

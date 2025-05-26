@@ -3,7 +3,7 @@ import { tokenService } from "@/services/api";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { handleError } from "./handlers/error.handler";
-import { getCsrfToken } from '@/utils/csrf.utils';
+import { getCsrfToken } from '@/services/api/csrf/csrf.util';
 
 // Configurar valores por defecto para CSRF
 axios.defaults.xsrfCookieName = "csrftoken";

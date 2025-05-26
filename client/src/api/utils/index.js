@@ -1,4 +1,4 @@
-import { createRequestConfig, handleSilentError } from "./request.utils";
+import { createRequestConfig, handleSilentError } from "./request.util";
 
 // Exportaciones nombradas
 export { createRequestConfig, handleSilentError };

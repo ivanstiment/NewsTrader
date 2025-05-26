@@ -74,7 +74,7 @@ news-trader/
 │ └── commands/ # Fetch stock & historical data
 └── frontend/
 ├── src/
-│ ├── components/ # Login, Header, NavigationMenu, CandlestickChart
+│ ├── components/ # Login, Header, NavigationMenu, StockChart
 │ ├── hooks/ # useAuth, useHistoricalPrice, useNewsByDate
 │ ├── pages/ # Home, Login, Register, News, Stock, Search
 │ └── api/ # axios config, news.api, stock.api

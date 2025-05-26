@@ -1,7 +1,7 @@
 // client/src/api/index.js
 import apiClient from "./client";
 import apiUtils from "./utils";
-import { createRequestConfig, handleSilentError } from "./utils/request.utils";
+import { createRequestConfig, handleSilentError } from "./utils/request.util";
 
 /**
  * Wrapper para peticiones con manejo específico de errores
@@ -41,7 +41,6 @@ export { default as apiClient } from "./client";
 
 // Exportar configuraciones para uso externo
 export { ENDPOINTS } from "./config/endpoints";
-export { tokenRefreshManager } from "./handlers/token.handler";
 
 // Exportar utilidades
 export { apiUtils };
