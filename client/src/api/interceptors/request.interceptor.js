@@ -1,5 +1,5 @@
 import { tokenService } from "@/services/api";
-import { getCookie } from "@/utils/csrf.utils";
+import { csrfManager } from "@/utils/csrf.manager";
 import { API_CONFIG } from "@/api/config";
 
 
@@ -12,23 +12,10 @@ export const requestInterceptor = (config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
-
-  console.log("configuración en el requestInterceptor")
-  console.log(config)
-  const csrfToken = getCookie(API_CONFIG.csrf.cookieName);
-  console.log("comprobaciones requestInterceptor")
-  console.log('["post", "put", "patch", "delete"].includes(config.method)')
-  console.log(["post", "put", "patch", "delete"].includes(config.method))
-  console.log('config.method')
-  console.log(config.method)
-  console.log('csrfToken')
-  console.log(csrfToken)
+  // CSRF token (cross-site compatible):
+  const csrfToken = csrfManager.get();
   if (csrfToken && ["post", "put", "patch", "delete"].includes(config.method)) {
     config.headers[API_CONFIG.csrf.headerName] = csrfToken;
-    console.log("API_CONFIG.csrf.headerName")
-    console.log(API_CONFIG.csrf.headerName)
-    console.log("Aquí ya debería estar metido en")
-    console.log(config)
   }
 
   // Log para debugging en desarrollo
