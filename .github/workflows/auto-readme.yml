@@ -9,6 +9,9 @@ on:
       - news-trader-django-azure-web-app
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   generate-readme:
     runs-on: ubuntu-latest
@@ -414,11 +417,14 @@ jobs:
 
         # Ejecutar el script
         node generate_readme.js
+        
+    - name: Configure Git
+      run: |
+        git config --global user.name "${{ github.actor }}"
+        git config --global user.email "${{ github.actor }}@users.noreply.github.com"
 
     - name: Commit and Push README
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
         git add README.md
         if git diff --staged --quiet; then
           echo "No hay cambios en README.md"
@@ -426,3 +432,15 @@ jobs:
           git commit -m "docs: actualizar README.md automáticamente [skip ci]"
           git push
         fi
+
+    # - name: Commit and Push README
+    #   run: |
+    #     git config --local user.email "action@github.com"
+    #     git config --local user.name "GitHub Action"
+    #     git add README.md
+    #     if git diff --staged --quiet; then
+    #       echo "No hay cambios en README.md"
+    #     else
+    #       git commit -m "docs: actualizar README.md automáticamente [skip ci]"
+    #       git push
+    #     fi
