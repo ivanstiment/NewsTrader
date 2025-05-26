@@ -32,7 +32,7 @@ extensions = [
 html_theme = "sphinx_rtd_theme"
 
 templates_path = ['_templates']
-exclude_patterns = []
+exclude_patterns = ['README.md']
 
 language = 'es'
 
