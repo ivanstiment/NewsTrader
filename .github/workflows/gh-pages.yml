@@ -19,10 +19,12 @@ jobs:
 
       - name: Install Sphinx
         run: |
+          pip install -r requirements.txt
           pip install sphinx sphinx-autodoc-typehints sphinx_rtd_theme
 
       - name: Build docs
         run: |
+          export DJANGO_SETTINGS_MODULE=news_trader.settings
           cd docs
           make html
 
