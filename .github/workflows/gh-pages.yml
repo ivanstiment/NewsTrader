@@ -19,6 +19,9 @@ on:
       - news-trader-django-azure-web-app
     # branches: [main]
 
+permissions:
+  contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
