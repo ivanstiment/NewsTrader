@@ -1,129 +1,281 @@
-# NewsTrader
+<a name="readme-top"></a>
 
-Aplicación web para visualizar noticias y análisis de sentimiento relacionado con información bursátil.
+<!-- PROJECT SHIELDS -->
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
-## Características
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/ivanstiment/NewsTrader">
+    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  </a>
 
-*   Backend desarrollado con Django y Django REST Framework.
-*   Frontend desarrollado con React y Vite.
-*   Análisis de sentimiento de texto utilizando librerías de NLP (NLTK, transformers).
-*   Gestión y visualización de noticias.
-*   Obtención y visualización de datos históricos de precios de acciones.
-*   Uso de Celery y Redis para tareas asíncronas o en segundo plano.
-*   Configuración de CI/CD con GitHub Actions para Django y despliegue en Azure Web Apps.
+  <h3 align="center">client</h3>
 
-## Tecnologías Utilizadas
+  <p align="center">
+    Descripción del proyecto
+    <br />
+    <a href="https://github.com/ivanstiment/NewsTrader"><strong>Explorar documentación »</strong></a>
+    <br />
+    <br />
+    <a href="https://salmon-stone-0e4a4f410.6.azurestaticapps.net/">Ver Demo</a>
+    ·
+    <a href="https://github.com/ivanstiment/NewsTrader/issues">Reportar Bug</a>
+    ·
+    <a href="https://github.com/ivanstiment/NewsTrader/issues">Solicitar Feature</a>
+  </p>
+</div>
 
-**Backend:**
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Tabla de Contenidos</summary>
+  <ol>
+    <li>
+      <a href="#acerca-del-proyecto">Acerca del Proyecto</a>
+      <ul>
+        <li><a href="#construido-con">Construido Con</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#comenzando">Comenzando</a>
+      <ul>
+        <li><a href="#prerequisitos">Prerequisitos</a></li>
+        <li><a href="#instalación">Instalación</a></li>
+      </ul>
+    </li>
+    <li><a href="#uso">Uso</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contribuir">Contribuir</a></li>
+    <li><a href="#licencia">Licencia</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="#reconocimientos">Reconocimientos</a></li>
+  </ol>
+</details>
 
-*   Python
-*   Django
-*   Django REST Framework
-*   Celery
-*   Redis
-*   pandas
-*   numpy
-*   NLTK
-*   transformers
-*   torch
+<!-- ABOUT THE PROJECT -->
+## Acerca del Proyecto
 
-**Frontend:**
+[![Captura del Producto][product-screenshot]](https://salmon-stone-0e4a4f410.6.azurestaticapps.net/)
 
-*   JavaScript
-*   Vite
-*   React
+Descripción del proyecto
 
-## Estructura del Proyecto
+Aquí encontrarás información sobre este proyecto desarrollado con las siguientes tecnologías:
 
-*   `sentiment_analysis/`: Contiene la lógica para el análisis de sentimiento.
-*   `news/`: Contiene la aplicación Django para la gestión y visualización de noticias.
-*   `client/`: Contiene el código fuente del frontend.
-*   `.github/workflows/`: Archivos de configuración para GitHub Actions (CI/CD).
-*   `requirements.txt`: Dependencias de Python.
-*   `package.json`: Dependencias de Node.js para el frontend.
+<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
 
-## Configuración e Instalación
+### Construido Con
 
-Sigue estos pasos para configurar y ejecutar el proyecto localmente.
+Este proyecto fue desarrollado utilizando las siguientes tecnologías principales:
 
-### Prerrequisitos
+* [React.js](https://reactjs.org/)
+* [Vite](https://vitejs.dev/)
+* [Axios](https://axios-http.com/)
 
-*   Python 3.x
-*   pip (administrador de paquetes de Python)
-*   Node.js y npm/yarn/pnpm (administrador de paquetes de Node.js)
-*   Redis server (necesario para Celery)
+<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
 
-### Backend
+<!-- GETTING STARTED -->
+## Comenzando
 
-1.  Clona el repositorio:
-    ```bash
-    git clone https://github.com/ivanstiment/NewsTrader.git
-    cd newstrader
-    ```
-2.  Crea un entorno virtual (recomendado):
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # En Windows usa `venv\Scripts\activate`
-    ```
-3.  Instala las dependencias de Python:
-    ```bash
-    pip install -r requirements.txt
-    ```
-4.  Configura la base de datos (si aplica, por defecto Django usa SQLite):
-    ```bash
-    python manage.py migrate
-    ```
-5.  (Opcional) Carga datos iniciales o crea un superusuario:
-    ```bash
-    python manage.py createsuperuser
-    ```
+Para obtener una copia local funcionando, sigue estos pasos simples.
 
-### Frontend
+### Prerequisitos
 
-1.  Navega al directorio del cliente:
-    ```bash
-    cd client
-    ```
-2.  Instala las dependencias de Node.js (usa npm, yarn o pnpm según prefieras):
-    ```bash
-    npm install
-    # o yarn install
-    # o pnpm install
-    ```
+Lista de software necesario y cómo instalarlo.
 
-## Ejecución del Proyecto
+**Backend (Django):**
+* Python 3.8+
+  ```sh
+  python --version
+  ```
+* pip
+  ```sh
+  pip install --upgrade pip
+  ```
 
-### Backend
+**Frontend (React + Vite):**
+* Node.js 16+
+  ```sh
+  node --version
+  ```
+* npm
+  ```sh
+  npm install npm@latest -g
+  ```
 
-1.  Asegúrate de estar en el directorio raíz del proyecto.
-2.  Inicia el servidor de desarrollo de Django:
-    ```bash
-    python manage.py runserver
-    ```
-    El backend estará disponible en `http://localhost:8000/`.
+### Instalación
 
-3.  Inicia el worker de Celery (en otra terminal):
-    ```bash
-    celery -A news_trader worker --loglevel=info --events -P eventlet
+1. Clona el repositorio
+   ```sh
+   git clone https://github.com/ivanstiment/NewsTrader.git
+   cd NewsTrader
+   ```
 
-    ```
+2. **Configuración del Backend (Django):**
+   ```sh
+   # Crear entorno virtual
+   python -m venv venv
+   
+   # Activar entorno virtual
+   # En Windows:
+   venv\Scripts\activate
+   # En macOS/Linux:
+   source venv/bin/activate
+   
+   # Instalar dependencias
+   pip install -r requirements.txt
+   
+   # Realizar migraciones
+   python manage.py migrate
+   
+   # Crear superusuario (opcional)
+   python manage.py createsuperuser
+   ```
 
-### Frontend
+3. **Configuración del Frontend (React + Vite):**
+   ```sh
+   cd client
+   
+   # Instalar dependencias
+   npm install
+   ```
 
-1.  Asegúrate de estar en el directorio `client/`.
-2.  Inicia el servidor de desarrollo de Vite:
-    ```bash
-    npm run dev
-    # o yarn dev
-    # o pnpm dev
-    ```
-    El frontend estará disponible en `http://localhost:5173/` (o el puerto que configure Vite).
+4. **Variables de entorno:**
+   ```sh
+   # Crear archivo .env en la raíz del proyecto
+   cp .env.example .env
+   
+   # Editar .env con tus configuraciones
+   # DATABASE_URL=tu_base_de_datos
+   # SECRET_KEY=tu_clave_secreta
+   # DEBUG=True
+   ```
 
-## CI/CD
+5. **Ejecutar el proyecto:**
+   
+   **Terminal 1 - Backend (Django):**
+   ```sh
+   python manage.py runserver
+   ```
+   
+   **Terminal 2 - Frontend (React + Vite):**
+   ```sh
+   cd client
+   npm run dev
+   ```
 
-El proyecto incluye flujos de trabajo de GitHub Actions en el directorio `.github/workflows/` para:
+El backend estará disponible en `http://localhost:8000`
+El frontend estará disponible en `http://localhost:5173`
 
-*   `django.yml`: Ejecutar tests y linting para el backend Django.
-*   `azure-webapps-python.yml`: Desplegar la aplicación Python en Azure Web Apps.
+<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
 
-Consulta estos archivos para más detalles sobre la configuración y los triggers.
+<!-- USAGE EXAMPLES -->
+## Uso
+
+### API Endpoints
+
+El backend de Django proporciona una API REST. Algunos endpoints principales:
+
+```
+GET  /api/                    # Documentación de la API
+POST /api/auth/login/         # Login de usuario
+GET  /api/users/              # Lista de usuarios
+```
+
+### Interfaz de Usuario
+
+La aplicación React proporciona una interfaz moderna y responsiva. Navega a `http://localhost:5173` para ver la aplicación en funcionamiento.
+
+### Panel de Administración
+
+Django incluye un panel de administración automático:
+- URL: `http://localhost:8000/admin/`
+- Usa las credenciales del superusuario creado durante la instalación
+
+_Para más ejemplos, por favor consulta la [Documentación](https://github.com/ivanstiment/NewsTrader)_
+
+<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
+
+<!-- ROADMAP -->
+## Roadmap
+
+- [x] Configurar Django REST Framework
+- [x] Integrar React con Vite
+- [x] Configurar autenticación
+- [ ] Añadir tests unitarios (Django + React)
+- [ ] Implementar CI/CD
+- [ ] Dockerizar la aplicación
+- [ ] Añadir documentación de API con Swagger
+- [ ] Soporte para notificaciones en tiempo real
+- [ ] Optimización de rendimiento
+
+Ve los [issues abiertos](https://github.com/ivanstiment/NewsTrader/issues) para una lista completa de características propuestas (y problemas conocidos).
+
+<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
+
+<!-- CONTRIBUTING -->
+## Contribuir
+
+Las contribuciones son lo que hacen a la comunidad open source un lugar increíble para aprender, inspirar y crear. Cualquier contribución que hagas es **muy apreciada**.
+
+Si tienes una sugerencia que podría mejorar esto, por favor haz fork del repositorio y crea un pull request. También puedes simplemente abrir un issue con la etiqueta "enhancement".
+¡No olvides darle una estrella al proyecto! Gracias de nuevo.
+
+1. Haz Fork del Proyecto
+2. Crea tu Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit tus Cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la Branch (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
+
+<!-- LICENSE -->
+## Licencia
+
+Distribuido bajo la Licencia MIT. Ve `LICENSE.txt` para más información.
+
+<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
+
+<!-- CONTACT -->
+## Contacto
+
+Iván Soto - [@tu_twitter](https://twitter.com/tu_twitter) - email@ejemplo.com
+
+Link del Proyecto: [https://github.com/ivanstiment/NewsTrader](https://github.com/ivanstiment/NewsTrader)
+
+<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
+
+<!-- ACKNOWLEDGMENTS -->
+## Reconocimientos
+
+Utiliza este espacio para listar recursos que encuentres útiles y a los que te gustaría dar crédito. ¡He incluido algunos de mis favoritos para comenzar!
+
+* [Choose an Open Source License](https://choosealicense.com)
+* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
+* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
+* [Malven's Grid Cheatsheet](https://grid.malven.co/)
+* [Img Shields](https://shields.io)
+* [GitHub Pages](https://pages.github.com)
+* [Font Awesome](https://fontawesome.com)
+* [React Icons](https://react-icons.github.io/react-icons/search)
+
+<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
+
+<!-- MARKDOWN LINKS & IMAGES -->
+[contributors-shield]: https://img.shields.io/github/contributors/ivanstiment/NewsTrader.svg?style=for-the-badge
+[contributors-url]: https://github.com/ivanstiment/NewsTrader/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/ivanstiment/NewsTrader.svg?style=for-the-badge
+[forks-url]: https://github.com/ivanstiment/NewsTrader/network/members
+[stars-shield]: https://img.shields.io/github/stars/ivanstiment/NewsTrader.svg?style=for-the-badge
+[stars-url]: https://github.com/ivanstiment/NewsTrader/stargazers
+[issues-shield]: https://img.shields.io/github/issues/ivanstiment/NewsTrader.svg?style=for-the-badge
+[issues-url]: https://github.com/ivanstiment/NewsTrader/issues
+[license-shield]: https://img.shields.io/github/license/ivanstiment/NewsTrader.svg?style=for-the-badge
+[license-url]: https://github.com/ivanstiment/NewsTrader/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/tu-perfil
+[product-screenshot]: images/screenshot.png
