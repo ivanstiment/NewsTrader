@@ -92,7 +92,7 @@ export function useHistoricalPrice(symbol, showVolume) {
         if (!cancelled) setCandleOptions(opts);
 
         // Crear opciones de volumen
-        if (!cancelled) setVolumeOptions(getVolumeOptions(tooltipClasses));
+        if (!cancelled) setVolumeOptions(getVolumeOptions({ tooltipClasses }));
       } catch (err) {
         console.error(err);
       } finally {

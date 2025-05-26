@@ -5,8 +5,10 @@ import styles from "@/shared/styles";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { registerSchema } from "../../validators/register-schema.validator";
+import { useNavigate } from "react-router-dom";
 
 export function Register() {
+  const navigate = useNavigate();
   // Hook useForm con validación y modo onBlur para accesibilidad
   const {
     register,
@@ -38,6 +40,9 @@ export function Register() {
         onSuccess: () => {
           reset(); // Limpiar formulario
           clearFieldError(); // Limpiar errores de campo
+          setTimeout(() => {
+            navigate("/login");
+          }, 500);
         },
         context: { component: "Register", action: "create_account" },
       });

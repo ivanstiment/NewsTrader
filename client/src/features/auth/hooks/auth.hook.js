@@ -40,7 +40,7 @@ export function useAuthApi() {
           // Redirigir al login después del registro
           setTimeout(() => {
             navigate("/login");
-          }, 1500);
+          }, 1000);
         },
         context: { action: "register" },
       });
