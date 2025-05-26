@@ -1,5 +1,18 @@
 name: Deploy Sphinx docs to GitHub Pages
 
+env:
+  DEBUG: False
+  DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+  DBUSER: ${{ secrets.DBUSER }}
+  DBPASS: ${{ secrets.DBPASS }}
+  DBNAME: ${{ secrets.DBNAME }}
+  DBHOST: ${{ secrets.DBHOST }}
+  CELERY_RESULT_BACKEND: ${{ secrets.CELERY_RESULT_BACKEND }}
+  CELERY_BROKER_URL: ${{ secrets.CELERY_BROKER_URL }}
+  WEBSITE_HOSTNAME: ${{ vars.WEBSITE_HOSTNAME }}
+  FRONTEND_URL: ${{ vars.FRONTEND_URL }}
+  VITE_API_BASE_URL_PROD: ${{ secrets.VITE_API_BASE_URL_PROD }}
+
 on:
   push:
     branches:
