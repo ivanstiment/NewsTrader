@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 import os
-import sys
 from pathlib import Path
 from datetime import timedelta
 
@@ -104,6 +103,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'drf_spectacular',
+    "authentication.apps.AuthenticationConfig",
     "news.apps.NewsConfig",
     "sentiment_analysis.apps.SentimentAnalysisConfig",
     "corsheaders",
@@ -225,7 +226,8 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
-    ],
+    ],    
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 SIMPLE_JWT = {
@@ -253,11 +255,3 @@ CELERY_TIMEZONE = "UTC"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-# -------------------------------
-# ✅ Output Debug Info
-# -------------------------------
-# print("🔧 Django SETTINGS loaded:", file=sys.stderr)
-# print(f"▶️ Modo Producción: {IS_PRODUCTION}", file=sys.stderr)
-# print(f"▶️ DB ENGINE: {DATABASES['default']['ENGINE']}", file=sys.stderr)
-# print(f"▶️ DB HOST: {DATABASES['default'].get('HOST', 'local sqlite')}", file=sys.stderr)
