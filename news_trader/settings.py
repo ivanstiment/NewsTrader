@@ -11,13 +11,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 import os
-import sys
 from pathlib import Path
 from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-IS_PRODUCTION = os.environ.get("DBHOST") or os.environ.get("DJANGO_PRODUCTION") == "1"
 
 # -------------------------------
 # 🔐 Seguridad y configuración básica
@@ -27,7 +24,11 @@ SECRET_KEY = os.environ.get(
     "django-insecure-tq&z7$*sz9k^^4^b@_43c3ggo=lvrswuui2g@fjuy!1q%p006$",
 )
 
-DEBUG = os.environ.get("DEBUG", "True") == "True"
+DEBUG = False
+IS_PRODUCTION = not DEBUG
+
+print("DEBUG:", DEBUG)
+print("IS_PRODUCTION:", IS_PRODUCTION)
 
 if IS_PRODUCTION:
     ALLOWED_HOSTS = [
@@ -37,20 +38,14 @@ if IS_PRODUCTION:
         ".azurestaticapps.net",
         ".redis.cache.windows.net",
     ] + [f"169.254.129.{i}" for i in range(1, 255)]
-    CSRF_TRUSTED_ORIGINS = [
-        os.environ.get("FRONTEND_URL"),
-        "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
-        "https://*.azurewebsites.net",
-        "https://*.azurestaticapps.net",
-    ]
-    CSRF_ALLOWED_ORIGINS = [
-        os.environ.get("FRONTEND_URL"),
-        "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
-        "https://*.azurewebsites.net",
-        "https://*.azurestaticapps.net",
-    ]
+    CSRF_COOKIE_SAMESITE = None
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SAMESITE = None
+    SESSION_COOKIE_SECURE = True
+    CORS_ALLOW_CREDENTIALS = True
     CORS_ORIGINS_WHITELIST = [
         os.environ.get("FRONTEND_URL"),
+        os.environ.get("VITE_API_BASE_URL_PROD"),
         "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
         "https://*.azurewebsites.net",
         "https://*.azurestaticapps.net",
@@ -61,10 +56,35 @@ if IS_PRODUCTION:
         "https://*.azurewebsites.net",
         "https://*.azurestaticapps.net",
     ]
+    CORS_ALLOW_HEADERS = [
+        "accept",
+        "content-type",
+        "authorization",
+        "x-csrftoken",
+        "x-requested-with",
+    ]
+    CSRF_TRUSTED_ORIGINS = [
+        "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
+        "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
+    ] + [
+        os.environ.get("FRONTEND_URL"),
+        os.environ.get("VITE_API_BASE_URL_PROD"),
+    ]
+    CSRF_ALLOWED_ORIGINS = [
+        "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
+        "https://*.azurewebsites.net",
+        "https://*.azurestaticapps.net",
+    ] + [
+        os.environ.get("FRONTEND_URL"),
+        os.environ.get("VITE_API_BASE_URL_PROD"),
+    ]
+    CSRF_COOKIE_HTTPONLY = False
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-    CSRF_COOKIE_SECURE = True
-    SESSION_COOKIE_SECURE = True
 else:
+    CSRF_COOKIE_SAMESITE = "Lax"
+    CSRF_COOKIE_SECURE = False
+    SESSION_COOKIE_SAMESITE = "Lax"
+    SESSION_COOKIE_SECURE = False
     ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
     CORS_ALLOWED_ORIGINS = [
         "http://localhost:5173",
@@ -83,6 +103,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'drf_spectacular',
+    "authentication.apps.AuthenticationConfig",
     "news.apps.NewsConfig",
     "sentiment_analysis.apps.SentimentAnalysisConfig",
     "corsheaders",
@@ -204,7 +226,8 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
-    ],
+    ],    
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 SIMPLE_JWT = {
@@ -232,11 +255,3 @@ CELERY_TIMEZONE = "UTC"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-# -------------------------------
-# ✅ Output Debug Info
-# -------------------------------
-# print("🔧 Django SETTINGS loaded:", file=sys.stderr)
-# print(f"▶️ Modo Producción: {IS_PRODUCTION}", file=sys.stderr)
-# print(f"▶️ DB ENGINE: {DATABASES['default']['ENGINE']}", file=sys.stderr)
-# print(f"▶️ DB HOST: {DATABASES['default'].get('HOST', 'local sqlite')}", file=sys.stderr)

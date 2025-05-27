@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 import yfinance as yf
-from news.models import New
+from models import New
 
 
 class Command(BaseCommand):

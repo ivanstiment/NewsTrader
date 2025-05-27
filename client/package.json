@@ -1,8 +1,11 @@
 {
   "name": "client",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
+  "author": "Iván Soto",
+  "license": "MIT",
+  "homepage": "https://salmon-stone-0e4a4f410.6.azurestaticapps.net/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

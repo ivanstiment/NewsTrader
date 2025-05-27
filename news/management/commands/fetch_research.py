@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
-from news.models import Research
-from news import services
+from models import Research
+from services import fetch_research
 
 
 class Command(BaseCommand):
@@ -16,7 +16,7 @@ class Command(BaseCommand):
         self.stdout.write(f"Obteniendo research para el ticker {ticker}...")
 
         try:
-            research_list = services.fetch_research(ticker)
+            research_list = fetch_research(ticker)
         except Exception as e:
             self.stdout.write(self.style.ERROR(f"Error: {e}"))
             return
