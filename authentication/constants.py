@@ -67,3 +67,14 @@ HTTP_STATUS = {
     "METHOD_NOT_ALLOWED": 405,
     "INTERNAL_SERVER_ERROR": 500,
 }
+
+# Mensajes para utilidades
+UTILITY_MESSAGES = {
+    "CSRF_TOKEN_GENERATED": "Token CSRF generado correctamente",
+    "CSRF_GENERATION_ERROR": "Error generando token CSRF",
+    "SERVICE_HEALTHY": "healthy",
+    "SERVICE_UNHEALTHY": "unhealthy",
+    "CONFIG_ERROR": "Error obteniendo configuración",
+    "DEBUG_WARNING": "Este endpoint solo está disponible en desarrollo",
+    "DEBUG_ERROR": "Error en debug",
+}

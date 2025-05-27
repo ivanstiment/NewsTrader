@@ -152,8 +152,8 @@ class SecurityValidationServiceTests(TestCase):
     def test_sanitize_user_input(self):
         """Test sanitización de entrada de usuario."""
         dangerous_input = "  <script>alert('xss')</script>  "
-        expected_output = "scriptalert('xss')/script"
-
+        expected_output = "scriptalert(xss)/script"
+        # La función elimina espacios al inicio/final y caracteres peligrosos: < > " ' &
         result = SecurityValidationService.sanitize_user_input(dangerous_input)
 
         self.assertEqual(result, expected_output)

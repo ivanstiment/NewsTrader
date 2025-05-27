@@ -196,19 +196,32 @@ class SecurityValidationService:
         """
         Sanitiza entrada de usuario para prevenir inyecciones básicas.
 
+        Elimina los siguientes caracteres peligrosos:
+        - < (menor que)
+        - > (mayor que)
+        - " (comillas dobles)
+        - ' (comillas simples)
+        - & (ampersand)
+
+        También elimina espacios al inicio y final.
+
         Args:
             data (str): Datos a sanitizar
 
         Returns:
-            str: Datos sanitizados
+            str: Datos sanitizados sin caracteres peligrosos
+
+        Example:
+            >>> sanitize_user_input("  <script>alert('xss')</script>  ")
+            "scriptalert(xss)/script"
         """
         if not isinstance(data, str):
             return str(data)
 
-        # Sanitización básica
+        # Sanitización básica - eliminar espacios
         sanitized = data.strip()
 
-        # Remover caracteres potencialmente peligrosos
+        # Remover caracteres potencialmente peligrosos para XSS
         dangerous_chars = ["<", ">", '"', "'", "&"]
         for char in dangerous_chars:
             sanitized = sanitized.replace(char, "")

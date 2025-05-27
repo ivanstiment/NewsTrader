@@ -12,11 +12,129 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
+from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 from authentication.services import ValidationService, SecurityValidationService
 from authentication.constants import MESSAGES, HTTP_STATUS
+from authentication.serializers.serializers import (
+    UserRegistrationSerializer,
+    UserInfoSerializer,
+)
+from authentication.serializers.doc_serializers import (
+    RegistrationRequestSerializer,
+    RegistrationResponseSerializer,
+    ValidationErrorSerializer,
+    UsernameCheckRequestSerializer,
+    UsernameCheckResponseSerializer,
+    ValidationResponseSerializer,
+)
 
 
+@extend_schema(
+    tags=["User Registration"],
+    summary="Registrar nuevo usuario",
+    description="""
+    Crea una nueva cuenta de usuario en el sistema.
+    
+    **Requisitos de validación:**
+    - Nombre de usuario: mínimo 3 caracteres, único en el sistema
+    - Contraseña: mínimo 6 caracteres
+    - Token CSRF requerido en el header
+    
+    **Proceso de registro:**
+    1. Validación del token CSRF
+    2. Validación de formato de datos JSON
+    3. Validación de reglas de negocio
+    4. Sanitización de datos de entrada
+    5. Creación del usuario en la base de datos
+    
+    **Seguridad:**
+    - Protección CSRF habilitada
+    - Sanitización de entrada contra XSS
+    - Validación de unicidad de username
+    - Hash seguro de contraseñas
+    """,
+    request=RegistrationRequestSerializer,
+    responses={
+        201: OpenApiResponse(
+            description="Usuario creado exitosamente",
+            response=RegistrationResponseSerializer,
+            examples=[
+                OpenApiExample(
+                    "Registro exitoso",
+                    summary="Usuario registrado correctamente",
+                    value={
+                        "message": "Usuario creado con éxito",
+                        "user": {
+                            "id": 1,
+                            "username": "nuevo_usuario",
+                            "date_joined": "2025-01-15T10:30:00Z",
+                        },
+                    },
+                )
+            ],
+        ),
+        400: OpenApiResponse(
+            description="Errores de validación",
+            response=ValidationErrorSerializer,
+            examples=[
+                OpenApiExample(
+                    "Datos inválidos",
+                    summary="Errores de validación de campos",
+                    value={
+                        "user": [
+                            "El nombre de usuario debe tener al menos 3 caracteres"
+                        ],
+                        "password": ["La contraseña debe tener al menos 6 caracteres"],
+                    },
+                ),
+                OpenApiExample(
+                    "Usuario duplicado",
+                    summary="Nombre de usuario ya existe",
+                    value={"user": ["Este nombre de usuario ya está en uso"]},
+                ),
+                OpenApiExample(
+                    "JSON inválido",
+                    summary="Formato de datos incorrecto",
+                    value={"detail": "Formato de datos inválido"},
+                ),
+            ],
+        ),
+        403: OpenApiResponse(
+            description="Token CSRF faltante",
+            examples=[
+                OpenApiExample("Sin CSRF token", value={"detail": "No hay token CSRF"})
+            ],
+        ),
+        405: OpenApiResponse(
+            description="Método no permitido",
+            examples=[
+                OpenApiExample(
+                    "Método incorrecto", value={"detail": "Método no permitido"}
+                )
+            ],
+        ),
+        500: OpenApiResponse(
+            description="Error interno del servidor",
+            examples=[
+                OpenApiExample(
+                    "Error del servidor",
+                    value={
+                        "detail": "Error interno del servidor: descripción del error"
+                    },
+                )
+            ],
+        ),
+    },
+    examples=[
+        OpenApiExample(
+            "Datos de registro válidos",
+            summary="Ejemplo de registro exitoso",
+            description="Datos correctos para crear un nuevo usuario",
+            value={"user": "mi_usuario_nuevo", "password": "mi_contraseña_segura123"},
+        )
+    ],
+)
 @csrf_exempt
 @require_http_methods(["POST"])
 def register_user(request):
@@ -40,7 +158,6 @@ def register_user(request):
         }
         
     """
-    
     try:
         # Validar token CSRF
         csrf_valid, csrf_token = ValidationService.validate_csrf_token(request)
@@ -132,6 +249,66 @@ def _handle_registration_error(error: Exception) -> JsonResponse:
     )
 
 
+@extend_schema(
+    tags=["User Registration"],
+    summary="Validar datos de registro sin crear usuario",
+    description="""
+    Valida los datos de registro sin crear realmente el usuario.
+    
+    **Útil para:**
+    - Validación en tiempo real en el frontend
+    - Verificar datos antes del registro completo
+    - Mostrar errores de validación inmediatos
+    
+    **Validaciones realizadas:**
+    - Formato y longitud del nombre de usuario
+    - Disponibilidad del nombre de usuario
+    - Fortaleza y longitud de la contraseña
+    - Formato general de los datos
+    """,
+    request=RegistrationRequestSerializer,
+    responses={
+        200: OpenApiResponse(
+            description="Datos válidos o inválidos",
+            examples=[
+                OpenApiExample(
+                    "Datos válidos",
+                    summary="Todos los datos son correctos",
+                    value={"valid": True, "message": "Datos de registro válidos"},
+                )
+            ],
+        ),
+        400: OpenApiResponse(
+            description="Datos inválidos con detalles",
+            examples=[
+                OpenApiExample(
+                    "Datos inválidos",
+                    summary="Errores de validación encontrados",
+                    value={
+                        "valid": False,
+                        "errors": {
+                            "user": [
+                                "El nombre de usuario debe tener al menos 3 caracteres"
+                            ],
+                            "password": [
+                                "La contraseña debe tener al menos 6 caracteres"
+                            ],
+                        },
+                    },
+                )
+            ],
+        ),
+        500: OpenApiResponse(
+            description="Error en validación",
+            examples=[
+                OpenApiExample(
+                    "Error del servidor",
+                    value={"detail": "Error en validación: descripción del error"},
+                )
+            ],
+        ),
+    },
+)
 @csrf_exempt
 @require_http_methods(["POST"])
 def validate_registration_data(request):
@@ -176,6 +353,76 @@ def validate_registration_data(request):
         )
 
 
+@extend_schema(
+    tags=["User Registration"],
+    summary="Verificar disponibilidad de nombre de usuario",
+    description="""
+    Verifica si un nombre de usuario específico está disponible para registro.
+    
+    **Casos de uso:**
+    - Verificación en tiempo real durante el tipeo
+    - Validación antes del envío del formulario
+    - Sugerencias de nombres alternativos
+    
+    **Características:**
+    - Respuesta rápida para UX fluida
+    - Sanitización automática del input
+    - Información detallada sobre disponibilidad
+    """,
+    request=UsernameCheckRequestSerializer,
+    responses={
+        200: OpenApiResponse(
+            description="Verificación completada",
+            response=UsernameCheckResponseSerializer,
+            examples=[
+                OpenApiExample(
+                    "Username disponible",
+                    summary="Nombre de usuario libre para uso",
+                    value={"available": True, "username": "usuario_disponible"},
+                ),
+                OpenApiExample(
+                    "Username ocupado",
+                    summary="Nombre de usuario ya en uso",
+                    value={
+                        "available": False,
+                        "username": "usuario_ocupado",
+                        "reason": "Este nombre de usuario ya está en uso",
+                    },
+                ),
+            ],
+        ),
+        400: OpenApiResponse(
+            description="Username vacío o inválido",
+            examples=[
+                OpenApiExample(
+                    "Username vacío",
+                    value={"available": False, "reason": "Username vacío"},
+                ),
+                OpenApiExample(
+                    "JSON inválido", value={"detail": "Formato de datos inválido"}
+                ),
+            ],
+        ),
+        500: OpenApiResponse(
+            description="Error verificando disponibilidad",
+            examples=[
+                OpenApiExample(
+                    "Error del servidor",
+                    value={
+                        "detail": "Error verificando disponibilidad: descripción del error"
+                    },
+                )
+            ],
+        ),
+    },
+    examples=[
+        OpenApiExample(
+            "Verificar username",
+            summary="Ejemplo de verificación",
+            value={"username": "mi_nuevo_usuario"},
+        )
+    ],
+)
 @csrf_exempt
 @require_http_methods(["POST"])
 def check_username_availability(request):
@@ -197,7 +444,7 @@ def check_username_availability(request):
             "username": "nombre_a_verificar"
         }
         
-    """    
+    """
     try:
         # Validar y parsear datos JSON
         json_valid, data, json_error = ValidationService.validate_json_data(request)
