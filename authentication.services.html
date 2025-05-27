@@ -224,17 +224,29 @@ de patrones maliciosos, rate limiting, etc.</p>
 <dt class="sig sig-object py" id="authentication.services.validation_service.SecurityValidationService.sanitize_user_input">
 <em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sanitize_user_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.validation_service.SecurityValidationService.sanitize_user_input" title="Link to this definition">¶</a></dt>
 <dd><p>Sanitiza entrada de usuario para prevenir inyecciones básicas.</p>
+<p>Elimina los siguientes caracteres peligrosos:
+- &lt; (menor que)
+- &gt; (mayor que)
+- « (comillas dobles)
+- “ (comillas simples)
+- &amp; (ampersand)</p>
+<p>También elimina espacios al inicio y final.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parámetros<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>data</strong> (<em>str</em>) – Datos a sanitizar</p>
 </dd>
 <dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>Datos sanitizados</p>
+<dd class="field-even"><p>Datos sanitizados sin caracteres peligrosos</p>
 </dd>
 <dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
+<p class="rubric">Ejemplo</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sanitize_user_input</span><span class="p">(</span><span class="s2">&quot;  &lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt;  &quot;</span><span class="p">)</span>
+<span class="go">&quot;scriptalert(xss)/script&quot;</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
@@ -379,17 +391,29 @@ de patrones maliciosos, rate limiting, etc.</p>
 <dt class="sig sig-object py" id="authentication.services.SecurityValidationService.sanitize_user_input">
 <em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sanitize_user_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.SecurityValidationService.sanitize_user_input" title="Link to this definition">¶</a></dt>
 <dd><p>Sanitiza entrada de usuario para prevenir inyecciones básicas.</p>
+<p>Elimina los siguientes caracteres peligrosos:
+- &lt; (menor que)
+- &gt; (mayor que)
+- « (comillas dobles)
+- “ (comillas simples)
+- &amp; (ampersand)</p>
+<p>También elimina espacios al inicio y final.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parámetros<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>data</strong> (<em>str</em>) – Datos a sanitizar</p>
 </dd>
 <dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>Datos sanitizados</p>
+<dd class="field-even"><p>Datos sanitizados sin caracteres peligrosos</p>
 </dd>
 <dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
+<p class="rubric">Ejemplo</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sanitize_user_input</span><span class="p">(</span><span class="s2">&quot;  &lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt;  &quot;</span><span class="p">)</span>
+<span class="go">&quot;scriptalert(xss)/script&quot;</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
