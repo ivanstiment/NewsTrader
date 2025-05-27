@@ -19,7 +19,6 @@ export function PrivateRoute() {
         onError: (error) => {
           // Si el token no es válido, cerrar sesión
           if (error.response?.status === 401) {
-            console.log("El token no es válido, cerrando sesión...");
             logout();
           }
         },

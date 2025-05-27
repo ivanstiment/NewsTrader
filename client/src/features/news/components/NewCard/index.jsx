@@ -78,7 +78,8 @@ export function NewCard({ newItem }) {
     <article className={styles["new__container"]}>
       <header className={styles["new__header"]}>
         <h2 className={styles["new__title"]}>
-          <Link to={`/news/${newItem.uuid}`}>{newItem.title}</Link>
+          {/* <Link to={`/news/${newItem.uuid}`}>{newItem.title}</Link> */}
+          {newItem.title}
         </h2>
         <Link
           className={styles["new__link"]}

@@ -229,33 +229,6 @@ export function Stock() {
         </div>
       </section>
 
-      {/* === SECCIÓN DE DATOS CLAVE === */}
-      <section className={styles["stock-page__summary"]}>
-        {[
-          { label: "Cierre", value: previousClose },
-          { label: "Apertura", value: open },
-          { label: "Bid/Ask", value: `${bid}/${ask}` },
-          { label: "Rango diario", value: `${dayLow} - ${dayHigh}` },
-          {
-            label: "52W Low/High",
-            value: `${fiftyTwoWeekLow?.toFixed(
-              2
-            )} / ${fiftyTwoWeekHigh?.toFixed(2)}`,
-          },
-          {
-            label: "Volumen",
-            value: `${volume?.toLocaleString()} (Avg. ${averageVolume?.toLocaleString()})`,
-          },
-        ].map(({ label, value }) => (
-          <div key={label} className={styles["stock-page__summary-item"]}>
-            <span className={styles["stock-page__summary-label"]}>{label}</span>
-            <span className={styles["stock-page__summary-value"]}>
-              {value ?? "N/D"}
-            </span>
-          </div>
-        ))}
-      </section>
-
       {/* === PANELES FINANCIAL HIGHLIGHTS & TRADING INFO === */}
       <section className={styles["stock-page__panels"]}>
         {/* Financial Highlights */}

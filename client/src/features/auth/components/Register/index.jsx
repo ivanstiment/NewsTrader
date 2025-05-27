@@ -48,7 +48,6 @@ export function Register() {
       });
     } catch (err) {
       // El error ya fue manejado por useFormApi
-      console.log("El registro de la cuenta falló:", err);
     }
   };
 
