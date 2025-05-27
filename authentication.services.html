@@ -39,14 +39,641 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
 </section>
-<section id="authentication-services-token-service-module">
-<h2>authentication.services.token_service module<a class="headerlink" href="#authentication-services-token-service-module" title="Link to this heading">¶</a></h2>
+<section id="module-authentication.services.token_service">
+<span id="authentication-services-token-service-module"></span><h2>authentication.services.token_service module<a class="headerlink" href="#module-authentication.services.token_service" title="Link to this heading">¶</a></h2>
+<p>Servicio de gestión de tokens JWT.</p>
+<p>Centraliza toda la lógica relacionada con la creación, validación y gestión
+de tokens JWT, incluyendo el manejo de cookies seguras para refresh tokens.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="authentication.services.token_service.TokenService">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authentication.services.token_service.</span></span><span class="sig-name descname"><span class="pre">TokenService</span></span><a class="headerlink" href="#authentication.services.token_service.TokenService" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Servicio para operaciones con tokens JWT.</p>
+<p>Proporciona métodos para crear, validar y gestionar tokens JWT,
+así como configurar cookies seguras para refresh tokens.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.token_service.TokenService.clear_auth_cookies">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clear_auth_cookies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.token_service.TokenService.clear_auth_cookies" title="Link to this definition">¶</a></dt>
+<dd><p>Limpia las cookies de autenticación de la respuesta.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>response</strong> (<em>HttpResponse</em>) – Respuesta HTTP a modificar</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Respuesta con cookies limpiadas</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.token_service.TokenService.create_refresh_response">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_refresh_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">access_token</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refresh_token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.token_service.TokenService.create_refresh_response" title="Link to this definition">¶</a></dt>
+<dd><p>Crea una respuesta HTTP para renovación de tokens.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>access_token</strong> (<em>str</em>) – Nuevo token de acceso</p></li>
+<li><p><strong>refresh_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Nuevo token de refresh (si aplica rotación)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Respuesta HTTP con tokens renovados</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.token_service.TokenService.create_token_response">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_token_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">access_token</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refresh_token</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.token_service.TokenService.create_token_response" title="Link to this definition">¶</a></dt>
+<dd><p>Crea una respuesta HTTP con el access token en JSON y refresh token en cookie.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>access_token</strong> (<em>str</em>) – Token de acceso JWT</p></li>
+<li><p><strong>refresh_token</strong> (<em>str</em>) – Token de renovación JWT</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Respuesta HTTP configurada con tokens</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.token_service.TokenService.extract_refresh_token_from_cookies">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extract_refresh_token_from_cookies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.token_service.TokenService.extract_refresh_token_from_cookies" title="Link to this definition">¶</a></dt>
+<dd><p>Extrae el refresh token de las cookies de la petición.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Objeto de petición HTTP</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Refresh token si existe, None en caso contrario</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.token_service.TokenService.set_csrf_cookie">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_csrf_cookie</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.token_service.TokenService.set_csrf_cookie" title="Link to this definition">¶</a></dt>
+<dd><p>Configura la cookie CSRF en la respuesta.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>response</strong> (<em>HttpResponse</em>) – Respuesta HTTP a modificar</p></li>
+<li><p><strong>token</strong> (<em>str</em>) – Token CSRF a establecer</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Respuesta con cookie CSRF configurada</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.token_service.TokenService.validate_token">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.token_service.TokenService.validate_token" title="Link to this definition">¶</a></dt>
+<dd><p>Valida un token JWT.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>token</strong> (<em>str</em>) – Token a validar</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>True si el token es válido, False en caso contrario</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authentication.services.token_service.TokenValidationService">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authentication.services.token_service.</span></span><span class="sig-name descname"><span class="pre">TokenValidationService</span></span><a class="headerlink" href="#authentication.services.token_service.TokenValidationService" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Servicio especializado en validación de tokens.</p>
+<p>Proporciona métodos específicos para diferentes tipos de validaciones
+de tokens en contextos variados.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.token_service.TokenValidationService.is_token_expired">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_token_expired</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.token_service.TokenValidationService.is_token_expired" title="Link to this definition">¶</a></dt>
+<dd><p>Verifica si un token ha expirado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>token</strong> (<em>str</em>) – Token a verificar</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>True si el token ha expirado, False en caso contrario</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.token_service.TokenValidationService.validate_access_token">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_access_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.token_service.TokenValidationService.validate_access_token" title="Link to this definition">¶</a></dt>
+<dd><p>Valida un token de acceso y extrae información.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>token</strong> (<em>str</em>) – Token de acceso a validar</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>(es_válido, información_del_token)</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[bool, Optional[Dict]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="authentication-services-validation-service-module">
-<h2>authentication.services.validation_service module<a class="headerlink" href="#authentication-services-validation-service-module" title="Link to this heading">¶</a></h2>
+<section id="module-authentication.services.validation_service">
+<span id="authentication-services-validation-service-module"></span><h2>authentication.services.validation_service module<a class="headerlink" href="#module-authentication.services.validation_service" title="Link to this heading">¶</a></h2>
+<p>Servicio de validación para autenticación.</p>
+<p>Centraliza todas las validaciones relacionadas con autenticación,
+registro de usuarios y seguridad de datos de entrada.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="authentication.services.validation_service.SecurityValidationService">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authentication.services.validation_service.</span></span><span class="sig-name descname"><span class="pre">SecurityValidationService</span></span><a class="headerlink" href="#authentication.services.validation_service.SecurityValidationService" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Servicio de validaciones de seguridad.</p>
+<p>Maneja validaciones específicas de seguridad como detección
+de patrones maliciosos, rate limiting, etc.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.validation_service.SecurityValidationService.sanitize_user_input">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sanitize_user_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.validation_service.SecurityValidationService.sanitize_user_input" title="Link to this definition">¶</a></dt>
+<dd><p>Sanitiza entrada de usuario para prevenir inyecciones básicas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>str</em>) – Datos a sanitizar</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Datos sanitizados</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.validation_service.SecurityValidationService.validate_password_strength">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_password_strength</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">password</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.validation_service.SecurityValidationService.validate_password_strength" title="Link to this definition">¶</a></dt>
+<dd><p>Valida la fortaleza de una contraseña.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>password</strong> (<em>str</em>) – Contraseña a evaluar</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>(es_fuerte, sugerencias, puntuación)</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[bool, List[str], int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.validation_service.SecurityValidationService.validate_request_method">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_request_method</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_methods</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.validation_service.SecurityValidationService.validate_request_method" title="Link to this definition">¶</a></dt>
+<dd><p>Valida que el método HTTP sea permitido.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – Objeto de petición HTTP</p></li>
+<li><p><strong>allowed_methods</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Métodos HTTP permitidos</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>True si el método es permitido</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.validation_service.SecurityValidationService.validate_user_credentials_format">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_user_credentials_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.validation_service.SecurityValidationService.validate_user_credentials_format" title="Link to this definition">¶</a></dt>
+<dd><p>Valida el formato básico de las credenciales de usuario.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> (<em>str</em>) – Nombre de usuario</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – Contraseña</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>(es_válido, errores)</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[bool, List[str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authentication.services.validation_service.ValidationService">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authentication.services.validation_service.</span></span><span class="sig-name descname"><span class="pre">ValidationService</span></span><a class="headerlink" href="#authentication.services.validation_service.ValidationService" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Servicio principal de validaciones de autenticación.</p>
+<p>Proporciona métodos para validar datos de entrada, credenciales
+y otros aspectos de seguridad en el proceso de autenticación.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.validation_service.ValidationService.validate_csrf_token">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_csrf_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.validation_service.ValidationService.validate_csrf_token" title="Link to this definition">¶</a></dt>
+<dd><p>Valida la presencia del token CSRF en la petición.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Objeto de petición HTTP</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>(es_válido, token_csrf)</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[bool, Optional[str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.validation_service.ValidationService.validate_json_data">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_json_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.validation_service.ValidationService.validate_json_data" title="Link to this definition">¶</a></dt>
+<dd><p>Valida y parsea los datos JSON de la petición.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Objeto de petición HTTP</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>(es_válido, datos, error)</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[bool, Optional[Dict], Optional[str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.validation_service.ValidationService.validate_registration_data">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_registration_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.validation_service.ValidationService.validate_registration_data" title="Link to this definition">¶</a></dt>
+<dd><p>Valida los datos de registro de usuario.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Dict</em>) – Datos de registro a validar</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>(es_válido, errores_por_campo)</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[bool, Dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<section id="module-authentication.services">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-authentication.services" title="Link to this heading">¶</a></h2>
+<p>Servicios del módulo de autenticación.</p>
+<p>Este paquete contiene todos los servicios de lógica de negocio
+para el módulo de autenticación, separados por responsabilidad:</p>
+<ul class="simple">
+<li><p>TokenService: Gestión de tokens JWT y cookies</p></li>
+<li><p>ValidationService: Validaciones de datos y seguridad</p></li>
+<li><p>TokenValidationService: Validaciones específicas de tokens</p></li>
+<li><p>SecurityValidationService: Validaciones de seguridad avanzadas</p></li>
+</ul>
+<dl class="py class">
+<dt class="sig sig-object py" id="authentication.services.SecurityValidationService">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authentication.services.</span></span><span class="sig-name descname"><span class="pre">SecurityValidationService</span></span><a class="headerlink" href="#authentication.services.SecurityValidationService" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Servicio de validaciones de seguridad.</p>
+<p>Maneja validaciones específicas de seguridad como detección
+de patrones maliciosos, rate limiting, etc.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.SecurityValidationService.sanitize_user_input">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sanitize_user_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.SecurityValidationService.sanitize_user_input" title="Link to this definition">¶</a></dt>
+<dd><p>Sanitiza entrada de usuario para prevenir inyecciones básicas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>str</em>) – Datos a sanitizar</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Datos sanitizados</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.SecurityValidationService.validate_password_strength">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_password_strength</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">password</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.SecurityValidationService.validate_password_strength" title="Link to this definition">¶</a></dt>
+<dd><p>Valida la fortaleza de una contraseña.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>password</strong> (<em>str</em>) – Contraseña a evaluar</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>(es_fuerte, sugerencias, puntuación)</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[bool, List[str], int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.SecurityValidationService.validate_request_method">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_request_method</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_methods</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.SecurityValidationService.validate_request_method" title="Link to this definition">¶</a></dt>
+<dd><p>Valida que el método HTTP sea permitido.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – Objeto de petición HTTP</p></li>
+<li><p><strong>allowed_methods</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Métodos HTTP permitidos</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>True si el método es permitido</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.SecurityValidationService.validate_user_credentials_format">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_user_credentials_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.SecurityValidationService.validate_user_credentials_format" title="Link to this definition">¶</a></dt>
+<dd><p>Valida el formato básico de las credenciales de usuario.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> (<em>str</em>) – Nombre de usuario</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – Contraseña</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>(es_válido, errores)</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[bool, List[str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authentication.services.TokenService">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authentication.services.</span></span><span class="sig-name descname"><span class="pre">TokenService</span></span><a class="headerlink" href="#authentication.services.TokenService" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Servicio para operaciones con tokens JWT.</p>
+<p>Proporciona métodos para crear, validar y gestionar tokens JWT,
+así como configurar cookies seguras para refresh tokens.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.TokenService.clear_auth_cookies">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clear_auth_cookies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.TokenService.clear_auth_cookies" title="Link to this definition">¶</a></dt>
+<dd><p>Limpia las cookies de autenticación de la respuesta.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>response</strong> (<em>HttpResponse</em>) – Respuesta HTTP a modificar</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Respuesta con cookies limpiadas</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.TokenService.create_refresh_response">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_refresh_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">access_token</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refresh_token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.TokenService.create_refresh_response" title="Link to this definition">¶</a></dt>
+<dd><p>Crea una respuesta HTTP para renovación de tokens.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>access_token</strong> (<em>str</em>) – Nuevo token de acceso</p></li>
+<li><p><strong>refresh_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Nuevo token de refresh (si aplica rotación)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Respuesta HTTP con tokens renovados</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.TokenService.create_token_response">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_token_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">access_token</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refresh_token</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.TokenService.create_token_response" title="Link to this definition">¶</a></dt>
+<dd><p>Crea una respuesta HTTP con el access token en JSON y refresh token en cookie.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>access_token</strong> (<em>str</em>) – Token de acceso JWT</p></li>
+<li><p><strong>refresh_token</strong> (<em>str</em>) – Token de renovación JWT</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Respuesta HTTP configurada con tokens</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.TokenService.extract_refresh_token_from_cookies">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extract_refresh_token_from_cookies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.TokenService.extract_refresh_token_from_cookies" title="Link to this definition">¶</a></dt>
+<dd><p>Extrae el refresh token de las cookies de la petición.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Objeto de petición HTTP</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Refresh token si existe, None en caso contrario</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.TokenService.set_csrf_cookie">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_csrf_cookie</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.TokenService.set_csrf_cookie" title="Link to this definition">¶</a></dt>
+<dd><p>Configura la cookie CSRF en la respuesta.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>response</strong> (<em>HttpResponse</em>) – Respuesta HTTP a modificar</p></li>
+<li><p><strong>token</strong> (<em>str</em>) – Token CSRF a establecer</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Respuesta con cookie CSRF configurada</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.TokenService.validate_token">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.TokenService.validate_token" title="Link to this definition">¶</a></dt>
+<dd><p>Valida un token JWT.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>token</strong> (<em>str</em>) – Token a validar</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>True si el token es válido, False en caso contrario</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authentication.services.TokenValidationService">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authentication.services.</span></span><span class="sig-name descname"><span class="pre">TokenValidationService</span></span><a class="headerlink" href="#authentication.services.TokenValidationService" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Servicio especializado en validación de tokens.</p>
+<p>Proporciona métodos específicos para diferentes tipos de validaciones
+de tokens en contextos variados.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.TokenValidationService.is_token_expired">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_token_expired</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.TokenValidationService.is_token_expired" title="Link to this definition">¶</a></dt>
+<dd><p>Verifica si un token ha expirado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>token</strong> (<em>str</em>) – Token a verificar</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>True si el token ha expirado, False en caso contrario</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.TokenValidationService.validate_access_token">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_access_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.TokenValidationService.validate_access_token" title="Link to this definition">¶</a></dt>
+<dd><p>Valida un token de acceso y extrae información.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>token</strong> (<em>str</em>) – Token de acceso a validar</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>(es_válido, información_del_token)</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[bool, Optional[Dict]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authentication.services.ValidationService">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authentication.services.</span></span><span class="sig-name descname"><span class="pre">ValidationService</span></span><a class="headerlink" href="#authentication.services.ValidationService" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Servicio principal de validaciones de autenticación.</p>
+<p>Proporciona métodos para validar datos de entrada, credenciales
+y otros aspectos de seguridad en el proceso de autenticación.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.ValidationService.validate_csrf_token">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_csrf_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.ValidationService.validate_csrf_token" title="Link to this definition">¶</a></dt>
+<dd><p>Valida la presencia del token CSRF en la petición.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Objeto de petición HTTP</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>(es_válido, token_csrf)</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[bool, Optional[str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.ValidationService.validate_json_data">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_json_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.ValidationService.validate_json_data" title="Link to this definition">¶</a></dt>
+<dd><p>Valida y parsea los datos JSON de la petición.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Objeto de petición HTTP</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>(es_válido, datos, error)</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[bool, Optional[Dict], Optional[str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.services.ValidationService.validate_registration_data">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_registration_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.services.ValidationService.validate_registration_data" title="Link to this definition">¶</a></dt>
+<dd><p>Valida los datos de registro de usuario.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Dict</em>) – Datos de registro a validar</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>(es_válido, errores_por_campo)</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[bool, Dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 </section>
 

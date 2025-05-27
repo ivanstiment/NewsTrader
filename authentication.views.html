@@ -38,17 +38,519 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
 </section>
-<section id="authentication-views-login-views-module">
-<h2>authentication.views.login_views module<a class="headerlink" href="#authentication-views-login-views-module" title="Link to this heading">¶</a></h2>
+<section id="module-authentication.views.login_views">
+<span id="authentication-views-login-views-module"></span><h2>authentication.views.login_views module<a class="headerlink" href="#module-authentication.views.login_views" title="Link to this heading">¶</a></h2>
+<p>Vistas para operaciones de login y manejo de tokens.</p>
+<p>Contiene las vistas HTTP para:
+- Autenticación de usuarios (login)
+- Renovación de tokens (refresh)
+- Verificación de tokens
+- Cierre de sesión (logout)</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="authentication.views.login_views.CustomTokenObtainPairView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authentication.views.login_views.</span></span><span class="sig-name descname"><span class="pre">CustomTokenObtainPairView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.login_views.CustomTokenObtainPairView" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TokenObtainPairView</span></code></p>
+<p>Vista personalizada para obtención de tokens JWT.</p>
+<p>Maneja el login de usuarios devolviendo el access token en JSON
+y almacenando el refresh token en una cookie HttpOnly segura.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authentication.views.login_views.CustomTokenObtainPairView.permission_classes">
+<span class="sig-name descname"><span class="pre">permission_classes</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'rest_framework.permissions.AllowAny'&gt;]</span></em><a class="headerlink" href="#authentication.views.login_views.CustomTokenObtainPairView.permission_classes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.views.login_views.CustomTokenObtainPairView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.login_views.CustomTokenObtainPairView.post" title="Link to this definition">¶</a></dt>
+<dd><p>Procesa la petición de login.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Petición HTTP con credenciales</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Respuesta con access token y refresh cookie</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authentication.views.login_views.CustomTokenObtainPairView.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#authentication.views.login_views.CustomTokenObtainPairView.serializer_class" title="Link to this definition">¶</a></dt>
+<dd><p>alias de <a class="reference internal" href="authentication.html#authentication.serializers.CustomTokenObtainPairSerializer" title="authentication.serializers.CustomTokenObtainPairSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomTokenObtainPairSerializer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authentication.views.login_views.CustomTokenRefreshView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authentication.views.login_views.</span></span><span class="sig-name descname"><span class="pre">CustomTokenRefreshView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.login_views.CustomTokenRefreshView" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TokenRefreshView</span></code></p>
+<p>Vista personalizada para renovación de tokens JWT.</p>
+<p>Lee el refresh token desde cookies HttpOnly y devuelve
+un nuevo access token, actualizando el refresh token si aplica rotación.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authentication.views.login_views.CustomTokenRefreshView.permission_classes">
+<span class="sig-name descname"><span class="pre">permission_classes</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'rest_framework.permissions.AllowAny'&gt;]</span></em><a class="headerlink" href="#authentication.views.login_views.CustomTokenRefreshView.permission_classes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.views.login_views.CustomTokenRefreshView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.login_views.CustomTokenRefreshView.post" title="Link to this definition">¶</a></dt>
+<dd><p>Procesa la renovación de tokens.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Petición HTTP con cookie de refresh token</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Respuesta con nuevos tokens</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authentication.views.login_views.CustomTokenRefreshView.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#authentication.views.login_views.CustomTokenRefreshView.serializer_class" title="Link to this definition">¶</a></dt>
+<dd><p>alias de <a class="reference internal" href="authentication.html#authentication.serializers.CustomTokenRefreshSerializer" title="authentication.serializers.CustomTokenRefreshSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomTokenRefreshSerializer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authentication.views.login_views.logout_user">
+<span class="sig-prename descclassname"><span class="pre">authentication.views.login_views.</span></span><span class="sig-name descname"><span class="pre">logout_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.login_views.logout_user" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint para cerrar sesión del usuario.</p>
+<p>Limpia las cookies de autenticación y opcionalmente
+podría agregar el token a una blacklist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Petición HTTP del usuario autenticado</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Confirmación de cierre de sesión</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authentication.views.login_views.verify_token">
+<span class="sig-prename descclassname"><span class="pre">authentication.views.login_views.</span></span><span class="sig-name descname"><span class="pre">verify_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.login_views.verify_token" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint para verificar la validez de un token de acceso.</p>
+<p>Utiliza el decorador IsAuthenticated que automáticamente
+valida el token JWT presente en el header Authorization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Petición HTTP con token de acceso</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Estado de validez del token e información del usuario</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="authentication-views-register-views-module">
-<h2>authentication.views.register_views module<a class="headerlink" href="#authentication-views-register-views-module" title="Link to this heading">¶</a></h2>
+<section id="module-authentication.views.register_views">
+<span id="authentication-views-register-views-module"></span><h2>authentication.views.register_views module<a class="headerlink" href="#module-authentication.views.register_views" title="Link to this heading">¶</a></h2>
+<p>Vistas para registro de usuarios.</p>
+<p>Contiene las vistas HTTP para:
+- Registro de nuevos usuarios
+- Validación de datos de registro
+- Creación de cuentas de usuario</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="authentication.views.register_views.check_username_availability">
+<span class="sig-prename descclassname"><span class="pre">authentication.views.register_views.</span></span><span class="sig-name descname"><span class="pre">check_username_availability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.register_views.check_username_availability" title="Link to this definition">¶</a></dt>
+<dd><p>Verifica si un nombre de usuario está disponible.</p>
+<p>Endpoint útil para verificación en tiempo real de disponibilidad
+de nombres de usuario durante el proceso de registro.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Petición HTTP con nombre de usuario a verificar</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Disponibilidad del username</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>JsonResponse</p>
+</dd>
+</dl>
+<p>Expected JSON format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;nombre_a_verificar&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authentication.views.register_views.register_user">
+<span class="sig-prename descclassname"><span class="pre">authentication.views.register_views.</span></span><span class="sig-name descname"><span class="pre">register_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.register_views.register_user" title="Link to this definition">¶</a></dt>
+<dd><p>Registra un nuevo usuario en el sistema.</p>
+<p>Valida los datos de entrada, verifica que el usuario no exista
+y crea una nueva cuenta de usuario con las credenciales proporcionadas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Petición HTTP con datos de registro</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Respuesta con resultado del registro</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>JsonResponse</p>
+</dd>
+</dl>
+<p>Expected JSON format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;nombre_usuario&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;contraseña_segura&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authentication.views.register_views.validate_registration_data">
+<span class="sig-prename descclassname"><span class="pre">authentication.views.register_views.</span></span><span class="sig-name descname"><span class="pre">validate_registration_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.register_views.validate_registration_data" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint para validar datos de registro sin crear el usuario.</p>
+<p>Útil para validación en tiempo real en el frontend
+sin procesar completamente el registro.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Petición HTTP con datos a validar</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Resultado de validación</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>JsonResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="authentication-views-utility-views-module">
-<h2>authentication.views.utility_views module<a class="headerlink" href="#authentication-views-utility-views-module" title="Link to this heading">¶</a></h2>
+<section id="module-authentication.views.utility_views">
+<span id="authentication-views-utility-views-module"></span><h2>authentication.views.utility_views module<a class="headerlink" href="#module-authentication.views.utility_views" title="Link to this heading">¶</a></h2>
+<p>Vistas utilitarias para autenticación.</p>
+<p>Contiene vistas de apoyo para:
+- Obtención de tokens CSRF
+- Verificación de estado de la API
+- Utilidades de depuración (solo en desarrollo)</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="authentication.views.utility_views.auth_config">
+<span class="sig-prename descclassname"><span class="pre">authentication.views.utility_views.</span></span><span class="sig-name descname"><span class="pre">auth_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.utility_views.auth_config" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint para obtener configuración pública de autenticación.</p>
+<p>Devuelve configuraciones que el frontend necesita conocer
+para interactuar correctamente con la API de autenticación.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Petición HTTP</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Configuración pública de autenticación</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authentication.views.utility_views.get_csrf_token">
+<span class="sig-prename descclassname"><span class="pre">authentication.views.utility_views.</span></span><span class="sig-name descname"><span class="pre">get_csrf_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.utility_views.get_csrf_token" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint para obtener el token CSRF para el frontend.</p>
+<p>Genera y devuelve un token CSRF válido, configurando
+automáticamente la cookie correspondiente en la respuesta.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Petición HTTP</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Token CSRF en formato JSON</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>JsonResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authentication.views.utility_views.health_check">
+<span class="sig-prename descclassname"><span class="pre">authentication.views.utility_views.</span></span><span class="sig-name descname"><span class="pre">health_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.utility_views.health_check" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint de verificación de salud de la API de autenticación.</p>
+<p>Proporciona información básica sobre el estado del servicio
+de autenticación y sus dependencias.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Petición HTTP</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Estado de salud del servicio</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<section id="module-authentication.views">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-authentication.views" title="Link to this heading">¶</a></h2>
+<p>Vistas del módulo de autenticación.</p>
+<p>Este paquete contiene todas las vistas HTTP organizadas por funcionalidad:</p>
+<ul class="simple">
+<li><p>login_views: Login, refresh, verificación y logout</p></li>
+<li><p>register_views: Registro de usuarios y validaciones</p></li>
+<li><p>utility_views: CSRF, health check y utilidades</p></li>
+</ul>
+<p>Importa todas las vistas necesarias para facilitar su uso en urls.py</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="authentication.views.CustomTokenObtainPairView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authentication.views.</span></span><span class="sig-name descname"><span class="pre">CustomTokenObtainPairView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.CustomTokenObtainPairView" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TokenObtainPairView</span></code></p>
+<p>Vista personalizada para obtención de tokens JWT.</p>
+<p>Maneja el login de usuarios devolviendo el access token en JSON
+y almacenando el refresh token en una cookie HttpOnly segura.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authentication.views.CustomTokenObtainPairView.permission_classes">
+<span class="sig-name descname"><span class="pre">permission_classes</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'rest_framework.permissions.AllowAny'&gt;]</span></em><a class="headerlink" href="#authentication.views.CustomTokenObtainPairView.permission_classes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.views.CustomTokenObtainPairView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.CustomTokenObtainPairView.post" title="Link to this definition">¶</a></dt>
+<dd><p>Procesa la petición de login.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Petición HTTP con credenciales</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Respuesta con access token y refresh cookie</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authentication.views.CustomTokenObtainPairView.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#authentication.views.CustomTokenObtainPairView.serializer_class" title="Link to this definition">¶</a></dt>
+<dd><p>alias de <a class="reference internal" href="authentication.html#authentication.serializers.CustomTokenObtainPairSerializer" title="authentication.serializers.CustomTokenObtainPairSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomTokenObtainPairSerializer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authentication.views.CustomTokenRefreshView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authentication.views.</span></span><span class="sig-name descname"><span class="pre">CustomTokenRefreshView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.CustomTokenRefreshView" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TokenRefreshView</span></code></p>
+<p>Vista personalizada para renovación de tokens JWT.</p>
+<p>Lee el refresh token desde cookies HttpOnly y devuelve
+un nuevo access token, actualizando el refresh token si aplica rotación.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authentication.views.CustomTokenRefreshView.permission_classes">
+<span class="sig-name descname"><span class="pre">permission_classes</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'rest_framework.permissions.AllowAny'&gt;]</span></em><a class="headerlink" href="#authentication.views.CustomTokenRefreshView.permission_classes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.views.CustomTokenRefreshView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.CustomTokenRefreshView.post" title="Link to this definition">¶</a></dt>
+<dd><p>Procesa la renovación de tokens.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Petición HTTP con cookie de refresh token</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Respuesta con nuevos tokens</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authentication.views.CustomTokenRefreshView.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#authentication.views.CustomTokenRefreshView.serializer_class" title="Link to this definition">¶</a></dt>
+<dd><p>alias de <a class="reference internal" href="authentication.html#authentication.serializers.CustomTokenRefreshSerializer" title="authentication.serializers.CustomTokenRefreshSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomTokenRefreshSerializer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authentication.views.auth_config">
+<span class="sig-prename descclassname"><span class="pre">authentication.views.</span></span><span class="sig-name descname"><span class="pre">auth_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.auth_config" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint para obtener configuración pública de autenticación.</p>
+<p>Devuelve configuraciones que el frontend necesita conocer
+para interactuar correctamente con la API de autenticación.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Petición HTTP</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Configuración pública de autenticación</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authentication.views.check_username_availability">
+<span class="sig-prename descclassname"><span class="pre">authentication.views.</span></span><span class="sig-name descname"><span class="pre">check_username_availability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.check_username_availability" title="Link to this definition">¶</a></dt>
+<dd><p>Verifica si un nombre de usuario está disponible.</p>
+<p>Endpoint útil para verificación en tiempo real de disponibilidad
+de nombres de usuario durante el proceso de registro.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Petición HTTP con nombre de usuario a verificar</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Disponibilidad del username</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>JsonResponse</p>
+</dd>
+</dl>
+<p>Expected JSON format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;nombre_a_verificar&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authentication.views.get_csrf_token">
+<span class="sig-prename descclassname"><span class="pre">authentication.views.</span></span><span class="sig-name descname"><span class="pre">get_csrf_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.get_csrf_token" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint para obtener el token CSRF para el frontend.</p>
+<p>Genera y devuelve un token CSRF válido, configurando
+automáticamente la cookie correspondiente en la respuesta.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Petición HTTP</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Token CSRF en formato JSON</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>JsonResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authentication.views.health_check">
+<span class="sig-prename descclassname"><span class="pre">authentication.views.</span></span><span class="sig-name descname"><span class="pre">health_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.health_check" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint de verificación de salud de la API de autenticación.</p>
+<p>Proporciona información básica sobre el estado del servicio
+de autenticación y sus dependencias.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Petición HTTP</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Estado de salud del servicio</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authentication.views.logout_user">
+<span class="sig-prename descclassname"><span class="pre">authentication.views.</span></span><span class="sig-name descname"><span class="pre">logout_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.logout_user" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint para cerrar sesión del usuario.</p>
+<p>Limpia las cookies de autenticación y opcionalmente
+podría agregar el token a una blacklist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Petición HTTP del usuario autenticado</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Confirmación de cierre de sesión</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authentication.views.register_user">
+<span class="sig-prename descclassname"><span class="pre">authentication.views.</span></span><span class="sig-name descname"><span class="pre">register_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.register_user" title="Link to this definition">¶</a></dt>
+<dd><p>Registra un nuevo usuario en el sistema.</p>
+<p>Valida los datos de entrada, verifica que el usuario no exista
+y crea una nueva cuenta de usuario con las credenciales proporcionadas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Petición HTTP con datos de registro</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Respuesta con resultado del registro</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>JsonResponse</p>
+</dd>
+</dl>
+<p>Expected JSON format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;nombre_usuario&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;contraseña_segura&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authentication.views.validate_registration_data">
+<span class="sig-prename descclassname"><span class="pre">authentication.views.</span></span><span class="sig-name descname"><span class="pre">validate_registration_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.validate_registration_data" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint para validar datos de registro sin crear el usuario.</p>
+<p>Útil para validación en tiempo real en el frontend
+sin procesar completamente el registro.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Petición HTTP con datos a validar</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Resultado de validación</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>JsonResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authentication.views.verify_token">
+<span class="sig-prename descclassname"><span class="pre">authentication.views.</span></span><span class="sig-name descname"><span class="pre">verify_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.verify_token" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint para verificar la validez de un token de acceso.</p>
+<p>Utiliza el decorador IsAuthenticated que automáticamente
+valida el token JWT presente en el header Authorization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Petición HTTP con token de acceso</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Estado de validez del token e información del usuario</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 

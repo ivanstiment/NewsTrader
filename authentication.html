@@ -42,17 +42,125 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="authentication.services.html">authentication.services package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="authentication.services.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="authentication.services.html#authentication-services-token-service-module">authentication.services.token_service module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="authentication.services.html#authentication-services-validation-service-module">authentication.services.validation_service module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="authentication.services.html#module-contents">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.services.html#module-authentication.services.token_service">authentication.services.token_service module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="authentication.services.html#authentication.services.token_service.TokenService"><code class="docutils literal notranslate"><span class="pre">TokenService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.token_service.TokenService.clear_auth_cookies"><code class="docutils literal notranslate"><span class="pre">TokenService.clear_auth_cookies()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.token_service.TokenService.create_refresh_response"><code class="docutils literal notranslate"><span class="pre">TokenService.create_refresh_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.token_service.TokenService.create_token_response"><code class="docutils literal notranslate"><span class="pre">TokenService.create_token_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.token_service.TokenService.extract_refresh_token_from_cookies"><code class="docutils literal notranslate"><span class="pre">TokenService.extract_refresh_token_from_cookies()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.token_service.TokenService.set_csrf_cookie"><code class="docutils literal notranslate"><span class="pre">TokenService.set_csrf_cookie()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.token_service.TokenService.validate_token"><code class="docutils literal notranslate"><span class="pre">TokenService.validate_token()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.services.html#authentication.services.token_service.TokenValidationService"><code class="docutils literal notranslate"><span class="pre">TokenValidationService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.token_service.TokenValidationService.is_token_expired"><code class="docutils literal notranslate"><span class="pre">TokenValidationService.is_token_expired()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.token_service.TokenValidationService.validate_access_token"><code class="docutils literal notranslate"><span class="pre">TokenValidationService.validate_access_token()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.services.html#module-authentication.services.validation_service">authentication.services.validation_service module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="authentication.services.html#authentication.services.validation_service.SecurityValidationService"><code class="docutils literal notranslate"><span class="pre">SecurityValidationService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.validation_service.SecurityValidationService.sanitize_user_input"><code class="docutils literal notranslate"><span class="pre">SecurityValidationService.sanitize_user_input()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.validation_service.SecurityValidationService.validate_password_strength"><code class="docutils literal notranslate"><span class="pre">SecurityValidationService.validate_password_strength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.validation_service.SecurityValidationService.validate_request_method"><code class="docutils literal notranslate"><span class="pre">SecurityValidationService.validate_request_method()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.validation_service.SecurityValidationService.validate_user_credentials_format"><code class="docutils literal notranslate"><span class="pre">SecurityValidationService.validate_user_credentials_format()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.services.html#authentication.services.validation_service.ValidationService"><code class="docutils literal notranslate"><span class="pre">ValidationService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.validation_service.ValidationService.validate_csrf_token"><code class="docutils literal notranslate"><span class="pre">ValidationService.validate_csrf_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.validation_service.ValidationService.validate_json_data"><code class="docutils literal notranslate"><span class="pre">ValidationService.validate_json_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.validation_service.ValidationService.validate_registration_data"><code class="docutils literal notranslate"><span class="pre">ValidationService.validate_registration_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.services.html#module-authentication.services">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="authentication.services.html#authentication.services.SecurityValidationService"><code class="docutils literal notranslate"><span class="pre">SecurityValidationService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.SecurityValidationService.sanitize_user_input"><code class="docutils literal notranslate"><span class="pre">SecurityValidationService.sanitize_user_input()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.SecurityValidationService.validate_password_strength"><code class="docutils literal notranslate"><span class="pre">SecurityValidationService.validate_password_strength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.SecurityValidationService.validate_request_method"><code class="docutils literal notranslate"><span class="pre">SecurityValidationService.validate_request_method()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.SecurityValidationService.validate_user_credentials_format"><code class="docutils literal notranslate"><span class="pre">SecurityValidationService.validate_user_credentials_format()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.services.html#authentication.services.TokenService"><code class="docutils literal notranslate"><span class="pre">TokenService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.TokenService.clear_auth_cookies"><code class="docutils literal notranslate"><span class="pre">TokenService.clear_auth_cookies()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.TokenService.create_refresh_response"><code class="docutils literal notranslate"><span class="pre">TokenService.create_refresh_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.TokenService.create_token_response"><code class="docutils literal notranslate"><span class="pre">TokenService.create_token_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.TokenService.extract_refresh_token_from_cookies"><code class="docutils literal notranslate"><span class="pre">TokenService.extract_refresh_token_from_cookies()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.TokenService.set_csrf_cookie"><code class="docutils literal notranslate"><span class="pre">TokenService.set_csrf_cookie()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.TokenService.validate_token"><code class="docutils literal notranslate"><span class="pre">TokenService.validate_token()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.services.html#authentication.services.TokenValidationService"><code class="docutils literal notranslate"><span class="pre">TokenValidationService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.TokenValidationService.is_token_expired"><code class="docutils literal notranslate"><span class="pre">TokenValidationService.is_token_expired()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.TokenValidationService.validate_access_token"><code class="docutils literal notranslate"><span class="pre">TokenValidationService.validate_access_token()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.services.html#authentication.services.ValidationService"><code class="docutils literal notranslate"><span class="pre">ValidationService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.ValidationService.validate_csrf_token"><code class="docutils literal notranslate"><span class="pre">ValidationService.validate_csrf_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.ValidationService.validate_json_data"><code class="docutils literal notranslate"><span class="pre">ValidationService.validate_json_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.services.html#authentication.services.ValidationService.validate_registration_data"><code class="docutils literal notranslate"><span class="pre">ValidationService.validate_registration_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="authentication.views.html">authentication.views package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="authentication.views.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="authentication.views.html#authentication-views-login-views-module">authentication.views.login_views module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="authentication.views.html#authentication-views-register-views-module">authentication.views.register_views module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="authentication.views.html#authentication-views-utility-views-module">authentication.views.utility_views module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="authentication.views.html#module-contents">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.views.html#module-authentication.views.login_views">authentication.views.login_views module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="authentication.views.html#authentication.views.login_views.CustomTokenObtainPairView"><code class="docutils literal notranslate"><span class="pre">CustomTokenObtainPairView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="authentication.views.html#authentication.views.login_views.CustomTokenObtainPairView.permission_classes"><code class="docutils literal notranslate"><span class="pre">CustomTokenObtainPairView.permission_classes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.views.html#authentication.views.login_views.CustomTokenObtainPairView.post"><code class="docutils literal notranslate"><span class="pre">CustomTokenObtainPairView.post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.views.html#authentication.views.login_views.CustomTokenObtainPairView.serializer_class"><code class="docutils literal notranslate"><span class="pre">CustomTokenObtainPairView.serializer_class</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.views.html#authentication.views.login_views.CustomTokenRefreshView"><code class="docutils literal notranslate"><span class="pre">CustomTokenRefreshView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="authentication.views.html#authentication.views.login_views.CustomTokenRefreshView.permission_classes"><code class="docutils literal notranslate"><span class="pre">CustomTokenRefreshView.permission_classes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.views.html#authentication.views.login_views.CustomTokenRefreshView.post"><code class="docutils literal notranslate"><span class="pre">CustomTokenRefreshView.post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.views.html#authentication.views.login_views.CustomTokenRefreshView.serializer_class"><code class="docutils literal notranslate"><span class="pre">CustomTokenRefreshView.serializer_class</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.views.html#authentication.views.login_views.logout_user"><code class="docutils literal notranslate"><span class="pre">logout_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.views.html#authentication.views.login_views.verify_token"><code class="docutils literal notranslate"><span class="pre">verify_token()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.views.html#module-authentication.views.register_views">authentication.views.register_views module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="authentication.views.html#authentication.views.register_views.check_username_availability"><code class="docutils literal notranslate"><span class="pre">check_username_availability()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.views.html#authentication.views.register_views.register_user"><code class="docutils literal notranslate"><span class="pre">register_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.views.html#authentication.views.register_views.validate_registration_data"><code class="docutils literal notranslate"><span class="pre">validate_registration_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.views.html#module-authentication.views.utility_views">authentication.views.utility_views module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="authentication.views.html#authentication.views.utility_views.auth_config"><code class="docutils literal notranslate"><span class="pre">auth_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.views.html#authentication.views.utility_views.get_csrf_token"><code class="docutils literal notranslate"><span class="pre">get_csrf_token()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.views.html#authentication.views.utility_views.health_check"><code class="docutils literal notranslate"><span class="pre">health_check()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.views.html#module-authentication.views">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="authentication.views.html#authentication.views.CustomTokenObtainPairView"><code class="docutils literal notranslate"><span class="pre">CustomTokenObtainPairView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="authentication.views.html#authentication.views.CustomTokenObtainPairView.permission_classes"><code class="docutils literal notranslate"><span class="pre">CustomTokenObtainPairView.permission_classes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.views.html#authentication.views.CustomTokenObtainPairView.post"><code class="docutils literal notranslate"><span class="pre">CustomTokenObtainPairView.post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.views.html#authentication.views.CustomTokenObtainPairView.serializer_class"><code class="docutils literal notranslate"><span class="pre">CustomTokenObtainPairView.serializer_class</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.views.html#authentication.views.CustomTokenRefreshView"><code class="docutils literal notranslate"><span class="pre">CustomTokenRefreshView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="authentication.views.html#authentication.views.CustomTokenRefreshView.permission_classes"><code class="docutils literal notranslate"><span class="pre">CustomTokenRefreshView.permission_classes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.views.html#authentication.views.CustomTokenRefreshView.post"><code class="docutils literal notranslate"><span class="pre">CustomTokenRefreshView.post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="authentication.views.html#authentication.views.CustomTokenRefreshView.serializer_class"><code class="docutils literal notranslate"><span class="pre">CustomTokenRefreshView.serializer_class</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.views.html#authentication.views.auth_config"><code class="docutils literal notranslate"><span class="pre">auth_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.views.html#authentication.views.check_username_availability"><code class="docutils literal notranslate"><span class="pre">check_username_availability()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.views.html#authentication.views.get_csrf_token"><code class="docutils literal notranslate"><span class="pre">get_csrf_token()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.views.html#authentication.views.health_check"><code class="docutils literal notranslate"><span class="pre">health_check()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.views.html#authentication.views.logout_user"><code class="docutils literal notranslate"><span class="pre">logout_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.views.html#authentication.views.register_user"><code class="docutils literal notranslate"><span class="pre">register_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.views.html#authentication.views.validate_registration_data"><code class="docutils literal notranslate"><span class="pre">validate_registration_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.views.html#authentication.views.verify_token"><code class="docutils literal notranslate"><span class="pre">verify_token()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -61,23 +169,429 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
 </section>
-<section id="authentication-apps-module">
-<h2>authentication.apps module<a class="headerlink" href="#authentication-apps-module" title="Link to this heading">¶</a></h2>
+<section id="module-authentication.apps">
+<span id="authentication-apps-module"></span><h2>authentication.apps module<a class="headerlink" href="#module-authentication.apps" title="Link to this heading">¶</a></h2>
+<p>Configuración de la aplicación Django para el módulo de autenticación.</p>
+<p>Define la configuración necesaria para que Django reconozca
+el módulo authentication como una aplicación instalada.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="authentication.apps.AuthenticationConfig">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authentication.apps.</span></span><span class="sig-name descname"><span class="pre">AuthenticationConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.apps.AuthenticationConfig" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AppConfig</span></code></p>
+<p>Configuración de la aplicación de autenticación.</p>
+<p>Establece la configuración básica necesaria para que Django
+maneje correctamente el módulo de autenticación como una
+aplicación independiente.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authentication.apps.AuthenticationConfig.default_auto_field">
+<span class="sig-name descname"><span class="pre">default_auto_field</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'django.db.models.BigAutoField'</span></em><a class="headerlink" href="#authentication.apps.AuthenticationConfig.default_auto_field" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authentication.apps.AuthenticationConfig.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'authentication'</span></em><a class="headerlink" href="#authentication.apps.AuthenticationConfig.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.apps.AuthenticationConfig.ready">
+<span class="sig-name descname"><span class="pre">ready</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.apps.AuthenticationConfig.ready" title="Link to this definition">¶</a></dt>
+<dd><p>Ejecuta código de inicialización cuando la aplicación está lista.</p>
+<p>Se ejecuta una vez que Django ha cargado completamente la aplicación.
+Útil para registrar señales, inicializar servicios, etc.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authentication.apps.AuthenticationConfig.verbose_name">
+<span class="sig-name descname"><span class="pre">verbose_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Authentication</span> <span class="pre">System'</span></em><a class="headerlink" href="#authentication.apps.AuthenticationConfig.verbose_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="authentication-constants-module">
-<h2>authentication.constants module<a class="headerlink" href="#authentication-constants-module" title="Link to this heading">¶</a></h2>
+<section id="module-authentication.constants">
+<span id="authentication-constants-module"></span><h2>authentication.constants module<a class="headerlink" href="#module-authentication.constants" title="Link to this heading">¶</a></h2>
+<p>Constantes del módulo de autenticación.</p>
+<p>Centraliza todos los valores constantes utilizados en el módulo de autenticación
+para facilitar el mantenimiento y evitar duplicación de código.</p>
 </section>
-<section id="authentication-serializers-module">
-<h2>authentication.serializers module<a class="headerlink" href="#authentication-serializers-module" title="Link to this heading">¶</a></h2>
+<section id="module-authentication.serializers">
+<span id="authentication-serializers-module"></span><h2>authentication.serializers module<a class="headerlink" href="#module-authentication.serializers" title="Link to this heading">¶</a></h2>
+<p>Serializers para el módulo de autenticación.</p>
+<p>Maneja la serialización y deserialización de datos para las operaciones
+de autenticación, proporcionando una interfaz consistente para el intercambio
+de datos entre el frontend y backend.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="authentication.serializers.CustomTokenObtainPairSerializer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authentication.serializers.</span></span><span class="sig-name descname"><span class="pre">CustomTokenObtainPairSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.serializers.CustomTokenObtainPairSerializer" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TokenObtainPairSerializer</span></code></p>
+<p>Serializer personalizado para la obtención de tokens JWT.</p>
+<p>Extiende el serializer base para manejar respuestas personalizadas
+y potencial información adicional del usuario.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.serializers.CustomTokenObtainPairSerializer.get_token">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.serializers.CustomTokenObtainPairSerializer.get_token" title="Link to this definition">¶</a></dt>
+<dd><p>Genera el token JWT con información adicional del usuario.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user</strong> (<em>User</em>) – Instancia del usuario autenticado</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Token JWT con claims personalizados</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>token</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authentication.serializers.CustomTokenRefreshSerializer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authentication.serializers.</span></span><span class="sig-name descname"><span class="pre">CustomTokenRefreshSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.serializers.CustomTokenRefreshSerializer" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TokenRefreshSerializer</span></code></p>
+<p>Serializer personalizado para la renovación de tokens JWT.</p>
+<p>Permite manejar el refresh token desde cookies HTTP-only
+de manera transparente.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.serializers.CustomTokenRefreshSerializer.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.serializers.CustomTokenRefreshSerializer.validate" title="Link to this definition">¶</a></dt>
+<dd><p>Valida el token de refresh y genera un nuevo access token.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attrs</strong> (<em>dict</em>) – Atributos del request</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tokens renovados</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+<dt class="field-even">Muestra<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValidationError</strong> – Si el token de refresh es inválido</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authentication.serializers.TokenVerificationSerializer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authentication.serializers.</span></span><span class="sig-name descname"><span class="pre">TokenVerificationSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.serializers.TokenVerificationSerializer" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Serializer</span></code></p>
+<p>Serializer para respuestas de verificación de token.</p>
+<p>Estructura la respuesta de validación de tokens incluyendo
+información del usuario y estado de validez.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authentication.serializers.UserInfoSerializer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authentication.serializers.</span></span><span class="sig-name descname"><span class="pre">UserInfoSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.serializers.UserInfoSerializer" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelSerializer</span></code></p>
+<p>Serializer para información básica del usuario.</p>
+<p>Utilizado para respuestas que incluyen datos del usuario
+sin información sensible.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="authentication.serializers.UserInfoSerializer.Meta">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="headerlink" href="#authentication.serializers.UserInfoSerializer.Meta" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authentication.serializers.UserInfoSerializer.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id',</span> <span class="pre">'username',</span> <span class="pre">'is_active',</span> <span class="pre">'date_joined']</span></em><a class="headerlink" href="#authentication.serializers.UserInfoSerializer.Meta.fields" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authentication.serializers.UserInfoSerializer.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#authentication.serializers.UserInfoSerializer.Meta.model" title="Link to this definition">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authentication.serializers.UserInfoSerializer.Meta.read_only_fields">
+<span class="sig-name descname"><span class="pre">read_only_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id',</span> <span class="pre">'date_joined']</span></em><a class="headerlink" href="#authentication.serializers.UserInfoSerializer.Meta.read_only_fields" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authentication.serializers.UserRegistrationSerializer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authentication.serializers.</span></span><span class="sig-name descname"><span class="pre">UserRegistrationSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.serializers.UserRegistrationSerializer" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Serializer</span></code></p>
+<p>Serializer para el registro de nuevos usuarios.</p>
+<p>Valida los datos de entrada para la creación de usuarios,
+asegurando que cumplan con los requisitos de seguridad.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.serializers.UserRegistrationSerializer.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">validated_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.serializers.UserRegistrationSerializer.create" title="Link to this definition">¶</a></dt>
+<dd><p>Crea un nuevo usuario con los datos validados.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>validated_data</strong> (<em>dict</em>) – Datos validados del usuario</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Nueva instancia de usuario creada</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>User</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.serializers.UserRegistrationSerializer.validate_password">
+<span class="sig-name descname"><span class="pre">validate_password</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.serializers.UserRegistrationSerializer.validate_password" title="Link to this definition">¶</a></dt>
+<dd><p>Valida la fortaleza de la contraseña.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>str</em>) – Contraseña a validar</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Contraseña validada</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.serializers.UserRegistrationSerializer.validate_user">
+<span class="sig-name descname"><span class="pre">validate_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.serializers.UserRegistrationSerializer.validate_user" title="Link to this definition">¶</a></dt>
+<dd><p>Valida que el nombre de usuario sea único.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>str</em>) – Nombre de usuario a validar</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Nombre de usuario validado</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Muestra<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValidationError</strong> – Si el usuario ya existe</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="authentication-tests-module">
-<h2>authentication.tests module<a class="headerlink" href="#authentication-tests-module" title="Link to this heading">¶</a></h2>
+<section id="module-authentication.tests">
+<span id="authentication-tests-module"></span><h2>authentication.tests module<a class="headerlink" href="#module-authentication.tests" title="Link to this heading">¶</a></h2>
+<p>Tests para el módulo de autenticación.</p>
+<p>Contiene tests unitarios e integración para verificar el correcto
+funcionamiento de todos los componentes del sistema de autenticación.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="authentication.tests.AuthenticationFlowTests">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authentication.tests.</span></span><span class="sig-name descname"><span class="pre">AuthenticationFlowTests</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.AuthenticationFlowTests" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
+<p>Tests de flujo completo de autenticación.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.AuthenticationFlowTests.setUp">
+<span class="sig-name descname"><span class="pre">setUp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.AuthenticationFlowTests.setUp" title="Link to this definition">¶</a></dt>
+<dd><p>Configuración inicial para los tests.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.AuthenticationFlowTests.test_complete_auth_flow">
+<span class="sig-name descname"><span class="pre">test_complete_auth_flow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.AuthenticationFlowTests.test_complete_auth_flow" title="Link to this definition">¶</a></dt>
+<dd><p>Test del flujo completo de autenticación.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authentication.tests.AuthenticationViewsTests">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authentication.tests.</span></span><span class="sig-name descname"><span class="pre">AuthenticationViewsTests</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.AuthenticationViewsTests" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
+<p>Tests de integración para las vistas de autenticación.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.AuthenticationViewsTests.setUp">
+<span class="sig-name descname"><span class="pre">setUp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.AuthenticationViewsTests.setUp" title="Link to this definition">¶</a></dt>
+<dd><p>Configuración inicial para los tests.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.AuthenticationViewsTests.test_auth_config_endpoint">
+<span class="sig-name descname"><span class="pre">test_auth_config_endpoint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.AuthenticationViewsTests.test_auth_config_endpoint" title="Link to this definition">¶</a></dt>
+<dd><p>Test del endpoint de configuración de auth.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.AuthenticationViewsTests.test_check_username_availability_available">
+<span class="sig-name descname"><span class="pre">test_check_username_availability_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.AuthenticationViewsTests.test_check_username_availability_available" title="Link to this definition">¶</a></dt>
+<dd><p>Test verificación de disponibilidad de username disponible.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.AuthenticationViewsTests.test_check_username_availability_taken">
+<span class="sig-name descname"><span class="pre">test_check_username_availability_taken</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.AuthenticationViewsTests.test_check_username_availability_taken" title="Link to this definition">¶</a></dt>
+<dd><p>Test verificación de disponibilidad de username ocupado.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.AuthenticationViewsTests.test_csrf_token_endpoint">
+<span class="sig-name descname"><span class="pre">test_csrf_token_endpoint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.AuthenticationViewsTests.test_csrf_token_endpoint" title="Link to this definition">¶</a></dt>
+<dd><p>Test del endpoint de token CSRF.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.AuthenticationViewsTests.test_health_check_endpoint">
+<span class="sig-name descname"><span class="pre">test_health_check_endpoint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.AuthenticationViewsTests.test_health_check_endpoint" title="Link to this definition">¶</a></dt>
+<dd><p>Test del endpoint de health check.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.AuthenticationViewsTests.test_register_endpoint_invalid_data">
+<span class="sig-name descname"><span class="pre">test_register_endpoint_invalid_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.AuthenticationViewsTests.test_register_endpoint_invalid_data" title="Link to this definition">¶</a></dt>
+<dd><p>Test del endpoint de registro con datos inválidos.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.AuthenticationViewsTests.test_register_endpoint_valid_data">
+<span class="sig-name descname"><span class="pre">test_register_endpoint_valid_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.AuthenticationViewsTests.test_register_endpoint_valid_data" title="Link to this definition">¶</a></dt>
+<dd><p>Test del endpoint de registro con datos válidos.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authentication.tests.SecurityValidationServiceTests">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authentication.tests.</span></span><span class="sig-name descname"><span class="pre">SecurityValidationServiceTests</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.SecurityValidationServiceTests" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
+<p>Tests para el servicio de validaciones de seguridad.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.SecurityValidationServiceTests.test_sanitize_user_input">
+<span class="sig-name descname"><span class="pre">test_sanitize_user_input</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.SecurityValidationServiceTests.test_sanitize_user_input" title="Link to this definition">¶</a></dt>
+<dd><p>Test sanitización de entrada de usuario.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.SecurityValidationServiceTests.test_validate_password_strength_strong">
+<span class="sig-name descname"><span class="pre">test_validate_password_strength_strong</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.SecurityValidationServiceTests.test_validate_password_strength_strong" title="Link to this definition">¶</a></dt>
+<dd><p>Test validación de contraseña fuerte.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.SecurityValidationServiceTests.test_validate_password_strength_weak">
+<span class="sig-name descname"><span class="pre">test_validate_password_strength_weak</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.SecurityValidationServiceTests.test_validate_password_strength_weak" title="Link to this definition">¶</a></dt>
+<dd><p>Test validación de contraseña débil.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.SecurityValidationServiceTests.test_validate_request_method_allowed">
+<span class="sig-name descname"><span class="pre">test_validate_request_method_allowed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.SecurityValidationServiceTests.test_validate_request_method_allowed" title="Link to this definition">¶</a></dt>
+<dd><p>Test validación de método HTTP permitido.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.SecurityValidationServiceTests.test_validate_request_method_not_allowed">
+<span class="sig-name descname"><span class="pre">test_validate_request_method_not_allowed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.SecurityValidationServiceTests.test_validate_request_method_not_allowed" title="Link to this definition">¶</a></dt>
+<dd><p>Test validación de método HTTP no permitido.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authentication.tests.TokenServiceTests">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authentication.tests.</span></span><span class="sig-name descname"><span class="pre">TokenServiceTests</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.TokenServiceTests" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
+<p>Tests para el servicio de tokens JWT.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.TokenServiceTests.setUp">
+<span class="sig-name descname"><span class="pre">setUp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.TokenServiceTests.setUp" title="Link to this definition">¶</a></dt>
+<dd><p>Configuración inicial para los tests.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.TokenServiceTests.test_extract_refresh_token_from_cookies">
+<span class="sig-name descname"><span class="pre">test_extract_refresh_token_from_cookies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.TokenServiceTests.test_extract_refresh_token_from_cookies" title="Link to this definition">¶</a></dt>
+<dd><p>Test extracción de refresh token desde cookies.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.TokenServiceTests.test_extract_refresh_token_missing">
+<span class="sig-name descname"><span class="pre">test_extract_refresh_token_missing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.TokenServiceTests.test_extract_refresh_token_missing" title="Link to this definition">¶</a></dt>
+<dd><p>Test extracción de refresh token cuando no existe.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.TokenServiceTests.test_validate_token_invalid">
+<span class="sig-name descname"><span class="pre">test_validate_token_invalid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.TokenServiceTests.test_validate_token_invalid" title="Link to this definition">¶</a></dt>
+<dd><p>Test validación de token inválido.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authentication.tests.ValidationServiceTests">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authentication.tests.</span></span><span class="sig-name descname"><span class="pre">ValidationServiceTests</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.ValidationServiceTests" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
+<p>Tests para el servicio de validaciones.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.ValidationServiceTests.setUp">
+<span class="sig-name descname"><span class="pre">setUp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.ValidationServiceTests.setUp" title="Link to this definition">¶</a></dt>
+<dd><p>Configuración inicial para los tests.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.ValidationServiceTests.test_validate_json_data_invalid">
+<span class="sig-name descname"><span class="pre">test_validate_json_data_invalid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.ValidationServiceTests.test_validate_json_data_invalid" title="Link to this definition">¶</a></dt>
+<dd><p>Test validación de datos JSON inválidos.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.ValidationServiceTests.test_validate_json_data_valid">
+<span class="sig-name descname"><span class="pre">test_validate_json_data_valid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.ValidationServiceTests.test_validate_json_data_valid" title="Link to this definition">¶</a></dt>
+<dd><p>Test validación de datos JSON válidos.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.ValidationServiceTests.test_validate_registration_data_duplicate_user">
+<span class="sig-name descname"><span class="pre">test_validate_registration_data_duplicate_user</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.ValidationServiceTests.test_validate_registration_data_duplicate_user" title="Link to this definition">¶</a></dt>
+<dd><p>Test validación con usuario duplicado.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.ValidationServiceTests.test_validate_registration_data_invalid">
+<span class="sig-name descname"><span class="pre">test_validate_registration_data_invalid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.ValidationServiceTests.test_validate_registration_data_invalid" title="Link to this definition">¶</a></dt>
+<dd><p>Test validación de datos de registro inválidos.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authentication.tests.ValidationServiceTests.test_validate_registration_data_valid">
+<span class="sig-name descname"><span class="pre">test_validate_registration_data_valid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authentication.tests.ValidationServiceTests.test_validate_registration_data_valid" title="Link to this definition">¶</a></dt>
+<dd><p>Test validación de datos de registro válidos.</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="authentication-urls-module">
-<h2>authentication.urls module<a class="headerlink" href="#authentication-urls-module" title="Link to this heading">¶</a></h2>
+<section id="module-authentication.urls">
+<span id="authentication-urls-module"></span><h2>authentication.urls module<a class="headerlink" href="#module-authentication.urls" title="Link to this heading">¶</a></h2>
+<p>URLs del módulo de autenticación.</p>
+<p>Define todas las rutas HTTP para las operaciones de autenticación,
+organizadas por funcionalidad y con nombres descriptivos.</p>
 </section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<section id="module-authentication">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-authentication" title="Link to this heading">¶</a></h2>
+<p>Módulo de Autenticación - News Trader Backend</p>
+<p>Este módulo maneja toda la lógica de autenticación del sistema:
+- Login y logout de usuarios
+- Gestión de tokens JWT (access + refresh)
+- Registro de nuevos usuarios
+- Validación de tokens y sesiones
+- Manejo de cookies seguras
+- Protección CSRF</p>
+<p>Arquitectura:
+- views/: Controladores HTTP separados por funcionalidad
+- services/: Lógica de negocio y servicios externos
+- serializers.py: Serialización de datos
+- constants.py: Constantes del módulo
+- urls.py: Configuración de rutas</p>
 </section>
 </section>
 
