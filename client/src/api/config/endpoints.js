@@ -21,12 +21,24 @@ export const ENDPOINTS = {
     LOGIN: "/token/",
     LOGOUT: "/logout/",
     REGISTER: "/register/",
+    REGISTER_VALIDATE: "/register/validate/",
+    REGISTER_CHECK_USERNAME: "/register/check-username/",
     REFRESH: "/token/refresh/",
     VERIFY: "/auth/verify/"
   },
 
-  // CSRF
-  CSRF: "/csrf/",
+  // CONFIG
+  CONFIG: {
+    CSRF: "/csrf/",
+    HEALTH: "/health/",
+    CONFIG: "/config/"
+  },
+
+  // CONFIG
+  DEBUG: {
+    COOKIES: "/cookies/",
+    REQUEST: "/request/"
+  },
 
   // Usuarios
   USER: {
@@ -43,6 +55,7 @@ export const ENDPOINTS = {
     DELETE: (id) => `/news/${id}/`,
     FETCH_BY_SYMBOL: '/news/fetch-by-symbol/',
     BY_SYMBOL: (symbol) => `/news/by-symbol/${symbol}/`,
+    ANALYZE: (id) => `/news/${id}/analyze/`,
   },
 
   // Artículos
@@ -55,8 +68,10 @@ export const ENDPOINTS = {
 
   // Stocks
   STOCKS: {
+    LIST: "/stocks/",
     SEARCH: "/stocks/search/",
-    DETAIL: (symbol) => `/stocks/${symbol}/`,
-    HISTORICAL: (symbol) => `/stocks/${symbol}/historical/`,
+    DETAIL: (symbol) => `/stock/${symbol}/`,
+    // HISTORICAL: (symbol) => `/stocks/${symbol}/historical/`,
+    HISTORICAL_PRICE: (symbol) => `/historical-price/${symbol}/`,
   },
 };

@@ -1,17 +1,17 @@
 import { useState } from "react";
-// import { useAnalysis, useArticles } from "@/hooks/useArticleAnalysis";
+import { useAnalysis, useArticles } from "../../article-analysis.hook";
 import styles from "./ArticlesList.module.scss";
 import { AnalysisPanel } from "../AnalysisPanel";
 import { ArticleCard } from "../ArticleCard";
 
 export function ArticlesList() {
-  // const articles = useArticles();
-  // const [selectedId, setSelectedId] = useState(null);
-  // const analysis = useAnalysis(selectedId);
+  const articles = useArticles();
+  const [selectedId, setSelectedId] = useState(null);
+  const analysis = useAnalysis(selectedId);
 
   return (
     <div className={styles["articles-list"]}>
-      {/* <aside className={styles["articles-list__sidebar"]}>
+      <aside className={styles["articles-list__sidebar"]}>
         {articles.map((art) => (
           <ArticleCard
             key={art.id}
@@ -29,7 +29,7 @@ export function ArticlesList() {
             Selecciona una noticia para ver su análisis
           </p>
         )}
-      </section> */}
+      </section>
     </div>
   );
 }

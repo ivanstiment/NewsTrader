@@ -1,10 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { api, ENDPOINTS } from "@/api";
+import { ExternalLinkIcon } from "@/shared/components/icons";
+import { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { newCardPropTypes } from "../../new-card.propTypes";
-import { ExternalLinkIcon } from "@/shared/components/icons";
 import styles from "./NewCard.module.scss";
-import toast from "react-hot-toast";
-import api from "@/api/axios";
 
 export function NewCard({ newItem }) {
   const dateObj = new Date(newItem.provider_publish_time * 1000);
@@ -49,13 +49,13 @@ export function NewCard({ newItem }) {
     toast.loading("Encolando análisis…", { id: newItem.uuid });
 
     try {
-      await api.post(`/news/${newItem.uuid}/analyze/`);
+      await api.post(ENDPOINTS.NEWS.ANALYZE(newItem.uuid));
       toast.success("Análisis encolado", { id: newItem.uuid });
 
       // Polling: cada 2s consultamos hasta que analysis !== null
       pollRef.current = setInterval(async () => {
         try {
-          const { data } = await api.get(`/news/${newItem.uuid}/`);
+          const { data } = await api.get(ENDPOINTS.NEWS.DETAIL(newItem.uuid));
           if (data.analysis) {
             clearInterval(pollRef.current);
             setAnalysis(data.analysis);
@@ -68,7 +68,6 @@ export function NewCard({ newItem }) {
           toast.error("Error al obtener resultado", { id: newItem.uuid });
         }
       }, 2000);
-
     } catch {
       setIsLoading(false);
       toast.error("Error al encolar", { id: newItem.uuid });

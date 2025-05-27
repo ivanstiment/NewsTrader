@@ -1,5 +1,4 @@
-import { api } from "@/api";
-import { CSRF_ENDPOINT } from "./csrf.config";
+import { api, ENDPOINTS } from "@/api";
 import { getCookie } from "./csrf.util";
 
 export const csrfService = {
@@ -7,7 +6,7 @@ export const csrfService = {
    * Llama al endpoint que siempre setea la cookie CSRF en el navegador
    */
   fetchCsrfToken: async () => {
-    const res = await api.get(CSRF_ENDPOINT, { withCredentials: true });
+    const res = await api.get(ENDPOINTS.CONFIG.CSRF, { withCredentials: true });
     // El token estará en la cookie tras esta llamada
     return res.data.csrfToken;
   },

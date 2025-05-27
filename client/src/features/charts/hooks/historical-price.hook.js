@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getHistoricalPrice } from "../historical-price.api";
+import { historicalPriceApi } from "../historical-price.api";
 import styles from "../styles/tooltip.module.scss";
 import {
   getCandlestickOptions,
@@ -54,7 +54,9 @@ export function useHistoricalPrice(symbol, showVolume) {
     (async () => {
       setLoading(true);
       try {
-        const { data: hist } = await getHistoricalPrice(symbol);
+        const { data: hist } = await historicalPriceApi.getHistoricalPrice(
+          symbol
+        );
 
         // Construir candles & vols a partir de hist
         const candles = hist.map((item) => ({

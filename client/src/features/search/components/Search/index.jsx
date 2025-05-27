@@ -1,4 +1,4 @@
-import { getAllStocks } from "@/features/stocks/stock.api";
+import { stocksApi } from "@/features/stocks/stocks.api";
 import { useAuth } from "@/features/auth/hooks/auth-context.hook";
 import { StockCard } from "@/features/stocks/components/StockCard";
 import { stockTermPropTypes } from "@/features/stocks/stock-term.propTypes";
@@ -20,7 +20,7 @@ export function Search() {
     let cancelled = false;
     (async () => {
       try {
-        const res = await getAllStocks();
+        const res = await stocksApi.getStocks();
         if (!cancelled) setStocks(res.data);
       } catch {
         if (!cancelled) setErrorMessage("No se pudieron obtener los stocks.");

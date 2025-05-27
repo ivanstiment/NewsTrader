@@ -2,7 +2,7 @@ import { useAuth } from "@/features/auth/hooks/auth-context.hook";
 import { AddressLink } from "@/shared/components/navigation/AddressLink/index";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getStock } from "../../stock.api";
+import { stocksApi } from "../../stocks.api";
 import styles from "./Stock.module.scss";
 
 export function Stock() {
@@ -15,7 +15,7 @@ export function Stock() {
     async function fetchStock() {
       setError("");
       try {
-        const { data } = await getStock(symbol);
+        const { data } = await stocksApi.getStockDetail(symbol);
         setStock(data);
       } catch {
         setError("No se pudo cargar la información del stock.");

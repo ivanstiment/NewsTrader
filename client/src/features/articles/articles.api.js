@@ -1,14 +1,27 @@
-import api from "@/api/axios";
+import { api, ENDPOINTS } from "@/api";
 
+export const articlesApi = {
+  /**
+   * Obtener lista de articulos
+   * @param {Object} params - Parámetros de búsqueda y paginación
+   * @returns {Promise}
+   */
+  getArticles: (params = {}) => api.get(ENDPOINTS.ARTICLES.LIST, { params }),
 
-export function fetchArticles() {
-  return api.get("/articles/");
-}
+  /**
+   * Obtener detalle de un articulo
+   * @param {string} uuid - UUID del articulo
+   * @returns {Promise}
+   */
+  getAnalysis: (uuid) => api.get(ENDPOINTS.ARTICLES.DETAIL(uuid)),
 
-export function fetchAnalysis(articleId) {
-  return api.get(`/articles/${articleId}/`);
-}
+  /**
+   * Obtener detalle de un análisis
+   * @param {string} uuid - UUID del articulo
+   * @returns {Promise}
+   */
+  triggerAnalysis: (uuid) => api.post(`${ENDPOINTS.ARTICLES.DETAIL(uuid)}/analyze/`),
 
-export function triggerAnalysis(articleId) {
-  return api.post(`/articles/${articleId}/analyze/`);
-}
+};
+
+export default articlesApi;

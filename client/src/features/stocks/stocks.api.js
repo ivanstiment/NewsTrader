@@ -1,6 +1,13 @@
 import { api, ENDPOINTS } from "@/api";
 
-export const stocksService = {
+export const stocksApi = {
+  /**
+   * Obtener lista de stocks
+   * @param {Object} params - Parámetros de búsqueda y paginación
+   * @returns {Promise}
+   */
+  getStocks: (params = {}) => api.get(ENDPOINTS.STOCKS.LIST, { params }),
+
   /**
    * Buscar stocks
    * @param {string} query - Término de búsqueda
@@ -26,4 +33,4 @@ export const stocksService = {
     api.get(ENDPOINTS.STOCKS.HISTORICAL(symbol), { params }),
 };
 
-export default stocksService;
+export default stocksApi;

@@ -1,3 +1,13 @@
-import api from "@/api/axios";
+import { api, ENDPOINTS } from "@/api";
 
-export const getHistoricalPrice = (symbol) => api.get(`/historical-price/${symbol}/`);
+export const historicalPriceApi = {
+  /**
+   * Obtener precio histórico
+   * @param {String} symbol
+   * @returns {Promise}
+   */
+  getHistoricalPrice: (symbol) => api.get(ENDPOINTS.STOCKS.HISTORICAL_PRICE(symbol))
+};
+
+export default historicalPriceApi;
+
