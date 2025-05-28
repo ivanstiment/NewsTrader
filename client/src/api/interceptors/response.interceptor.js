@@ -1,4 +1,4 @@
-import { handleAuthError } from "@/features/auth/auth.handler";
+// client/src/api/interceptors/response.interceptor.js
 import { tokenRefreshManager } from "@/services/api/token/token.handler";
 import { tokenService } from "@/services/api/token/token.service";
 
@@ -6,7 +6,6 @@ import { tokenService } from "@/services/api/token/token.service";
  * Interceptor de respuestas exitosas
  */
 export const responseInterceptor = (response) => {
-  // Log para debugging en desarrollo
   if (import.meta.env.MODE === "development") {
     console.log(
       `✅ ${response.config.method?.toUpperCase()} ${response.config.url}`,
@@ -16,7 +15,6 @@ export const responseInterceptor = (response) => {
       }
     );
   }
-
   return response;
 };
 
@@ -26,7 +24,6 @@ export const responseInterceptor = (response) => {
 export const responseErrorInterceptor = async (error) => {
   const originalRequest = error.config;
 
-  // Log para debugging en desarrollo
   if (import.meta.env.MODE === "development") {
     console.error(
       `❌ ${originalRequest?.method?.toUpperCase()} ${originalRequest?.url}`,
@@ -37,56 +34,50 @@ export const responseErrorInterceptor = async (error) => {
     );
   }
 
-  // NO intentar refresh en estas situaciones:
-  // 1. Errores de login/register (endpoints de autenticación)
-  // 2. Errores que no son 401
-  // 3. Si ya se intentó el refresh
-  const isAuthEndpoint =
-    originalRequest?.url?.includes("/token/") ||
-    originalRequest?.url?.includes("/login/") ||
-    originalRequest?.url?.includes("/register/");
+  // Solo manejar errores 401 para refresh de token
+  if (error.response?.status === 401 && 
+      !originalRequest._retry && 
+      !originalRequest.skipRetryOn401) {
+    
+    // Ignorar errores 401 en endpoints de autenticación
+    const authEndpoints = ["/token/", "/login/", "/register/"];
+    const isAuthEndpoint = authEndpoints.some(endpoint => 
+      originalRequest?.url?.includes(endpoint)
+    );
 
-  const shouldSkipRefresh =
-    isAuthEndpoint || error.response?.status !== 401 || originalRequest._retry;
-
-  if (shouldSkipRefresh) {
-    // Para errores de autenticación en endpoints que NO son de login
-    if (error.response?.status === 401 && !isAuthEndpoint) {
-      return handleAuthError(error);
+    if (isAuthEndpoint) {
+      return Promise.reject(error);
     }
 
-    // Para cualquier otro error, rechazar directamente
-    return Promise.reject(error);
-  }
-
-  // Solo intentar refresh para 401 en endpoints protegidos
-  if (error.response?.status === 401 && !isAuthEndpoint) {
-    // Verificar si tenemos token de acceso
-    const currentToken = tokenService.getAccessToken();
-    if (!currentToken) {
-      // No hay token, redirigir a login
-      tokenService.clearAllTokens();
-      return handleAuthError(error);
+    // Verificar si tenemos refresh token
+    if (!tokenService.getRefreshToken()) {
+      tokenRefreshManager.handleRefreshFailure();
+      return Promise.reject(error);
     }
 
-    // Marcar que ya se intentó el refresh
     originalRequest._retry = true;
 
     try {
-      // Intentar refrescar el token
-      const newToken = await tokenRefreshManager.refreshToken();
-
-      if (newToken) {
-        // Actualizar el header de autorización
-        originalRequest.headers.Authorization = `Bearer ${newToken}`;
-
-        // Reinttentar la petición original
-        return error.config.adapter(originalRequest);
+      const newAccessToken = await tokenRefreshManager.refreshToken();
+      originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+      
+      // Usar la instancia de axios del config original
+      const axiosInstance = originalRequest.__axiosInstance;
+      if (axiosInstance) {
+        return axiosInstance(originalRequest);
       }
+      
+      // Como último recurso, usar adapter
+      if (originalRequest.adapter) {
+        return originalRequest.adapter(originalRequest);
+      }
+      
+      console.error("No se puede reintentar la petición: ni instancia ni adapter disponible");
+      return Promise.reject(error);
+      
     } catch (refreshError) {
-      console.error("Error al refrescar token:", refreshError);
-      // El tokenRefreshManager ya maneja la limpieza y redirección
-      return Promise.reject(refreshError);
+      console.error("Failed to refresh token:", refreshError);
+      return Promise.reject(error);
     }
   }
 
