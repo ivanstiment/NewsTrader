@@ -38,12 +38,6 @@ NewsTrader es un sistema integral de análisis financiero especializado en **sma
 ### 🎯 Objetivo Principal
 Democratizar el acceso a análisis financiero de nivel profesional para trading de small caps, proporcionando herramientas tradicionalmente disponibles solo en terminales premium costosos como Bloomberg o Reuters.
 
-### 📊 Métricas del Sistema
-- **200** noticias financieras analizadas
-- **20** stocks con información completa
-- **1 año** de datos históricos diarios
-- **Análisis de sentimiento automatizado** en tiempo real
-
 ---
 
 ## 🚀 Tecnologías utilizadas
@@ -52,13 +46,13 @@ Democratizar el acceso a análisis financiero de nivel profesional para trading 
 * ![Python](https://img.shields.io/badge/Python-3.13.3-blue?style=flat-square&logo=python) [Python 3.13.3](https://www.python.org/)
 * ![Django](https://img.shields.io/badge/Django-5.2-green?style=flat-square&logo=django) [Django 5.2](https://www.djangoproject.com/)
 * ![DRF](https://img.shields.io/badge/DRF-3.16.0-red?style=flat-square) [Django REST Framework 3.16.0](https://www.django-rest-framework.org/)
-* ![React](https://img.shields.io/badge/React-19.0.0-blue?style=flat-square&logo=react) [React 19.0.0](https://reactjs.org/)
-* ![Vite](https://img.shields.io/badge/Vite-6.3.1-yellow?style=flat-square&logo=vite) [Vite 6.3.1](https://vitejs.dev/)
 * ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Azure-blue?style=flat-square&logo=postgresql) [Azure Database for PostgreSQL](https://azure.microsoft.com/services/postgresql/)
 * ![Redis](https://img.shields.io/badge/Redis-6.1.0-red?style=flat-square&logo=redis) [Redis 6.1.0](https://redis.io/)
+* ![Celery](https://img.shields.io/badge/Celery-5.5.2-green?style=flat-square) [Celery 5.5.2](https://docs.celeryq.dev/)
 
 ### Frontend & Visualización
-* ![Celery](https://img.shields.io/badge/Celery-5.5.2-green?style=flat-square) [Celery 5.5.2](https://docs.celeryq.dev/)
+* ![React](https://img.shields.io/badge/React-19.0.0-blue?style=flat-square&logo=react) [React 19.0.0](https://reactjs.org/)
+* ![Vite](https://img.shields.io/badge/Vite-6.3.1-yellow?style=flat-square&logo=vite) [Vite 6.3.1](https://vitejs.dev/)
 * ![ApexCharts](https://img.shields.io/badge/ApexCharts-4.7.0-orange?style=flat-square) [ApexCharts 4.7.0](https://apexcharts.com/)
 * ![Axios](https://img.shields.io/badge/Axios-1.8.4-purple?style=flat-square) [Axios 1.8.4](https://axios-http.com/)
 * ![JWT Decode](https://img.shields.io/badge/JWT%20Decode-4.0.0-orange?style=flat-square) [JWT Decode 4.0.0](https://github.com/auth0/jwt-decode)
@@ -165,7 +159,7 @@ Democratizar el acceso a análisis financiero de nivel profesional para trading 
   # SECRET_KEY=tu_clave_secreta_django
   # DEBUG=True
   # CELERY_BROKER_URL=redis://localhost:6379/0
-  # CELERY_RESULT_BACKEND=redis://localhost:6379/0
+  # CELERY_RESULT_BACKEND=redis://localhost:6379/1
   ```
 
 5. **Ejecutar servicios**
@@ -254,26 +248,6 @@ GET  /historical-price/{symbol}/ # Datos históricos de precios
 
 ---
 
-## ☁️ Despliegue
-
-### Arquitectura en Azure
-
-NewsTrader utiliza una arquitectura cloud-native en Microsoft Azure:
-
-- **🌐 Frontend:** Azure Static Web Apps
-- **⚡ Backend:** Azure App Service  
-- **🗄️ Base de datos:** Azure Database for PostgreSQL
-- **🔄 Cache:** Azure Cache for Redis
-- **🔒 Red:** Virtual Network con endpoints privados
-- **🚀 CI/CD:** GitHub Actions automatizado
-
-### URLs de producción
-- **🌟 Aplicación Live:** [https://salmon-stone-0e4a4f410.6.azurestaticapps.net/](https://salmon-stone-0e4a4f410.6.azurestaticapps.net/)
-- **🔧 API Backend:** [https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net/](https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net/)
-- **📖 Documentación:** [https://ivanstiment.github.io/NewsTrader/](https://ivanstiment.github.io/NewsTrader/)
-
----
-
 ## 🤝 Contribuir
 
 Las contribuciones son bienvenidas y muy apreciadas. Para contribuir:
@@ -296,7 +270,7 @@ Las contribuciones son bienvenidas y muy apreciadas. Para contribuir:
 
 ## 📄 Licencia
 
-Distribuido bajo la Licencia MIT. Ve `LICENSE.txt` para más información.
+Distribuido bajo la Creative Commons CC0 1.0 Universal. Ve `LICENSE.txt` para más información.
 
 ---
 
