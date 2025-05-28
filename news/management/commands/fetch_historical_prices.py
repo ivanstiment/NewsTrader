@@ -1,6 +1,6 @@
 import yfinance as yf
 from django.core.management.base import BaseCommand
-from models import HistoricalPrice
+from news.models.stock_models import HistoricalPrice
 
 
 class Command(BaseCommand):
