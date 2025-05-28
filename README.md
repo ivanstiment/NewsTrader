@@ -1,281 +1,336 @@
-<a name="readme-top"></a>
+![Logo](images/logo.png)
 
-<!-- PROJECT SHIELDS -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+# NewsTrader
+**Sistema automatizado de monitoreo y análisis de noticias para trading de small caps en tiempo real**
 
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <a href="https://github.com/ivanstiment/NewsTrader">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
+[![Explorar documentación »](https://img.shields.io/badge/Docs-Explorar-blue?style=for-the-badge)](https://ivanstiment.github.io/NewsTrader/)
+[![Ver Demo](https://img.shields.io/badge/Demo-Ver%20Live-success?style=for-the-badge)](https://salmon-stone-0e4a4f410.6.azurestaticapps.net/)
+[![Reportar Bug](https://img.shields.io/badge/Bug-Reportar-red?style=for-the-badge)](https://github.com/ivanstiment/NewsTrader/issues)
+[![Solicitar Feature](https://img.shields.io/badge/Feature-Solicitar-yellow?style=for-the-badge)](https://github.com/ivanstiment/NewsTrader/issues)
 
-  <h3 align="center">client</h3>
+---
 
-  <p align="center">
-    Descripción del proyecto
-    <br />
-    <a href="https://github.com/ivanstiment/NewsTrader"><strong>Explorar documentación »</strong></a>
-    <br />
-    <br />
-    <a href="https://salmon-stone-0e4a4f410.6.azurestaticapps.net/">Ver Demo</a>
-    ·
-    <a href="https://github.com/ivanstiment/NewsTrader/issues">Reportar Bug</a>
-    ·
-    <a href="https://github.com/ivanstiment/NewsTrader/issues">Solicitar Feature</a>
-  </p>
-</div>
+## 📋 Tabla de Contenidos
 
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Tabla de Contenidos</summary>
-  <ol>
-    <li>
-      <a href="#acerca-del-proyecto">Acerca del Proyecto</a>
-      <ul>
-        <li><a href="#construido-con">Construido Con</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#comenzando">Comenzando</a>
-      <ul>
-        <li><a href="#prerequisitos">Prerequisitos</a></li>
-        <li><a href="#instalación">Instalación</a></li>
-      </ul>
-    </li>
-    <li><a href="#uso">Uso</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contribuir">Contribuir</a></li>
-    <li><a href="#licencia">Licencia</a></li>
-    <li><a href="#contacto">Contacto</a></li>
-    <li><a href="#reconocimientos">Reconocimientos</a></li>
-  </ol>
-</details>
+- [Descripción del proyecto](#descripción-del-proyecto)
+- [Tecnologías utilizadas](#tecnologías-utilizadas)
+- [Características principales](#características-principales)
+- [Instalación](#instalación)
+- [Uso](#uso)
+- [API Endpoints](#api-endpoints)
+- [Despliegue](#despliegue)
+- [Contribuir](#contribuir)
+- [Licencia](#licencia)
+- [Reconocimientos](#reconocimientos)
 
-<!-- ABOUT THE PROJECT -->
-## Acerca del Proyecto
+---
 
-[![Captura del Producto][product-screenshot]](https://salmon-stone-0e4a4f410.6.azurestaticapps.net/)
+## 📖 Descripción del proyecto
 
-Descripción del proyecto
+NewsTrader es un sistema integral de análisis financiero especializado en **small caps** que combina:
 
-Aquí encontrarás información sobre este proyecto desarrollado con las siguientes tecnologías:
+🔍 **Extracción automatizada** de noticias financieras desde Yahoo Finance  
+📊 **Análisis de sentimiento** utilizando diccionarios especializados Loughran-McDonald  
+📈 **Visualización interactiva** con correlación noticia-precio mediante ApexCharts  
+🤖 **Procesamiento asíncrono** con Celery y Redis para análisis en tiempo real  
+🏗️ **Arquitectura cloud-native** desplegada en Microsoft Azure  
 
-<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
+### 🎯 Objetivo Principal
+Democratizar el acceso a análisis financiero de nivel profesional para trading de small caps, proporcionando herramientas tradicionalmente disponibles solo en terminales premium costosos como Bloomberg o Reuters.
 
-### Construido Con
+### 📊 Métricas del Sistema
+- **200** noticias financieras analizadas
+- **20** stocks con información completa
+- **1 año** de datos históricos diarios
+- **Análisis de sentimiento automatizado** en tiempo real
 
-Este proyecto fue desarrollado utilizando las siguientes tecnologías principales:
+---
 
-* [React.js](https://reactjs.org/)
-* [Vite](https://vitejs.dev/)
-* [Axios](https://axios-http.com/)
+## 🚀 Tecnologías utilizadas
 
-<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
+### Backend
+* ![Python](https://img.shields.io/badge/Python-3.13.3-blue?style=flat-square&logo=python) [Python 3.13.3](https://www.python.org/)
+* ![Django](https://img.shields.io/badge/Django-5.2-green?style=flat-square&logo=django) [Django 5.2](https://www.djangoproject.com/)
+* ![DRF](https://img.shields.io/badge/DRF-3.16.0-red?style=flat-square) [Django REST Framework 3.16.0](https://www.django-rest-framework.org/)
+* ![React](https://img.shields.io/badge/React-19.0.0-blue?style=flat-square&logo=react) [React 19.0.0](https://reactjs.org/)
+* ![Vite](https://img.shields.io/badge/Vite-6.3.1-yellow?style=flat-square&logo=vite) [Vite 6.3.1](https://vitejs.dev/)
+* ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Azure-blue?style=flat-square&logo=postgresql) [Azure Database for PostgreSQL](https://azure.microsoft.com/services/postgresql/)
+* ![Redis](https://img.shields.io/badge/Redis-6.1.0-red?style=flat-square&logo=redis) [Redis 6.1.0](https://redis.io/)
 
-<!-- GETTING STARTED -->
-## Comenzando
+### Frontend & Visualización
+* ![Celery](https://img.shields.io/badge/Celery-5.5.2-green?style=flat-square) [Celery 5.5.2](https://docs.celeryq.dev/)
+* ![ApexCharts](https://img.shields.io/badge/ApexCharts-4.7.0-orange?style=flat-square) [ApexCharts 4.7.0](https://apexcharts.com/)
+* ![Axios](https://img.shields.io/badge/Axios-1.8.4-purple?style=flat-square) [Axios 1.8.4](https://axios-http.com/)
+* ![JWT Decode](https://img.shields.io/badge/JWT%20Decode-4.0.0-orange?style=flat-square) [JWT Decode 4.0.0](https://github.com/auth0/jwt-decode)
 
-Para obtener una copia local funcionando, sigue estos pasos simples.
+### Cloud & Infrastructure
+* ![Azure](https://img.shields.io/badge/Azure-Cloud-blue?style=flat-square&logo=microsoft-azure) [Microsoft Azure](https://azure.microsoft.com/)
+* ![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-CI%2FCD-black?style=flat-square&logo=github) [GitHub Actions](https://github.com/features/actions)
+
+---
+
+## ✨ Características principales
+
+### 🔐 **Sistema de Autenticación Avanzado**
+- Registro y login con validación robusta
+- Autenticación JWT con tokens de acceso y refresh
+- Gestión de sesiones seguras con blacklist de tokens
+
+### 📰 **Análisis de Noticias Inteligente**
+- Extracción automática desde Yahoo Finance
+- Análisis de sentimiento especializado en terminología financiera
+- Procesamiento asíncrono con Celery para análisis en tiempo real
+- Estados visuales: Analizar → Analizando → Re-analizar
+
+### 🔍 **Búsqueda de Stocks Avanzada**
+- Filtrado inteligente por símbolo bursátil
+- Validaciones multinivel con mensajes contextuales
+- Catálogo visual de instrumentos disponibles
+
+### 📊 **Terminal Financiero Completo**
+- Métricas financieras de nivel Bloomberg
+- Datos corporativos completos (balance, P&L, cash flow)
+- Ratios de rentabilidad, liquidez y solvencia
+- Enlaces contextuales a información oficial
+
+### 📈 **Visualización Innovadora (Característica Estrella)**
+- Gráficas interactivas con ApexCharts
+- **Correlación visual única** entre noticias y movimientos de precios
+- Candlestick charts profesionales con volumen sincronizado  
+- Tooltips contextuales con información de noticias por fecha
+- Navegación temporal flexible con zoom y pan
+
+---
+
+## 🛠️ Instalación
 
 ### Prerequisitos
 
-Lista de software necesario y cómo instalarlo.
-
 **Backend (Django):**
-* Python 3.8+
-  ```sh
-  python --version
-  ```
-* pip
-  ```sh
-  pip install --upgrade pip
-  ```
+- Python 3.8+
+- pip actualizado
 
 **Frontend (React + Vite):**
-* Node.js 16+
-  ```sh
-  node --version
+- Node.js 20.15.1
+- npm 10.7.0
+
+**Servicios adicionales:**
+- Redis Server (para Celery)
+- PostgreSQL (producción) / SQLite (desarrollo)
+
+### Configuración paso a paso
+
+1. **Clonar el repositorio**
+  ```bash
+  git clone https://github.com/ivanstiment/NewsTrader.git
+  cd NewsTrader
   ```
-* npm
-  ```sh
-  npm install npm@latest -g
+
+2. **Configuración del Backend (Django)**
+  ```bash
+  # Crear entorno virtual
+  python -m venv venv
+  
+  # Activar entorno virtual
+  # Windows:
+  venv\Scripts\activate
+  # macOS/Linux:
+  source venv/bin/activate
+  
+  # Instalar dependencias
+  pip install -r requirements.txt
+  
+  # Realizar migraciones
+  python manage.py migrate
+  
+  # Crear superusuario (opcional)
+  python manage.py createsuperuser
   ```
 
-### Instalación
+3. **Configuración del Frontend (React + Vite)**
+  ```bash
+  cd client
+  
+  # Instalar dependencias
+  npm install
+  ```
 
-1. Clona el repositorio
-   ```sh
-   git clone https://github.com/ivanstiment/NewsTrader.git
-   cd NewsTrader
-   ```
+4. **Variables de entorno**
+  ```bash
+  # Crear archivo .env en la raíz del proyecto
+  cp .env.example .env
+  
+  # Configurar variables (ejemplo):
+  # DATABASE_URL=tu_base_de_datos
+  # SECRET_KEY=tu_clave_secreta_django
+  # DEBUG=True
+  # CELERY_BROKER_URL=redis://localhost:6379/0
+  # CELERY_RESULT_BACKEND=redis://localhost:6379/0
+  ```
 
-2. **Configuración del Backend (Django):**
-   ```sh
-   # Crear entorno virtual
-   python -m venv venv
-   
-   # Activar entorno virtual
-   # En Windows:
-   venv\Scripts\activate
-   # En macOS/Linux:
-   source venv/bin/activate
-   
-   # Instalar dependencias
-   pip install -r requirements.txt
-   
-   # Realizar migraciones
-   python manage.py migrate
-   
-   # Crear superusuario (opcional)
-   python manage.py createsuperuser
-   ```
+5. **Ejecutar servicios**
 
-3. **Configuración del Frontend (React + Vite):**
-   ```sh
-   cd client
-   
-   # Instalar dependencias
-   npm install
-   ```
+  **Terminal 1 - Redis Server:**
+  ```bash
+  redis-server
+  ```
 
-4. **Variables de entorno:**
-   ```sh
-   # Crear archivo .env en la raíz del proyecto
-   cp .env.example .env
-   
-   # Editar .env con tus configuraciones
-   # DATABASE_URL=tu_base_de_datos
-   # SECRET_KEY=tu_clave_secreta
-   # DEBUG=True
-   ```
+  **Terminal 2 - Backend Django:**
+  ```bash
+  python manage.py runserver
+  ```
 
-5. **Ejecutar el proyecto:**
-   
-   **Terminal 1 - Backend (Django):**
-   ```sh
-   python manage.py runserver
-   ```
-   
-   **Terminal 2 - Frontend (React + Vite):**
-   ```sh
-   cd client
-   npm run dev
-   ```
+  **Terminal 3 - Worker Celery:**
+  ```bash
+  celery -A news_trader worker --loglevel=info --events -P eventlet
+  ```
 
-El backend estará disponible en `http://localhost:8000`
-El frontend estará disponible en `http://localhost:5173`
+  **Terminal 4 - Frontend React:**
+  ```bash
+  cd client
+  npm run dev
+  ```
 
-<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
+### 🌐 URLs de acceso
+- **Frontend:** http://localhost:5173
+- **Backend API:** http://localhost:8000/api/
+- **Admin Panel:** http://localhost:8000/admin/
+- **API Docs:** http://localhost:8000/api/docs/
 
-<!-- USAGE EXAMPLES -->
-## Uso
+---
 
-### API Endpoints
+## 💻 Uso
 
-El backend de Django proporciona una API REST. Algunos endpoints principales:
+### 🎯 Flujo principal de usuario
 
+1. **Registro/Login:** Sistema de autenticación con validación robusta
+2. **Dashboard de Noticias:** Listado con análisis de sentimiento automático
+3. **Búsqueda de Stocks:** Filtrado inteligente por símbolo bursátil  
+4. **Análisis Detallado:** Terminal financiero con métricas completas
+5. **Visualización Avanzada:** Gráficas con correlación noticia-precio
+
+### 🔍 Análisis de Sentimiento
+- **Automático:** Se ejecuta al cargar nuevas noticias
+- **Manual:** Botón "Analizar" para análisis bajo demanda
+- **Resultados:** POSITIVO/NEUTRAL/NEGATIVO con puntuación numérica
+
+### 📊 Correlación Visual (Característica Única)
+- Puntos amarillos indican días con noticias
+- Tooltips muestran precios OHLCV + título de noticia
+- Sincronización perfecta entre gráficas de precio y volumen
+- Zoom temporal desde días individuales hasta meses completos
+
+---
+
+## 🔌 API Endpoints
+
+La API REST está completamente documentada con OpenAPI 3.0:
+
+### 🔑 Autenticación
 ```
-GET  /api/                    # Documentación de la API
-POST /api/auth/login/         # Login de usuario
-GET  /api/users/              # Lista de usuarios
+POST /token/                    # Login (obtener tokens JWT)
+POST /token/refresh/            # Renovar token de acceso
+POST /logout/                   # Logout
+POST /register/                 # Registro de usuario
 ```
 
-### Interfaz de Usuario
+### 📰 Noticias
+```
+GET  /news/                     # Listar noticias (con paginación)
+GET  /news/{id}/                # Detalle de noticia
+POST /news/{id}/analyze/        # Analizar sentimiento
+```
 
-La aplicación React proporciona una interfaz moderna y responsiva. Navega a `http://localhost:5173` para ver la aplicación en funcionamiento.
+### 📈 Stocks
+```
+GET  /stocks/                   # Listar stocks disponibles
+GET  /stock/{symbol}/           # Detalle completo del stock
+GET  /historical-price/{symbol}/ # Datos históricos de precios
+```
 
-### Panel de Administración
+### 📚 Documentación completa
+- **Swagger UI:** [https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net/api/docs/](https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net/api/docs/)
+- **Schema OpenAPI:** [https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net//api/schema/](https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net//api/schema/)
 
-Django incluye un panel de administración automático:
-- URL: `http://localhost:8000/admin/`
-- Usa las credenciales del superusuario creado durante la instalación
+---
 
-_Para más ejemplos, por favor consulta la [Documentación](https://github.com/ivanstiment/NewsTrader)_
+## ☁️ Despliegue
 
-<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
+### Arquitectura en Azure
 
-<!-- ROADMAP -->
-## Roadmap
+NewsTrader utiliza una arquitectura cloud-native en Microsoft Azure:
 
-- [x] Configurar Django REST Framework
-- [x] Integrar React con Vite
-- [x] Configurar autenticación
-- [ ] Añadir tests unitarios (Django + React)
-- [ ] Implementar CI/CD
-- [ ] Dockerizar la aplicación
-- [ ] Añadir documentación de API con Swagger
-- [ ] Soporte para notificaciones en tiempo real
-- [ ] Optimización de rendimiento
+- **🌐 Frontend:** Azure Static Web Apps
+- **⚡ Backend:** Azure App Service  
+- **🗄️ Base de datos:** Azure Database for PostgreSQL
+- **🔄 Cache:** Azure Cache for Redis
+- **🔒 Red:** Virtual Network con endpoints privados
+- **🚀 CI/CD:** GitHub Actions automatizado
 
-Ve los [issues abiertos](https://github.com/ivanstiment/NewsTrader/issues) para una lista completa de características propuestas (y problemas conocidos).
+### URLs de producción
+- **🌟 Aplicación Live:** [https://salmon-stone-0e4a4f410.6.azurestaticapps.net/](https://salmon-stone-0e4a4f410.6.azurestaticapps.net/)
+- **🔧 API Backend:** [https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net/](https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net/)
+- **📖 Documentación:** [https://ivanstiment.github.io/NewsTrader/](https://ivanstiment.github.io/NewsTrader/)
 
-<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
+---
 
-<!-- CONTRIBUTING -->
-## Contribuir
+## 🤝 Contribuir
 
-Las contribuciones son lo que hacen a la comunidad open source un lugar increíble para aprender, inspirar y crear. Cualquier contribución que hagas es **muy apreciada**.
+Las contribuciones son bienvenidas y muy apreciadas. Para contribuir:
 
-Si tienes una sugerencia que podría mejorar esto, por favor haz fork del repositorio y crea un pull request. También puedes simplemente abrir un issue con la etiqueta "enhancement".
-¡No olvides darle una estrella al proyecto! Gracias de nuevo.
+1. **Fork** el proyecto
+2. **Crea** tu rama de feature (`git checkout -b feature/AmazingFeature`)
+3. **Commit** tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. **Push** a la rama (`git push origin feature/AmazingFeature`)
+5. **Abre** un Pull Request
 
-1. Haz Fork del Proyecto
-2. Crea tu Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit tus Cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la Branch (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+### 🛣️ Roadmap futuro
+- [ ] Sistema de alertas automatizadas
+- [ ] Análisis predictivo con Machine Learning  
+- [ ] Integración con brokers populares
+- [ ] Aplicación móvil nativa
+- [ ] Soporte para mercados internacionales
+- [ ] Análisis de redes sociales (Twitter, Reddit)
 
-<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
+---
 
-<!-- LICENSE -->
-## Licencia
+## 📄 Licencia
 
 Distribuido bajo la Licencia MIT. Ve `LICENSE.txt` para más información.
 
-<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
+---
 
-<!-- CONTACT -->
-## Contacto
+## 📞 Contacto
 
-Iván Soto - [@tu_twitter](https://twitter.com/tu_twitter) - email@ejemplo.com
+**Iván Soto** - isotocos@uoc.edu
 
-Link del Proyecto: [https://github.com/ivanstiment/NewsTrader](https://github.com/ivanstiment/NewsTrader)
+**🔗 Links del proyecto:**
+- 🌟 **Demo Live:** [https://salmon-stone-0e4a4f410.6.azurestaticapps.net/](https://salmon-stone-0e4a4f410.6.azurestaticapps.net/)
+- 📁 **Repositorio:** [https://github.com/ivanstiment/NewsTrader](https://github.com/ivanstiment/NewsTrader)
+- 📖 **Documentación:** [https://ivanstiment.github.io/NewsTrader/](https://ivanstiment.github.io/NewsTrader/)
+- 🔧 **API Docs:** [https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net/api/docs/](https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net/api/docs/)
 
-<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
+---
 
-<!-- ACKNOWLEDGMENTS -->
-## Reconocimientos
+## 🙏 Reconocimientos
 
-Utiliza este espacio para listar recursos que encuentres útiles y a los que te gustaría dar crédito. ¡He incluido algunos de mis favoritos para comenzar!
+Recursos y herramientas que hicieron posible este proyecto:
 
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
-* [Malven's Grid Cheatsheet](https://grid.malven.co/)
-* [Img Shields](https://shields.io)
-* [GitHub Pages](https://pages.github.com)
-* [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
+* [Yahoo Finance API](https://pypi.org/project/yfinance/) - Datos financieros
+* [Loughran-McDonald Dictionary](https://sraf.nd.edu/textual-analysis/resources/) - Análisis de sentimiento financiero
+* [ApexCharts](https://apexcharts.com/) - Visualizaciones interactivas
+* [Django REST Framework](https://www.django-rest-framework.org/) - API REST robusta
+* [Celery](https://docs.celeryq.dev/) - Procesamiento asíncrono
+* [Microsoft Azure](https://azure.microsoft.com/) - Infraestructura cloud
+* [GitHub Actions](https://github.com/features/actions) - CI/CD automatizado
 
-<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
+---
 
-<!-- MARKDOWN LINKS & IMAGES -->
-[contributors-shield]: https://img.shields.io/github/contributors/ivanstiment/NewsTrader.svg?style=for-the-badge
-[contributors-url]: https://github.com/ivanstiment/NewsTrader/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/ivanstiment/NewsTrader.svg?style=for-the-badge
-[forks-url]: https://github.com/ivanstiment/NewsTrader/network/members
-[stars-shield]: https://img.shields.io/github/stars/ivanstiment/NewsTrader.svg?style=for-the-badge
-[stars-url]: https://github.com/ivanstiment/NewsTrader/stargazers
-[issues-shield]: https://img.shields.io/github/issues/ivanstiment/NewsTrader.svg?style=for-the-badge
-[issues-url]: https://github.com/ivanstiment/NewsTrader/issues
-[license-shield]: https://img.shields.io/github/license/ivanstiment/NewsTrader.svg?style=for-the-badge
-[license-url]: https://github.com/ivanstiment/NewsTrader/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/tu-perfil
-[product-screenshot]: images/screenshot.png
+<div align="center">
+
+**⭐ Si este proyecto te resulta útil, considera darle una estrella ⭐**
+
+[![Stargazers](https://img.shields.io/github/stars/ivanstiment/NewsTrader?style=social)](https://github.com/ivanstiment/NewsTrader/stargazers)
+[![Follow](https://img.shields.io/github/followers/ivanstiment?style=social)](https://github.com/ivanstiment)
+
+</div>
