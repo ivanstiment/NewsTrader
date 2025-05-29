@@ -1,26 +1,43 @@
-import { api, ENDPOINTS } from "@/api";
-import { getCookie } from "./csrf.util";
+// client/src/services/api/csrf/csrf.service.js
+import { ENDPOINTS } from "@/api/config/endpoints";
+
+// No importamos apiClient aquí para evitar dependencia circular
+// Se inyectará desde el interceptor
+
+let apiClientInstance = null;
 
 export const csrfService = {
-  /**
-   * Llama al endpoint que siempre setea la cookie CSRF en el navegador
-   */
-  fetchCsrfToken: async () => {
-    const res = await api.get(ENDPOINTS.CONFIG.CSRF, { withCredentials: true });
-    // El token estará en la cookie tras esta llamada
-    return res.data.csrfToken;
+  // Método para inyectar el cliente API (llamado desde el interceptor)
+  setApiClient(client) {
+    apiClientInstance = client;
   },
 
   /**
-   * Devuelve el token actual de cookie, o lo recupera si falta
+   * Obtiene el token CSRF del servidor
+   * Usa una configuración especial para evitar bucles infinitos
    */
-  ensureCsrfToken: async () => {
-    let token = getCookie();
-    if (!token) {
-      token = await this.fetchCsrfToken();
+  fetchCsrfToken: async () => {
+    if (!apiClientInstance) {
+      throw new Error("API client no inicializado");
     }
-    return token;
-  },
+
+    try {
+      const response = await apiClientInstance.get(ENDPOINTS.CONFIG.CSRF, {
+        // Configuración especial para evitar interceptors
+        skipCsrfCheck: true,  // Evita el request interceptor CSRF
+        skipAuthCheck: true   // Evita verificación de auth
+      });
+      
+      const token = response.data.csrfToken;
+      if (!token) {
+        throw new Error("CSRF token no recibido del servidor");
+      }
+      return token;
+    } catch (error) {
+      console.error("Error fetching CSRF token:", error);
+      throw error;
+    }
+  }
 };
 
 export default csrfService;

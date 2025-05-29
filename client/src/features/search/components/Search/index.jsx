@@ -15,7 +15,7 @@ export function Search() {
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // 1) Carga inicial de stocks
+  // Carga inicial de stocks
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -33,7 +33,7 @@ export function Search() {
     };
   }, []);
 
-  // 2) Filtrado memoizado
+  // Filtrado memoizado
   const filteredStocks = useMemo(() => {
     if (!searchTerm.trim()) return stocks;
     const term = searchTerm.trim().toUpperCase();

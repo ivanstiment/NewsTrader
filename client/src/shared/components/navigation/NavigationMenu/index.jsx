@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
 import { useAuth } from "@/features/auth/hooks/auth-context.hook";
 import {
   LogoIcon,
@@ -9,6 +7,8 @@ import {
   NewsPaperIcon,
   SearchIcon,
 } from "@/shared/components/icons";
+import { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import styles from "./NavigationMenu.module.scss";
 
 export function NavigationMenu() {
@@ -106,24 +106,33 @@ export function NavigationMenu() {
             </Link>
           </li>
           <li className={styles["menu__item"]}>
-            <Link
+            <NavLink
               to="search"
               onClick={handleToggle}
-              className={styles["menu__link"]}
+              className={({ isActive }) =>
+                `${styles["menu__link"]} ${
+                  isActive ? styles["menu__link--active"] : ""
+                }`
+              }
             >
               <span>Buscar</span>
-            </Link>
+            </NavLink>
           </li>
           <li className={styles["menu__item"]}>
-            <Link
+            <NavLink
               to="news"
               onClick={handleToggle}
-              className={styles["menu__link"]}
+              className={({ isActive }) =>
+                `${styles["menu__link"]} ${
+                  isActive ? styles["menu__link--active"] : ""
+                }`
+              }
             >
               <span>Noticias</span>
-            </Link>
+            </NavLink>
           </li>
         </ul>
+
         <ul className={styles["menu__list"]}>
           <li className={styles["menu__item"]}>
             <Link

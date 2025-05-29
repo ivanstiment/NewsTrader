@@ -268,3 +268,4 @@ cython_debug/
 *.temp
 *.tempfile
 *.tempdir
+.unlighthouse

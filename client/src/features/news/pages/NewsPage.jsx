@@ -1,8 +1,5 @@
 import { NewsList } from "../components/NewsList/index";
-import { searchTermPropTypes } from "@/features/search/search-term.propTypes";
 
-export function NewsPage({ searchTerm }) {
-  return <NewsList searchTerm={searchTerm} />;
+export function NewsPage() {
+  return <NewsList />;
 }
-
-NewsPage.propTypes = searchTermPropTypes;

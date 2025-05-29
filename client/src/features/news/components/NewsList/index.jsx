@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
-import { newsApi } from  "@/features/news/news.api";
 import { useAuth } from "@/features/auth/hooks/auth-context.hook";
+import { newsApi } from "@/features/news/news.api";
 import { searchTermPropTypes } from "@/features/search/search-term.propTypes";
+import { useSearch } from "@/features/search/SearchContext";
+import { useEffect, useState } from "react";
 import { NewCard } from "../NewCard";
 import styles from "./NewsList.module.scss";
 
-export function NewsList({ searchTerm, initialPageSize = 15 }) {
+export function NewsList({ initialPageSize = 15 }) {
+  const { searchTerm } = useSearch();
   const { loading: authLoading } = useAuth();
   const [news, setNews] = useState([]);
   // Estado para término de búsqueda, página actual y tamaño de página

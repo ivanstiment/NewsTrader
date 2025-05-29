@@ -14,7 +14,6 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.scss";
 
 export default function AppRoutes() {
-  const [searchTerm, setSearchTerm] = useState("");
   const [searchStock, setSearchStock] = useState("");
 
   return (
@@ -37,7 +36,7 @@ export default function AppRoutes() {
           element={<StockPage searchStock={searchStock} />}
         />
         <Route path="historical-price/:symbol" element={<StockChart />} />
-        <Route path="news" element={<NewsPage searchTerm={searchTerm} />} />
+        <Route path="news" element={<NewsPage />} />
         <Route path="news-create" element={<NewFormPage />} />
         <Route path="news/:uuid" element={<NewFormPage />} />
 

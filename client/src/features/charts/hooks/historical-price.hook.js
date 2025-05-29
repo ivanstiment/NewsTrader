@@ -19,9 +19,8 @@ const tooltipClasses = {
 function buildAnnotationPoints(hist, newsByDate) {
   const points = [];
   for (const item of hist) {
-    const day = item.date; // ISO “YYYY-MM-DD”
+    const day = item.date;
     const titles = newsByDate[day] || [];
-    // titles.forEach: no unused vars, just repeat once per title
     titles.forEach(() => {
       points.push({
         x: new Date(day).getTime(),
@@ -105,7 +104,6 @@ export function useHistoricalPrice(symbol, showVolume) {
     return () => {
       cancelled = true;
     };
-    // }, [symbol, showVolume, JSON.stringify(newsByDate)]);
   }, [symbol, showVolume, newsByDate]);
 
   return {

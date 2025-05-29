@@ -1,4 +1,5 @@
 import { api, ENDPOINTS } from "@/api";
+import { newsApi } from "../../news.api";
 import { ExternalLinkIcon } from "@/shared/components/icons";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
@@ -49,7 +50,7 @@ export function NewCard({ newItem }) {
     toast.loading("Encolando análisis…", { id: newItem.uuid });
 
     try {
-      await api.post(ENDPOINTS.NEWS.ANALYZE(newItem.uuid));
+      await newsApi.triggerNewAnalisis(newItem.uuid);
       toast.success("Análisis encolado", { id: newItem.uuid });
 
       // Polling: cada 2s consultamos hasta que analysis !== null

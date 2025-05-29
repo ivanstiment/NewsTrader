@@ -3,8 +3,11 @@ import { useAuth } from "@/features/auth/hooks/auth-context.hook";
 import { searchTermPropTypes } from "@/features/search/search-term.propTypes";
 import { ArrowRightIcon, LogoIcon } from "@/shared/components/icons";
 import styles from "./Header.module.scss";
+import { useSearch } from "@/features/search/SearchContext";
 
-export function Header({ searchTerm, setSearchTerm }) {
+
+export function Header() {
+  const { searchTerm, setSearchTerm } = useSearch();
   const location = useLocation();
   const navigate = useNavigate();
   const path = location.pathname;

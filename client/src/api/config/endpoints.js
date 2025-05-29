@@ -71,7 +71,6 @@ export const ENDPOINTS = {
     LIST: "/stocks/",
     SEARCH: "/stocks/search/",
     DETAIL: (symbol) => `/stock/${symbol}/`,
-    // HISTORICAL: (symbol) => `/stocks/${symbol}/historical/`,
     HISTORICAL_PRICE: (symbol) => `/historical-price/${symbol}/`,
   },
 };

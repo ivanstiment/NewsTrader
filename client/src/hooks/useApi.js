@@ -36,6 +36,10 @@ export function useApi() {
         if (showSuccessToast) {
           toast.success(successMessage, {
             duration: 3000,
+            style: {
+              background: '#10B981',
+              color: '#fff',
+            },
           });
         }
 

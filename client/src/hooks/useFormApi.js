@@ -30,7 +30,13 @@ export function useFormApi() {
         const result = await apiCall();
 
         if (showSuccessToast) {
-          toast.success(successMessage, { duration: 3000 });
+          toast.success(successMessage, {
+            duration: 3000,
+            style: {
+              background: '#10B981',
+              color: '#fff',
+            },
+          });
         }
 
         if (onSuccess) {
@@ -42,33 +48,43 @@ export function useFormApi() {
         setError(err);
 
         // Manejar errores de validación de campo (400)
-        if (err.response?.status === 400 && err.response?.data) {
+        if (err.response?.status === 400) {
           const data = err.response.data;
           
-          // Extraer errores de campo específicos
-          const extractedFieldErrors = {};
+          const extractedErrors = {};
           Object.keys(data).forEach(key => {
             if (Array.isArray(data[key]) && key !== 'non_field_errors') {
-              extractedFieldErrors[key] = data[key];
+              extractedErrors[key] = data[key];
             }
           });
-          
-          setFieldErrors(extractedFieldErrors);
-          
-          // Mostrar errores generales si existen
-          if (data.non_field_errors || data.detail) {
-            const generalError = data.non_field_errors?.[0] || data.detail;
-            if (showErrorToast && generalError) {
-              toast.error(generalError, { duration: 4000 });
-            }
-          }
-        } else {
-          // Para otros tipos de error, usar el handler global
-          if (showErrorToast) {
-            handleError(err, {
-              context: { ...context, component: "useFormApi" },
+          setFieldErrors(extractedErrors);
+
+          if (data.detail) {
+            toast.error(data.detail, {
+              duration: 4000,
+              style: {
+                background: '#EF4444',
+                color: '#fff',
+              },
             });
           }
+        } else if (err.response?.status === 401) {
+          const message = err.response.data?.detail || 'Credenciales incorrectas';
+          toast.error(message, {
+            duration: 4000,
+            style: {
+              background: '#EF4444',
+              color: '#fff',
+            },
+          });
+        } else {
+          toast.error('Ha ocurrido un error inesperado', {
+            duration: 4000,
+            style: {
+              background: '#EF4444',
+              color: '#fff',
+            },
+          });
         }
 
         if (onError) {
