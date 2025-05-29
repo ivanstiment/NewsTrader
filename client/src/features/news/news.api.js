@@ -56,6 +56,14 @@ export const newsApi = {
    */
   getNewsBySymbol: (symbol) => 
     api.get(ENDPOINTS.NEWS.BY_SYMBOL(symbol.toUpperCase())),
+
+  /**
+   * Analizar noticia
+   * @param {string} uuid - UUID de la noticia
+   * @returns {Promise}
+   */
+  triggerNewAnalisis: (uuid) =>
+    api.post(ENDPOINTS.NEWS.ANALYZE(uuid)),
 };
 
 export default newsApi;
