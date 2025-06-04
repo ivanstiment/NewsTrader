@@ -24,11 +24,10 @@ SECRET_KEY = os.environ.get(
     "django-insecure-tq&z7$*sz9k^^4^b@_43c3ggo=lvrswuui2g@fjuy!1q%p006$",
 )
 
-DEBUG = False
+DEBUG = True
 IS_PRODUCTION = not DEBUG
 
-print("DEBUG:", DEBUG)
-print("IS_PRODUCTION:", IS_PRODUCTION)
+print(f"🔧 Django inicializandose: DEBUG={DEBUG}, IS_PRODUCTION={IS_PRODUCTION}")
 
 if IS_PRODUCTION:
     ALLOWED_HOSTS = [
@@ -38,6 +37,7 @@ if IS_PRODUCTION:
         ".azurestaticapps.net",
         ".redis.cache.windows.net",
     ] + [f"169.254.129.{i}" for i in range(1, 255)]
+    print("ALLOWED_HOSTS:", ALLOWED_HOSTS)
     CSRF_COOKIE_SAMESITE = None
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SAMESITE = None
@@ -47,17 +47,17 @@ if IS_PRODUCTION:
         os.environ.get("FRONTEND_URL"),
         os.environ.get("VITE_API_BASE_URL_PROD"),
         "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
-        "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
         "https://*.azurewebsites.net",
         "https://*.azurestaticapps.net",
     ]
+    print("CORS_ORIGINS_WHITELIST:", CORS_ORIGINS_WHITELIST)
     CORS_ALLOWED_ORIGINS = [
         os.environ.get("FRONTEND_URL"),
         "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
-        "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
         "https://*.azurewebsites.net",
         "https://*.azurestaticapps.net",
     ]
+    print("CORS_ALLOWED_ORIGINS:", CORS_ALLOWED_ORIGINS)
     CORS_ALLOW_HEADERS = [
         "accept",
         "content-type",
@@ -65,22 +65,25 @@ if IS_PRODUCTION:
         "x-csrftoken",
         "x-requested-with",
     ]
+    print("CORS_ALLOW_HEADERS:", CORS_ALLOW_HEADERS)
     CSRF_TRUSTED_ORIGINS = [
+        os.environ.get("FRONTEND_URL"),
         "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
-        "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
     ] + [
         os.environ.get("FRONTEND_URL"),
         os.environ.get("VITE_API_BASE_URL_PROD"),
     ]
+    print("CSRF_TRUSTED_ORIGINS:", CSRF_TRUSTED_ORIGINS)
     CSRF_ALLOWED_ORIGINS = [
+        os.environ.get("FRONTEND_URL"),
         "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
-        "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
         "https://*.azurewebsites.net",
         "https://*.azurestaticapps.net",
     ] + [
         os.environ.get("FRONTEND_URL"),
         os.environ.get("VITE_API_BASE_URL_PROD"),
     ]
+    print("CSRF_ALLOWED_ORIGINS:", CSRF_ALLOWED_ORIGINS)
     CSRF_COOKIE_HTTPONLY = False
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 else:
@@ -106,14 +109,18 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'drf_spectacular',
-    "authentication.apps.AuthenticationConfig",
-    "news.apps.NewsConfig",
-    "sentiment_analysis.apps.SentimentAnalysisConfig",
+    
+    # Third-party ANTES de apps personalizadas
     "corsheaders",
     "rest_framework",
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
+    "drf_spectacular",
+    
+    # Apps personalizadas AL FINAL
+    "authentication.apps.AuthenticationConfig",
+    "news.apps.NewsConfig",
+    "sentiment_analysis.apps.SentimentAnalysisConfig",
     "django_celery_results",
 ]
 
@@ -221,14 +228,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # 🔄 Para Azure App Service - usar ManifestStaticFilesStorage
 if IS_PRODUCTION:
-    STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+    STATICFILES_STORAGE = (
+        "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+    )
 else:
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 # 📂 Finders para recolectar archivos estáticos de diferentes fuentes
 STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
 # -------------------------------
@@ -240,8 +249,8 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
-    ],    
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 SIMPLE_JWT = {
