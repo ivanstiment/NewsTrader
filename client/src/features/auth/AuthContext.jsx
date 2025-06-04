@@ -11,11 +11,32 @@ import {
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  // CAMBIO CRÍTICO: Inicializar estado desde tokens existentes
+  const [user, setUser] = useState(() => {
+    const token = tokenService.getAccessToken();
+    if (token && !isTokenExpired(token)) {
+      try {
+        const decoded = jwtDecode(token);
+        return {
+          username: decoded.username || decoded.user,
+          userId: decoded.user_id || decoded.id,
+          email: decoded.email,
+        };
+      } catch {
+        return null;
+      }
+    }
+    return null;
+  });
+  
+  // CAMBIO: loading debe ser false si ya tenemos usuario válido
+  const [loading, setLoading] = useState(() => {
+    const token = tokenService.getAccessToken();
+    return !(token && !isTokenExpired(token));
+  });
 
   // Función para validar si el token está expirado
-  const isTokenExpired = useCallback((token) => {
+  function isTokenExpired(token) {
     try {
       const decoded = jwtDecode(token);
       const currentTime = Date.now() / 1000;
@@ -24,7 +45,7 @@ export function AuthProvider({ children }) {
     } catch {
       return true;
     }
-  }, []);
+  }
 
   // Función para decodificar y establecer usuario
   const setUserFromToken = useCallback((token) => {
@@ -34,7 +55,6 @@ export function AuthProvider({ children }) {
         username: decoded.username || decoded.user,
         userId: decoded.user_id || decoded.id,
         email: decoded.email,
-        // Agregar más campos según el payload JWT
       };
       setUser(userData);
       return true;
@@ -44,26 +64,50 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  // Al montar, verificar token existente
+  // CAMBIO: useEffect más robusto para verificación inicial
   useEffect(() => {
     const initializeAuth = async () => {
-      const token = tokenService.getAccessToken();
+      // Si ya tenemos usuario, no necesitamos re-inicializar
+      if (user) {
+        setLoading(false);
+        return;
+      }
 
-      if (token && !isTokenExpired(token)) {
-        if (setUserFromToken(token)) {
+      const accessToken = tokenService.getAccessToken();
+      const refreshToken = tokenService.getRefreshToken();
+
+      // Si tenemos token de acceso válido, usarlo
+      if (accessToken && !isTokenExpired(accessToken)) {
+        if (setUserFromToken(accessToken)) {
           setLoading(false);
           return;
         }
       }
 
-      // Si no hay token válido, limpiar tokens, usuario y loading
+      // Si el access token expiró pero tenemos refresh token, intentar renovar
+      if (refreshToken && (!accessToken || isTokenExpired(accessToken))) {
+        try {
+          // Importar dinámicamente para evitar dependencias circulares
+          const { tokenRefreshManager } = await import("@/services/api/token/token.handler");
+          const newAccessToken = await tokenRefreshManager.refreshToken();
+          if (newAccessToken) {
+            setUserFromToken(newAccessToken);
+            setLoading(false);
+            return;
+          }
+        } catch (error) {
+          console.error("Error renovando token:", error);
+        }
+      }
+
+      // Si llegamos aquí, no hay sesión válida
       tokenService.clearAllTokens();
       setUser(null);
       setLoading(false);
     };
 
     initializeAuth();
-  }, [isTokenExpired, setUserFromToken]);
+  }, []); // Dependencias vacías para ejecutar solo al montar
 
   const login = useCallback(
     (accessToken, refreshToken) => {
@@ -89,7 +133,7 @@ export function AuthProvider({ children }) {
 
       return success;
     },
-    [isTokenExpired, setUserFromToken]
+    [setUserFromToken]
   );
 
   const logout = useCallback(() => {
@@ -104,8 +148,8 @@ export function AuthProvider({ children }) {
   // Función para verificar si el usuario está autenticado
   const isAuthenticated = useCallback(() => {
     const token = tokenService.getAccessToken();
-    return token && !isTokenExpired(token) && user;
-  }, [isTokenExpired, user]);
+    return !!(token && !isTokenExpired(token) && user);
+  }, [user]);
 
   // Función para obtener información del usuario actual
   const getCurrentUser = useCallback(() => {
