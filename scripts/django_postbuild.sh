@@ -34,6 +34,10 @@ python manage.py migrate --noinput || { echo '❌ Fallo al aplicar migraciones';
 # echo -e "\n🛡️ Ejecutando chequeo de despliegue seguro..."
 # python manage.py check --deploy --fail-level ERROR || { echo '❌ Fallo en check --deploy'; exit 1; }
 
+# 🎨 RECOLECTAR ARCHIVOS ESTÁTICOS (CRÍTICO)
+echo -e "\n🎨 Recolectando archivos estáticos..."
+python manage.py collectstatic --noinput --clear || { echo '❌ Fallo en collectstatic'; exit 1; }
+
 # ✅ Ejecutar tests (si tienes definidos)
 echo -e "\n🧪 Ejecutando pruebas automáticas..."
 python manage.py test || { echo '❌ Fallo en pruebas automáticas'; exit 1; }

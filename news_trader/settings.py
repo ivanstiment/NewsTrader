@@ -47,12 +47,14 @@ if IS_PRODUCTION:
         os.environ.get("FRONTEND_URL"),
         os.environ.get("VITE_API_BASE_URL_PROD"),
         "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
+        "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
         "https://*.azurewebsites.net",
         "https://*.azurestaticapps.net",
     ]
     CORS_ALLOWED_ORIGINS = [
         os.environ.get("FRONTEND_URL"),
         "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
+        "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
         "https://*.azurewebsites.net",
         "https://*.azurestaticapps.net",
     ]
@@ -72,6 +74,7 @@ if IS_PRODUCTION:
     ]
     CSRF_ALLOWED_ORIGINS = [
         "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
+        "https://news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net",
         "https://*.azurewebsites.net",
         "https://*.azurestaticapps.net",
     ] + [
@@ -215,7 +218,18 @@ CORS_EXPOSE_HEADERS = ["Content-Type", "X-CSRFToken"]
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+
+# 🔄 Para Azure App Service - usar ManifestStaticFilesStorage
+if IS_PRODUCTION:
+    STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+else:
+    STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+
+# 📂 Finders para recolectar archivos estáticos de diferentes fuentes
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
 
 # -------------------------------
 # 🔐 JWT y DRF
