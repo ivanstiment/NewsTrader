@@ -274,6 +274,44 @@ para interactuar correctamente con la API de autenticación.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="authentication.views.utility_views.debug_cookies">
+<span class="sig-prename descclassname"><span class="pre">authentication.views.utility_views.</span></span><span class="sig-name descname"><span class="pre">debug_cookies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.utility_views.debug_cookies" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint de depuración para ver las cookies de la petición.</p>
+<p>SOLO DISPONIBLE EN DESARROLLO.
+Útil para debuggear problemas con cookies durante el desarrollo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Petición HTTP</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Información de cookies de la petición</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authentication.views.utility_views.debug_request_data">
+<span class="sig-prename descclassname"><span class="pre">authentication.views.utility_views.</span></span><span class="sig-name descname"><span class="pre">debug_request_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.utility_views.debug_request_data" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint de depuración para ver los datos de la petición.</p>
+<p>SOLO DISPONIBLE EN DESARROLLO.
+Útil para debuggear problemas con el formato de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Petición HTTP</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Información completa de la petición</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="authentication.views.utility_views.get_csrf_token">
 <span class="sig-prename descclassname"><span class="pre">authentication.views.utility_views.</span></span><span class="sig-name descname"><span class="pre">get_csrf_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.utility_views.get_csrf_token" title="Link to this definition">¶</a></dt>
 <dd><p>Endpoint para obtener el token CSRF para el frontend.</p>
@@ -448,6 +486,44 @@ de nombres de usuario durante el proceso de registro.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authentication.views.debug_cookies">
+<span class="sig-prename descclassname"><span class="pre">authentication.views.</span></span><span class="sig-name descname"><span class="pre">debug_cookies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.debug_cookies" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint de depuración para ver las cookies de la petición.</p>
+<p>SOLO DISPONIBLE EN DESARROLLO.
+Útil para debuggear problemas con cookies durante el desarrollo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Petición HTTP</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Información de cookies de la petición</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authentication.views.debug_request_data">
+<span class="sig-prename descclassname"><span class="pre">authentication.views.</span></span><span class="sig-name descname"><span class="pre">debug_request_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authentication.views.debug_request_data" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint de depuración para ver los datos de la petición.</p>
+<p>SOLO DISPONIBLE EN DESARROLLO.
+Útil para debuggear problemas con el formato de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Petición HTTP</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Información completa de la petición</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
