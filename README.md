@@ -1,4 +1,6 @@
-![Logo](client/public/logo.svg)
+<div align="center">
+  <img src="client/public/logo.svg" alt="NewsTrader Logo" width="100" style="margin: 0 auto; display: block;" />
+</div>
 
 # NewsTrader
 **Sistema automatizado de monitoreo y análisis de noticias para trading de small caps en tiempo real**
