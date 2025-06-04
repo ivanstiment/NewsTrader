@@ -3,6 +3,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.static import serve
+from django.urls import re_path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 urlpatterns = [
@@ -20,6 +22,14 @@ urlpatterns = [
     ),
 ]
 
-# SERVIR ARCHIVOS ESTÁTICOS EN PRODUCCIÓN (SOLO SI DEBUG=False)
+# 🎨 SERVIR ARCHIVOS ESTÁTICOS EN PRODUCCIÓN
 if not settings.DEBUG:
+    # Método estándar
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    
+    # 🔧 BACKUP: Servir directamente si el método estándar falla
+    urlpatterns += [
+        re_path(r'^static/(?P<path>.*)$', serve, {
+            'document_root': settings.STATIC_ROOT,
+        }),
+    ]

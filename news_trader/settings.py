@@ -33,10 +33,12 @@ SECRET_KEY = os.environ.get(
     "django-insecure-tq&z7$*sz9k^^4^b@_43c3ggo=lvrswuui2g@fjuy!1q%p006$",
 )
 
-DEBUG = False
-IS_PRODUCTION = not DEBUG
+# 🎯 Detectar entorno automáticamente
+DEBUG = os.environ.get("DEBUG", "False").lower() in ("true", "1", "yes")
+IS_PRODUCTION = os.environ.get("ENVIRONMENT", "development") == "production" or not DEBUG
 
 print(f"🔧 Django inicializandose: DEBUG={DEBUG}, IS_PRODUCTION={IS_PRODUCTION}")
+print(f"🌍 Entorno detectado: {'PRODUCCIÓN' if IS_PRODUCTION else 'DESARROLLO'}")
 
 if IS_PRODUCTION:
     ALLOWED_HOSTS = [
