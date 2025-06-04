@@ -99,7 +99,7 @@ jobs:
         ];
 
         // Generar template README específico para NewsTrader
-        const readmeTemplate = `![Logo](images/logo.png)
+        const readmeTemplate = `![Logo](client/public/logo.svg)
         
         # NewsTrader
         **Sistema automatizado de monitoreo y análisis de noticias para trading de small caps en tiempo real**

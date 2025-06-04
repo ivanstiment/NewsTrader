@@ -1,4 +1,4 @@
-![Logo](images/logo.png)
+![Logo](client/public/logo.svg)
 
 # NewsTrader
 **Sistema automatizado de monitoreo y análisis de noticias para trading de small caps en tiempo real**
