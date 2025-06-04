@@ -33,7 +33,7 @@ SECRET_KEY = os.environ.get(
     "django-insecure-tq&z7$*sz9k^^4^b@_43c3ggo=lvrswuui2g@fjuy!1q%p006$",
 )
 
-DEBUG = True
+DEBUG = False
 IS_PRODUCTION = not DEBUG
 
 print(f"🔧 Django inicializandose: DEBUG={DEBUG}, IS_PRODUCTION={IS_PRODUCTION}")
