@@ -1,0 +1,32 @@
+NewsTrader
+Sistema automatizado de monitoreo y análisis de noticias para trading de small caps
+
+Copyright 2025 Iván Soto Cobos
+
+This project includes software developed by third parties:
+
+BACKEND DEPENDENCIES:
+- Django (Django Software Foundation) - BSD License
+- Django REST Framework (Tom Christie and contributors) - BSD License  
+- Celery (Ask Solem and contributors) - BSD License
+- yfinance (Ran Aroussi and contributors) - Apache License 2.0
+- VADER Sentiment Analysis (C.J. Hutto) - MIT License
+
+FRONTEND DEPENDENCIES:
+- React (Meta Platforms, Inc. and affiliates) - MIT License
+- Vite (Evan You and contributors) - MIT License
+- ApexCharts (ApexCharts.js) - MIT License
+- Axios (Matt Zabriskie and contributors) - MIT License
+
+FINANCIAL DATA:
+- Loughran-McDonald Sentiment Dictionary (University of Notre Dame) - Academic Use
+- Yahoo Finance API data via yfinance library
+
+INFRASTRUCTURE:
+- Microsoft Azure Cloud Services
+- Redis (Redis Ltd.) - BSD License
+
+This software is provided for academic and research purposes as part of a 
+Final Degree Project (TFG) at Universitat Oberta de Catalunya (UOC).
+
+For complete license terms, see the LICENSE file in the root directory.
