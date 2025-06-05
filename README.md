@@ -272,7 +272,7 @@ Las contribuciones son bienvenidas y muy apreciadas. Para contribuir:
 
 ## 📄 Licencia
 
-Distribuido bajo la Creative Commons CC0 1.0 Universal. Ve `LICENSE.txt` para más información.
+Distribuido bajo la Apache License, Version 2.0. Ve `LICENSE` para más información.
 
 ---
 
