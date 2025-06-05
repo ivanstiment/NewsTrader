@@ -1,4 +1,4 @@
-import toast from "react-hot-toast";
+import toastService from "@/services/toast/toast.service";
 
 const ERROR_MESSAGES = {
   400: "Verifica que todos los campos estén correctos",
@@ -11,6 +11,11 @@ const ERROR_MESSAGES = {
   504: "Error del servidor. Inténtalo más tarde",
 };
 
+/**
+ * Obtiene el mensaje de error apropiado según el código de respuesta
+ * @param {Error} error - Objeto de error axios
+ * @returns {string} Mensaje de error legible
+ */
 export const getErrorMessage = (error) => {
   const { response } = error;
 
@@ -24,10 +29,20 @@ export const getErrorMessage = (error) => {
   return ERROR_MESSAGES[response.status] || "Ha ocurrido un error inesperado";
 };
 
+/**
+ * Determina si debe mostrar warning o error según el código de estado
+ * @param {number} statusCode - Código de estado HTTP
+ * @returns {'warning' | 'error'} Tipo de toast a mostrar
+ */
 export const getToastType = (statusCode) => {
   return statusCode >= 500 ? "warning" : "error";
 };
 
+/**
+ * Maneja errores de API mostrando notificaciones apropiadas
+ * @param {Error} error - Error de axios
+ * @param {Object} context - Contexto adicional del error
+ */
 export const handleApiError = (error, context = {}) => {
   const errorContext = {
     url: error.config?.url,
@@ -49,6 +64,7 @@ export const handleApiError = (error, context = {}) => {
 
 /**
  * Tipos de errores comunes
+ * @enum {string}
  */
 export const ERROR_TYPES = {
   NETWORK: "NETWORK_ERROR",
@@ -63,6 +79,7 @@ export const ERROR_TYPES = {
 
 /**
  * Mensajes de error por defecto en español
+ * @type {Object.<string, string>}
  */
 const DEFAULT_ERROR_MESSAGES = {
   [ERROR_TYPES.NETWORK]: "Error de conexión. Verifica tu conexión a internet.",
@@ -79,6 +96,8 @@ const DEFAULT_ERROR_MESSAGES = {
 
 /**
  * Determina el tipo de error basado en el objeto de error
+ * @param {Error} error - Objeto de error
+ * @returns {string} Tipo de error del enum ERROR_TYPES
  */
 export function getErrorType(error) {
   if (!error.response) {
@@ -111,6 +130,8 @@ export function getErrorType(error) {
 
 /**
  * Extrae el mensaje de error más específico posible
+ * @param {Error} error - Objeto de error
+ * @returns {string} Mensaje de error específico
  */
 export function extractErrorMessage(error) {
   // Si el error tiene un mensaje específico del servidor
@@ -161,6 +182,9 @@ export function extractErrorMessage(error) {
 
 /**
  * Formatea información adicional del error para logging
+ * @param {Error} error - Objeto de error
+ * @param {Object} context - Contexto adicional
+ * @returns {Object} Información formateada del error
  */
 export function formatErrorInfo(error, context = {}) {
   const info = {
@@ -192,6 +216,15 @@ export function formatErrorInfo(error, context = {}) {
 
 /**
  * Maneja errores globalmente con notificaciones toast
+ * @param {Error} error - Objeto de error
+ * @param {Object} options - Opciones de manejo
+ * @param {boolean} [options.showToast=true] - Si mostrar notificación toast
+ * @param {'info'|'success'|'warning'|'error'} [options.toastType='error'] - Tipo de toast
+ * @param {Object} [options.context={}] - Contexto adicional
+ * @param {string} [options.customMessage=null] - Mensaje personalizado
+ * @param {boolean} [options.logError=true] - Si loguear el error
+ * @param {Function} [options.onError=null] - Callback personalizado
+ * @returns {Object} Información del error formateada
  */
 export function handleError(error, options = {}) {
   const {
@@ -211,27 +244,22 @@ export function handleError(error, options = {}) {
     console.error("Error handled:", errorInfo);
   }
 
-  // Mostrar notificación toast
+  // Mostrar notificación toast usando nuestro nuevo servicio
   if (showToast) {
+    const toastOptions = {
+      duration: toastType === 'error' ? 5000 : 4000,
+      position: 'top-right'
+    };
+
     switch (toastType) {
       case "error":
-        toast.error(message, {
-          duration: 5000,
-          position: "top-right",
-        });
+        toastService.error(message, toastOptions);
         break;
       case "warning":
-        toast.error(message, {
-          duration: 4000,
-          position: "top-right",
-          icon: "⚠️",
-        });
+        toastService.warning(message, toastOptions);
         break;
       default:
-        toast(message, {
-          duration: 4000,
-          position: "top-right",
-        });
+        toastService.info(message, toastOptions);
     }
   }
 
@@ -245,12 +273,26 @@ export function handleError(error, options = {}) {
 
 /**
  * Hook personalizado para manejo de errores en componentes
+ * @returns {Object} Funciones de manejo de errores
+ * @example
+ * const { handleError, handleAsyncError } = useErrorHandler();
  */
 export function useErrorHandler() {
-  const handleError = (error, options = {}) => {
+  /**
+   * Maneja un error mostrando notificación
+   * @param {Error} error - Error a manejar
+   * @param {Object} options - Opciones de manejo
+   */
+  const handleErrorWithToast = (error, options = {}) => {
     return handleError(error, options);
   };
 
+  /**
+   * Wrapper para funciones asíncronas con manejo de errores
+   * @param {Function} asyncFn - Función asíncrona a ejecutar
+   * @param {Object} options - Opciones de manejo de errores
+   * @returns {Promise} Resultado de la función o error
+   */
   const handleAsyncError = async (asyncFn, options = {}) => {
     try {
       return await asyncFn();
@@ -260,11 +302,14 @@ export function useErrorHandler() {
     }
   };
 
-  return { handleError, handleAsyncError };
+  return { handleError: handleErrorWithToast, handleAsyncError };
 }
 
 /**
  * Wrapper para peticiones API con manejo automático de errores
+ * @param {Function} apiFunction - Función de API a ejecutar
+ * @param {Object} defaultOptions - Opciones por defecto para manejo de errores
+ * @returns {Function} Función wrapped con manejo de errores
  */
 export function withErrorHandling(apiFunction, defaultOptions = {}) {
   return async (...args) => {
@@ -276,38 +321,3 @@ export function withErrorHandling(apiFunction, defaultOptions = {}) {
     }
   };
 }
-
-/**
- * Configuración de toast personalizada
- */
-export const toastConfig = {
-  // Configuración por defecto para todos los toasts
-  default: {
-    duration: 4000,
-    position: "top-right",
-  },
-
-  // Configuraciones específicas por tipo
-  success: {
-    duration: 3000,
-    position: "top-right",
-    style: {
-      background: "#059669",
-      color: "#fff",
-    },
-  },
-
-  error: {
-    duration: 5000,
-    position: "top-right",
-    style: {
-      background: "#DC2626",
-      color: "#fff",
-    },
-  },
-
-  loading: {
-    duration: Infinity,
-    position: "top-right",
-  },
-};

@@ -1,10 +1,10 @@
 import { api, ENDPOINTS } from "@/api";
-import { newsApi } from "../../news.api";
+import toastService from "@/services/toast/toast.service";
 import { ExternalLinkIcon } from "@/shared/components/icons";
 import { useEffect, useRef, useState } from "react";
-import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { newCardPropTypes } from "../../new-card.propTypes";
+import { newsApi } from "../../news.api";
 import styles from "./NewCard.module.scss";
 
 export function NewCard({ newItem }) {
@@ -47,11 +47,11 @@ export function NewCard({ newItem }) {
   const handleAnalyze = async () => {
     if (isLoading) return;
     setIsLoading(true);
-    toast.loading("Encolando análisis…", { id: newItem.uuid });
+    toastService.loading("Encolando análisis…", { id: newItem.uuid });
 
     try {
       await newsApi.triggerNewAnalisis(newItem.uuid);
-      toast.success("Análisis encolado", { id: newItem.uuid });
+      toastService.success("Análisis encolado", { id: newItem.uuid });
 
       // Polling: cada 2s consultamos hasta que analysis !== null
       pollRef.current = setInterval(async () => {
@@ -61,17 +61,17 @@ export function NewCard({ newItem }) {
             clearInterval(pollRef.current);
             setAnalysis(data.analysis);
             setIsLoading(false);
-            toast.success("Análisis completado", { id: newItem.uuid });
+            toastService.success("Análisis completado", { id: newItem.uuid });
           }
         } catch {
           clearInterval(pollRef.current);
           setIsLoading(false);
-          toast.error("Error al obtener resultado", { id: newItem.uuid });
+          toastService.error("Error al obtener resultado", { id: newItem.uuid });
         }
       }, 2000);
     } catch {
       setIsLoading(false);
-      toast.error("Error al encolar", { id: newItem.uuid });
+      toastService.error("Error al encolar", { id: newItem.uuid });
     }
   };
 

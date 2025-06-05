@@ -1,7 +1,7 @@
 // client/src/hooks/useFormApi.js
 import { useState, useCallback } from "react";
 import { handleError } from "../api/handlers/error.handler";
-import toast from "react-hot-toast";
+import toastService from "@/services/toast/toast.service";
 
 /**
  * Hook especializado para manejar formularios con API
@@ -30,7 +30,7 @@ export function useFormApi() {
         const result = await apiCall();
 
         if (showSuccessToast) {
-          toast.success(successMessage, {
+          toastService.success(successMessage, {
             duration: 3000,
             style: {
               background: '#10B981',
@@ -60,7 +60,7 @@ export function useFormApi() {
           setFieldErrors(extractedErrors);
 
           if (data.detail) {
-            toast.error(data.detail, {
+            toastService.error(data.detail, {
               duration: 4000,
               style: {
                 background: '#EF4444',
@@ -70,7 +70,7 @@ export function useFormApi() {
           }
         } else if (err.response?.status === 401) {
           const message = err.response.data?.detail || 'Credenciales incorrectas';
-          toast.error(message, {
+          toastService.error(message, {
             duration: 4000,
             style: {
               background: '#EF4444',
@@ -78,7 +78,7 @@ export function useFormApi() {
             },
           });
         } else {
-          toast.error('Ha ocurrido un error inesperado', {
+          toastService.error('Ha ocurrido un error inesperado', {
             duration: 4000,
             style: {
               background: '#EF4444',

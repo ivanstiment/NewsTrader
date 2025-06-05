@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "react-hot-toast";
+import toastService from "@/services/toast/toast.service";
 import { useNavigate, useParams } from "react-router-dom";
 import { newsApi } from "../news.api";
 
@@ -18,7 +18,7 @@ export function NewFormPage() {
   const onSubmit = handleSubmit(async (data) => {
     if (uuid) {
       await newsApi.updateNew(uuid, data);
-      toast.success("Noticia actualizada", {
+      toastService.success("Noticia actualizada", {
         position: "bottom-right",
         style: {
           background: "#101010",
@@ -27,7 +27,7 @@ export function NewFormPage() {
       });
     } else {
       await newsApi.createNew(data);
-      toast.success("Noticia creada", {
+      toastService.success("Noticia creada", {
         position: "bottom-right",
         style: {
           background: "#101010",
@@ -99,7 +99,7 @@ export function NewFormPage() {
             const accepted = window.confirm("¿Estás seguro?");
             if (accepted) {
               await newsApi.deleteNew(uuid);
-              toast.success("Noticia eliminada", {
+              toastService.success("Noticia eliminada", {
                 position: "bottom-right",
                 style: {
                   background: "#101010",
