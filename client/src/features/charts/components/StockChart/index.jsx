@@ -4,7 +4,7 @@ import { useHistoricalPrice } from "../../hooks/historical-price.hook";
 import { ChartWrapper } from "../ChartWrapper";
 import styles from "./StockChart.module.scss";
 
-export function StockChart() {
+function StockChart() {
   const { symbol } = useParams();
   const [showVolume, setShowVolume] = useState(true);
 
@@ -60,3 +60,8 @@ export function StockChart() {
     );
   }
 }
+
+
+export default StockChart;
+
+export { StockChart };
