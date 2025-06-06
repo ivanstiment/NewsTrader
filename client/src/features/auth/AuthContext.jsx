@@ -4,7 +4,7 @@
  * y proporciona funciones auxiliares para verificar el estado de autenticación.
  */
 
-import { tokenService } from "@/services/api";
+import { tokenService } from "@/services";
 import { jwtDecode } from "jwt-decode";
 import {
   createContext,
@@ -28,7 +28,7 @@ export const AuthContext = createContext();
  * @returns {JSX.Element} Componente proveedor de autenticación.
  */
 export function AuthProvider({ children }) {
-    /**
+  /**
    * Estado del usuario autenticado.
    * Inicializar estado desde tokens existentes.
    * @type {User|null}
@@ -48,8 +48,8 @@ export function AuthProvider({ children }) {
       }
     }
     return null;
-  });  
-  
+  });
+
   /**
    * Estado de carga que indica si se está verificando la autenticación.
    * Loading debe ser false si ya el usuario es válido
@@ -60,7 +60,7 @@ export function AuthProvider({ children }) {
     return !(token && !isTokenExpired(token));
   });
 
-    /**
+  /**
    * Verifica si un token JWT ha expirado.
    *
    * @param {string} token - Token JWT a verificar.
@@ -123,7 +123,7 @@ export function AuthProvider({ children }) {
       if (refreshToken && (!accessToken || isTokenExpired(accessToken))) {
         try {
           // Importar dinámicamente para evitar dependencias circulares
-          const { tokenRefreshManager } = await import("@/services/api/token/token.handler");
+          const { tokenRefreshManager } = await import("@/services");
           const newAccessToken = await tokenRefreshManager.refreshToken();
           if (newAccessToken) {
             setUserFromToken(newAccessToken);
@@ -177,7 +177,7 @@ export function AuthProvider({ children }) {
     },
     [setUserFromToken]
   );
-  
+
   /**
    * Cierra la sesión del usuario, limpiando los tokens y el estado del usuario.
    */
@@ -190,7 +190,6 @@ export function AuthProvider({ children }) {
     window.location.replace("/home");
   }, []);
 
-  
   /**
    * Verifica si el usuario está autenticado.
    *

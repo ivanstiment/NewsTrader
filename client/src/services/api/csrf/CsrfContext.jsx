@@ -29,3 +29,5 @@ export function useCsrfContext() {
   }
   return context;
 }
+
+export default CsrfProvider;

@@ -1,4 +1,4 @@
-import toastService from "@/services/toast/toast.service";
+import { toastService } from "@/services";
 
 const ERROR_MESSAGES = {
   400: "Verifica que todos los campos estén correctos",
@@ -246,20 +246,15 @@ export function handleError(error, options = {}) {
 
   // Mostrar notificación toast usando nuestro nuevo servicio
   if (showToast) {
-    const toastOptions = {
-      duration: toastType === 'error' ? 5000 : 4000,
-      position: 'top-right'
-    };
-
     switch (toastType) {
       case "error":
-        toastService.error(message, toastOptions);
+        toastService.error(message);
         break;
       case "warning":
-        toastService.warning(message, toastOptions);
+        toastService.warning(message);
         break;
       default:
-        toastService.info(message, toastOptions);
+        toastService.info(message);
     }
   }
 

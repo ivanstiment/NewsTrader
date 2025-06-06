@@ -1,4 +1,3 @@
-// client/src/services/api/csrf/csrf.service.js
 import { ENDPOINTS } from "@/api/config/endpoints";
 
 // No importamos apiClient aquí para evitar dependencia circular

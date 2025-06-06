@@ -1,3 +1,25 @@
+/**
+ * @fileoverview Servicio centralizado de notificaciones toast para NewsTrader
+ * @module services/toast
+ * @description Sistema unificado de notificaciones con diseño consistente y gestión de estado
+ * 
+ * @example
+ * // Importación básica
+ * import toastService from '@/services/toast/toast.service';
+ * toastService.success('Operación completada');
+ * 
+ * @example
+ * // Con opciones personalizadas
+ * toastService.error('Error al procesar', {
+ *   duration: 5000,
+ *   position: 'bottom-center',
+ *   id: 'unique-error'
+ * });
+ * 
+ * @author Iván Soto Cobos
+ * @since 1.0.0
+ */
+
 import styles from './Toast.module.scss';
 
 /**
@@ -30,9 +52,21 @@ class ToastService {
     // Crear contenedor si no existe
     if (!this.container) {
       this.container = document.createElement('div');
-      this.container.className = styles['toast-container'];
+      this.container.className = styles['toast__container'];
       document.body.appendChild(this.container);
     }
+  }
+
+  /**
+   * Obtiene las clases CSS para un toast según su tipo
+   * @private
+   * @param {ToastType} type - Tipo de toast
+   * @returns {string} Clases CSS concatenadas
+   */
+  getToastClasses(type) {
+    const baseClass = styles.toast;
+    const typeClass = styles[`toast--${type}`];
+    return `${baseClass} ${typeClass}`;
   }
 
   /**
@@ -63,7 +97,12 @@ class ToastService {
 
     // Crear elemento del toast
     const toastElement = document.createElement('div');
-    toastElement.className = `${styles.toast} ${styles[`toast--${type}`]}`;
+    
+    // Construir clases sin template literals anidados
+    const baseClass = styles.toast;
+    const typeClass = styles[`toast--${type}`];
+    toastElement.className = `${baseClass} ${typeClass}`;
+    
     toastElement.setAttribute('role', 'alert');
     toastElement.setAttribute('aria-live', 'polite');
     
@@ -72,29 +111,35 @@ class ToastService {
       toastElement.style.setProperty('--duration', `${duration}ms`);
     }
 
+    // Clases para los elementos internos
+    const iconClass = styles['toast__icon'];
+    const contentClass = styles['toast__content'];
+    const closeClass = styles['toast__close'];
+    const progressClass = styles['toast__progress'];
+
     // Contenido del toast
     toastElement.innerHTML = `
-      <div class="${styles['toast__icon']}">
+      <div class="${iconClass}">
         ${this.getIcon(type)}
       </div>
-      <div class="${styles['toast__content']}">
+      <div class="${contentClass}">
         ${this.escapeHtml(message)}
       </div>
       ${closeButton ? `
-        <button class="${styles['toast__close']}" aria-label="Cerrar notificación">
+        <button class="${closeClass}" aria-label="Cerrar notificación">
           <svg viewBox="0 0 24 24" fill="currentColor">
             <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
           </svg>
         </button>
       ` : ''}
       ${showProgress && duration > 0 ? `
-        <div class="${styles['toast__progress']}"></div>
+        <div class="${progressClass}"></div>
       ` : ''}
     `;
 
     // Agregar event listeners
     if (closeButton) {
-      const closeBtn = toastElement.querySelector(`.${styles['toast__close']}`);
+      const closeBtn = toastElement.querySelector(`.${closeClass}`);
       closeBtn?.addEventListener('click', () => this.remove(id));
     }
 
@@ -126,14 +171,14 @@ class ToastService {
     if (!this.container) return;
     
     // Resetear clases
-    this.container.className = styles['toast-container'];
+    this.container.className = styles['toast__container'];
     
     // Aplicar nueva posición
     if (position.includes('center')) {
-      this.container.classList.add(styles['toast-container--center']);
+      this.container.classList.add(styles['toast__container--center']);
     }
     if (position.includes('bottom')) {
-      this.container.classList.add(styles['toast-container--bottom']);
+      this.container.classList.add(styles['toast__container--bottom']);
     }
   }
 
@@ -149,7 +194,7 @@ class ToastService {
       success: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>',
       warning: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>',
       error: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>',
-      loading: '' // El spinner se maneja con CSS
+      loading: '<div class="${styles["toast__spinner"]}"></div>'
     };
     return icons[type] || icons.info;
   }
@@ -298,12 +343,18 @@ class ToastService {
 // Crear instancia singleton
 const toastService = new ToastService();
 
-// Exportar instancia y métodos
+// Exportar instancia por defecto
 export default toastService;
 
-// Exportar también los métodos individuales para conveniencia
-export const { info, success, warning, error, loading, update, promise, clear } = 
-  toastService.info.bind(toastService);
+// Exportar métodos individuales correctamente bindeados
+export const info = (message, options) => toastService.info(message, options);
+export const success = (message, options) => toastService.success(message, options);
+export const warning = (message, options) => toastService.warning(message, options);
+export const error = (message, options) => toastService.error(message, options);
+export const loading = (message, options) => toastService.loading(message, options);
+export const update = (id, type, message, options) => toastService.update(id, type, message, options);
+export const promise = (id, type, message, options) => toastService.promise(id, type, message, options);
+export const clear = () => toastService.clear();
 
 /**
  * Hook de React para usar el servicio de toasts

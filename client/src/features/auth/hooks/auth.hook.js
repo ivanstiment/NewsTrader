@@ -2,7 +2,7 @@ import { useFormApi } from "@/hooks/useFormApi";
 import { useAuth } from "@/features/auth/hooks/auth-context.hook";
 import { authService } from "../auth.service";
 import { useCallback } from "react";
-import toastService from "@/services/toast/toast.service";
+import { toastService } from "@/services";
 import { useNavigate } from "react-router-dom";
 
 export function useAuthApi() {

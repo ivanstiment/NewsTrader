@@ -1,7 +1,5 @@
-// client/src/hooks/useFormApi.js
 import { useState, useCallback } from "react";
-import { handleError } from "../api/handlers/error.handler";
-import toastService from "@/services/toast/toast.service";
+import { toastService } from "@/services";
 
 /**
  * Hook especializado para manejar formularios con API
@@ -16,10 +14,8 @@ export function useFormApi() {
       const {
         showSuccessToast = false,
         successMessage = "Operación exitosa",
-        showErrorToast = true,
         onSuccess = null,
         onError = null,
-        context = {},
       } = options;
 
       setLoading(true);
@@ -30,13 +26,7 @@ export function useFormApi() {
         const result = await apiCall();
 
         if (showSuccessToast) {
-          toastService.success(successMessage, {
-            duration: 3000,
-            style: {
-              background: '#10B981',
-              color: '#fff',
-            },
-          });
+          toastService.success(successMessage);
         }
 
         if (onSuccess) {
@@ -60,31 +50,13 @@ export function useFormApi() {
           setFieldErrors(extractedErrors);
 
           if (data.detail) {
-            toastService.error(data.detail, {
-              duration: 4000,
-              style: {
-                background: '#EF4444',
-                color: '#fff',
-              },
-            });
+            toastService.error(data.detail);
           }
         } else if (err.response?.status === 401) {
           const message = err.response.data?.detail || 'Credenciales incorrectas';
-          toastService.error(message, {
-            duration: 4000,
-            style: {
-              background: '#EF4444',
-              color: '#fff',
-            },
-          });
+          toastService.error(message);
         } else {
-          toastService.error('Ha ocurrido un error inesperado', {
-            duration: 4000,
-            style: {
-              background: '#EF4444',
-              color: '#fff',
-            },
-          });
+          toastService.error('Ha ocurrido un error inesperado');
         }
 
         if (onError) {
