@@ -5,6 +5,7 @@
 # NewsTrader
 **Sistema automatizado de monitoreo y análisis de noticias para trading de small caps en tiempo real**
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/ivanstiment/NewsTrader)
 [![Explorar documentación »](https://img.shields.io/badge/Docs-Explorar-blue?style=for-the-badge)](https://ivanstiment.github.io/NewsTrader/)
 [![Ver Demo](https://img.shields.io/badge/Demo-Ver%20Live-success?style=for-the-badge)](https://salmon-stone-0e4a4f410.6.azurestaticapps.net/)
 [![Reportar Bug](https://img.shields.io/badge/Bug-Reportar-red?style=for-the-badge)](https://github.com/ivanstiment/NewsTrader/issues)
