@@ -57,7 +57,7 @@ class ToastService {
       this.container.setAttribute("aria-relevant", "additions removals");
       document.body.appendChild(this.container);
     }
-    
+
     this.initialized = true;
   }
 
@@ -86,7 +86,7 @@ class ToastService {
     if (!this.initialized) {
       this.init();
     }
-    
+
     const {
       duration = 3000,
       position = "top-right",
@@ -356,6 +356,21 @@ class ToastService {
       showProgress: true,
       ...options,
     });
+  }
+
+  /**
+   * Actualiza un toast existente o lo elimina antes de mostrar uno nuevo.
+   * @param {string} id - ID del toast a actualizar.
+   * @param {ToastType} type - Tipo de toast (success, error, etc.).
+   * @param {string} message - Mensaje a mostrar.
+   * @param {ToastOptions} options - Opciones adicionales.
+   */
+  updateOrCreate(id, type, message, options = {}) {
+    if (this.toasts.has(id)) {
+      this.update(id, type, message, options);
+    } else {
+      this.createToast(type, message, { ...options, id });
+    }
   }
 }
 

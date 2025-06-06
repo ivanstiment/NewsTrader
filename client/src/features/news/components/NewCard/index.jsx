@@ -88,9 +88,8 @@ export function NewCard({ newItem }) {
     setIsLoading(true);
     setPollAttempts(0);
 
-    const loadingToastId = toastService.loading("Encolando análisis…", {
-      id: `analysis-${newItem.uuid}`,
-    });
+    const loadingToastId = `analysis-${newItem.uuid}`;
+    toastService.loading("Encolando análisis…", { id: loadingToastId });
 
     try {
       await newsApi.triggerNewAnalisis(newItem.uuid);
@@ -100,9 +99,9 @@ export function NewCard({ newItem }) {
         "info",
         "Análisis encolado. Procesando…",
         {
-          duration: 5000,
-          closeButton: true,
-          showProgress: true
+          duration: 0,
+          closeButton: false,
+          showProgress: true,
         }
       );
 
@@ -125,7 +124,8 @@ export function NewCard({ newItem }) {
             toastService.promise(
               loadingToastId,
               "success",
-              "Análisis completado exitosamente"
+              "Análisis completado exitosamente",
+              { duration: 3000 }
             );
           } else if (attempts >= POLL_CONFIG.maxPollAttempts) {
             // Límite de intentos alcanzado
@@ -150,6 +150,10 @@ export function NewCard({ newItem }) {
             "error",
             "Error al obtener el resultado del análisis"
           );
+          
+          if (import.meta.env.MODE === "development") {
+            console.log(error);
+          }
         }
       }, POLL_CONFIG.pollInterval);
     } catch (error) {
@@ -159,6 +163,9 @@ export function NewCard({ newItem }) {
         "error",
         "Error al encolar el análisis. Verifica tu conexión."
       );
+      if (import.meta.env.MODE === "development") {
+        console.log(error);
+      }
     }
   };
 
@@ -169,6 +176,7 @@ export function NewCard({ newItem }) {
           {/* <Link to={`/news/${newItem.uuid}`}>{newItem.title}</Link> */}
           {newItem.title}
         </h2>
+        <h2 className={styles["new__title"]}>{newItem.title}</h2>
         <Link
           className={styles["new__link"]}
           to={`${newItem.link}`}
