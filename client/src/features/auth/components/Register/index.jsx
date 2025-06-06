@@ -38,8 +38,8 @@ export function Register() {
       await submitForm(() => authService.register(data), {
         showSuccessToast: true,
         onSuccess: () => {
-          reset(); // Limpiar formulario
-          clearFieldError(); // Limpiar errores de campo
+          reset();
+          clearFieldError();
           setTimeout(() => {
             navigate("/login");
           }, 500);
@@ -47,7 +47,9 @@ export function Register() {
         context: { component: "Register", action: "create_account" },
       });
     } catch (err) {
-      // El error ya fue manejado por useFormApi
+      if (import.meta.env.MODE === "development") {
+        console.log("Error de registro de usuario:", err.response?.data);
+      }
     }
   };
 

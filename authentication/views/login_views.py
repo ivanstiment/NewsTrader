@@ -25,7 +25,8 @@ from authentication.serializers.serializers import (
     UserInfoSerializer,
 )
 from authentication.services import TokenService, TokenValidationService
-from authentication.constants import MESSAGES, HTTP_STATUS
+from authentication.constants.messages import MESSAGES
+from authentication.constants.http import HTTP_STATUS
 
 
 @extend_schema(

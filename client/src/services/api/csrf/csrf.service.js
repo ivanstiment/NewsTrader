@@ -33,7 +33,7 @@ export const csrfService = {
       }
       return token;
     } catch (error) {
-      console.error("Error fetching CSRF token:", error);
+      console.error("Error recibiendo CSRF token:", error);
       throw error;
     }
   }

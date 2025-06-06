@@ -81,7 +81,8 @@ class ToastService {
    * @param {ToastOptions} options - Opciones del toast
    * @returns {string} ID del toast creado
    */
-  createToast(type, message, options = {}) {    // Lazy initialization
+  createToast(type, message, options = {}) {
+    // Initialización Lazy
     if (!this.initialized) {
       this.init();
     }
@@ -106,10 +107,7 @@ class ToastService {
     // Crear elemento del toast
     const toastElement = document.createElement("div");
 
-    // Construir clases sin template literals anidados
-    const baseClass = styles.toast;
-    const typeClass = styles[`toast--${type}`];
-    toastElement.className = `${baseClass} ${typeClass}`;
+    toastElement.className = this.getToastClasses(type);
 
     toastElement.setAttribute("role", "alert");
     toastElement.setAttribute("aria-live", "polite");
@@ -188,16 +186,16 @@ class ToastService {
     if (!this.container) return;
 
     // Resetear clases
-    this.container.className = styles["toast-container"];
+    this.container.className = styles["toast__container"];
 
     // Aplicar nueva posición
     if (position.includes("center")) {
-      const centerClass = styles["toast-container--center"];
+      const centerClass = styles["toast__container--center"];
       this.container.classList.add(centerClass);
     }
 
     if (position.includes("bottom")) {
-      const bottomClass = styles["toast-container--bottom"];
+      const bottomClass = styles["toast__container--bottom"];
       this.container.classList.add(bottomClass);
     }
   }

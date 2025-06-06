@@ -53,8 +53,9 @@ export function Login() {
         context: { component: "Login", action: "authenticate" },
       });
     } catch (err) {
-      // El error ya fue procesado por useFormApi
-      console.log("Error de inicio de sesión:", err.response?.data);
+      if (import.meta.env.MODE === "development") {
+        console.log("Error de inicio de sesión:", err.response?.data);
+      }
     }
   };
 
@@ -65,22 +66,10 @@ export function Login() {
     }
   };
 
-  // Determinar si mostrar error general
-  const shouldShowGeneralError = error && !error.response?.status === 400;
-  const generalErrorMessage =
-    error?.message || "Error de autenticación, verifica tus credenciales";
-
   return (
     <div className={styles["card__container"]}>
       <div className={styles["card"]} aria-live="polite">
         <h2 className={styles["card__title"]}>¡Bienvenido de nuevo!</h2>
-
-        {/* Mostrar errores generales (no de validación) */}
-        {shouldShowGeneralError && (
-          <div role="alert" className={styles["form-field__error"]}>
-            {generalErrorMessage}
-          </div>
-        )}
 
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           {/* Usuario */}

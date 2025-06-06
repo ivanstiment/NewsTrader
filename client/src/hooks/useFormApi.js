@@ -54,7 +54,13 @@ export function useFormApi() {
           }
         } else if (err.response?.status === 401) {
           const message = err.response.data?.detail || 'Credenciales incorrectas';
-          toastService.error(message);
+          
+          // Mostrar el error bajo el campo password
+          setFieldErrors((prev) => ({
+            ...prev,
+            password: [message]
+          }))
+          // toastService.error(message);
         } else {
           toastService.error('Ha ocurrido un error inesperado');
         }

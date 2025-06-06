@@ -1,4 +1,3 @@
-// client/src/services/api/token/token.handler.js
 import { tokenService } from "./token.service";
 import { ENDPOINTS } from "@/api/config/endpoints";
 
@@ -37,7 +36,7 @@ class TokenRefreshManager {
 
     const refreshToken = tokenService.getRefreshToken();
     if (!refreshToken) {
-      const error = new Error("No refresh token available");
+      const error = new Error("No hay refresh token disponible");
       this.processQueue(error);
       this.handleRefreshFailure();
       throw error;
@@ -62,7 +61,7 @@ class TokenRefreshManager {
 
       const { access } = response.data;
       if (!access) {
-        throw new Error("No access token received");
+        throw new Error("No se recibió token de acceso");
       }
       
       tokenService.setAccessToken(access);
@@ -70,10 +69,14 @@ class TokenRefreshManager {
       this.processQueue(null, access);
       this.isRefreshing = false;
       
-      console.log('✅ Token refreshed successfully');
+      if (import.meta.env.MODE === "development") {
+        console.log('✅ Token actualizado');
+      }
       return access;
     } catch (error) {
-      console.error("❌ Token refresh failed:", error);
+      if (import.meta.env.MODE === "development") {
+        console.error("❌ Falló la actualización de Token:", error);
+      }
       this.processQueue(error);
       this.isRefreshing = false;
       this.handleRefreshFailure();
@@ -82,7 +85,9 @@ class TokenRefreshManager {
   }
 
   handleRefreshFailure() {
-    console.log('🚪 Handling refresh failure - clearing tokens');
+    if (import.meta.env.MODE === "development") {
+      console.log('🚪 Manejo de errores de actualización: borrado de tokens');
+    }
     tokenService.clearAllTokens();
     
     // Redirigir solo si no estamos en páginas públicas
@@ -90,7 +95,9 @@ class TokenRefreshManager {
     const currentPath = window.location.pathname;
     
     if (!publicRoutes.includes(currentPath)) {
-      console.log('↩️ Redirecting to login...');
+    if (import.meta.env.MODE === "development") {
+      console.log('↩️ Redirigiendo al login...');
+    }
       setTimeout(() => {
         window.location.href = "/login";
       }, 1000);

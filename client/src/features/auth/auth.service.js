@@ -1,4 +1,3 @@
-// client/src/features/auth/auth.service.js
 import { api, ENDPOINTS } from "@/api";
 import { csrfManager, csrfService } from "@/services";
 import { loginSchema } from "./validators/login-schema.validator";
@@ -9,7 +8,9 @@ import { registerSchema } from "./validators/register-schema.validator";
  */
 const ensureCsrfToken = async () => {
   if (!csrfManager.isValid()) {
-    console.log("🔄 Obteniendo token CSRF para operación de autenticación...");
+    if (import.meta.env.MODE === "development") {
+      console.log("🔄 Obteniendo token CSRF para operación de autenticación...");
+    }
     const token = await csrfService.fetchCsrfToken();
     csrfManager.set(token);
   }

@@ -13,7 +13,7 @@ from rest_framework import status
 import json
 
 from .services import TokenService, ValidationService, SecurityValidationService
-from .constants import MESSAGES
+from .constants.messages import MESSAGES
 
 
 class TokenServiceTests(TestCase):

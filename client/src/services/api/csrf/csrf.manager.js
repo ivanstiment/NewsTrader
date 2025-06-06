@@ -1,5 +1,3 @@
-// client/src/services/api/csrf/csrf.manager.js
-
 class CsrfManager {
   constructor() {
     this.token = null;
