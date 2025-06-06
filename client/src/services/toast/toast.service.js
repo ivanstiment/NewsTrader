@@ -39,22 +39,26 @@ class ToastService {
   constructor() {
     this.toasts = new Map();
     this.container = null;
-    this.init();
+    // Retrasar inicialización hasta el primer uso
+    this.initialized = false;
   }
 
   /**
-   * Inicializa el contenedor de toasts
+   * Inicializa el contenedor de toasts de forma lazy
    * @private
    */
   init() {
-    if (typeof document === "undefined") return;
+    if (this.initialized || typeof document === "undefined") return;
 
-    // Crear contenedor si no existe
     if (!this.container) {
       this.container = document.createElement("div");
       this.container.className = styles["toast__container"];
+      this.container.setAttribute("aria-live", "polite");
+      this.container.setAttribute("aria-relevant", "additions removals");
       document.body.appendChild(this.container);
     }
+    
+    this.initialized = true;
   }
 
   /**
@@ -77,7 +81,11 @@ class ToastService {
    * @param {ToastOptions} options - Opciones del toast
    * @returns {string} ID del toast creado
    */
-  createToast(type, message, options = {}) {
+  createToast(type, message, options = {}) {    // Lazy initialization
+    if (!this.initialized) {
+      this.init();
+    }
+    
     const {
       duration = 3000,
       position = "top-right",

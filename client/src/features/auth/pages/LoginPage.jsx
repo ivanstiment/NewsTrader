@@ -1,5 +1,11 @@
 import { Login } from "../components/Login/index";
 
-export function LoginPage() {
+/**
+ * @description Página de acceso de la aplicación
+ * @returns {JSX.Element} Componente de página Login
+ */
+export default function LoginPage() {
   return <Login />;
 }
+
+export { LoginPage };

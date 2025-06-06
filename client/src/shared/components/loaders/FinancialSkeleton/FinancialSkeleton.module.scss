@@ -1,0 +1,133 @@
+.skeleton-container {
+  min-height: 100vh;
+  background: #0e0f15;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  border-bottom: 1px solid #2e3042;
+}
+
+.skeleton-logo {
+  width: 52px;
+  height: 44px;
+  background: linear-gradient(90deg, #2e3042 0%, #3a3d4e 50%, #2e3042 100%);
+  border-radius: 4px;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.skeleton-nav {
+  display: flex;
+  gap: 20px;
+}
+
+.skeleton-nav-item {
+  width: 80px;
+  height: 32px;
+  background: linear-gradient(90deg, #2e3042 0%, #3a3d4e 50%, #2e3042 100%);
+  border-radius: 4px;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.skeleton-content {
+  padding: 40px;
+}
+
+.skeleton-chart {
+  height: 400px;
+  background: #191a24;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 40px;
+  border: 1px solid #2e3042;
+}
+
+.skeleton-chart-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  height: 100%;
+  gap: 10px;
+}
+
+.skeleton-bar {
+  flex: 1;
+  background: linear-gradient(180deg, #4055db 0%, #2e3042 100%);
+  border-radius: 4px 4px 0 0;
+  animation: grow 1.5s ease-in-out infinite;
+}
+
+.skeleton-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.skeleton-metric-card {
+  height: 100px;
+  background: #191a24;
+  border: 1px solid #2e3042;
+  border-radius: 8px;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.skeleton-pulse {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #4055db;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  span {
+    opacity: 0.8;
+    animation: fade 1.5s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes grow {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.8);
+  }
+}
+
+@keyframes fade {
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}

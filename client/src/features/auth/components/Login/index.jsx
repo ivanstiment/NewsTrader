@@ -54,6 +54,7 @@ export function Login() {
       });
     } catch (err) {
       // El error ya fue procesado por useFormApi
+      console.log("Error de inicio de sesión:", err.response?.data);
     }
   };
 

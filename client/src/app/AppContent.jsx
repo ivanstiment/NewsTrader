@@ -1,6 +1,5 @@
 import { Header } from "@/shared/components/layout/Header/index";
 import { NavigationMenu } from "@/shared/components/navigation/NavigationMenu/index";
-import { Toaster } from "react-hot-toast";
 import { useLocation } from "react-router-dom";
 import "./App.scss";
 import AppRoutes from "./routes";
@@ -17,7 +16,6 @@ export default function AppContent() {
       {showNav && <NavigationMenu />}
       {showHeader && <Header />}
       <AppRoutes />
-      <Toaster />
     </>
   );
 }
