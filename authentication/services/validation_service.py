@@ -221,7 +221,7 @@ class SecurityValidationService:
         # Sanitización básica - eliminar espacios
         sanitized = data.strip()
 
-        # Remover caracteres potencialmente peligrosos para XSS
+        # Eliminar caracteres potencialmente peligrosos para XSS
         dangerous_chars = ["<", ">", '"', "'", "&"]
         for char in dangerous_chars:
             sanitized = sanitized.replace(char, "")

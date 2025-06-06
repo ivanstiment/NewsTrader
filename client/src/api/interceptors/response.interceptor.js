@@ -1,6 +1,4 @@
-// client/src/api/interceptors/response.interceptor.js
-import { tokenRefreshManager } from "@/services/api/token/token.handler";
-import { tokenService } from "@/services/api/token/token.service";
+import { tokenRefreshManager, tokenService } from "@/services";
 
 /**
  * Interceptor de respuestas exitosas
@@ -35,13 +33,14 @@ export const responseErrorInterceptor = async (error) => {
   }
 
   // Solo manejar errores 401 para refresh de token
-  if (error.response?.status === 401 && 
-      !originalRequest._retry && 
-      !originalRequest.skipRetryOn401) {
-    
+  if (
+    error.response?.status === 401 &&
+    !originalRequest._retry &&
+    !originalRequest.skipRetryOn401
+  ) {
     // Ignorar errores 401 en endpoints de autenticación
     const authEndpoints = ["/token/", "/login/", "/register/"];
-    const isAuthEndpoint = authEndpoints.some(endpoint => 
+    const isAuthEndpoint = authEndpoints.some((endpoint) =>
       originalRequest?.url?.includes(endpoint)
     );
 
@@ -60,21 +59,22 @@ export const responseErrorInterceptor = async (error) => {
     try {
       const newAccessToken = await tokenRefreshManager.refreshToken();
       originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-      
+
       // Usar la instancia de axios del config original
       const axiosInstance = originalRequest.__axiosInstance;
       if (axiosInstance) {
         return axiosInstance(originalRequest);
       }
-      
+
       // Como último recurso, usar adapter
       if (originalRequest.adapter) {
         return originalRequest.adapter(originalRequest);
       }
-      
-      console.error("No se puede reintentar la petición: ni instancia ni adapter disponible");
+
+      console.error(
+        "No se puede reintentar la petición: ni instancia ni adapter disponible"
+      );
       return Promise.reject(error);
-      
     } catch (refreshError) {
       console.error("Failed to refresh token:", refreshError);
       return Promise.reject(error);

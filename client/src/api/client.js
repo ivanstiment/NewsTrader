@@ -28,8 +28,14 @@ const enhancedRequestInterceptor = (config) => {
 };
 
 // Configurar interceptors
-apiClient.interceptors.request.use(enhancedRequestInterceptor, requestErrorInterceptor);
-apiClient.interceptors.response.use(responseInterceptor, responseErrorInterceptor);
+apiClient.interceptors.request.use(
+  enhancedRequestInterceptor,
+  requestErrorInterceptor
+);
+apiClient.interceptors.response.use(
+  responseInterceptor,
+  responseErrorInterceptor
+);
 
 // Inyectar el cliente en los servicios para evitar dependencias circulares
 // Esto se hace después de crear la instancia

@@ -16,7 +16,7 @@
  */
 import { AuthProvider } from "@/features/auth/AuthContext";
 import { SearchProvider } from "@/features/search/SearchContext";
-import { CsrfProvider } from "@/services/api/csrf/CsrfContext";
+import { CsrfProvider } from "@/services";
 import { BrowserRouter } from "react-router-dom";
 import AppContent from "./AppContent";
 

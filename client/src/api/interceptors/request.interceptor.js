@@ -1,13 +1,10 @@
-// client/src/api/interceptors/request.interceptor.js
-import { tokenService } from "@/services/api/token/token.service";
-import { csrfManager } from "@/services/api/csrf/csrf.manager";
-import { csrfService } from "@/services/api/csrf/csrf.service";
 import { API_CONFIG } from "@/api/config";
+import { csrfManager, csrfService, tokenService } from "@/services";
 
 /**
  * Lista de métodos que requieren token CSRF
  */
-const METHODS_REQUIRING_CSRF = ['post', 'put', 'patch', 'delete'];
+const METHODS_REQUIRING_CSRF = ["post", "put", "patch", "delete"];
 
 /**
  * Interceptor de peticiones - Agrega tokens y headers necesarios
@@ -29,20 +26,20 @@ export const requestInterceptor = async (config) => {
   const method = config.method?.toLowerCase();
   if (!skipCsrf && METHODS_REQUIRING_CSRF.includes(method)) {
     let csrfToken = csrfManager.get();
-    
+
     // Si no tenemos token CSRF, intentar obtenerlo
     if (!csrfToken) {
       try {
         if (import.meta.env.MODE === "development") {
-          console.log('🔄 Token CSRF no encontrado, obteniendo nuevo token...');
+          console.log("🔄 Token CSRF no encontrado, obteniendo nuevo token...");
         }
         csrfToken = await csrfService.fetchCsrfToken();
         csrfManager.set(csrfToken);
         if (import.meta.env.MODE === "development") {
-          console.log('✅ Token CSRF obtenido exitosamente');
+          console.log("✅ Token CSRF obtenido exitosamente");
         }
       } catch (error) {
-        console.error('❌ Error obteniendo token CSRF:', error);
+        console.error("❌ Error obteniendo token CSRF:", error);
         // No bloqueamos la petición, el servidor manejará el error
       }
     }
@@ -57,8 +54,12 @@ export const requestInterceptor = async (config) => {
   if (import.meta.env.MODE === "development") {
     console.log(`🚀 ${config.method?.toUpperCase()} ${config.url}`, {
       headers: {
-        Authorization: config.headers.Authorization ? '***Bearer token***' : undefined,
-        [API_CONFIG.csrf.headerName]: config.headers[API_CONFIG.csrf.headerName] ? '***CSRF token***' : undefined,
+        Authorization: config.headers.Authorization
+          ? "***Bearer token***"
+          : undefined,
+        [API_CONFIG.csrf.headerName]: config.headers[API_CONFIG.csrf.headerName]
+          ? "***CSRF token***"
+          : undefined,
       },
       skipCsrf,
       skipAuth,

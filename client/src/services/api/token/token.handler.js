@@ -104,3 +104,5 @@ class TokenRefreshManager {
 }
 
 export const tokenRefreshManager = new TokenRefreshManager();
+
+export default tokenRefreshManager;

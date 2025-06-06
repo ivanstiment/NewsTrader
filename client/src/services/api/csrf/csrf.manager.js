@@ -64,3 +64,5 @@ export const csrfManager = new CsrfManager();
 if (import.meta.env.MODE === 'development') {
   window.__csrfManager = csrfManager;
 }
+
+export default csrfManager;

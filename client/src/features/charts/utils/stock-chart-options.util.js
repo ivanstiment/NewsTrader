@@ -18,6 +18,7 @@ export function getCandlestickOptions({
       id: "candles",
       group: "sync-group",
       type: "candlestick",
+      animations: { enabled: false },
       toolbar: { autoSelected: "pan", show: true },
       zoom: { enabled: true },
     },
@@ -154,6 +155,7 @@ export function getVolumeOptions({ tooltipClasses }) {
       group: "sync-group",
       height: 160,
       type: "bar",
+      animations: { enabled: false },
       brush: { enabled: true, target: "candles" },
     },
     plotOptions: {

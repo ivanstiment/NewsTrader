@@ -2,7 +2,7 @@ import { useFormApi } from "@/hooks/useFormApi";
 import { useAuth } from "@/features/auth/hooks/auth-context.hook";
 import { authService } from "../auth.service";
 import { useCallback } from "react";
-import toast from "react-hot-toast";
+import { toastService } from "@/services";
 import { useNavigate } from "react-router-dom";
 
 export function useAuthApi() {
@@ -57,7 +57,7 @@ export function useAuthApi() {
       console.warn("Error al cerrar sesión en el servidor:", error);
     } finally {
       contextLogout();
-      toast.success("Sesión cerrada correctamente");
+      toastService.success("Sesión cerrada correctamente");
     }
   }, [contextLogout]);
 

@@ -1,4 +1,4 @@
-import toast from "react-hot-toast";
+import { toastService } from "@/services";
 
 const AUTH_ROUTES = ["/login", "/register", "/home"];
 
@@ -8,9 +8,7 @@ export const shouldRedirectToLogin = () => {
 
 export const handleAuthRedirect = () => {
   if (shouldRedirectToLogin()) {
-    toast.error("Tu sesión ha expirado. Redirigiendo al login...", {
-      duration: 3000,
-    });
+    toastService.error("Tu sesión ha expirado. Redirigiendo al login...");
 
     setTimeout(() => {
       window.location.href = "/login";

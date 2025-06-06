@@ -1,6 +1,6 @@
 import { handleError } from "../api/handlers/error.handler";
 import { useCallback, useState } from "react";
-import toast from "react-hot-toast";
+import { toastService } from "@/services";
 
 /**
  * Hook personalizado para manejar peticiones API con estados y errores
@@ -34,13 +34,7 @@ export function useApi() {
 
         // Mostrar toast de éxito si se especifica
         if (showSuccessToast) {
-          toast.success(successMessage, {
-            duration: 3000,
-            style: {
-              background: '#10B981',
-              color: '#fff',
-            },
-          });
+          toastService.success(successMessage);
         }
 
         // Callback de éxito
