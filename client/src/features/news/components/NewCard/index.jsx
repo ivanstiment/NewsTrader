@@ -1,6 +1,7 @@
 /**
  * @fileoverview Componente de tarjeta de noticias con análisis de sentimiento
  * @module features/news/components/NewCard
+ * @description Sistema de análisis con gestión de toasts y estados
  */
 
 import { api, ENDPOINTS } from "@/api";
@@ -34,10 +35,14 @@ export function NewCard({ newItem }) {
   };
   const readableDate = dateObj.toLocaleString("es-ES", dateOptions);
 
+  // Estados del componente
   const [analysis, setAnalysis] = useState(newItem.analysis || null);
   const [isLoading, setIsLoading] = useState(false);
   const [pollAttempts, setPollAttempts] = useState(0);
+
+  // Referencias para cleanup
   const pollRef = useRef(null);
+  const currentToastId = useRef(null);
 
   // Si prop.newItem.analysis cambia (por ejemplo al filtrar la lista), lo reflejamos
   useEffect(() => {
@@ -49,6 +54,11 @@ export function NewCard({ newItem }) {
     return () => {
       if (pollRef.current) {
         clearInterval(pollRef.current);
+        pollRef.current = null;
+      }
+      if (currentToastId.current) {
+        toastService.remove(currentToastId.current);
+        currentToastId.current = null;
       }
     };
   }, []);
@@ -88,21 +98,32 @@ export function NewCard({ newItem }) {
     setIsLoading(true);
     setPollAttempts(0);
 
-    const loadingToastId = toastService.loading("Encolando análisis…", {
-      id: `analysis-${newItem.uuid}`,
-    });
+    // Limpiar recursos anteriores
+    if (pollRef.current) {
+      clearInterval(pollRef.current);
+      pollRef.current = null;
+    }
+    if (currentToastId.current) {
+      toastService.remove(currentToastId.current);
+    }
+
+    const loadingToastId = `analysis-${newItem.uuid}`;
+    currentToastId.current = loadingToastId;
+
+    toastService.loading("Encolando análisis…", { id: loadingToastId });
 
     try {
       await newsApi.triggerNewAnalisis(newItem.uuid);
 
+      // Aquí está la corrección clave: usar el método update() corregido
       toastService.update(
         loadingToastId,
         "info",
         "Análisis encolado. Procesando…",
         {
-          duration: 5000,
-          closeButton: true,
-          showProgress: true
+          duration: 0,
+          closeButton: false,
+          showProgress: false,
         }
       );
 
@@ -118,62 +139,95 @@ export function NewCard({ newItem }) {
           if (data.analysis) {
             // Análisis completado exitosamente
             clearInterval(pollRef.current);
+            pollRef.current = null;
             setAnalysis(data.analysis);
             setIsLoading(false);
             setPollAttempts(0);
 
-            toastService.promise(
+            toastService.update(
               loadingToastId,
               "success",
-              "Análisis completado exitosamente"
+              "Análisis completado exitosamente",
+              { duration: 3000, closeButton: true, showProgress: true }
             );
+
+            // Limpiar la referencia después de que el toast desaparezca
+            setTimeout(() => {
+              currentToastId.current = null;
+            }, 3500);
+
           } else if (attempts >= POLL_CONFIG.maxPollAttempts) {
             // Límite de intentos alcanzado
             clearInterval(pollRef.current);
+            pollRef.current = null;
             setIsLoading(false);
             setPollAttempts(0);
 
-            toastService.promise(
+            toastService.update(
               loadingToastId,
               "warning",
-              "El análisis está tardando más de lo esperado. Verifica que el servicio Celery esté activo."
+              "El análisis está tardando más de lo esperado. Verifica que el servicio Celery esté activo.",
+              { duration: 5000, closeButton: true, showProgress: true }
             );
+
+            setTimeout(() => {
+              currentToastId.current = null;
+            }, 5500);
           }
         } catch (error) {
           // Error al consultar el estado
           clearInterval(pollRef.current);
+          pollRef.current = null;
           setIsLoading(false);
           setPollAttempts(0);
 
-          toastService.promise(
+          toastService.update(
             loadingToastId,
             "error",
-            "Error al obtener el resultado del análisis"
+            "Error al obtener el resultado del análisis",
+            { duration: 5000, closeButton: true, showProgress: true }
           );
+
+          setTimeout(() => {
+            currentToastId.current = null;
+          }, 5500);
+          
+          if (import.meta.env.MODE === "development") {
+            console.error("Error en polling de análisis:", error);
+          }
         }
       }, POLL_CONFIG.pollInterval);
+
     } catch (error) {
       setIsLoading(false);
-      toastService.promise(
+      
+      toastService.update(
         loadingToastId,
         "error",
-        "Error al encolar el análisis. Verifica tu conexión."
+        "Error al encolar el análisis. Verifica tu conexión.",
+        { duration: 5000, closeButton: true, showProgress: true }
       );
+
+      setTimeout(() => {
+        currentToastId.current = null;
+      }, 5500);
+
+      if (import.meta.env.MODE === "development") {
+        console.error("Error inicial en análisis:", error);
+      }
     }
   };
 
   return (
     <article className={styles["new__container"]}>
       <header className={styles["new__header"]}>
-        <h2 className={styles["new__title"]}>
-          {/* <Link to={`/news/${newItem.uuid}`}>{newItem.title}</Link> */}
-          {newItem.title}
-        </h2>
+        <h2 className={styles["new__title"]}>{newItem.title}</h2>
         <Link
           className={styles["new__link"]}
-          to={`${newItem.link}`}
+          to={newItem.link}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label={`Abrir noticia: ${newItem.title}`}
         >
           <ExternalLinkIcon
             width={40}
@@ -218,26 +272,43 @@ export function NewCard({ newItem }) {
           onClick={handleAnalyze}
           disabled={isLoading}
           aria-busy={isLoading}
+          aria-describedby={
+            isLoading && pollAttempts > 0
+              ? `poll-status-${newItem.uuid}`
+              : undefined
+          }
         >
           {getAnalysisButtonText()}
         </button>
 
         {isLoading && pollAttempts > 0 && (
-          <small className={styles["new__poll-status"]}>
+          <small
+            id={`poll-status-${newItem.uuid}`}
+            className={styles["new__poll-status"]}
+            aria-live="polite"
+          >
             Intento {pollAttempts}/{POLL_CONFIG.maxPollAttempts}
           </small>
         )}
 
         {analysis && (
-          <div className={styles["new__analysis"]}>
+          <div
+            className={styles["new__analysis"]}
+            aria-label="Resultado del análisis"
+          >
             <span
               className={`${styles["new__analysis-label"]} ${getAnalysisClass(
                 analysis.sentiment_label
               )}`}
+              aria-label={`Sentimiento: ${analysis.sentiment_label}`}
             >
               {analysis.sentiment_label.toUpperCase()}
             </span>
-            <small>Puntuación: {analysis.combined_score.toFixed(2)}</small>
+            <small
+              aria-label={`Puntuación: ${analysis.combined_score.toFixed(2)}`}
+            >
+              Puntuación: {analysis.combined_score.toFixed(2)}
+            </small>
           </div>
         )}
       </footer>

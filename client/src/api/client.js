@@ -1,4 +1,3 @@
-// client/src/api/client.js
 import axios from "axios";
 import { API_CONFIG } from "./config/defaults";
 import { getBaseUrl } from "./config/endpoints";

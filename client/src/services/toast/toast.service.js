@@ -1,45 +1,15 @@
 /**
  * @fileoverview Servicio centralizado de notificaciones toast para NewsTrader
  * @module services/toast
- * @description Sistema unificado de notificaciones con diseño consistente y gestión de estado
- *
- * @example
- * // Importación básica
- * import toastService from '@/services/toast/toast.service';
- * toastService.success('Operación completada');
- *
- * @example
- * // Con opciones personalizadas
- * toastService.error('Error al procesar', {
- *   duration: 5000,
- *   position: 'bottom-center',
- *   id: 'unique-error'
- * });
- *
- * @author Iván Soto Cobos
- * @since 1.0.0
+ * @description Sistema unificado de notificaciones con actualizaciones
  */
 
 import styles from "./Toast.module.scss";
-
-/**
- * @typedef {'info' | 'success' | 'warning' | 'error' | 'loading'} ToastType
- * @typedef {'top-right' | 'top-center' | 'bottom-right' | 'bottom-center'} ToastPosition
- *
- * @typedef {Object} ToastOptions
- * @property {number} [duration=3000] - Duración en milisegundos (0 para infinito)
- * @property {ToastPosition} [position='top-right'] - Posición del toast
- * @property {boolean} [showProgress=true] - Mostrar barra de progreso
- * @property {boolean} [closeButton=true] - Mostrar botón de cerrar
- * @property {string} [id] - ID único para evitar duplicados
- * @property {Function} [onClose] - Callback al cerrar
- */
 
 class ToastService {
   constructor() {
     this.toasts = new Map();
     this.container = null;
-    // Retrasar inicialización hasta el primer uso
     this.initialized = false;
   }
 
@@ -57,7 +27,7 @@ class ToastService {
       this.container.setAttribute("aria-relevant", "additions removals");
       document.body.appendChild(this.container);
     }
-    
+
     this.initialized = true;
   }
 
@@ -81,11 +51,11 @@ class ToastService {
    * @param {ToastOptions} options - Opciones del toast
    * @returns {string} ID del toast creado
    */
-  createToast(type, message, options = {}) {    // Lazy initialization
+  createToast(type, message, options = {}) {
     if (!this.initialized) {
       this.init();
     }
-    
+
     const {
       duration = 3000,
       position = "top-right",
@@ -95,9 +65,9 @@ class ToastService {
       onClose,
     } = options;
 
-    // Si ya existe un toast con este ID, actualizarlo
+    // Si ya existe un toast con este ID, actualizarlo en lugar de crear uno nuevo
     if (this.toasts.has(id)) {
-      this.remove(id);
+      return this.updateExistingToast(id, type, message, options);
     }
 
     // Actualizar posición del contenedor
@@ -105,12 +75,7 @@ class ToastService {
 
     // Crear elemento del toast
     const toastElement = document.createElement("div");
-
-    // Construir clases sin template literals anidados
-    const baseClass = styles.toast;
-    const typeClass = styles[`toast--${type}`];
-    toastElement.className = `${baseClass} ${typeClass}`;
-
+    toastElement.className = this.getToastClasses(type);
     toastElement.setAttribute("role", "alert");
     toastElement.setAttribute("aria-live", "polite");
 
@@ -180,6 +145,62 @@ class ToastService {
   }
 
   /**
+   * Actualiza un toast existente SIN recrear el elemento DOM
+   * @private
+   * @param {string} id - ID del toast
+   * @param {ToastType} type - Nuevo tipo
+   * @param {string} message - Nuevo mensaje
+   * @param {ToastOptions} options - Opciones del toast
+   * @returns {string} ID del toast
+   */
+  updateExistingToast(id, type, message, options = {}) {
+    const toast = this.toasts.get(id);
+    if (!toast) return id;
+
+    const { element } = toast;
+    const {
+      duration = 3000,
+      closeButton = true,
+      showProgress = true,
+    } = options;
+
+    // Limpiar timeout anterior
+    if (toast.timeout) {
+      clearTimeout(toast.timeout);
+      toast.timeout = null;
+    }
+
+    // Actualizar clases del elemento para el nuevo tipo
+    element.className = this.getToastClasses(type);
+
+    // Actualizar duración de la barra de progreso
+    if (showProgress && duration > 0) {
+      element.style.setProperty("--duration", `${duration}ms`);
+    } else {
+      element.style.removeProperty("--duration");
+    }
+
+    // Actualizar contenido manteniendo la estructura
+    const iconElement = element.querySelector(`.${styles["toast__icon"]}`);
+    const contentElement = element.querySelector(`.${styles["toast__content"]}`);
+    
+    if (iconElement) {
+      iconElement.innerHTML = this.getIcon(type);
+    }
+    
+    if (contentElement) {
+      contentElement.innerHTML = this.escapeHtml(message);
+    }
+
+    // Configurar nuevo timeout si tiene duración
+    if (duration > 0) {
+      toast.timeout = setTimeout(() => this.remove(id), duration);
+    }
+
+    return id;
+  }
+
+  /**
    * Actualiza la posición del contenedor
    * @private
    * @param {ToastPosition} position - Nueva posición
@@ -187,17 +208,15 @@ class ToastService {
   updateContainerPosition(position) {
     if (!this.container) return;
 
-    // Resetear clases
-    this.container.className = styles["toast-container"];
+    this.container.className = styles["toast__container"];
 
-    // Aplicar nueva posición
     if (position.includes("center")) {
-      const centerClass = styles["toast-container--center"];
+      const centerClass = styles["toast__container--center"];
       this.container.classList.add(centerClass);
     }
 
     if (position.includes("bottom")) {
-      const bottomClass = styles["toast-container--bottom"];
+      const bottomClass = styles["toast__container--bottom"];
       this.container.classList.add(bottomClass);
     }
   }
@@ -211,13 +230,10 @@ class ToastService {
   getIcon(type) {
     const icons = {
       info: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>',
-      success:
-        '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>',
-      warning:
-        '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>',
-      error:
-        '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>',
-      loading: '<div class="${styles["toast__spinner"]}"></div>',
+      success: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>',
+      warning: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>',
+      error: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>',
+      loading: `<div class="${styles["toast__spinner"]}"></div>`,
     };
     return icons[type] || icons.info;
   }
@@ -254,7 +270,9 @@ class ToastService {
 
     // Eliminar después de la animación
     setTimeout(() => {
-      element.remove();
+      if (element && element.parentNode) {
+        element.remove();
+      }
       this.toasts.delete(id);
 
       // Callback
@@ -327,21 +345,15 @@ class ToastService {
   }
 
   /**
-   * Actualiza un toast existente
+   * Actualiza un toast existente manteniendo la referencia DOM
+   * ESTA ES LA CORRECCIÓN PRINCIPAL
    * @param {string} id - ID del toast a actualizar
    * @param {ToastType} type - Nuevo tipo
    * @param {string} message - Nuevo mensaje
    * @param {ToastOptions} options - Nuevas opciones
    */
   update(id, type, message, options = {}) {
-    const toast = this.toasts.get(id);
-    if (!toast) return;
-
-    // Eliminar el toast anterior
-    this.remove(id);
-
-    // Crear uno nuevo con el mismo ID
-    this.createToast(type, message, { ...options, id });
+    return this.updateExistingToast(id, type, message, options);
   }
 
   /**
@@ -352,7 +364,7 @@ class ToastService {
    * @param {ToastOptions} options - Opciones adicionales
    */
   promise(id, type, message, options = {}) {
-    this.update(id, type, message, {
+    return this.update(id, type, message, {
       duration: 3000,
       closeButton: true,
       showProgress: true,
@@ -369,24 +381,10 @@ export default toastService;
 
 // Exportar métodos individuales correctamente bindeados
 export const info = (message, options) => toastService.info(message, options);
-export const success = (message, options) =>
-  toastService.success(message, options);
-export const warning = (message, options) =>
-  toastService.warning(message, options);
+export const success = (message, options) => toastService.success(message, options);
+export const warning = (message, options) => toastService.warning(message, options);
 export const error = (message, options) => toastService.error(message, options);
-export const loading = (message, options) =>
-  toastService.loading(message, options);
-export const update = (id, type, message, options) =>
-  toastService.update(id, type, message, options);
-export const promise = (id, type, message, options) =>
-  toastService.promise(id, type, message, options);
+export const loading = (message, options) => toastService.loading(message, options);
+export const update = (id, type, message, options) => toastService.update(id, type, message, options);
+export const promise = (id, type, message, options) => toastService.promise(id, type, message, options);
 export const clear = () => toastService.clear();
-
-/**
- * Hook de React para usar el servicio de toasts
- * @returns {ToastService} Instancia del servicio
- * @example
- * const toast = useToast();
- * toastService.success('Operación exitosa');
- */
-export const useToast = () => toastService;

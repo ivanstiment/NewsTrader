@@ -13,9 +13,9 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
-
 from authentication.services import ValidationService, SecurityValidationService
-from authentication.constants import MESSAGES, HTTP_STATUS
+from authentication.constants.messages import MESSAGES
+from authentication.constants.http import HTTP_STATUS
 from authentication.serializers.serializers import (
     UserRegistrationSerializer,
     UserInfoSerializer,
@@ -151,12 +151,12 @@ def register_user(request):
         JsonResponse: Respuesta con resultado del registro
 
     Expected JSON format::
-    
+
         {
             "user": "nombre_usuario",
             "password": "contraseña_segura"
         }
-        
+
     """
     try:
         # Validar token CSRF
@@ -439,11 +439,11 @@ def check_username_availability(request):
         JsonResponse: Disponibilidad del username
 
     Expected JSON format::
-    
+
         {
             "username": "nombre_a_verificar"
         }
-        
+
     """
     try:
         # Validar y parsear datos JSON

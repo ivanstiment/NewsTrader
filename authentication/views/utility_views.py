@@ -16,9 +16,9 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
-
 from authentication.services import TokenService
-from authentication.constants import HTTP_STATUS, UTILITY_MESSAGES
+from authentication.constants.messages import UTILITY_MESSAGES
+from authentication.constants.http import HTTP_STATUS
 from authentication.serializers.doc_serializers import (
     CSRFTokenResponseSerializer,
     HealthCheckResponseSerializer,

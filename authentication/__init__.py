@@ -13,7 +13,7 @@ Arquitectura:
 - views/: Controladores HTTP separados por funcionalidad
 - services/: Lógica de negocio y servicios externos
 - serializers.py: Serialización de datos
-- constants.py: Constantes del módulo
+- constants/: Constantes del módulo
 - urls.py: Configuración de rutas
 """
 

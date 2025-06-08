@@ -1,4 +1,3 @@
-// client/src/services/api/csrf/CsrfContext.jsx
 import React, { createContext, useContext, useEffect } from "react";
 import { useCsrf } from "./csrf.hook";
 

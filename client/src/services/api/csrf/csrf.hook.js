@@ -1,4 +1,3 @@
-// client/src/services/api/csrf/csrf.hook.js
 import { useCallback, useState } from "react";
 import { csrfService } from "./csrf.service";
 import { csrfManager } from "./csrf.manager";

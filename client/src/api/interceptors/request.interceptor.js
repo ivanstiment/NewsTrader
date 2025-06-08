@@ -36,7 +36,7 @@ export const requestInterceptor = async (config) => {
         csrfToken = await csrfService.fetchCsrfToken();
         csrfManager.set(csrfToken);
         if (import.meta.env.MODE === "development") {
-          console.log("✅ Token CSRF obtenido exitosamente");
+          console.log("✅ Token CSRF obtenido");
         }
       } catch (error) {
         console.error("❌ Error obteniendo token CSRF:", error);

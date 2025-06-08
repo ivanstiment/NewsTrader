@@ -11,14 +11,15 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import UntypedToken
 from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 from typing import Dict, Optional, Tuple
-
-from authentication.constants import (
+from authentication.constants.cookies import (
     REFRESH_TOKEN_COOKIE_NAME,
     CSRF_TOKEN_COOKIE_NAME,
-    REFRESH_TOKEN_MAX_AGE,
-    CSRF_TOKEN_MAX_AGE,
     COOKIE_SAMESITE_LAX,
     COOKIE_SAMESITE_NONE,
+)
+from authentication.constants.timeouts import (
+    REFRESH_TOKEN_MAX_AGE,
+    CSRF_TOKEN_MAX_AGE,
 )
 
 

@@ -1,4 +1,3 @@
-// client/src/api/index.js
 import apiClient from "./client";
 import apiUtils from "./utils";
 import { createRequestConfig, handleSilentError } from "./utils/request.util";

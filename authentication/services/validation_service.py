@@ -9,12 +9,9 @@ import json
 from typing import Dict, List, Optional, Tuple
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-
-from authentication.constants import (
-    VALIDATION_RULES,
-    MESSAGES,
-    HTTP_HEADERS,
-)
+from authentication.constants.validation import VALIDATION_RULES
+from authentication.constants.messages import MESSAGES
+from authentication.constants.http import HTTP_HEADERS
 
 
 class ValidationService:
