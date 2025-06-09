@@ -48,6 +48,15 @@ class TokenServiceTests(TestCase):
         token = TokenService.extract_refresh_token_from_cookies(response.wsgi_request)
 
         self.assertIsNone(token)
+        
+    def test_create_token_response_sets_cookie(self):
+        """Test que create_token_response establece la cookie de refresh."""
+        response = TokenService.create_token_response("acc", "ref")
+
+        self.assertIn("refresh_token", response.cookies)
+        cookie = response.cookies["refresh_token"]
+        self.assertEqual(cookie.value, "ref")
+        self.assertTrue(cookie["httponly"])
 
 
 class ValidationServiceTests(TestCase):

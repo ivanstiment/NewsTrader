@@ -47,7 +47,7 @@ class NewsView(viewsets.ModelViewSet):
         
         if not isinstance(news_count, int) or news_count <= 0:
             return Response(
-                {'error': 'El número de noticias ser un número positivo'},
+                {'error': 'El número de noticias debe ser un número positivo'},
                 status=status.HTTP_400_BAD_REQUEST
             )
         

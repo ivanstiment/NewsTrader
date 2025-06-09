@@ -14,4 +14,4 @@ class ArticleAnalysis(models.Model):
     figures_count = models.IntegerField()
 
     def __str__(self):
-        return self.article
+        return str(self.article)
