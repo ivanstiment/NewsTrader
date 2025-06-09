@@ -46,7 +46,7 @@ Democratizar el acceso a análisis financiero de nivel profesional para trading 
 ## 🚀 Tecnologías utilizadas
 
 ### Backend
-* ![Python](https://img.shields.io/badge/Python-3.13.3-blue?style=flat-square&logo=python) [Python 3.13.3](https://www.python.org/)
+* ![Python](https://img.shields.io/badge/Python-3.13.3-blue?style=flat-square&logo=python) Compatible con [Python 3.11](https://www.python.org/) - [Python 3.12](https://www.python.org/)
 * ![Django](https://img.shields.io/badge/Django-5.2-green?style=flat-square&logo=django) [Django 5.2](https://www.djangoproject.com/)
 * ![DRF](https://img.shields.io/badge/DRF-3.16.0-red?style=flat-square) [Django REST Framework 3.16.0](https://www.django-rest-framework.org/)
 * ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Azure-blue?style=flat-square&logo=postgresql) [Azure Database for PostgreSQL](https://azure.microsoft.com/services/postgresql/)
