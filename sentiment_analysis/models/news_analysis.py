@@ -15,4 +15,4 @@ class NewsAnalysis(models.Model):
     figures_count    = models.IntegerField()
         
     def __str__(self):
-        return self.news
+        return str(self.news)

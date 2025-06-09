@@ -1,5 +1,5 @@
 """
-Constantes de mesajes de respuesta y validación del módulo de autenticación.
+Constantes de mensajes de respuesta y validación del módulo de autenticación.
 """
 
 # Mensajes de respuesta
