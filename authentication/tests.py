@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from rest_framework.test import APIClient
 from rest_framework import status
+from rest_framework_simplejwt.tokens import RefreshToken
 import json
 
 from .services import TokenService, ValidationService, SecurityValidationService
@@ -29,6 +30,15 @@ class TokenServiceTests(TestCase):
         """Test validación de token inválido."""
         result = TokenService.validate_token("invalid_token")
         self.assertFalse(result)
+        
+    def test_validate_token_valid(self):
+        """Test validación de token válido."""
+        refresh = RefreshToken.for_user(self.user)
+        access_token = str(refresh.access_token)
+
+        result = TokenService.validate_token(access_token)
+
+        self.assertTrue(result)
 
     def test_extract_refresh_token_from_cookies(self):
         """Test extracción de refresh token desde cookies."""
@@ -66,7 +76,7 @@ class ValidationServiceTests(TestCase):
         """Configuración inicial para los tests."""
         self.valid_data = {"user": "testuser", "password": "testpass123"}
 
-        self.invalid_data = {"user": "ab", "password": "123"}  # Muy corto  # Muy corto
+        self.invalid_data = {"user": "ab", "password": "123"}  # Muy corto
 
     def test_validate_registration_data_valid(self):
         """Test validación de datos de registro válidos."""
@@ -255,7 +265,7 @@ class AuthenticationViewsTests(TestCase):
         csrf_token = csrf_response.json()["csrfToken"]
 
         url = reverse("auth_register")
-        data = {"user": "ab", "password": "123"}  # Muy corto  # Muy corto
+        data = {"user": "ab", "password": "123"}  # Muy corto
 
         response = self.client.post(
             url,

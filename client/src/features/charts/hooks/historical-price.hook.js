@@ -18,13 +18,35 @@ const tooltipClasses = {
 
 function buildAnnotationPoints(hist, newsByDate) {
   const points = [];
-  for (const item of hist) {
-    const day = item.date;
-    const titles = newsByDate[day] || [];
+
+  // Índice rápido de velas por fecha para poder obtener el precio mínimo
+  const candleByDate = {};
+  hist.forEach((h) => {
+    candleByDate[h.date] = h;
+  });
+
+  // Para cada fecha con noticias, posicionar el punto en la fecha
+  // de la noticia o en la siguiente fecha disponible en los datos
+  Object.entries(newsByDate).forEach(([day, titles]) => {
+    let targetDate = day;
+
+    // Si no hay vela para ese día (p.ej. fin de semana),
+    // buscar el siguiente día con datos para anotar allí
+    if (!candleByDate[day]) {
+      const dayMs = new Date(day).getTime();
+      const next = hist.find((h) => new Date(h.date).getTime() > dayMs);
+      if (!next) return; // fuera del rango del histórico
+      targetDate = next.date;
+    }
+
+    const { low } = candleByDate[targetDate];
+
+    // Colocar la anotación en el mínimo de la vela para que permanezca
+    // visible incluso al hacer zoom
     titles.forEach(() => {
       points.push({
-        x: new Date(day).getTime(),
-        y: 0,
+        x: new Date(targetDate).getTime(),
+        y: low,
         marker: {
           size: 6,
           fillColor: "#ffb300",
@@ -34,7 +56,8 @@ function buildAnnotationPoints(hist, newsByDate) {
         label: { show: false },
       });
     });
-  }
+  });
+
   return points;
 }
 

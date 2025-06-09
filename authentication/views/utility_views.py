@@ -78,55 +78,6 @@ from authentication.serializers.doc_serializers import (
         ),
     },
 )
-@extend_schema(
-    tags=["Utilities"],
-    summary="Obtener token CSRF",
-    description="""
-    Genera y devuelve un token CSRF válido para protección contra ataques CSRF.
-    
-    **Uso típico:**
-    - Obtener token antes de operaciones que modifican datos
-    - Inicialización de aplicaciones frontend
-    - Renovación de tokens CSRF expirados
-    
-    **Configuración automática:**
-    - Establece automáticamente la cookie csrftoken
-    - Configura SameSite y Secure según el entorno
-    - Token válido por aproximadamente 1 año
-    
-    **Seguridad:**
-    - Protección contra ataques CSRF
-    - Cookie configurada con las mejores prácticas
-    - Rotación automática de tokens
-    """,
-    responses={
-        200: OpenApiResponse(
-            description="Token CSRF generado exitosamente",
-            response=CSRFTokenResponseSerializer,
-            examples=[
-                OpenApiExample(
-                    "Token CSRF generado",
-                    summary="Token listo para usar",
-                    value={
-                        "csrfToken": "abc123def456ghi789jkl012mno345pqr678stu901vwx234yz",
-                        "message": "Token CSRF generado correctamente",
-                    },
-                )
-            ],
-        ),
-        500: OpenApiResponse(
-            description="Error generando token CSRF",
-            examples=[
-                OpenApiExample(
-                    "Error del servidor",
-                    value={
-                        "detail": "Error generando token CSRF: descripción del error"
-                    },
-                )
-            ],
-        ),
-    },
-)
 @ensure_csrf_cookie
 @require_http_methods(["GET"])
 def get_csrf_token(request):

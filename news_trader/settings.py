@@ -37,7 +37,6 @@ SECRET_KEY = os.environ.get(
 DEBUG = os.environ.get("DEBUG", "False").lower() in ("true", "1", "yes")
 IS_PRODUCTION = os.environ.get("ENVIRONMENT", "development") == "production" or not DEBUG
 
-print(f"🔧 Django inicializandose: DEBUG={DEBUG}, IS_PRODUCTION={IS_PRODUCTION}")
 print(f"🌍 Entorno detectado: {'PRODUCCIÓN' if IS_PRODUCTION else 'DESARROLLO'}")
 
 if IS_PRODUCTION:
@@ -49,7 +48,6 @@ if IS_PRODUCTION:
         ".redis.cache.windows.net",
         "news-trader-django-azure-app-backend-aggfgbhrbyasaucd.spaincentral-01.azurewebsites.net"
     ] + [f"169.254.129.{i}" for i in range(1, 255)]
-    print("ALLOWED_HOSTS:", ALLOWED_HOSTS)
     CSRF_COOKIE_SAMESITE = None
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SAMESITE = None
@@ -62,14 +60,12 @@ if IS_PRODUCTION:
         "https://*.azurewebsites.net",
         "https://*.azurestaticapps.net",
     ]
-    print("CORS_ORIGINS_WHITELIST:", CORS_ORIGINS_WHITELIST)
     CORS_ALLOWED_ORIGINS = [
         os.environ.get("FRONTEND_URL"),
         "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
         "https://*.azurewebsites.net",
         "https://*.azurestaticapps.net",
     ]
-    print("CORS_ALLOWED_ORIGINS:", CORS_ALLOWED_ORIGINS)
     CORS_ALLOW_HEADERS = [
         "accept",
         "content-type",
@@ -77,7 +73,6 @@ if IS_PRODUCTION:
         "x-csrftoken",
         "x-requested-with",
     ]
-    print("CORS_ALLOW_HEADERS:", CORS_ALLOW_HEADERS)
     CSRF_TRUSTED_ORIGINS = [
         os.environ.get("FRONTEND_URL"),
         "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
@@ -85,7 +80,6 @@ if IS_PRODUCTION:
         os.environ.get("FRONTEND_URL"),
         os.environ.get("VITE_API_BASE_URL_PROD"),
     ]
-    print("CSRF_TRUSTED_ORIGINS:", CSRF_TRUSTED_ORIGINS)
     CSRF_ALLOWED_ORIGINS = [
         os.environ.get("FRONTEND_URL"),
         "https://salmon-stone-0e4a4f410.6.azurestaticapps.net",
@@ -95,7 +89,6 @@ if IS_PRODUCTION:
         os.environ.get("FRONTEND_URL"),
         os.environ.get("VITE_API_BASE_URL_PROD"),
     ]
-    print("CSRF_ALLOWED_ORIGINS:", CSRF_ALLOWED_ORIGINS)
     CSRF_COOKIE_HTTPONLY = False
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 else:
