@@ -26,24 +26,34 @@ logger = logging.getLogger(__name__)
 
 
 def _load_loughran_column(column: str) -> Set[str]:
+    """Extrae las palabras marcadas como positivas o negativas.
+
+    El CSV oficial de Loughran–McDonald tiene una columna ``Word`` y columnas
+    ``Positive`` y ``Negative`` que contienen el año de inclusión (p.ej. ``2009``)
+    cuando la palabra pertenece a esa categoría.  Si el valor es ``0`` la palabra
+    no pertenece a la lista.  Este helper devuelve el conjunto de palabras cuya
+    marca en ``column`` es distinta de ``0``.
     """
-    Carga una columna del CSV combinado de Loughran–McDonald.
-    El CSV debe tener encabezados, incluyendo 'Positive' y 'Negative'.
-    """
-    terms = set()
-    # Abrimos con importlib.resources para que funcione en paquetes instalados
+
+    terms: Set[str] = set()
+
     with resources.open_text(
         "sentiment_analysis.utils.data", "loughran_landmcdonald.csv"
     ) as f:
         reader = csv.DictReader(f)
+
+        if "Word" not in reader.fieldnames or column not in reader.fieldnames:
+            logger.warning("CSV no tiene columnas requeridas: Word y %s", column)
+            return terms
+
         for row in reader:
-            cell = row.get(column, "").strip()
-            if not cell:
-                continue
-            # separa por espacios o comas:
-            for word in cell.replace('"', "").replace(",", " ").split():
-                terms.add(word.lower())
-    logger.debug("Loughran–McDonald %s: %d términos cargados", column, len(terms))
+            value = row.get(column, "").strip()
+            if value and value != "0":
+                terms.add(row["Word"].strip().lower())
+
+    logger.debug(
+        "Loughran–McDonald %s: %d términos cargados", column, len(terms)
+    )
     return terms
 
 
