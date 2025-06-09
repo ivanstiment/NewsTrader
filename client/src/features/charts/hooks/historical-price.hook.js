@@ -19,38 +19,34 @@ const tooltipClasses = {
 function buildAnnotationPoints(hist, newsByDate) {
   const points = [];
 
-  // Mapa de precios de cierre por fecha para búsqueda rápida
-  const closeByDate = {};
+  // Índice rápido de velas por fecha para poder obtener el precio mínimo
+  const candleByDate = {};
   hist.forEach((h) => {
-    closeByDate[h.date] = h.close;
+    candleByDate[h.date] = h;
   });
-
-
-  // Valor mínimo en el histórico para situar las anotaciones en la
-  // parte baja del gráfico sin que desaparezcan
-  const minLow = Math.min(...hist.map((h) => h.low));
 
   // Para cada fecha con noticias, posicionar el punto en la fecha
   // de la noticia o en la siguiente fecha disponible en los datos
   Object.entries(newsByDate).forEach(([day, titles]) => {
     let targetDate = day;
 
-    // Si no hay precio para ese día (p.ej. fin de semana),
+    // Si no hay vela para ese día (p.ej. fin de semana),
     // buscar el siguiente día con datos para anotar allí
-    if (!closeByDate[day]) {
+    if (!candleByDate[day]) {
       const dayMs = new Date(day).getTime();
       const next = hist.find((h) => new Date(h.date).getTime() > dayMs);
       if (!next) return; // fuera del rango del histórico
       targetDate = next.date;
     }
 
-    // Usar el valor mínimo de "low" para colocar el marcador en la parte baja
-    // del gráfico. Al mantenerlo dentro del rango de precios, evitamos que la
-    // escala del eje y cambie o que la anotación desaparezca.
+    const { low } = candleByDate[targetDate];
+
+    // Colocar la anotación en el mínimo de la vela para que permanezca
+    // visible incluso al hacer zoom
     titles.forEach(() => {
       points.push({
         x: new Date(targetDate).getTime(),
-        y: minLow,
+        y: low,
         marker: {
           size: 6,
           fillColor: "#ffb300",
